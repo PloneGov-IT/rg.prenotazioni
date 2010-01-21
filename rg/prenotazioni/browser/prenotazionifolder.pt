@@ -1,0 +1,128 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+<body>
+
+<metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main">
+
+        <div tal:replace="structure provider:plone.abovecontenttitle" />
+
+        <h1 class="documentFirstHeading">
+            <span metal:use-macro="python:context.widget('title', mode='view')" />
+        </h1>
+
+        <div tal:replace="structure provider:plone.belowcontenttitle" />
+
+        <div class="documentDescription-box clear-block">
+            <p class="documentDescription">
+               <tal:block condition="here/Description">
+                   <metal:field use-macro="python:here.widget('description', mode='view')">
+                   Description
+                   </metal:field>
+               </tal:block>
+            </p>
+        </div>
+
+        <table id="week" class="listing">
+            <tr>
+                <th colspan="1"
+                    tal:define="prev python:view.prevNextWeek()[0];
+                                next python:view.prevNextWeek()[1]"
+                    tal:attributes="colspan python:len(view.days())">
+                    <a id="prevWeekLink" href="#"
+
+                        tal:attributes="href string:${here_url}?data=${prev}"><- settimana precedente</a>
+                    <span tal:content="python: view.requestData().strftime('%B %Y')"></span>
+                    <a id="nextWeekLink" href="#"
+                        tal:attributes="href string:${here_url}?data=${next}">settimana successiva -></a>
+                </th>
+            </tr>
+            <tr>
+                <tal:days repeat="day view/days">
+                    <th tal:condition="python:day[0]['inizio_m']!='0' or day[0]['inizio_p']!='0'"
+                        tal:content="python:day[0]['giorno'] + ' ' + day[1].strftime('%d')">Lunedi
+                    </th>
+                </tal:days>
+            </tr>
+            <tr>
+                <tal:days repeat="day view/days">
+                    <td class="day"
+                        tal:define="mattina python:day[0]['inizio_m']!='0';
+                                    pomeriggio python:day[0]['inizio_p']!='0'"
+                        tal:condition="python:mattina or pomeriggio"
+                        tal:attributes="rowspan python:view.spanRow(day[0]);
+                                        class python:day[1]==view.requestData() and 'day selected' or 'day'">
+                        <table class="plain">
+                            <tr tal:repeat="slot python:view.slots(day[0])[0]">
+                                <td class="slot"
+                                    tal:define="orario python:view.getTime(day[0], slot,'m');
+                                                prenotazione python:view.getPrenotazione(day[1], orario)">
+                                    <span tal:content="orario">8:00</span>
+                                    <!-- non esiste una prenotazione -->
+                                    <a href="" class="aggiungiPrenotazione" title="Richiedi prenotazione"
+                                        tal:condition="python:view.displayAggiungiPrenotazione(prenotazione)"
+                                        tal:attributes="href python:here_url+'/creaPrenotazione?data_prenotazione='+day[1].strftime('%Y/%m/%d')+' '+orario+':00'"> +</a>
+                                    <!-- esiste la prenotazione e sono editor della folder -->
+                                    <a href="" class="state-pending"
+                                        tal:condition="python:view.displayPrenotazione(prenotazione, member)"
+                                        tal:attributes="href prenotazione/getURL;
+                                                        class string:state-${prenotazione/review_state}"
+                                        tal:content="prenotazione/Title">Mario Rossi</a>
+                                    <!-- esiste la prenotazione ma non sono editor della folder -->
+                                    <span class="slotOccupato"
+                                        tal:condition="python:view.displaySlotOccupato(prenotazione, member)">Slot Occupato</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tal:days>
+            </tr>
+            <tr>
+                <tal:days repeat="day view/days">
+                    <td tal:define="mattina python:day[0]['inizio_m']!='0';
+                                    pomeriggio python:day[0]['inizio_p']!='0'"
+                        tal:condition="python:pomeriggio"
+                        tal:attributes="class python:day[1]==view.requestData() and 'day selected' or 'day'">
+                        <table class="plain">
+                            <tr tal:repeat="slot python:view.slots(day[0])[1]">
+                                <td class="slot"
+                                    tal:define="orario python:view.getTime(day[0], slot,'p');
+                                                prenotazione python:view.getPrenotazione(day[1], orario)">
+                                    <span tal:content="orario">8:00</span>
+                                    <!-- non esiste una prenotazione -->
+                                    <a href="" class="aggiungiPrenotazione" title="Richiedi prenotazione"
+                                        tal:condition="python:view.displayAggiungiPrenotazione(prenotazione)"
+                                        tal:attributes="href python:here_url+'/creaPrenotazione?data_prenotazione='+day[1].strftime('%Y/%m/%d')+' '+orario+':00'"> +</a>
+                                    <!-- esiste la prenotazione e sono editor della folder -->
+                                    <a href="" class="state-pending"
+                                        tal:condition="python:view.displayPrenotazione(prenotazione, member)"
+                                        tal:attributes="href prenotazione/getURL;
+                                                        class string:state-${prenotazione/review_state}"
+                                        tal:content="prenotazione/Title">Mario Rossi</a>
+                                    <!-- esiste la prenotazione ma non sono editor della folder -->
+                                    <span class="slotOccupato"
+                                        tal:condition="python:view.displaySlotOccupato(prenotazione, member)">Slot Occupato</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tal:days>
+            </tr>
+        </table>
+
+        <div metal:use-macro="context/document_relateditems/macros/relatedItems">
+            show related items if they exist
+        </div>
+
+        <div tal:replace="structure provider:plone.belowcontentbody" />
+
+    </tal:main-macro>
+</metal:main>
+
+</body>
+</html>

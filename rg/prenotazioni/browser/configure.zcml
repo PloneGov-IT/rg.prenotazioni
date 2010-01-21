@@ -1,0 +1,25 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="rg.prenotazioni">
+
+  <include package="plone.app.contentmenu" />
+
+  <!-- -*- extra stuff goes here -*- -->
+
+    <!-- -*- PrenotazioniFolder -*- -->
+    <browser:page
+        for="..interfaces.IPrenotazioniFolder"
+        name="view"
+        class=".prenotazionifolder.PrenotazioniFolderView"
+        permission="zope2.View"
+        />
+
+    <browser:page
+        for="..interfaces.IPrenotazioniFolder"
+        name="creaPrenotazione"
+        class=".prenotazionifolder.CreatePrenotazione"
+        permission="zope2.View"
+        />
+
+</configure>

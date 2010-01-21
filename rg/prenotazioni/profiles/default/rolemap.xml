@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<rolemap>
+  <permissions>
+    <!-- -*- extra stuff goes here -*- -->
+    <permission name="rg.prenotazioni: Add PrenotazioniFolder" acquire="False">
+      <role name="Manager" />
+      <role name="Contributor" />
+    </permission>
+    <permission name="rg.prenotazioni: Add Prenotazione" acquire="False">
+      <role name="Manager" />
+      <role name="Contributor" />
+      <role name="Anonymous" />
+    </permission>
+  </permissions>
+</rolemap>
