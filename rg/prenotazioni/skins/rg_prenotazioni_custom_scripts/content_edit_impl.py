@@ -135,7 +135,8 @@ if not state.errors:
                                              new_context.absolute_url()))
 
 addStatusMessage(REQUEST, portal_status_message)
-if new_context.meta_type=='Prenotazione' and new_context.portal_workflow.getInfoFor(new_context, 'review_state')=='private':
+
+if context.portal_membership.isAnonymousUser() and new_context.meta_type=='Prenotazione' and new_context.portal_workflow.getInfoFor(new_context, 'review_state')=='private':
     new_context.portal_workflow.doActionFor(new_context, 'submit')
     return state.set(status='success',
                     context=new_context.aq_parent,

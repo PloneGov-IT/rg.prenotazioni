@@ -11,9 +11,10 @@ def setDataPrenotazione(self):
     session = request.SESSION
     data = session.get('data_prenotazione','')
     session.set('data_prenotazione','')
-    data_prenotazione = DateTime(data)
-    self.setData_prenotazione(data_prenotazione)
-    self.reindexObject()
+    if data:
+        data_prenotazione = DateTime(data)
+        self.setData_prenotazione(data_prenotazione)
+        self.reindexObject()
 
 def afterPrenotazioneCreation(object,event):
     """
