@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<object>
+
+ <order manager="plone.belowcontenttitle" skinname="*">
+  <viewlet name="plone.belowcontenttitle.documentbyline"/>
+  <viewlet name="plone.belowcontenttitle.keywords"/>
+  <viewlet name="rg.spostaprenotazione"/>
+  <viewlet name="rg.annullaspostaprenotazione"/>
+ </order>
+
+</object>

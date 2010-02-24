@@ -110,6 +110,16 @@ class PrenotazioniFolderView(BrowserView):
             return True
         return False
 
+    def uidSpostaAppuntamento(self):
+        """ se nella request esiste il parametro UID allora si tratta di uno spostamento
+        """
+        res = False
+        uid = self.context.REQUEST.SESSION.get('UID', '')
+        if uid:
+            res = uid
+
+        return res
+
     def displaySlotOccupato(self, prenotazione, member):
         """
         """
@@ -184,3 +194,54 @@ class CreatePrenotazione(BrowserView):
         data = self.request.get('data_prenotazione','')
         self.request.SESSION.set('data_prenotazione', data)
         self.request.RESPONSE.redirect("createObject?type_name=Prenotazione")
+
+class MovePrenotazione(BrowserView):
+    """
+    """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self, *args):
+        uid = self.request.get('UID','')
+        self.request.SESSION.set('UID', uid)
+        pu = getToolByName(self.context, 'plone_utils')
+        pu.addPortalMessage('Seleziona la data nella quale spostare l\'appuntamento')
+        self.request.RESPONSE.redirect(self.context.absolute_url())
+
+class SavePrenotazione(BrowserView):
+    """
+    """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self, *args):
+        data = self.request.get('data_prenotazione','')
+        uid = self.request.SESSION.get('UID','')
+        self.request.SESSION.set('UID','')
+        pc = getToolByName(self.context, 'portal_catalog')
+        pu = getToolByName(self.context, 'plone_utils')
+        if uid:
+            appuntamenti = pc(portal_type='Prenotazione', UID=uid)
+            if appuntamenti:
+                appuntamento = appuntamenti[0]
+                obj = appuntamento.getObject()
+                data_prenotazione = DateTime(data)
+                obj.setData_prenotazione(data_prenotazione)
+                obj.reindexObject()
+                pu.addPortalMessage('Appuntamento spostato correttamente.')
+            else:
+                pu.addPortalMessage('Problemi con lo spostamento. Contatta l\'amministratore.')
+        self.request.RESPONSE.redirect(self.context.absolute_url())
+
+class CancelSpostamento(BrowserView):
+    """ cancella il valore di UID dalla sessione
+    """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self, *args):
+        self.request.SESSION.set('UID','')
+        self.request.RESPONSE.redirect(self.context.absolute_url())

@@ -104,6 +104,16 @@ PrenotazioniFolderSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         required = True,
     ),
 
+    atapi.StringField(
+        'email_responsabile',
+        required = True,
+        widget = atapi.StringWidget(
+            label = _(u'Email del responsabile'),
+            description = _(u'Inserisci l\'indirizzo email del responsabile delle prenotazioni'),
+            validator = ('isEmail',),
+            size=80),
+    ),
+
 ))
 
 # Set storage on fields copied from ATFolderSchema, making sure

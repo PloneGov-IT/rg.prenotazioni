@@ -9,7 +9,7 @@ from Products.ATContentTypes.content import base
 from Products.ATContentTypes.content import schemata
 
 from Products.Archetypes.utils import DisplayList
-from Acquisition import aq_chain
+from Acquisition import aq_chain, aq_inner
 
 from rg.prenotazioni import prenotazioniMessageFactory as _
 from rg.prenotazioni.interfaces import IPrenotazione, IPrenotazioniFolder
@@ -35,7 +35,7 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         widget = atapi.CalendarWidget(
             label = _(u'Data prenotazione'),
             description = _(u""),
-            condition = "member"
+            visible = {'edit':'invisible','view':'visible'},
         ),
         required = False,
     ),
@@ -123,5 +123,13 @@ class Prenotazione(base.ATCTContent):
         for item in items:
             elenco_tipologie.add(item, item)
         return elenco_tipologie
+
+    def getEmailResponsabile(self):
+        """
+        """
+        parent = self.aq_inner.aq_parent
+        email = parent.getEmail_responsabile()
+
+        return email
 
 atapi.registerType(Prenotazione, PROJECTNAME)

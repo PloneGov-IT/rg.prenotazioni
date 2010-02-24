@@ -10,7 +10,8 @@
   <include package=".browser" />
   <include package=".content" />
   <include package=".portlets" />
-  
+  <include package=".contentrules" />
+
   <!-- Register the installation GenericSetup extension profile -->
   <genericsetup:registerProfile
       name="default"
@@ -19,7 +20,7 @@
       description=""
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
-  
+
   <!-- -*- extra stuff goes here -*- -->
     <include file="skins.zcml" />
 

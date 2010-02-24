@@ -63,19 +63,38 @@
                                     tal:define="orario python:view.getTime(day[0], slot,'m');
                                                 prenotazione python:view.getPrenotazione(day[1], orario)">
                                     <span tal:content="orario">8:00</span>
-                                    <!-- non esiste una prenotazione -->
-                                    <a href="" class="aggiungiPrenotazione" title="Richiedi prenotazione"
-                                        tal:condition="python:view.displayAggiungiPrenotazione(prenotazione)"
-                                        tal:attributes="href python:here_url+'/creaPrenotazione?data_prenotazione='+day[1].strftime('%Y/%m/%d')+' '+orario+':00'"> +</a>
-                                    <!-- esiste la prenotazione e sono editor della folder -->
-                                    <a href="" class="state-pending"
-                                        tal:condition="python:view.displayPrenotazione(prenotazione, member)"
-                                        tal:attributes="href prenotazione/getURL;
-                                                        class string:state-${prenotazione/review_state}"
-                                        tal:content="prenotazione/Title">Mario Rossi</a>
-                                    <!-- esiste la prenotazione ma non sono editor della folder -->
-                                    <span class="slotOccupato"
-                                        tal:condition="python:view.displaySlotOccupato(prenotazione, member)">Slot Occupato</span>
+                                    <!-- ADD -->
+                                    <tal:aggiungi condition="not: view/uidSpostaAppuntamento">
+                                        <!-- non esiste una prenotazione -->
+                                        <a href="" class="aggiungiPrenotazione" title="Richiedi prenotazione"
+                                            tal:condition="python:view.displayAggiungiPrenotazione(prenotazione)"
+                                            tal:attributes="href python:here_url+'/creaPrenotazione?data_prenotazione='+day[1].strftime('%Y/%m/%d')+' '+orario+':00'"> +</a>
+                                        <!-- esiste la prenotazione e sono editor della folder -->
+                                        <a href="" class="state-pending"
+                                            tal:condition="python:view.displayPrenotazione(prenotazione, member)"
+                                            tal:attributes="href prenotazione/getURL;
+                                                            class string:state-${prenotazione/review_state}"
+                                            tal:content="prenotazione/Title">Mario Rossi</a>
+                                        <!-- cambia data -->
+                                        <a href="" class="modificaPrenotazione" title="Cambia data"
+                                            tal:condition="python:view.displayPrenotazione(prenotazione, member)"
+                                            tal:attributes="href python:here_url+'/spostaPrenotazione?UID='+prenotazione.UID"> sposta</a>
+                                        <!-- esiste la prenotazione ma non sono editor della folder -->
+                                        <span class="slotOccupato"
+                                            tal:condition="python:view.displaySlotOccupato(prenotazione, member)">Occupato</span>
+                                    </tal:aggiungi>
+                                    <!-- SPOSTA -->
+                                    <tal:sposta condition="view/uidSpostaAppuntamento">
+                                        <!-- esiste la prenotazione e sono editor della folder -->
+                                        <a href="" class="state-pending"
+                                            tal:condition="python:view.displayPrenotazione(prenotazione, member)"
+                                            tal:attributes="href prenotazione/getURL;
+                                                            class string:state-${prenotazione/review_state}"
+                                            tal:content="prenotazione/Title">Mario Rossi</a>
+                                        <a href="" class="modificaPrenotazione" title="Sposta qui"
+                                            tal:condition="python:not view.displayPrenotazione(prenotazione, member)"
+                                            tal:attributes="href python:here_url+'/fissaPrenotazione?data_prenotazione='+day[1].strftime('%Y/%m/%d')+' '+orario+':00'"> sposta qui</a>
+                                    </tal:sposta>
                                 </td>
                             </tr>
                         </table>
@@ -94,19 +113,38 @@
                                     tal:define="orario python:view.getTime(day[0], slot,'p');
                                                 prenotazione python:view.getPrenotazione(day[1], orario)">
                                     <span tal:content="orario">8:00</span>
-                                    <!-- non esiste una prenotazione -->
-                                    <a href="" class="aggiungiPrenotazione" title="Richiedi prenotazione"
-                                        tal:condition="python:view.displayAggiungiPrenotazione(prenotazione)"
-                                        tal:attributes="href python:here_url+'/creaPrenotazione?data_prenotazione='+day[1].strftime('%Y/%m/%d')+' '+orario+':00'"> +</a>
-                                    <!-- esiste la prenotazione e sono editor della folder -->
-                                    <a href="" class="state-pending"
-                                        tal:condition="python:view.displayPrenotazione(prenotazione, member)"
-                                        tal:attributes="href prenotazione/getURL;
-                                                        class string:state-${prenotazione/review_state}"
-                                        tal:content="prenotazione/Title">Mario Rossi</a>
-                                    <!-- esiste la prenotazione ma non sono editor della folder -->
-                                    <span class="slotOccupato"
-                                        tal:condition="python:view.displaySlotOccupato(prenotazione, member)">Slot Occupato</span>
+                                    <!-- ADD -->
+                                    <tal:aggiungi condition="not: view/uidSpostaAppuntamento">
+                                        <!-- non esiste una prenotazione -->
+                                        <a href="" class="aggiungiPrenotazione" title="Richiedi prenotazione"
+                                            tal:condition="python:view.displayAggiungiPrenotazione(prenotazione)"
+                                            tal:attributes="href python:here_url+'/creaPrenotazione?data_prenotazione='+day[1].strftime('%Y/%m/%d')+' '+orario+':00'"> +</a>
+                                        <!-- esiste la prenotazione e sono editor della folder -->
+                                        <a href="" class="state-pending"
+                                            tal:condition="python:view.displayPrenotazione(prenotazione, member)"
+                                            tal:attributes="href prenotazione/getURL;
+                                                            class string:state-${prenotazione/review_state}"
+                                            tal:content="prenotazione/Title">Mario Rossi</a>
+                                        <!-- cambia data -->
+                                        <a href="" class="modificaPrenotazione" title="Cambia data"
+                                            tal:condition="python:view.displayPrenotazione(prenotazione, member)"
+                                            tal:attributes="href python:here_url+'/spostaPrenotazione?UID='+prenotazione.UID"> sposta</a>
+                                        <!-- esiste la prenotazione ma non sono editor della folder -->
+                                        <span class="slotOccupato"
+                                            tal:condition="python:view.displaySlotOccupato(prenotazione, member)">Occupato</span>
+                                    </tal:aggiungi>
+                                    <!-- SPOSTA -->
+                                    <tal:sposta condition="view/uidSpostaAppuntamento">
+                                        <!-- esiste la prenotazione e sono editor della folder -->
+                                        <a href="" class="state-pending"
+                                            tal:condition="python:view.displayPrenotazione(prenotazione, member)"
+                                            tal:attributes="href prenotazione/getURL;
+                                                            class string:state-${prenotazione/review_state}"
+                                            tal:content="prenotazione/Title">Mario Rossi</a>
+                                        <a href="" class="modificaPrenotazione" title="Sposta qui"
+                                            tal:condition="python:not view.displayPrenotazione(prenotazione, member)"
+                                            tal:attributes="href python:here_url+'/fissaPrenotazione?data_prenotazione='+day[1].strftime('%Y/%m/%d')+' '+orario+':00'"> sposta qui</a>
+                                    </tal:sposta>
                                 </td>
                             </tr>
                         </table>

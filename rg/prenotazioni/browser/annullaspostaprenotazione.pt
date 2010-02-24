@@ -1,0 +1,4 @@
+<div id="annullaspostaprenotazione"
+    tal:condition="view/display">
+    <a title="Annulla Spostamento" href="annullaSpostamento">Annulla Spostamento</a>
+</div>
