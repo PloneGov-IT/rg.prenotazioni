@@ -141,6 +141,11 @@ if context.portal_membership.isAnonymousUser() and new_context.meta_type=='Preno
     return state.set(status='success',
                     context=new_context.aq_parent,
                     portal_status_message=portal_status_message)
+elif context.portal_membership.isAnonymousUser() and new_context.meta_type=='Prenotazione' and new_context.portal_workflow.getInfoFor(new_context, 'review_state')=='private':
+    new_context.portal_workflow.doActionFor(new_context, 'submit')
+    return state.set(status='success',
+                    context=new_context)
 else:
+    new_context.portal_workflow.doActionFor(new_context, 'submit')
     return state.set(status='success',
                     context=new_context)
