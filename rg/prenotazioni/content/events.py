@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from Products.CMFCore.utils import getToolByName
-from zope.component import getMultiAdapter, getUtility
+from zope.component import getMultiAdapter
 from DateTime import DateTime
 
 def setDataPrenotazione(self):
@@ -16,7 +16,27 @@ def setDataPrenotazione(self):
         self.setData_prenotazione(data_prenotazione)
         self.reindexObject()
 
+def sendEmail(self):
+    """
+    """
+    portal = getMultiAdapter((self, self.REQUEST),
+                                name=u'plone_portal_state').portal()
+    mailFrom = portal.email_from_address
+    mailTo = self.aq_parent.getEmail_responsabile()
+    mailSubject = "Nuova richiesta prenotazione"
+    mailMessage = "E' stata inserita una nuova richiesta prenotazione da %s,\
+        <br /> %s <br /> <a href='%s'>Link all richiesta</a>" \
+            % (
+                self.Title(),
+                self.Description(),
+                self.absolute_url())
+
+    mailHost = getToolByName(self, 'MailHost')
+    mailHost.secureSend(mailMessage, mailTo, mailFrom, subject=mailSubject,
+                                subtype='html', charset='utf-8', debug=False)
+
 def afterPrenotazioneCreation(object,event):
     """
     """
     setDataPrenotazione(object)
+    sendEmail(object)
