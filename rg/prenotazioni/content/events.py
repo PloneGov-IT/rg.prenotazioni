@@ -39,4 +39,4 @@ def afterPrenotazioneCreation(object,event):
     """
     """
     setDataPrenotazione(object)
-    sendEmail(object)
+    #sendEmail(object)

@@ -26,8 +26,12 @@ else:
     context_type = getattr(context, 'portal_type', None)
     if context_type and context_type == 'Prenotazione':
         url = context.aq_parent.absolute_url()
-        context.portal_workflow.doActionFor(context, 'submit')
+        data = context.getData_prenotazione().strftime('%d/%m/%Y')
+        try:
+            context.portal_workflow.doActionFor(context, 'submit')
+        except:
+            pass
         context.plone_utils.addPortalMessage(_(u'Richiesta prenotazione effettuata correttamente'))
-        state.setNextAction('redirect_to:string:' + url)
+        state.setNextAction('redirect_to:string:' + url +'?data='+data)
         return state.set(status='created')
     return state.set(status='success')

@@ -2,14 +2,14 @@
 """Definition of the Prenotazione content type
 """
 
-from zope.interface import implements, directlyProvides
+from zope.interface import implements
 
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content import base
 from Products.ATContentTypes.content import schemata
 
 from Products.Archetypes.utils import DisplayList
-from Acquisition import aq_chain, aq_inner
+from Acquisition import aq_chain
 
 from rg.prenotazioni import prenotazioniMessageFactory as _
 from rg.prenotazioni.interfaces import IPrenotazione, IPrenotazioniFolder
@@ -45,7 +45,17 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         storage = atapi.AnnotationStorage(),
         widget = atapi.StringWidget(
             label = _(u"Azienda"),
-            description = _(u"Inserisci  la denominazione dell'azienda del richiedente"),
+            description = _(u"Inserisci la denominazione dell'azienda del richiedente"),
+        ),
+        required = False,
+    ),
+
+    atapi.StringField(
+        'telefono',
+        storage = atapi.AnnotationStorage(),
+        widget = atapi.StringWidget(
+            label = _(u"Telefono"),
+            description = _(u"Inserisci un recapito telefonico"),
         ),
         required = False,
     ),
@@ -116,7 +126,7 @@ class Prenotazione(base.ATCTContent):
             self)
 
     def getElencoTipologie(self):
-        """ restituisce l'elenco delle tipologie sulla folder padre come DisplayList
+        """ restituisce l'elenco delle tipologie sulla folder padre
         """
         elenco_tipologie = DisplayList()
         items = self.getPrenotazioniFolder().getTipologia()
