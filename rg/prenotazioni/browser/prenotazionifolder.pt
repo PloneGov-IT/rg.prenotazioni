@@ -27,6 +27,11 @@
                </tal:block>
             </p>
         </div>
+		
+		<div class="documentDescription-box clear-block">
+			<span tal:replace="structure here/getDescriptionAgenda" />
+		</div>
+		
 
         <table id="week" class="listing">
             <tr>
