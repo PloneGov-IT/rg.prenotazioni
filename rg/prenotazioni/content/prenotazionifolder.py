@@ -1,32 +1,42 @@
 # -*- coding: utf-8 -*-
 """Definition of the PrenotazioniFolder content type
 """
+from zope.interface import implements
 
-from zope.interface import implements, directlyProvides
 from Products.Archetypes.utils import DisplayList
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content import folder
-from Products.ATContentTypes.content import schemata
 
 from Products.DataGridField import DataGridField, DataGridWidget
-from Products.DataGridField.Column import Column
 from Products.DataGridField.SelectColumn import SelectColumn
-from Products.DataGridField.RadioColumn import RadioColumn
-from Products.DataGridField.CheckboxColumn import CheckboxColumn
 from Products.DataGridField.FixedColumn import FixedColumn
 from Products.DataGridField.DataGridField import FixedRow
-from Products.DataGridField.HelpColumn import HelpColumn
 
 from rg.prenotazioni import prenotazioniMessageFactory as _
 from rg.prenotazioni.interfaces import IPrenotazioniFolder
 from rg.prenotazioni.config import PROJECTNAME
+
+from Products.ATContentTypes.configuration import zconf
 
 from DateTime import DateTime
 
 PrenotazioniFolderSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
     # -*- Your Archetypes field definitions here ... -*-
-
+    
+    atapi.TextField('descriptionAgenda',
+                             required=False,
+                             searchable=True,
+                             storage = atapi.AnnotationStorage(migrate=True),
+                             validators = ('isTidyHtmlWithCleanup',),
+                             default_output_type = 'text/x-html-safe',
+                             widget = atapi.RichWidget(
+                                       description = 'Inserire il testo di presentazione dell\'agenda corrente',
+                                       label = _(u'Descrizione Agenda', default=u''),
+                                       rows = 10,
+                                       allow_file_upload = zconf.ATDocument.allow_document_upload),
+   ),
+    
     atapi.DateTimeField(
         'daData',
         storage = atapi.AnnotationStorage(),
