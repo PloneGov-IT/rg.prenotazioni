@@ -21,8 +21,7 @@ if errors:
     addStatusMessage(request, message, type='error')
     return state.set(status='failure', errors=errors)
 else:
-    message = _(u'Changes saved.')
-    addStatusMessage(request, message)
+    # Custom validation for prenotazioni
     context_type = getattr(context, 'portal_type', None)
     if context_type and context_type == 'Prenotazione':
         url = context.aq_parent.absolute_url()
@@ -34,4 +33,7 @@ else:
         context.plone_utils.addPortalMessage(_(u'Richiesta prenotazione effettuata correttamente'))
         state.setNextAction('redirect_to:string:' + url +'?data='+data)
         return state.set(status='created')
+    # Procede with statndard messages
+    message = _(u'Changes saved.')
+    addStatusMessage(request, message)
     return state.set(status='success')
