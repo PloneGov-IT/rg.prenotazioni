@@ -1,7 +1,12 @@
 Changelog
 =========
 
-1.0dev (unreleased)
--------------------
+1.0.1 (unreleased)
+------------------
 
-- Initial release
+- Fix overbooking (#127) [alert]
+
+1.0 (2011-11-30)
+----------------
+
+- Initial release [alert]

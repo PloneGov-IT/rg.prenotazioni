@@ -8,15 +8,10 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '1.0'
+version = '1.0.1'
 
 long_description = (
     read('README.txt')
-    + '\n' +
-    'Change history\n'
-    '**************\n'
-    + '\n' +
-    read('CHANGES.txt')
     + '\n' +
     'Detailed Documentation\n'
     '**********************\n'
@@ -65,6 +60,6 @@ setup(name='rg.prenotazioni',
       [z3c.autoinclude.plugin]
       target = plone
       """,
-      setup_requires=["PasteScript"],
-      paster_plugins = ["ZopeSkel"],
+#      setup_requires=["PasteScript"],
+#      paster_plugins = ["ZopeSkel"],
       )

@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 """Definition of the Prenotazione content type
 """
-
-from zope.interface import implements
-
-from Products.Archetypes import atapi
-from Products.ATContentTypes.content import base
-from Products.ATContentTypes.content import schemata
-
-from Products.Archetypes.utils import DisplayList
 from Acquisition import aq_chain
-
+from DateTime import DateTime
+from Products.ATContentTypes.content import base, schemata
+from Products.Archetypes import atapi
+from Products.Archetypes.utils import DisplayList
 from rg.prenotazioni import prenotazioniMessageFactory as _
-from rg.prenotazioni.interfaces import IPrenotazione, IPrenotazioniFolder
 from rg.prenotazioni.config import PROJECTNAME
+from rg.prenotazioni.interfaces import IPrenotazione, IPrenotazioniFolder
+from zope.interface import implements
+from Products.CMFCore.utils import getToolByName
+
+OVERBOOKED_MESSAGE = (u"Ci dispiace ma la risorsa è già stata occupata, " 
+                      u"annullare l'inserimento.")
 
 PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
 
@@ -139,7 +139,32 @@ class Prenotazione(base.ATCTContent):
         """
         parent = self.aq_inner.aq_parent
         email = parent.getEmail_responsabile()
-
         return email
 
+    def validateOverbooking(self, REQUEST, errors):
+        '''
+        Check for overbooking
+        '''
+        session = REQUEST.SESSION
+        data_prenotazione = session.get('data_prenotazione', '')
+        if not data_prenotazione:
+            return 
+        
+        data_prenotazione = DateTime(data_prenotazione)
+        parent = self.getPrenotazioniFolder()
+        for key in parent.keys():
+            obj=parent[key]
+            if (obj!=self and obj.getData_prenotazione() == data_prenotazione):
+                pu = getToolByName(self, 'plone_utils')
+                pu.addPortalMessage(OVERBOOKED_MESSAGE, type="error")
+                errors['data_prenotazione'] = OVERBOOKED_MESSAGE
+                return
+        
+    def post_validate(self, REQUEST, errors):
+        '''
+        Add validation for already booked objects
+        '''
+        self.validateOverbooking(REQUEST, errors)
+        return super(Prenotazione, self).post_validate(REQUEST, errors)
+        
 atapi.registerType(Prenotazione, PROJECTNAME)
