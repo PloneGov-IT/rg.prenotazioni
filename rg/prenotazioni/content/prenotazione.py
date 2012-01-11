@@ -145,20 +145,27 @@ class Prenotazione(base.ATCTContent):
         '''
         Check for overbooking
         '''
+        def alert_user():
+            '''
+            Alert the user that the resource is not available anymore
+            '''
+            pu = getToolByName(self, 'plone_utils')
+            pu.addPortalMessage(OVERBOOKED_MESSAGE, type="error")
+            errors['data_prenotazione'] = OVERBOOKED_MESSAGE
+            return
+        
         session = REQUEST.SESSION
         data_prenotazione = session.get('data_prenotazione', '')
+        
         if not data_prenotazione:
-            return 
+            return alert_user()
         
         data_prenotazione = DateTime(data_prenotazione)
         parent = self.getPrenotazioniFolder()
         for key in parent.keys():
             obj=parent[key]
             if (obj!=self and obj.getData_prenotazione() == data_prenotazione):
-                pu = getToolByName(self, 'plone_utils')
-                pu.addPortalMessage(OVERBOOKED_MESSAGE, type="error")
-                errors['data_prenotazione'] = OVERBOOKED_MESSAGE
-                return
+                return alert_user()
         
     def post_validate(self, REQUEST, errors):
         '''
