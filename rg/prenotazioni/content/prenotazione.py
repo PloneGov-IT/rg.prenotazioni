@@ -145,6 +145,11 @@ class Prenotazione(base.ATCTContent):
         '''
         Check for overbooking
         '''
+        if self.getData_prenotazione():
+            # Significa che l'oggetto e' gia' stato inizializzato ed e' passato
+            # per l'apposito evento
+            return 
+        
         def alert_user():
             '''
             Alert the user that the resource is not available anymore
@@ -159,8 +164,9 @@ class Prenotazione(base.ATCTContent):
         
         if not data_prenotazione:
             return alert_user()
-        
-        data_prenotazione = DateTime(data_prenotazione)
+        else:
+            data_prenotazione = DateTime(data_prenotazione)
+
         parent = self.getPrenotazioniFolder()
         for key in parent.keys():
             obj=parent[key]
