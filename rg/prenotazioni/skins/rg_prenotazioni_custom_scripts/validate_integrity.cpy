@@ -16,14 +16,18 @@ request = context.REQUEST
 errors = {}
 errors = context.validate(REQUEST=request, errors=errors, data=1, metadata=0)
 
+
+context_type = getattr(context, 'portal_type', None)
 if errors:
+    if context_type == 'Prenotazione':
+        if context.isOverbooked(REQUEST):
+            return state.set(status='failure', errors=errors)
     message = _(u'Please correct the indicated errors.')
     addStatusMessage(request, message, type='error')
     return state.set(status='failure', errors=errors)
 else:
     # Custom validation for prenotazioni
-    context_type = getattr(context, 'portal_type', None)
-    if context_type and context_type == 'Prenotazione':
+    if context_type == 'Prenotazione':
         url = context.aq_parent.absolute_url()
         data = context.getData_prenotazione().strftime('%d/%m/%Y')
         try:
