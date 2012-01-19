@@ -12,8 +12,10 @@ from rg.prenotazioni.interfaces import IPrenotazione, IPrenotazioniFolder
 from zope.interface import implements
 from Products.CMFCore.utils import getToolByName
 
-OVERBOOKED_MESSAGE = (u"Ci dispiace ma la risorsa è già stata occupata, " 
-                      u"annullare l'inserimento.")
+OVERBOOKED_MESSAGE = (u"Siamo spiacenti, è già stato preso un appuntamento "
+                      u"nella stessa fascia oraria, premere il pulsante "
+                      u"ANNULLA per effettuare una nuova richiesta di "
+                      u"prenotazione")
 
 PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
 
@@ -141,29 +143,15 @@ class Prenotazione(base.ATCTContent):
         email = parent.getEmail_responsabile()
         return email
 
-    def validateOverbooking(self, REQUEST, errors):
+    def isOverbooked(self, REQUEST):
         '''
-        Check for overbooking
+        Check if it is overbooked
         '''
-        if self.getData_prenotazione():
-            # Significa che l'oggetto e' gia' stato inizializzato ed e' passato
-            # per l'apposito evento
-            return 
-        
-        def alert_user():
-            '''
-            Alert the user that the resource is not available anymore
-            '''
-            pu = getToolByName(self, 'plone_utils')
-            pu.addPortalMessage(OVERBOOKED_MESSAGE, type="error")
-            errors['data_prenotazione'] = OVERBOOKED_MESSAGE
-            return
-        
         session = REQUEST.SESSION
         data_prenotazione = session.get('data_prenotazione', '')
         
         if not data_prenotazione:
-            return alert_user()
+            return True
         else:
             data_prenotazione = DateTime(data_prenotazione)
 
@@ -171,8 +159,23 @@ class Prenotazione(base.ATCTContent):
         for key in parent.keys():
             obj=parent[key]
             if (obj!=self and obj.getData_prenotazione() == data_prenotazione):
-                return alert_user()
-        
+                return True
+        return False
+
+    def validateOverbooking(self, REQUEST, errors):
+        '''
+        Validate against overbooking
+        '''
+        if self.getData_prenotazione():
+            # Significa che l'oggetto e' gia' stato inizializzato ed e' passato
+            # per l'apposito evento
+            return
+
+        if self.isOverbooked(REQUEST):
+            pu = getToolByName(self, 'plone_utils')
+            pu.addPortalMessage(OVERBOOKED_MESSAGE, type="error")
+            errors['data_prenotazione'] = OVERBOOKED_MESSAGE
+            
     def post_validate(self, REQUEST, errors):
         '''
         Add validation for already booked objects
