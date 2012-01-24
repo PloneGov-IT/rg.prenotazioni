@@ -31,7 +31,7 @@ tests_require=['zope.testing']
 
 setup(name='rg.prenotazioni',
       version=version,
-      description="",
+      description="Prenotazioni product for Unione Reno Galliera",
       long_description=long_description,
       # Get more strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
