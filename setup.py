@@ -16,8 +16,9 @@ long_description = (
     + '\n\n' +
     read('docs', 'HISTORY.txt')
     + '\n' +
+    '========\n'
     'Download\n'
-    '********\n'
+    '========\n'
     )
 
 tests_require = ['zope.testing']
