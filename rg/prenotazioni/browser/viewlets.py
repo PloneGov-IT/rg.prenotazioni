@@ -2,7 +2,7 @@
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.viewlets import common
 from zope.component import getMultiAdapter
-from Products.CMFCore.utils import getToolByName
+
 
 class SpostaPrenotazioneViewlet(common.ViewletBase):
     render = ViewPageTemplateFile('spostaprenotazione.pt')
@@ -18,13 +18,15 @@ class SpostaPrenotazioneViewlet(common.ViewletBase):
             non sono loggato
             in sessione esiste UID
         """
-        self.portal_state = getMultiAdapter((self.context, self.request), name=u"plone_portal_state")
+        self.portal_state = getMultiAdapter((self.context, self.request),
+                                            name=u"plone_portal_state")
         if self.portal_state.anonymous():
             return False
-        if self.context.REQUEST.SESSION.get('UID',''):
+        if self.context.REQUEST.SESSION.get('UID', ''):
             return False
 
         return True
+
 
 class AnnullaSpostaPrenotazioneViewlet(common.ViewletBase):
     render = ViewPageTemplateFile('annullaspostaprenotazione.pt')
@@ -40,7 +42,7 @@ class AnnullaSpostaPrenotazioneViewlet(common.ViewletBase):
             in sessione non esiste UID
         """
 
-        if self.context.REQUEST.SESSION.get('UID',''):
+        if self.context.REQUEST.SESSION.get('UID', ''):
             return True
-
-        return False
+        else:
+            return False

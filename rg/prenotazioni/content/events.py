@@ -1,20 +1,21 @@
 # -*- coding: utf-8 -*-
-
+from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
 from zope.component import getMultiAdapter
-from DateTime import DateTime
+
 
 def setDataPrenotazione(self):
     """
     """
     request = self.REQUEST
     session = request.SESSION
-    data = session.get('data_prenotazione','')
-    session.set('data_prenotazione','')
+    data = session.get('data_prenotazione', '')
+    session.set('data_prenotazione', '')
     if data:
         data_prenotazione = DateTime(data)
         self.setData_prenotazione(data_prenotazione)
         self.reindexObject()
+
 
 def sendEmail(self):
     """
@@ -35,8 +36,9 @@ def sendEmail(self):
     mailHost.secureSend(mailMessage, mailTo, mailFrom, subject=mailSubject,
                                 subtype='html', charset='utf-8', debug=False)
 
-def afterPrenotazioneCreation(object,event):
+
+def afterPrenotazioneCreation(obj, event):
     """
     """
-    setDataPrenotazione(object)
+    setDataPrenotazione(obj)
     #sendEmail(object)

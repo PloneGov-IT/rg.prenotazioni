@@ -1,5 +1,5 @@
 # -*- extra stuff goes here -*-
-from prenotazionifolder import IPrenotazioniFolder
-
 from prenotazione import IPrenotazione
-
+from prenotazionifolder import IPrenotazioniFolder
+IPrenotazione
+IPrenotazioniFolder

@@ -3,17 +3,12 @@
 configured in profiles/default/types/*.xml, this is being set as the default
 view of that content type.
 """
-
-from Acquisition import aq_inner
-
+from DateTime import DateTime
+from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-
-from plone.memoize.instance import memoize
-
-from Products.CMFCore.utils import getToolByName
 from datetime import timedelta, date
-from DateTime import DateTime
+
 
 class PrenotazioniFolderView(BrowserView):
     """Default view of a PrenotazioniFolder
@@ -22,10 +17,12 @@ class PrenotazioniFolderView(BrowserView):
     __call__ = ViewPageTemplateFile('prenotazionifolder.pt')
 
     def days(self):
-        """ restituisce i giorni della settimana "customizzata" nel formato (dict,datetime.date)
+        """
+        Restituisce i giorni della settimana "customizzata" nel formato
+        (dict,datetime.date)
         """
         settimana = self.context.getSettimana_tipo()
-        data = self.context.REQUEST.get('data','')
+        data = self.context.REQUEST.get('data', '')
         if data:
             data_list = data.split('/')
             anno = int(data_list[2])
@@ -43,7 +40,7 @@ class PrenotazioniFolderView(BrowserView):
             item = settimana[x]
             diff = weekday - x
             if item['inizio_m'] or item['inizio_p']:
-                giorno = day-timedelta(days=diff)
+                giorno = day - timedelta(days=diff)
                 if self.isValidDay(giorno):
                     res.append((item, giorno))
         return res
@@ -53,7 +50,7 @@ class PrenotazioniFolderView(BrowserView):
         """
         m = int(day['num_m'])
         p = int(day['num_p'])
-        return ([x for x in range(0,m)],[x for x in range(0,p)])
+        return ([x for x in range(0, m)], [x for x in range(0, p)])
 
     def getTime(self, day, slot, pm):
         """ restituisce l'ora associata allo slot indicato del giorno
@@ -66,13 +63,14 @@ class PrenotazioniFolderView(BrowserView):
         if inizio_m != '0':
             inizio_m_minuti = int(inizio_m[2:4])
             inizio_m_ore = int(inizio_m[0:2])
-            inizio_m_time = timedelta(hours=inizio_m_ore, minutes=inizio_m_minuti,)
-
+            inizio_m_time = timedelta(hours=inizio_m_ore,
+                                      minutes=inizio_m_minuti,)
 
         if inizio_p != '0':
             inizio_p_minuti = int(inizio_p[2:4])
             inizio_p_ore = int(inizio_p[0:2])
-            inizio_p_time = timedelta(hours=inizio_p_ore, minutes=inizio_p_minuti,)
+            inizio_p_time = timedelta(hours=inizio_p_ore,
+                                      minutes=inizio_p_minuti,)
 
         if pm == 'm':
             new_timedelta = inizio_m_time + minuti
@@ -80,17 +78,22 @@ class PrenotazioniFolderView(BrowserView):
             new_timedelta = inizio_p_time + minuti
 
         secondi = new_timedelta.seconds
-        ore = secondi/3600
+        ore = secondi / 3600
         minuti = (secondi % 3600) / 60
 
-        return str(ore).zfill(2)+':'+str(minuti).zfill(2)
+        return str(ore).zfill(2) + ':' + str(minuti).zfill(2)
 
     def getPrenotazione(self, day, orario):
         """ restituisce le prenotazioni fissate per il giorno e l'ora indicati
         """
         pc = getToolByName(self.context, 'portal_catalog', None)
-        giorno = DateTime(day.strftime('%Y/%m/%d')+' '+orario+':00')
-        prenotazioni = pc.unrestrictedSearchResults(portal_type='Prenotazione', getData_prenotazione=giorno, path='/'.join(self.context.getPhysicalPath()))
+        giorno = DateTime(day.strftime('%Y/%m/%d') + ' ' + orario + ':00')
+        prenotazioni = pc.unrestrictedSearchResults(
+                           portal_type='Prenotazione',
+                           getData_prenotazione=giorno,
+                           path='/'.join(self.context.getPhysicalPath()
+                       )
+        )
         if prenotazioni:
             return prenotazioni[0]
 
@@ -106,12 +109,15 @@ class PrenotazioniFolderView(BrowserView):
     def displayPrenotazione(self, prenotazione, member):
         """
         """
-        if prenotazione and member.has_permission('Modify portal content', self.context):
+        if prenotazione and member.has_permission('Modify portal content',
+                                                  self.context):
             return True
         return False
 
     def uidSpostaAppuntamento(self):
-        """ se nella request esiste il parametro UID allora si tratta di uno spostamento
+        """
+        Se nella request esiste il parametro UID allora si tratta di uno
+        spostamento
         """
         res = False
         uid = self.context.REQUEST.SESSION.get('UID', '')
@@ -123,24 +129,25 @@ class PrenotazioniFolderView(BrowserView):
     def displaySlotOccupato(self, prenotazione, member):
         """
         """
-        if prenotazione and not member.has_permission('Modify portal content', self.context):
+        if prenotazione and not member.has_permission('Modify portal content',
+                                                      self.context):
             return True
         return False
 
     def spanRow(self, day):
         """ restituisce lo span nel caso in cui ci sia orario continuato
         """
-        if day['inizio_p']!='0':
+        if day['inizio_p'] != '0':
             return 1
         return 2
 
     def requestData(self):
         """ restituisce il nome del mese e l'anno della data in request
         """
-        day = self.context.REQUEST.get('data','')
+        day = self.context.REQUEST.get('data', '')
         if day:
             day_list = day.split('/')
-            data = date(int(day_list[2]),int(day_list[1]),int(day_list[0]))
+            data = date(int(day_list[2]), int(day_list[1]), int(day_list[0]))
         else:
             data = date.today()
 
@@ -153,7 +160,7 @@ class PrenotazioniFolderView(BrowserView):
         lastdata = data - timedelta(days=7)
         nextdata = data + timedelta(days=7)
 
-        return (lastdata.strftime('%d/%m/%Y'),nextdata.strftime('%d/%m/%Y'))
+        return (lastdata.strftime('%d/%m/%Y'), nextdata.strftime('%d/%m/%Y'))
 
     def isValidDay(self, day):
         """ restituisce true se il giorno è valido
@@ -161,8 +168,8 @@ class PrenotazioniFolderView(BrowserView):
         festivi = self.context.getFestivi()
         da_data = self.context.getDaData().strftime('%Y/%m/%d').split('/')
         a_data = self.context.getAData().strftime('%Y/%m/%d').split('/')
-        date_dadata = date(int(da_data[0]),int(da_data[1]),int(da_data[2]))
-        date_adata = date(int(a_data[0]),int(a_data[1]),int(a_data[2]))
+        date_dadata = date(int(da_data[0]), int(da_data[1]), int(da_data[2]))
+        date_adata = date(int(a_data[0]), int(a_data[1]), int(a_data[2]))
 
         res = []
 
@@ -172,7 +179,7 @@ class PrenotazioniFolderView(BrowserView):
                 gg = festivo_list[0]
                 mm = festivo_list[1]
                 anno = festivo_list[2]
-                res.append(date(int(anno),int(mm),int(gg)))
+                res.append(date(int(anno), int(mm), int(gg)))
 
         if day in res:
             return False
@@ -183,6 +190,7 @@ class PrenotazioniFolderView(BrowserView):
 
         return True
 
+
 class CreatePrenotazione(BrowserView):
     """
     """
@@ -191,9 +199,10 @@ class CreatePrenotazione(BrowserView):
         self.request = request
 
     def __call__(self, *args):
-        data = self.request.get('data_prenotazione','')
+        data = self.request.get('data_prenotazione', '')
         self.request.SESSION.set('data_prenotazione', data)
         self.request.RESPONSE.redirect("createObject?type_name=Prenotazione")
+
 
 class MovePrenotazione(BrowserView):
     """
@@ -203,11 +212,13 @@ class MovePrenotazione(BrowserView):
         self.request = request
 
     def __call__(self, *args):
-        uid = self.request.get('UID','')
+        uid = self.request.get('UID', '')
         self.request.SESSION.set('UID', uid)
         pu = getToolByName(self.context, 'plone_utils')
-        pu.addPortalMessage('Seleziona la data nella quale spostare l\'appuntamento')
+        msg = 'Seleziona la data nella quale spostare l\'appuntamento'
+        pu.addPortalMessage(msg)
         self.request.RESPONSE.redirect(self.context.absolute_url())
+
 
 class SavePrenotazione(BrowserView):
     """
@@ -217,9 +228,9 @@ class SavePrenotazione(BrowserView):
         self.request = request
 
     def __call__(self, *args):
-        data = self.request.get('data_prenotazione','')
-        uid = self.request.SESSION.get('UID','')
-        self.request.SESSION.set('UID','')
+        data = self.request.get('data_prenotazione', '')
+        uid = self.request.SESSION.get('UID', '')
+        self.request.SESSION.set('UID', '')
         pc = getToolByName(self.context, 'portal_catalog')
         pu = getToolByName(self.context, 'plone_utils')
         if uid:
@@ -230,10 +241,13 @@ class SavePrenotazione(BrowserView):
                 data_prenotazione = DateTime(data)
                 obj.setData_prenotazione(data_prenotazione)
                 obj.reindexObject()
-                pu.addPortalMessage('Appuntamento spostato correttamente.')
+                msg = ('Appuntamento spostato correttamente.')
             else:
-                pu.addPortalMessage('Problemi con lo spostamento. Contatta l\'amministratore.')
+                msg = ('Problemi con lo spostamento. '
+                       'Contatta l\'amministratore.')
+            pu.addPortalMessage(msg)
         self.request.RESPONSE.redirect(self.context.absolute_url())
+
 
 class CancelSpostamento(BrowserView):
     """ cancella il valore di UID dalla sessione
@@ -243,5 +257,5 @@ class CancelSpostamento(BrowserView):
         self.request = request
 
     def __call__(self, *args):
-        self.request.SESSION.set('UID','')
+        self.request.SESSION.set('UID', '')
         self.request.RESPONSE.redirect(self.context.absolute_url())

@@ -6,70 +6,72 @@ from DateTime import DateTime
 from Products.ATContentTypes.content import base, schemata
 from Products.Archetypes import atapi
 from Products.Archetypes.utils import DisplayList
+from Products.CMFCore.utils import getToolByName
 from rg.prenotazioni import prenotazioniMessageFactory as _
 from rg.prenotazioni.config import PROJECTNAME
 from rg.prenotazioni.interfaces import IPrenotazione, IPrenotazioniFolder
 from zope.interface import implements
-from Products.CMFCore.utils import getToolByName
 
 OVERBOOKED_MESSAGE = (u"Siamo spiacenti, è già stato preso un appuntamento "
                       u"nella stessa fascia oraria, premere il pulsante "
                       u"ANNULLA per effettuare una nuova richiesta di "
                       u"prenotazione")
 
+
 PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
 
     # -*- Your Archetypes field definitions here ... -*-
     atapi.StringField(
         'tipologia_prenotazione',
-        storage = atapi.AnnotationStorage(),
-        vocabulary = 'getElencoTipologie',
-        widget = atapi.SelectionWidget(
-            label = _(u"Tipologia della prenotazione"),
-            description = _(u""),
+        storage=atapi.AnnotationStorage(),
+        vocabulary='getElencoTipologie',
+        widget=atapi.SelectionWidget(
+            label=_(u"Tipologia della prenotazione"),
+            description=_(u""),
         ),
         required=False,
     ),
 
     atapi.DateTimeField(
         'data_prenotazione',
-        storage = atapi.AnnotationStorage(),
-        widget = atapi.CalendarWidget(
-            label = _(u'Data prenotazione'),
-            description = _(u""),
-            visible = {'edit':'invisible','view':'visible'},
+        storage=atapi.AnnotationStorage(),
+        widget=atapi.CalendarWidget(
+            label=_(u'Data prenotazione'),
+            description=_(u""),
+            visible={'edit': 'invisible', 'view': 'visible'},
         ),
-        required = False,
+        required=False,
     ),
 
     atapi.StringField(
         'azienda',
-        storage = atapi.AnnotationStorage(),
-        widget = atapi.StringWidget(
-            label = _(u"Azienda"),
-            description = _(u"Inserisci la denominazione dell'azienda del richiedente"),
+        storage=atapi.AnnotationStorage(),
+        widget=atapi.StringWidget(
+            label=_(u"Azienda"),
+            description=_(u"Inserisci la denominazione dell'azienda "
+                          u"del richiedente"),
         ),
-        required = False,
+        required=False,
     ),
 
     atapi.StringField(
         'telefono',
-        storage = atapi.AnnotationStorage(),
-        widget = atapi.StringWidget(
-            label = _(u"Telefono"),
-            description = _(u"Inserisci un recapito telefonico"),
+        storage=atapi.AnnotationStorage(),
+        widget=atapi.StringWidget(
+            label=_(u"Telefono"),
+            description=_(u"Inserisci un recapito telefonico"),
         ),
-        required = False,
+        required=False,
     ),
 
     atapi.StringField(
         'email',
-        storage = atapi.AnnotationStorage(),
+        storage=atapi.AnnotationStorage(),
         widget=atapi.StringWidget(
             label="email",
             validator=('isEmail',),
         ),
-        required = True,
+        required=True,
     ),
 ))
 
@@ -106,6 +108,7 @@ PrenotazioneSchema['allowDiscussion'].widget.modes = []
 PrenotazioneSchema['allowDiscussion'].schemata = 'default'
 PrenotazioneSchema['excludeFromNav'].widget.modes = []
 PrenotazioneSchema['excludeFromNav'].schemata = 'default'
+
 
 class Prenotazione(base.ATCTContent):
     """Description of the Example Type"""
@@ -149,7 +152,7 @@ class Prenotazione(base.ATCTContent):
         '''
         session = REQUEST.SESSION
         data_prenotazione = session.get('data_prenotazione', '')
-        
+
         if not data_prenotazione:
             return True
         else:
@@ -157,8 +160,9 @@ class Prenotazione(base.ATCTContent):
 
         parent = self.getPrenotazioniFolder()
         for key in parent.keys():
-            obj=parent[key]
-            if (obj!=self and obj.getData_prenotazione() == data_prenotazione):
+            obj = parent[key]
+            if (obj != self
+                and obj.getData_prenotazione() == data_prenotazione):
                 return True
         return False
 
@@ -175,12 +179,12 @@ class Prenotazione(base.ATCTContent):
             pu = getToolByName(self, 'plone_utils')
             pu.addPortalMessage(OVERBOOKED_MESSAGE, type="error")
             errors['data_prenotazione'] = OVERBOOKED_MESSAGE
-            
+
     def post_validate(self, REQUEST, errors):
         '''
         Add validation for already booked objects
         '''
         self.validateOverbooking(REQUEST, errors)
         return super(Prenotazione, self).post_validate(REQUEST, errors)
-        
+
 atapi.registerType(Prenotazione, PROJECTNAME)

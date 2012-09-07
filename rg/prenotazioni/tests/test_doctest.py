@@ -1,12 +1,9 @@
-import unittest
-import doctest
-
-from zope.testing import doctestunit
-from zope.component import testing, eventtesting
-
+# -*- coding: utf-8 -*-
 from Testing import ZopeTestCase as ztc
-
 from rg.prenotazioni.tests import base
+import doctest
+import unittest
+
 
 def test_suite():
     return unittest.TestSuite([
