@@ -43,10 +43,10 @@
                     tal:attributes="colspan python:len(view.days())">
                     <a id="prevWeekLink" href="#"
 
-                        tal:attributes="href string:${here_url}?data=${prev}"><- settimana precedente</a>
+                        tal:attributes="href string:${here_url}?data=${prev}">&larr; settimana precedente</a>
                     <span tal:content="python: view.requestData().strftime('%B %Y')"></span>
                     <a id="nextWeekLink" href="#"
-                        tal:attributes="href string:${here_url}?data=${next}">settimana successiva -></a>
+                        tal:attributes="href string:${here_url}?data=${next}">settimana successiva &rarr;</a>
                 </th>
             </tr>
             <tr>
