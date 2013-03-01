@@ -35,15 +35,12 @@
 		</div>
 		
 
-        <table id="week" class="listing">
-            <tr>
-                <th colspan="1"
-                    tal:define="prev python:view.prevNextWeek()[0];
-                                next python:view.prevNextWeek()[1]"
-                    tal:attributes="colspan python:len(view.days())">
+        <table id="week" class="pren">
+            <caption tal:define="prev python:view.prevNextWeek()[0];
+                                     next python:view.prevNextWeek()[1]">
                     <a id="prevWeekLink" href="#"
                         tal:attributes="href string:${here_url}?data=${prev}">&larr; settimana precedente</a>
-                    <!--span tal:content="python: view.requestData().strftime('%B %Y')"></span-->
+                    <strong tal:content="python: view.requestData().strftime('%B %Y')">Luglio 1997</strong>
                     <span tal:define="date view/requestData">
                         <tal:month i18n:domain="plonelocales"
                                    i18n:translate=""
@@ -52,15 +49,17 @@
                     </span>
                     <a id="nextWeekLink" href="#"
                         tal:attributes="href string:${here_url}?data=${next}">settimana successiva &rarr;</a>
-                </th>
-            </tr>
-            <tr>
-                <tal:days repeat="day view/days">
-                    <th tal:condition="python:day[0]['inizio_m']!='0' or day[0]['inizio_p']!='0'"
-                        tal:content="python:day[0]['giorno'] + ' ' + day[1].strftime('%d')">Lunedi
-                    </th>
-                </tal:days>
-            </tr>
+            </caption>
+			<thead>
+	            <tr>
+	                <tal:days repeat="day view/days">
+	                    <th scope="col" tal:condition="python:day[0]['inizio_m']!='0' or day[0]['inizio_p']!='0'"
+	                        tal:content="python:day[0]['giorno'] + ' ' + day[1].strftime('%d')">Lunedi
+	                    </th>
+	                </tal:days>
+	            </tr>
+			</thead>
+			<tbody>
             <tr>
                 <tal:days repeat="day view/days">
                     <td class="day"
@@ -163,6 +162,7 @@
                     </td>
                 </tal:days>
             </tr>
+			</tbody>
         </table>
 
         <div metal:use-macro="context/document_relateditems/macros/relatedItems">
