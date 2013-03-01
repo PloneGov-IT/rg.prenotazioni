@@ -42,9 +42,14 @@
                                 next python:view.prevNextWeek()[1]"
                     tal:attributes="colspan python:len(view.days())">
                     <a id="prevWeekLink" href="#"
-
                         tal:attributes="href string:${here_url}?data=${prev}">&larr; settimana precedente</a>
-                    <span tal:content="python: view.requestData().strftime('%B %Y')"></span>
+                    <!--span tal:content="python: view.requestData().strftime('%B %Y')"></span-->
+                    <span tal:define="date view/requestData">
+                        <tal:month i18n:domain="plonelocales"
+                                   i18n:translate=""
+                                   content="python:view.monthMsgid(date.month)" />
+                        <tal:year content="date/year" />
+                    </span>
                     <a id="nextWeekLink" href="#"
                         tal:attributes="href string:${here_url}?data=${next}">settimana successiva &rarr;</a>
                 </th>

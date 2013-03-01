@@ -59,8 +59,7 @@ Oggetto:
         subject = unicode("Conferma prenotazione ", 'UTF-8')
         mailhost = getToolByName(portal, 'MailHost')
         mailhost.secureSend(messaggio, mTo, mFrom, subject=subject,
-                            subtype='plain', charset='UTF-8', debug=False,
-                            From=mFrom)
+                            subtype='plain', charset='UTF-8', debug=False)
 
         return True
 

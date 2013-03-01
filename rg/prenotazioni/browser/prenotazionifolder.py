@@ -150,8 +150,13 @@ class PrenotazioniFolderView(BrowserView):
             data = date(int(day_list[2]), int(day_list[1]), int(day_list[0]))
         else:
             data = date.today()
-
         return data
+
+    def monthMsgid(self, month):
+        """
+        """
+        ts = getToolByName(self.context, 'translation_service')
+        return ts.month(month)
 
     def prevNextWeek(self):
         """ restituisce la data +/- 7
