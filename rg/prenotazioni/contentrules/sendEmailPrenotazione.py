@@ -58,10 +58,11 @@ Oggetto:
 
         subject = unicode("Conferma prenotazione ", 'UTF-8')
         mailhost = getToolByName(portal, 'MailHost')
-        mailhost.secureSend(messaggio, mTo, mFrom, subject=subject,
-                            subtype='plain', charset='UTF-8', debug=False)
+        mailhost.send(messaggio, mTo, mFrom, subject=subject,
+                            subtype='plain', encode='UTF-8')
 
         return True
+
 
 class SendEmailAddForm(NullAddForm):
     """A degenerate "add form"" for create email.

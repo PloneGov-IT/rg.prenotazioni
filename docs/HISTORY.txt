@@ -8,6 +8,7 @@ Changelog
 - Plone 4 support added [micecchi]
 - Added Site Administrator role in rolemap and workflows [micecchi]
 - Fixed translation for month in folder view [micecchi]
+- Fixed mailhost send method (removed securesend) [micecchi]
 
 1.0.2 (2012/09/07)
 ==================
