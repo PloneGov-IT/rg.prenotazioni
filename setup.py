@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '1.0.2'
+version = '1.1.0dev0'
 
 long_description = (
     read('README.txt')
@@ -45,7 +45,7 @@ setup(name='rg.prenotazioni',
       zip_safe=False,
       install_requires=['setuptools',
                         # -*- Extra requirements: -*-
-                        'Products.DataGridField<1.7',
+                        'Products.DataGridField',
                         ],
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),

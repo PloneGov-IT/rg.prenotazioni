@@ -2,6 +2,10 @@
 Changelog
 =========
 
+1.1.0 (unreleased)
+==================
+
+- Plone 4 support added [micecchi]
 
 1.0.2 (2012/09/07)
 ==================

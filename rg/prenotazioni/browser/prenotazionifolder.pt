@@ -8,7 +8,9 @@
 <body>
 
 <metal:main fill-slot="main">
-    <tal:main-macro metal:define-macro="main">
+    <tal:main-macro metal:define-macro="main"
+                    tal:define="here_url context/@@plone_context_state/object_url;
+                                member context/@@plone_portal_state/member;">
 
         <div tal:replace="structure provider:plone.abovecontenttitle" />
 
