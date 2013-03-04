@@ -11,7 +11,7 @@ from zope.i18nmessageid import MessageFactory
 # This will be imported with the special name "_" in most modules. Strings
 # like _(u"message") will then be extracted by i18n tools for translation.
 
-prenotazioniMessageFactory = MessageFactory('plone')
+prenotazioniMessageFactory = MessageFactory('rg.prenotazioni')
 
 
 def initialize(context):

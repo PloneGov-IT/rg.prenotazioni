@@ -5,10 +5,13 @@ Changelog
 1.1.0 (unreleased)
 ==================
 
-- Plone 4 support added [micecchi]
-- Added Site Administrator role in rolemap and workflows [micecchi]
-- Fixed translation for month in folder view [micecchi]
-- Fixed mailhost send method (removed securesend) [micecchi]
+- Plone 4 support added [cekk]
+- Added Site Administrator role in rolemap and workflows [cekk]
+- Fixed translation for month in folder view [cekk]
+- Fixed mailhost send method (removed securesend) [cekk]
+- Created new event raised when a booking is rescheduled [cekk]
+- Added new contentrule that notify an user when his booking has re-scheduled [cekk]
+- Added locales support [cekk]
 - Fixed layout styles and accessibility [keul]
 - Do not show reservation object in navigation [keul]
 - Removed useless portal_skins elements [keul]

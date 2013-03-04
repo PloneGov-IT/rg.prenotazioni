@@ -1,0 +1,166 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2013-03-04 10:50+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: rg.prenotazioni\n"
+
+#: ./content/prenotazione.py:30
+#: ./content/prenotazionifolder.py:43
+msgid ""
+msgstr ""
+
+#: ./contentrules/sendMovedPrenotazione.py:122
+msgid "A mail action that sends email notify when a booking is moved in an other slot."
+msgstr ""
+
+#: ./contentrules/sendMovedPrenotazione.py:121
+msgid "Add moved booking Mail Action"
+msgstr ""
+
+#: ./content/prenotazione.py:50
+msgid "Azienda"
+msgstr ""
+
+#: ./skins/rg_prenotazioni_custom_scripts/validate_atct.vpy:44
+#: ./skins/rg_prenotazioni_custom_scripts/validate_integrity.cpy:41
+msgid "Changes saved."
+msgstr ""
+
+#: ./contentrules/sendMovedPrenotazione.py:123
+msgid "Configure element"
+msgstr ""
+
+#: ./content/prenotazionifolder.py:54
+msgid "Data fine validità"
+msgstr ""
+
+#: ./content/prenotazionifolder.py:42
+msgid "Data inizio validità"
+msgstr ""
+
+#: ./content/prenotazione.py:39
+msgid "Data prenotazione"
+msgstr ""
+
+#: ./content/prenotazionifolder.py:33
+msgid "Descrizione Agenda"
+msgstr ""
+
+#: ./content/prenotazionifolder.py:66
+msgid "Durata incontro"
+msgstr ""
+
+#: ./contentrules/sendMovedPrenotazione.py:136
+msgid "Edit moved booking Mail Action"
+msgstr ""
+
+#: ./content/prenotazionifolder.py:129
+msgid "Email del responsabile"
+msgstr ""
+
+#: ./contentrules/sendMovedPrenotazione.py:56
+msgid "Email report to prenotazione owner"
+msgstr ""
+
+#: ./content/prenotazionifolder.py:107
+msgid "Giorni festivi"
+msgstr ""
+
+#: ./content/prenotazionifolder.py:108
+msgid "Indicare i giorni festivi (una per riga) nel formato gg/mm/aaaa"
+msgstr ""
+
+#: ./content/prenotazionifolder.py:83
+msgid "Indicare la composizione della settimana tipo"
+msgstr ""
+
+#: ./content/prenotazionifolder.py:130
+msgid "Inserisci l'indirizzo email del responsabile delle prenotazioni"
+msgstr ""
+
+#: ./content/prenotazione.py:51
+msgid "Inserisci la denominazione dell'azienda del richiedente"
+msgstr ""
+
+#: ./content/prenotazionifolder.py:119
+msgid "Inserisci le tipologie (una per riga) delle richieste di prenotazione"
+msgstr ""
+
+#: ./content/prenotazione.py:62
+msgid "Inserisci un recapito telefonico"
+msgstr ""
+
+#: ./contentrules/sendMovedPrenotazione.py:34
+msgid "Message"
+msgstr ""
+
+#: ./content/prenotazione.py:82
+msgid "Nome e Cognome"
+msgstr ""
+
+#: ./content/prenotazione.py:86
+msgid "Oggetto"
+msgstr ""
+
+#: ./skins/rg_prenotazioni_custom_scripts/validate_atct.vpy:40
+#: ./skins/rg_prenotazioni_custom_scripts/validate_integrity.cpy:25
+msgid "Please correct the indicated errors."
+msgstr ""
+
+#: ./skins/rg_prenotazioni_custom_scripts/validate_integrity.cpy:37
+msgid "Richiesta prenotazione effettuata correttamente"
+msgstr ""
+
+#: ./contentrules/sendMovedPrenotazione.py:27
+msgid "Sender email"
+msgstr ""
+
+#: ./content/prenotazionifolder.py:82
+msgid "Settimana Tipo"
+msgstr ""
+
+#: ./content/prenotazionifolder.py:67
+msgid "Specificare la durata in minuti"
+msgstr ""
+
+#: ./contentrules/sendMovedPrenotazione.py:21
+msgid "Subject"
+msgstr ""
+
+#: ./contentrules/sendMovedPrenotazione.py:22
+msgid "Subject of the message"
+msgstr ""
+
+#: ./content/prenotazione.py:61
+msgid "Telefono"
+msgstr ""
+
+#: ./contentrules/sendMovedPrenotazione.py:28
+msgid "The email address that sends the email. If no email is             provided here, it will use the address from portal."
+msgstr ""
+
+#: ./content/prenotazione.py:29
+msgid "Tipologia della prenotazione"
+msgstr ""
+
+#: ./content/prenotazionifolder.py:118
+msgid "Tipologie delle richieste"
+msgstr ""
+
+#: ./contentrules/sendMovedPrenotazione.py:35
+msgid "Type in here the message that you want to mail. Some             defined content can be replaced: ${title} will be replace with booking title. ${url} will be replaced by the booking url. ${portal} will be replaced by the title             of the portal."
+msgstr ""
+

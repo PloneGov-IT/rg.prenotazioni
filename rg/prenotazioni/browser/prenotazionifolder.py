@@ -8,6 +8,8 @@ from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from datetime import timedelta, date
+from zope.event import notify
+from rg.prenotazioni.prenotazione_event import MovedPrenotazione
 
 
 class PrenotazioniFolderView(BrowserView):
@@ -247,6 +249,7 @@ class SavePrenotazione(BrowserView):
                 obj.setData_prenotazione(data_prenotazione)
                 obj.reindexObject()
                 msg = ('Appuntamento spostato correttamente.')
+                notify(MovedPrenotazione(obj))
             else:
                 msg = ('Problemi con lo spostamento. '
                        'Contatta l\'amministratore.')

@@ -37,7 +37,7 @@ class SendEmailActionExecutor(object):
         obj = self.event.object
         urltool = getToolByName(aq_inner(self.context), "portal_url")
         portal = urltool.getPortalObject()
-
+        email_charset = portal.getProperty('email_charset')
         # individuo la mail
         mTo = obj.getEmail()
         mFrom = obj.getEmailResponsabile()
@@ -58,8 +58,16 @@ Oggetto:
 
         subject = unicode("Conferma prenotazione ", 'UTF-8')
         mailhost = getToolByName(portal, 'MailHost')
-        mailhost.send(messaggio, mTo, mFrom, subject=subject,
-                             msg_type='text/plain', encode='UTF-8')
+        try:
+            # sending mail in Plone 4
+            mailhost.send(messaggio, mto=mTo, mfrom=mFrom,
+                    subject=subject, charset=email_charset,
+                    msg_type='text/plain')
+        except:
+            #sending mail in Plone 3
+            mailhost.secureSend(messaggio, mTo, mFrom,
+                    subject=subject, subtype='plain',
+                    charset=email_charset, debug=False)
 
         return True
 
