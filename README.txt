@@ -44,6 +44,16 @@ Managers can confirm a Prenotazione using workflow transitions.
 The workflow transition triggers an email to be sent to the booker.
 
 ============
+ContentRules
+============
+
+There are an additional contentrule that can be used to notify booking owner when his booking has benn rescheduled.
+
+There is a new trigger event for contentrules called "Booking moved" that will be triggered when a booking is rescheduled by an admin.
+
+There is also a new action that allows to configure a mail that will be sent to the booking owner.
+
+============
 Installation
 ============
  
