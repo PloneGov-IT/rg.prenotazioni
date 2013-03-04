@@ -9,6 +9,10 @@ Changelog
 - Added Site Administrator role in rolemap and workflows [micecchi]
 - Fixed translation for month in folder view [micecchi]
 - Fixed mailhost send method (removed securesend) [micecchi]
+- Fixed layout styles and accessibility [keul]
+- Do not show reservation object in navigation [keul]
+- Removed useless portal_skins elements [keul]
+- Removed bad ploneCustom.css css, moved to a dedicated CSS [keul]
 
 1.0.2 (2012/09/07)
 ==================

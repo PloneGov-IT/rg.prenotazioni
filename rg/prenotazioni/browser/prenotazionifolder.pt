@@ -40,13 +40,12 @@
                                      next python:view.prevNextWeek()[1]">
                     <a id="prevWeekLink" href="#"
                         tal:attributes="href string:${here_url}?data=${prev}">&larr; settimana precedente</a>
-                    <strong tal:content="python: view.requestData().strftime('%B %Y')">Luglio 1997</strong>
-                    <span tal:define="date view/requestData">
+                    <strong tal:define="date view/requestData">
                         <tal:month i18n:domain="plonelocales"
                                    i18n:translate=""
                                    content="python:view.monthMsgid(date.month)" />
                         <tal:year content="date/year" />
-                    </span>
+                    </strong>
                     <a id="nextWeekLink" href="#"
                         tal:attributes="href string:${here_url}?data=${next}">settimana successiva &rarr;</a>
             </caption>
@@ -68,8 +67,10 @@
                         tal:condition="python:mattina or pomeriggio"
                         tal:attributes="rowspan python:view.spanRow(day[0]);
                                         class python:day[1]==view.requestData() and 'day selected' or 'day'">
-                        <table class="plain">
-                            <tr tal:repeat="slot python:view.slots(day[0])[0]">
+                        <table class="plain period">
+                        	<tal:slots repeat="slot python:view.slots(day[0])[0]">
+                            <tr tal:define="oddrow repeat/slot/odd"
+							    tal:attributes="class python:oddrow and 'odd' or 'even'">
                                 <td class="slot"
                                     tal:define="orario python:view.getTime(day[0], slot,'m');
                                                 prenotazione python:view.getPrenotazione(day[1], orario)">
@@ -79,7 +80,7 @@
                                         <!-- non esiste una prenotazione -->
                                         <a href="" class="aggiungiPrenotazione" title="Richiedi prenotazione"
                                             tal:condition="python:view.displayAggiungiPrenotazione(prenotazione)"
-                                            tal:attributes="href python:here_url+'/creaPrenotazione?data_prenotazione='+day[1].strftime('%Y/%m/%d')+' '+orario+':00'"> +</a>
+                                            tal:attributes="href python:here_url+'/creaPrenotazione?data_prenotazione='+day[1].strftime('%Y/%m/%d')+' '+orario+':00'">+</a>
                                         <!-- esiste la prenotazione e sono editor della folder -->
                                         <a href="" class="state-pending"
                                             tal:condition="python:view.displayPrenotazione(prenotazione, member)"
@@ -108,6 +109,7 @@
                                     </tal:sposta>
                                 </td>
                             </tr>
+							</tal:slots>
                         </table>
                     </td>
                 </tal:days>
@@ -118,8 +120,10 @@
                                     pomeriggio python:day[0]['inizio_p']!='0'"
                         tal:condition="python:pomeriggio"
                         tal:attributes="class python:day[1]==view.requestData() and 'day selected' or 'day'">
-                        <table class="plain">
-                            <tr tal:repeat="slot python:view.slots(day[0])[1]">
+                        <table class="plain period">
+                        	<tal:slots repeat="slot python:view.slots(day[0])[1]">
+                            <tr tal:define="oddrow repeat/slot/odd"
+							    tal:attributes="class python:oddrow and 'even' or 'odd'">
                                 <td class="slot"
                                     tal:define="orario python:view.getTime(day[0], slot,'p');
                                                 prenotazione python:view.getPrenotazione(day[1], orario)">
@@ -158,6 +162,7 @@
                                     </tal:sposta>
                                 </td>
                             </tr>
+							</tal:slots>
                         </table>
                     </td>
                 </tal:days>

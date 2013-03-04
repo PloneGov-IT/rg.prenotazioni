@@ -1,0 +1,66 @@
+/*
+ * RG Prenotazioni Styles
+ */
+
+td.day {
+    vertical-align:top;
+    min-width: 150px;
+	border: 1px solid #ddd;
+	border-collapse: collapse;
+}
+
+td.selected {
+    background-color: #fefefe;
+}
+
+.pren {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.pren caption {
+	padding-bottom: 0.3em;
+	margin-bottom: 0.5em;
+	border: 1px solid #DDDDDD;
+}
+
+.pren th {
+	text-align: center;
+	font-weight: bold;
+	border: 1px solid #ddd;
+}
+
+.pren .period td {
+	border: none;
+}
+
+.pren tr.odd {
+    background: none repeat scroll 0 0 #EEEEEE;
+}
+
+.pren .period {
+	width: 100%;
+}
+
+.pren tr.odd td {
+    background: none repeat scroll 0 0 #EEEEEE;
+	line-height: 2em;
+}
+
+#content .pren .slot a,
+#content .pren .slot a:link,
+#content .pren .slot a:visited,
+#content .pren caption a,
+#content .pren caption a:link
+#content .pren caption a:visited
+#content .pren a.aggiungiPrenotazione,
+#content .pren a.aggiungiPrenotazione:link,
+#content .pren a.aggiungiPrenotazione:visited {
+	text-decoration: none;
+	border-bottom: none;
+}
+
+.pren caption strong {
+	margin: 0.2em 1em;
+}
+

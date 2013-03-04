@@ -2,7 +2,6 @@
 
 <object name="portal_catalog" meta_type="Plone Catalog Tool">
 
-    <!--getEmail (viene da remember)-->
     <index name="getData_prenotazione" meta_type="DateIndex">
         <indexed_attr value="getData_prenotazione" />
     </index>
