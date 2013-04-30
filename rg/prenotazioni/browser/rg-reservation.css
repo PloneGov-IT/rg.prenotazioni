@@ -16,6 +16,7 @@ td.selected {
 .pren {
     border-collapse: collapse;
     border-spacing: 0;
+	min-width: 50%;
 }
 
 .pren caption {

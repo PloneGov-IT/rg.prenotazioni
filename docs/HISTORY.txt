@@ -17,6 +17,10 @@ Changelog
 - Removed useless portal_skins elements [keul]
 - Removed bad ploneCustom.css css, moved to a dedicated CSS [keul]
 - Content types are now in english and translated [keul]
+- PrenotazioniFolder end date is not required anymore
+  (folder can now never expire) [keul]
+- Can't booking in past slots anymore [keul]
+- Addable types filtered [keul]
 
 1.0.2 (2012/09/07)
 ==================

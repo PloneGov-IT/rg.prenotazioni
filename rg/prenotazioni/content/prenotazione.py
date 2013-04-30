@@ -12,22 +12,22 @@ from rg.prenotazioni.config import PROJECTNAME
 from rg.prenotazioni.interfaces import IPrenotazione, IPrenotazioniFolder
 from zope.interface import implements
 
-OVERBOOKED_MESSAGE = (u"Siamo spiacenti, è già stato preso un appuntamento "
-                      u"nella stessa fascia oraria, premere il pulsante "
-                      u"ANNULLA per effettuare una nuova richiesta di "
-                      u"prenotazione")
+OVERBOOKED_MESSAGE = _('overbook_message',
+                      default=u"Siamo spiacenti, è già stato preso un appuntamento "
+                              u"nella stessa fascia oraria, premere il pulsante "
+                              u"ANNULLA per effettuare una nuova richiesta di "
+                              u"prenotazione")
 
 
 PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
 
-    # -*- Your Archetypes field definitions here ... -*-
     atapi.StringField(
         'tipologia_prenotazione',
         storage=atapi.AnnotationStorage(),
         vocabulary='getElencoTipologie',
         widget=atapi.SelectionWidget(
             label=_(u"Tipologia della prenotazione"),
-            description=_(u""),
+            condition='object/getElencoTipologie',
         ),
         required=False,
     ),
@@ -38,7 +38,7 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         widget=atapi.CalendarWidget(
             label=_(u'Data prenotazione'),
             description=_(u""),
-            visible={'edit': 'invisible', 'view': 'visible'},
+            visible={'edit': 'hidden', 'view': 'visible'},
         ),
         required=False,
     ),
@@ -120,8 +120,14 @@ class Prenotazione(base.ATCTContent):
     title = atapi.ATFieldProperty('title')
     description = atapi.ATFieldProperty('description')
 
+    def validate_tipologia_prenotazione(self, value):
+        # simulate required field using Archetypes inner feature
+        if not value and self.getElencoTipologie():
+            errors = {}
+            return self.getField('tipologia_prenotazione').validate_required(self, value, errors)
+
     def getPrenotazioniFolder(self):
-        """Ritornal'oggetto prenotazioni folder"""
+        """Ritorna l'oggetto prenotazioni folder"""
 
         for parent in aq_chain(self):
             if IPrenotazioniFolder.providedBy(parent):

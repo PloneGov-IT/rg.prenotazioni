@@ -16,7 +16,7 @@
   <!-- Register the installation GenericSetup extension profile -->
   <genericsetup:registerProfile
       name="default"
-      title="Reno Galliera Prenotazioni"
+      title="Reno Galliera Booking"
       directory="profiles/default"
       description="Booking product for Plone"
       provides="Products.GenericSetup.interfaces.EXTENSION"

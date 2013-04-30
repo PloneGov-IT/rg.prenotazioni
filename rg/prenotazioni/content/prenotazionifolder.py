@@ -52,10 +52,11 @@ PrenotazioniFolderSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         storage=atapi.AnnotationStorage(),
         widget=atapi.CalendarWidget(
             label=_(u'Data fine validità'),
-            description=_(u""),
+            description=_("aData_help",
+                          default=u"Leave empty, and this Booking Folder will never expire"),
             show_hm=False,
         ),
-        required=True,
+        required=False,
     ),
 
     atapi.IntegerField(
@@ -115,22 +116,24 @@ PrenotazioniFolderSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         'tipologia',
         storage=atapi.AnnotationStorage(),
         widget=atapi.LinesWidget(
-            label=_(u'Tipologie delle richieste'),
-            description=_(u'Inserisci le tipologie (una per riga) '
-                          u'delle richieste di prenotazione'),
+            label=_(u'Tipologie di richiesta'),
+            description=_('tipologia_help',
+                          default=u"Put booking types there (one per line).\n"
+                                  u"If you did't provide this field, "
+                                  u"not type selection will be available"),
         ),
-        required=True,
+        required=False,
     ),
 
     atapi.StringField(
         'email_responsabile',
-        required=True,
+        required=False,
         widget=atapi.StringWidget(
             label=_(u'Email del responsabile'),
             description=_(u"Inserisci l'indirizzo email del responsabile "
                            "delle prenotazioni"),
             validator=('isEmail',),
-            size=80),
+            size=50),
     ),
 
 ))

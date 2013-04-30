@@ -19,3 +19,6 @@ msgstr ""
 
 msgid "Booking product for Plone"
 msgstr ""
+
+msgid "Reno Galliera Booking"
+msgstr ""

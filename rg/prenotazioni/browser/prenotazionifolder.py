@@ -174,9 +174,12 @@ class PrenotazioniFolderView(BrowserView):
         """
         festivi = self.context.getFestivi()
         da_data = self.context.getDaData().strftime('%Y/%m/%d').split('/')
-        a_data = self.context.getAData().strftime('%Y/%m/%d').split('/')
+        a_data = self.context.getAData() and self.context.getAData().strftime('%Y/%m/%d').split('/')
         date_dadata = date(int(da_data[0]), int(da_data[1]), int(da_data[2]))
-        date_adata = date(int(a_data[0]), int(a_data[1]), int(a_data[2]))
+        date_adata = None
+        if a_data:
+            date_adata = date(int(a_data[0]), int(a_data[1]), int(a_data[2]))
+        today = date.today()
 
         res = []
 
@@ -190,9 +193,11 @@ class PrenotazioniFolderView(BrowserView):
 
         if day in res:
             return False
+        if day < today:
+            return False
         if day < date_dadata:
             return False
-        if day > date_adata:
+        if date_adata and day > date_adata:
             return False
 
         return True
@@ -208,7 +213,7 @@ class CreatePrenotazione(BrowserView):
     def __call__(self, *args):
         data = self.request.get('data_prenotazione', '')
         self.request.SESSION.set('data_prenotazione', data)
-        self.request.RESPONSE.redirect("createObject?type_name=Prenotazione")
+        self.request.RESPONSE.redirect("createObject?type_name=Prenotazione&data_prenotazione=" + data)
 
 
 class MovePrenotazione(BrowserView):

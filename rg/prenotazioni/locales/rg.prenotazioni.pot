@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-04-30 08:06+0000\n"
+"POT-Creation-Date: 2013-04-30 09:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,7 +66,7 @@ msgstr ""
 msgid "Descrizione Agenda"
 msgstr ""
 
-#: ./content/prenotazionifolder.py:66
+#: ./content/prenotazionifolder.py:67
 msgid "Durata incontro"
 msgstr ""
 
@@ -74,7 +74,7 @@ msgstr ""
 msgid "Edit moved booking Mail Action"
 msgstr ""
 
-#: ./content/prenotazionifolder.py:129
+#: ./content/prenotazionifolder.py:132
 msgid "Email del responsabile"
 msgstr ""
 
@@ -82,15 +82,15 @@ msgstr ""
 msgid "Email report to prenotazione owner"
 msgstr ""
 
-#: ./content/prenotazionifolder.py:107
+#: ./content/prenotazionifolder.py:108
 msgid "Giorni festivi"
 msgstr ""
 
-#: ./content/prenotazionifolder.py:108
+#: ./content/prenotazionifolder.py:109
 msgid "Indicare i giorni festivi (una per riga) nel formato gg/mm/aaaa"
 msgstr ""
 
-#: ./content/prenotazionifolder.py:83
+#: ./content/prenotazionifolder.py:84
 msgid "Indicare la composizione della settimana tipo"
 msgstr ""
 
@@ -98,16 +98,12 @@ msgstr ""
 msgid "Informations about a single booking"
 msgstr ""
 
-#: ./content/prenotazionifolder.py:130
+#: ./content/prenotazionifolder.py:133
 msgid "Inserisci l'indirizzo email del responsabile delle prenotazioni"
 msgstr ""
 
 #: ./content/prenotazione.py:51
 msgid "Inserisci la denominazione dell'azienda del richiedente"
-msgstr ""
-
-#: ./content/prenotazionifolder.py:119
-msgid "Inserisci le tipologie (una per riga) delle richieste di prenotazione"
 msgstr ""
 
 #: ./content/prenotazione.py:62
@@ -131,6 +127,9 @@ msgstr ""
 msgid "Please correct the indicated errors."
 msgstr ""
 
+msgid "Reno Galliera Booking"
+msgstr ""
+
 #: ./skins/rg_prenotazioni_custom_scripts/validate_integrity.cpy:37
 msgid "Richiesta prenotazione effettuata correttamente"
 msgstr ""
@@ -139,11 +138,11 @@ msgstr ""
 msgid "Sender email"
 msgstr ""
 
-#: ./content/prenotazionifolder.py:82
+#: ./content/prenotazionifolder.py:83
 msgid "Settimana Tipo"
 msgstr ""
 
-#: ./content/prenotazionifolder.py:67
+#: ./content/prenotazionifolder.py:68
 msgid "Specificare la durata in minuti"
 msgstr ""
 
@@ -163,8 +162,13 @@ msgstr ""
 msgid "Tipologia della prenotazione"
 msgstr ""
 
-#: ./content/prenotazionifolder.py:118
+#: ./content/prenotazionifolder.py:119
 msgid "Tipologie delle richieste"
+msgstr ""
+
+#. Default: "Leave empty, and this Booking Folder will never expire"
+#: ./content/prenotazionifolder.py:55
+msgid "aData_help"
 msgstr ""
 
 #. Default: "Type in here the message that you want to mail. Some defined content can be replaced: ${title} will be replaced with booking title (user fullname). ${date} will be replaced with booking new date. ${url} will be replaced by the booking url. ${portal} will be replaced by the title of the portal."
@@ -172,8 +176,18 @@ msgstr ""
 msgid "message_help"
 msgstr ""
 
+#. Default: "Siamo spiacenti, è già stato preso un appuntamento nella stessa fascia oraria, premere il pulsante ANNULLA per effettuare una nuova richiesta di prenotazione"
+#: ./content/prenotazione.py:15
+msgid "overbook_message"
+msgstr ""
+
 #. Default: "The email address that sends the email. If no email is provided here, it will use the address from portal."
 #: ./contentrules/sendMovedPrenotazione.py:28
 msgid "source_help"
+msgstr ""
+
+#. Default: "Put booking types there (one per line).\nIf you did't provide this field, not type selection will be available"
+#: ./content/prenotazionifolder.py:120
+msgid "tipologia_help"
 msgstr ""
 
