@@ -10,7 +10,8 @@
 <metal:main fill-slot="main">
     <tal:main-macro metal:define-macro="main"
                     tal:define="here_url context/@@plone_context_state/object_url;
-                                member context/@@plone_portal_state/member;">
+                                member context/@@plone_portal_state/member;
+								putils context/plone_utils;">
 
         <div tal:replace="structure provider:plone.abovecontenttitle" />
 
@@ -37,9 +38,7 @@
            </div>
 
            <div class="field" condition="here/getData_prenotazione">
-               <metal:field use-macro="python:here.widget('data_prenotazione', mode='view')">
-               data_prenotazione
-               </metal:field>
+               <span tal:replace="python:putils.toLocalizedTime(context.getData_prenotazione(), True)" />
            </div>
 
            <div class="field" condition="here/getAzienda">
