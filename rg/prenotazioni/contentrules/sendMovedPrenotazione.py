@@ -25,16 +25,18 @@ class IMovedPrenotazioneAction(Interface):
 
     source = schema.TextLine(
         title=_(u"Sender email"),
-        description=_("The email address that sends the email. If no email is \
-            provided here, it will use the address from portal."),
+        description=_('source_help',
+                      default=u"The email address that sends the email. If no email is "
+                              u"provided here, it will use the address from portal."),
          required=False
          )
 
     message = schema.Text(
         title=_(u"Message"),
-        description=_(u"Type in here the message that you want to mail. Some \
-            defined content can be replaced: ${title} will be replaced with booking title (user fullname). ${date} will be replaced with booking new date. ${url} will be replaced by the booking url. ${portal} will be replaced by the title \
-            of the portal."),
+        description=_('message_help',
+            default=u"Type in here the message that you want to mail. Some "
+                    u"defined content can be replaced: ${title} will be replaced with booking title (user fullname). ${date} will be replaced with booking new date. ${url} will be replaced by the booking url. ${portal} will be replaced by the title "
+                    u"of the portal."),
         required=True
         )
 
@@ -71,8 +73,8 @@ class MailActionExecutor(object):
     def __call__(self):
         mailhost = getToolByName(aq_inner(self.context), "MailHost")
         if not mailhost:
-            raise ComponentLookupError, 'You must have a Mailhost utility to \
-execute this action'
+            raise ComponentLookupError('You must have a Mailhost utility to '
+                                       'execute this action')
         source = self.element.source
         urltool = getToolByName(aq_inner(self.context), "portal_url")
         portal = urltool.getPortalObject()
@@ -82,8 +84,8 @@ execute this action'
             # address
             from_address = portal.getProperty('email_from_address')
             if not from_address:
-                raise ValueError, 'You must provide a source address for this \
-action or enter an email in the portal properties'
+                raise ValueError('You must provide a source address for this '
+                                 'action or enter an email in the portal properties')
             from_name = portal.getProperty('email_from_name')
             source = "%s <%s>" % (from_name, from_address)
         plone_view = portal.restrictedTraverse("@@plone")

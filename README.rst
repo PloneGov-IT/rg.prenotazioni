@@ -1,46 +1,48 @@
+A **booking product for Plone** that allows you to reserve slots of time across the week.
+
 .. contents::
 
 ============
 Introduction
 ============
 
-**rg.prenotazioni** is a booking product that allows you to reserve slots of time across the week.
+This product introduces two new contents to your Plone site:
 
-It introduces two archetypes to your Plone site:
+- `Booking Folder`_
+- `Booking`_
 
-- `PrenotazioniFolder`_
-- `Prenotazione`_
+Booking Folder
+==============
 
-PrenotazioniFolder
-==================
-
-Is a folderish content type that will store your reservations (the content type `Prenotazione`_).
+Is a folderish content type that will store your reservations (the content type `Booking`_).
 
 .. figure:: http://blog.redturtle.it/pypi-images/rg.prenotazioni/prenotazionifolderedit.png/image_preview
    :alt: The edit form of PrenotazioniFolder
 
-The edit form of PrenotazioniFolder
+The edit form of Booking Folder
 
 .. figure:: http://blog.redturtle.it/pypi-images/rg.prenotazioni/prenotazionifolderview.png/image_preview
-   :alt: The view of PrenotazioniFolder
+   :alt: The view of Booking Folder
 
-The default view of PrenotazioniFolder
+The default view of Booking Folder
 
-Prenotazione
-==================
-Clicking on one of the plus signs that are shown in each available calendar slot, you can insert a Prenotazione into your PrenotazioniFolder.
+Booking
+=======
+
+Clicking on one of the plus signs that are shown in each available calendar slot,
+you can insert a Booking into your Booking Folder.
 
 .. image:: http://blog.redturtle.it/pypi-images/rg.prenotazioni/prenotazioneadd.png/image_preview
-   :alt: Add PrenotazioniFolder
+   :alt: Add Booking
 
 Features
 ========
 
-After adding a Prenotazione, non managers users see that the slot is busy, managers 
-see in the slot who made the request, alink to the Prenotazione detail and a link to 
-move the Prenotazione.
+After adding a Booking, non managers users see that the slot is busy, managers 
+see in the slot who made the request, alink to the Booking detail and a link to 
+move the Booking.
 
-Managers can confirm a Prenotazione using workflow transitions. 
+Managers can confirm a Booking using workflow transitions. 
 The workflow transition triggers an email to be sent to the booker.
 
 ============
@@ -57,28 +59,20 @@ There is also a new action that allows to configure a mail that will be sent to 
 Installation
 ============
  
-Add **rg.prenotazioni** to the egg section of your instance::
-  
+Add **rg.prenotazioni** to the egg section of your instance:
+
+.. code-block:: ini
+
   [instance]
   eggs=
       ...
       rg.prenotazioni
-      ...
 
-  zcml=
-      ...
-      rg.prenotazioni
-      ...
-
-=====
 Notes
 =====
-**rg.prenotazioni** has been fully tested only with Plone 3.1.7.
-It has been partially tested with Plone 3.3.6. At the moment it **will not work with Plone 4**
 
-**rg.prenotazioni** depends on
-`Products.DataGridField <http://plone.org/products/datagridfield>`_, 
-which is automatically included in your buildout, so you do not have to take care about it.
+**rg.prenotazioni** has been fully tested only with Plone 3.1.7.
+It has been partially tested with Plone 3.3.6.
 
 Credits
 =======
@@ -102,8 +96,3 @@ This product was developed by RedTurtle Technology team.
 .. image:: http://www.redturtle.it/redturtle_banner.png
    :alt: RedTurtle Technology Site
    :target: http://www.redturtle.it/
-
-TODO
-====
-- Locatlization;
-- Porting to recent versions of Plone;

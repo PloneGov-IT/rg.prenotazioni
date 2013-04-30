@@ -18,11 +18,10 @@
       name="default"
       title="Reno Galliera Prenotazioni"
       directory="profiles/default"
-      description=""
+      description="Booking product for Plone"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
-  <!-- -*- extra stuff goes here -*- -->
-    <include file="skins.zcml" />
+  <include file="skins.zcml" />
 
 </configure>

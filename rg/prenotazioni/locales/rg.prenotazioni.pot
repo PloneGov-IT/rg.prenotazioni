@@ -1,10 +1,7 @@
-# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
-# SOME DESCRIPTIVE TITLE.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-03-04 10:50+0000\n"
+"POT-Creation-Date: 2013-04-30 08:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,18 +12,17 @@ msgstr ""
 "Language-Code: en\n"
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: rg.prenotazioni\n"
+"Domain: DOMAIN\n"
 
-#: ./content/prenotazione.py:30
-#: ./content/prenotazionifolder.py:43
-msgid ""
+#: ./profiles/default/types/PrenotazioniFolder.xml
+msgid "A folder that will contain booking"
 msgstr ""
 
-#: ./contentrules/sendMovedPrenotazione.py:122
+#: ./contentrules/sendMovedPrenotazione.py:124
 msgid "A mail action that sends email notify when a booking is moved in an other slot."
 msgstr ""
 
-#: ./contentrules/sendMovedPrenotazione.py:121
+#: ./contentrules/sendMovedPrenotazione.py:123
 msgid "Add moved booking Mail Action"
 msgstr ""
 
@@ -34,12 +30,23 @@ msgstr ""
 msgid "Azienda"
 msgstr ""
 
+#: ./profiles/default/types/Prenotazione.xml
+msgid "Booking"
+msgstr ""
+
+#: ./profiles/default/types/PrenotazioniFolder.xml
+msgid "Booking Folder"
+msgstr ""
+
+msgid "Booking product for Plone"
+msgstr ""
+
 #: ./skins/rg_prenotazioni_custom_scripts/validate_atct.vpy:44
 #: ./skins/rg_prenotazioni_custom_scripts/validate_integrity.cpy:41
 msgid "Changes saved."
 msgstr ""
 
-#: ./contentrules/sendMovedPrenotazione.py:123
+#: ./contentrules/sendMovedPrenotazione.py:125
 msgid "Configure element"
 msgstr ""
 
@@ -63,7 +70,7 @@ msgstr ""
 msgid "Durata incontro"
 msgstr ""
 
-#: ./contentrules/sendMovedPrenotazione.py:136
+#: ./contentrules/sendMovedPrenotazione.py:138
 msgid "Edit moved booking Mail Action"
 msgstr ""
 
@@ -71,7 +78,7 @@ msgstr ""
 msgid "Email del responsabile"
 msgstr ""
 
-#: ./contentrules/sendMovedPrenotazione.py:56
+#: ./contentrules/sendMovedPrenotazione.py:58
 msgid "Email report to prenotazione owner"
 msgstr ""
 
@@ -85,6 +92,10 @@ msgstr ""
 
 #: ./content/prenotazionifolder.py:83
 msgid "Indicare la composizione della settimana tipo"
+msgstr ""
+
+#: ./profiles/default/types/Prenotazione.xml
+msgid "Informations about a single booking"
 msgstr ""
 
 #: ./content/prenotazionifolder.py:130
@@ -103,7 +114,7 @@ msgstr ""
 msgid "Inserisci un recapito telefonico"
 msgstr ""
 
-#: ./contentrules/sendMovedPrenotazione.py:34
+#: ./contentrules/sendMovedPrenotazione.py:35
 msgid "Message"
 msgstr ""
 
@@ -148,10 +159,6 @@ msgstr ""
 msgid "Telefono"
 msgstr ""
 
-#: ./contentrules/sendMovedPrenotazione.py:28
-msgid "The email address that sends the email. If no email is             provided here, it will use the address from portal."
-msgstr ""
-
 #: ./content/prenotazione.py:29
 msgid "Tipologia della prenotazione"
 msgstr ""
@@ -160,7 +167,13 @@ msgstr ""
 msgid "Tipologie delle richieste"
 msgstr ""
 
-#: ./contentrules/sendMovedPrenotazione.py:35
-msgid "Type in here the message that you want to mail. Some             defined content can be replaced: ${title} will be replace with booking title. ${url} will be replaced by the booking url. ${portal} will be replaced by the title             of the portal."
+#. Default: "Type in here the message that you want to mail. Some defined content can be replaced: ${title} will be replaced with booking title (user fullname). ${date} will be replaced with booking new date. ${url} will be replaced by the booking url. ${portal} will be replaced by the title of the portal."
+#: ./contentrules/sendMovedPrenotazione.py:36
+msgid "message_help"
+msgstr ""
+
+#. Default: "The email address that sends the email. If no email is provided here, it will use the address from portal."
+#: ./contentrules/sendMovedPrenotazione.py:28
+msgid "source_help"
 msgstr ""
 

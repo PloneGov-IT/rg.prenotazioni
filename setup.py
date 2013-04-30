@@ -6,35 +6,24 @@ import os
 from setuptools import setup, find_packages
 
 
-def read(*rnames):
-    return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
-
 version = '1.1.0dev0'
 
-long_description = (
-    read('README.txt')
-    + '\n\n' +
-    read('docs', 'HISTORY.txt')
-    + '\n' +
-    '========\n'
-    'Download\n'
-    '========\n'
-    )
 
 tests_require = ['zope.testing']
 
 setup(name='rg.prenotazioni',
       version=version,
-      description="Prenotazioni product for Unione Reno Galliera",
-      long_description=long_description,
+      description="Booking product for Plone",
+      long_description=open("README.rst").read() + "\n" +
+                       open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from
       # http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         'Framework :: Plone',
-        'Intended Audience :: Developers',
+        'Framework :: Plone :: 3.3',
         'License :: OSI Approved :: GNU General Public License (GPL)',
         ],
-      keywords='',
+      keywords='plone plonegov booking',
       author='RedTurtle Technology',
       author_email='sviluppoplone@redturtle.it',
       url='http://plone.org/products/rg.prenotazioni',
@@ -55,6 +44,4 @@ setup(name='rg.prenotazioni',
       [z3c.autoinclude.plugin]
       target = plone
       """,
-#      setup_requires=["PasteScript"],
-#      paster_plugins = ["ZopeSkel"],
       )

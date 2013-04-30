@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <object name="Prenotazione"
    meta_type="Factory-based Type Information with dynamic views"
-   i18n:domain="plone" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
-  <property name="title" i18n:translate="">Prenotazione</property>
+   i18n:domain="rg.prenotazioni" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+  <property name="title" i18n:translate="">Booking</property>
   <property name="description"
-    i18n:translate="">Description of the Example Type</property>
+    i18n:translate="">Informations about a single booking</property>
   <property name="content_meta_type">Prenotazione</property>
   <property name="content_icon">document_icon.gif</property>
   <property name="product">rg.prenotazioni</property>

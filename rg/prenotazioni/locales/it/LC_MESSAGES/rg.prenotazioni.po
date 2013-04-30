@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"POT-Creation-Date: 2013-04-30 08:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,11 +14,15 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: rg.prenotazioni\n"
 
-#: ./contentrules/sendMovedPrenotazione.py:122
+#: ./profiles/default/types/PrenotazioniFolder.xml
+msgid "A folder that will contain booking"
+msgstr "Una cartella che conterrà le prenotazione"
+
+#: ./contentrules/sendMovedPrenotazione.py:124
 msgid "A mail action that sends email notify when a booking is moved in an other slot."
 msgstr "Un'azione che spedisce una mail di notifica quando una prenotazione è spostata un un altro slot."
 
-#: ./contentrules/sendMovedPrenotazione.py:121
+#: ./contentrules/sendMovedPrenotazione.py:123
 msgid "Add moved booking Mail Action"
 msgstr "Aggiungi Mail Action per lo spostamento delle prenotazioni"
 
@@ -26,12 +30,23 @@ msgstr "Aggiungi Mail Action per lo spostamento delle prenotazioni"
 msgid "Azienda"
 msgstr ""
 
+#: ./profiles/default/types/Prenotazione.xml
+msgid "Booking"
+msgstr "Prenotazione"
+
+#: ./profiles/default/types/PrenotazioniFolder.xml
+msgid "Booking Folder"
+msgstr "Cartella prenotazioni"
+
+msgid "Booking product for Plone"
+msgstr "Prodotto di prenotazioni per Plone"
+
 #: ./skins/rg_prenotazioni_custom_scripts/validate_atct.vpy:44
 #: ./skins/rg_prenotazioni_custom_scripts/validate_integrity.cpy:41
 msgid "Changes saved."
 msgstr "Modifiche salvate."
 
-#: ./contentrules/sendMovedPrenotazione.py:123
+#: ./contentrules/sendMovedPrenotazione.py:125
 msgid "Configure element"
 msgstr "Configura elemento"
 
@@ -55,7 +70,7 @@ msgstr ""
 msgid "Durata incontro"
 msgstr ""
 
-#: ./contentrules/sendMovedPrenotazione.py:136
+#: ./contentrules/sendMovedPrenotazione.py:138
 msgid "Edit moved booking Mail Action"
 msgstr "Modifica Mail Action per lo spostamento delle prenotazioni"
 
@@ -63,7 +78,7 @@ msgstr "Modifica Mail Action per lo spostamento delle prenotazioni"
 msgid "Email del responsabile"
 msgstr ""
 
-#: ./contentrules/sendMovedPrenotazione.py:56
+#: ./contentrules/sendMovedPrenotazione.py:58
 msgid "Email report to prenotazione owner"
 msgstr "Report email al creatore della prenotazione"
 
@@ -78,6 +93,10 @@ msgstr ""
 #: ./content/prenotazionifolder.py:83
 msgid "Indicare la composizione della settimana tipo"
 msgstr ""
+
+#: ./profiles/default/types/Prenotazione.xml
+msgid "Informations about a single booking"
+msgstr "Informazioni relativa ad una singola prenotazione"
 
 #: ./content/prenotazionifolder.py:130
 msgid "Inserisci l'indirizzo email del responsabile delle prenotazioni"
@@ -95,7 +114,7 @@ msgstr ""
 msgid "Inserisci un recapito telefonico"
 msgstr ""
 
-#: ./contentrules/sendMovedPrenotazione.py:34
+#: ./contentrules/sendMovedPrenotazione.py:35
 msgid "Message"
 msgstr "Messaggio"
 
@@ -140,10 +159,6 @@ msgstr "Oggetto del messaggio"
 msgid "Telefono"
 msgstr ""
 
-#: ./contentrules/sendMovedPrenotazione.py:28
-msgid "The email address that sends the email. If no email is             provided here, it will use the address from portal."
-msgstr "L'indirizzo email che spedisce la mail. Se non è impostato, viene utilizzato l'indirizzo del portale."
-
 #: ./content/prenotazione.py:29
 msgid "Tipologia della prenotazione"
 msgstr ""
@@ -152,7 +167,13 @@ msgstr ""
 msgid "Tipologie delle richieste"
 msgstr ""
 
-#: ./contentrules/sendMovedPrenotazione.py:35
-msgid "Type in here the message that you want to mail. Some             defined content can be replaced: ${title} will be replace with booking title. ${url} will be replaced by the booking url. ${portal} will be replaced by the title             of the portal."
-msgstr "Scrivi qui il messaggio che vuoi spedire. Alcuni elementi predefiniti possono essere sostituiti: ${title} verrà rimpiazzato con il nome della prenotazione. ${url} verrà rimpiazzato dall'url della prenotazione. ${portal} verrà rimpiazzato con il titolo del portale."
+#. Default: "Type in here the message that you want to mail. Some defined content can be replaced: ${title} will be replaced with booking title (user fullname). ${date} will be replaced with booking new date. ${url} will be replaced by the booking url. ${portal} will be replaced by the title of the portal."
+#: ./contentrules/sendMovedPrenotazione.py:36
+msgid "message_help"
+msgstr ""
+
+#. Default: "The email address that sends the email. If no email is provided here, it will use the address from portal."
+#: ./contentrules/sendMovedPrenotazione.py:28
+msgid "source_help"
+msgstr ""
 
