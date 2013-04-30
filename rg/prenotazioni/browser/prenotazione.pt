@@ -1,0 +1,69 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="rg.prenotazioni">
+<body>
+
+<metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main"
+                    tal:define="here_url context/@@plone_context_state/object_url;
+                                member context/@@plone_portal_state/member;">
+
+        <div tal:replace="structure provider:plone.abovecontenttitle" />
+
+        <h1 class="documentFirstHeading">
+            <span metal:use-macro="python:context.widget('title', mode='view')" />
+        </h1>
+
+        <div tal:replace="structure provider:plone.belowcontenttitle" />
+
+        <div class="documentDescription-box clear-block">
+            <p class="documentDescription">
+               <tal:block condition="here/Description">
+                   <metal:field use-macro="python:here.widget('description', mode='view')">
+                   Description
+                   </metal:field>
+               </tal:block>
+            </p>
+        </div>
+
+           <div class="field" condition="here/getTipologia_prenotazione">
+               <metal:field use-macro="python:here.widget('tipologia_prenotazione', mode='view')">
+               tipologia_prenotazione
+               </metal:field>
+           </div>
+
+           <div class="field" condition="here/getData_prenotazione">
+               <metal:field use-macro="python:here.widget('data_prenotazione', mode='view')">
+               data_prenotazione
+               </metal:field>
+           </div>
+
+           <div class="field" condition="here/getAzienda">
+               <metal:field use-macro="python:here.widget('azienda', mode='view')">
+               azienda
+               </metal:field>
+           </div>
+
+           <div class="field" condition="here/getTelefono">
+               <metal:field use-macro="python:here.widget('telefono', mode='view')">
+               telefono
+               </metal:field>
+           </div>
+
+           <div class="field" condition="here/getEmail">
+               <metal:field use-macro="python:here.widget('email', mode='view')">
+               email
+               </metal:field>
+           </div>
+		
+        <div tal:replace="structure provider:plone.belowcontentbody" />
+
+    </tal:main-macro>
+</metal:main>
+
+</body>
+</html>

@@ -152,7 +152,7 @@
  </transition>
  <transition transition_id="submit"
              title="Transazione automatica di richiesta conferma"
-             new_state="pending" trigger="USER"
+             new_state="pending" trigger="AUTOMATIC"
              before_script="" after_script="">
   
   <guard>

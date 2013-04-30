@@ -27,11 +27,5 @@
         />
   </class>
 
-    <!-- Events handler -->
-    <subscriber
-        for="..interfaces.IPrenotazione
-              Products.Archetypes.interfaces.IObjectInitializedEvent"
-        handler=".events.afterPrenotazioneCreation"
-    />
 
 </configure>

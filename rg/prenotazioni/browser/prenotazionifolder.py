@@ -1,22 +1,16 @@
 # -*- coding: utf-8 -*-
-"""Define a browser view for the PrenotazioniFolder content type. In the FTI
-configured in profiles/default/types/*.xml, this is being set as the default
-view of that content type.
-"""
+
 from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from datetime import timedelta, date
 from zope.event import notify
 from rg.prenotazioni.prenotazione_event import MovedPrenotazione
-
+from rg.prenotazioni import prenotazioniMessageFactory as _
 
 class PrenotazioniFolderView(BrowserView):
     """Default view of a PrenotazioniFolder
     """
-
-    __call__ = ViewPageTemplateFile('prenotazionifolder.pt')
 
     def days(self):
         """
@@ -212,7 +206,6 @@ class CreatePrenotazione(BrowserView):
 
     def __call__(self, *args):
         data = self.request.get('data_prenotazione', '')
-        self.request.SESSION.set('data_prenotazione', data)
         self.request.RESPONSE.redirect("createObject?type_name=Prenotazione&data_prenotazione=" + data)
 
 
@@ -227,8 +220,7 @@ class MovePrenotazione(BrowserView):
         uid = self.request.get('UID', '')
         self.request.SESSION.set('UID', uid)
         pu = getToolByName(self.context, 'plone_utils')
-        msg = 'Seleziona la data nella quale spostare l\'appuntamento'
-        pu.addPortalMessage(msg)
+        pu.addPortalMessage(_(u"Seleziona la data nella quale spostare l'appuntamento"))
         self.request.RESPONSE.redirect(self.context.absolute_url())
 
 
@@ -263,12 +255,35 @@ class SavePrenotazione(BrowserView):
 
 
 class CancelSpostamento(BrowserView):
-    """ cancella il valore di UID dalla sessione
-    """
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
 
     def __call__(self, *args):
         self.request.SESSION.set('UID', '')
         self.request.RESPONSE.redirect(self.context.absolute_url())
+
+
+class CreateObjectView(BrowserView):
+    """Simulate the CMF createObject.cpy script"""
+    
+    def __call__(self, *args):
+        request = self.request
+        context = self.context
+        type_name = request.get('type_name')
+        id = request.get('id')
+        data_prenotazione = request.get('data_prenotazione')
+        if data_prenotazione:
+            data_prenotazione = DateTime(data_prenotazione).strftime('%Y-%m-%d %H:%M')
+
+        if id is None:
+            id = context.generateUniqueId(type_name)
+    
+        if type_name is None:
+            raise Exception, 'Type name not specified'
+    
+        types_tool = getToolByName(context, 'portal_types')
+        fti = types_tool.getTypeInfo(type_name)
+    
+        new_url = '/portal_factory/' + type_name + '/' + id
+        new_url = new_url + '/edit?data_prenotazione=%s' % data_prenotazione
+        
+        request.response.redirect(context.absolute_url() + new_url)
+

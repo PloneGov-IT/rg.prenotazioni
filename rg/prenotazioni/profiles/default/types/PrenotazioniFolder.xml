@@ -16,9 +16,9 @@
     <element value="Prenotazione"/>
   </property>
   <property name="allow_discussion">False</property>
-  <property name="default_view">view</property>
+  <property name="default_view">prenotazionifolder_view</property>
   <property name="view_methods">
-    <element value="base_view" />
+    <element value="prenotazionifolder_view" />
   </property>
   <alias from="(Default)" to="(dynamic view)" />
   <alias from="edit" to="atct_edit" />

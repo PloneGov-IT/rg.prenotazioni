@@ -11,10 +11,26 @@
 	    />
 
     <browser:page
-        for="..interfaces.IPrenotazioniFolder"
-        name="view"
-        class=".prenotazionifolder.PrenotazioniFolderView"
+        for="..interfaces.IPrenotazione"
+        name="prenotazione_view"
+        class=".prenotazione.PrenotazioneView"
+		template="prenotazione.pt"
         permission="zope2.View"
+        />
+
+    <browser:page
+        for="..interfaces.IPrenotazioniFolder"
+        name="prenotazionifolder_view"
+        class=".prenotazionifolder.PrenotazioniFolderView"
+		template="prenotazionifolder.pt"
+        permission="zope2.View"
+        />
+
+    <browser:page
+        for="..interfaces.IPrenotazioniFolder"
+        name="createObject"
+        class=".prenotazionifolder.CreateObjectView"
+        permission="cmf.AddPortalContent"
         />
 
     <browser:page

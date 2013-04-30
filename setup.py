@@ -5,9 +5,7 @@ This module contains the tool of rg.prenotazioni
 import os
 from setuptools import setup, find_packages
 
-
-version = '1.1.0dev0'
-
+version = '2.0dev0'
 
 tests_require = ['zope.testing']
 
@@ -33,7 +31,6 @@ setup(name='rg.prenotazioni',
       include_package_data=True,
       zip_safe=False,
       install_requires=['setuptools',
-                        # -*- Extra requirements: -*-
                         'Products.DataGridField',
                         ],
       tests_require=tests_require,

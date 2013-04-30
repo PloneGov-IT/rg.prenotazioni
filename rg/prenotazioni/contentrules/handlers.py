@@ -4,6 +4,7 @@ except ImportError:
     # Plone 3.3
     from Acquisition import aq_inner, aq_parent
     from plone.app.contentrules.handlers import is_portal_factory
+    from plone.app.contentrules.handlers import execute
 
     def execute_rules(event):
         """ When an action is invoked on an object,

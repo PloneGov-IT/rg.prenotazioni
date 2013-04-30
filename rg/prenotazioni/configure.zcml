@@ -22,6 +22,4 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
-  <include file="skins.zcml" />
-
 </configure>

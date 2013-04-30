@@ -235,4 +235,7 @@ class PrenotazioniFolder(folder.ATFolder):
 
         return res
 
+    def canSetDefaultPage(self):
+        return False
+
 atapi.registerType(PrenotazioniFolder, PROJECTNAME)

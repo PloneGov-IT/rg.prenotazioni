@@ -19,6 +19,7 @@ OVERBOOKED_MESSAGE = _('overbook_message',
                               u"prenotazione")
 
 
+
 PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
 
     atapi.StringField(
@@ -35,12 +36,11 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
     atapi.DateTimeField(
         'data_prenotazione',
         storage=atapi.AnnotationStorage(),
-        widget=atapi.CalendarWidget(
+        widget=atapi.StringWidget(
             label=_(u'Data prenotazione'),
-            description=_(u""),
             visible={'edit': 'hidden', 'view': 'visible'},
         ),
-        required=False,
+        required=True,
     ),
 
     atapi.StringField(
@@ -156,19 +156,14 @@ class Prenotazione(base.ATCTContent):
         '''
         Check if it is overbooked
         '''
-        session = REQUEST.SESSION
-        data_prenotazione = session.get('data_prenotazione', '')
-
-        if not data_prenotazione:
-            return True
-        else:
-            data_prenotazione = DateTime(data_prenotazione)
+        data_prenotazione = self.getData_prenotazione() or REQUEST.get('data_prenotazione')
+        if type(data_prenotazione)==str:
+             data_prenotazione = DateTime(data_prenotazione)
 
         parent = self.getPrenotazioniFolder()
         for key in parent.keys():
             obj = parent[key]
-            if (obj != self
-                and obj.getData_prenotazione() == data_prenotazione):
+            if (obj != self and obj.getData_prenotazione() == data_prenotazione):
                 return True
         return False
 
@@ -176,11 +171,6 @@ class Prenotazione(base.ATCTContent):
         '''
         Validate against overbooking
         '''
-        if self.getData_prenotazione():
-            # Significa che l'oggetto e' gia' stato inizializzato ed e' passato
-            # per l'apposito evento
-            return
-
         if self.isOverbooked(REQUEST):
             pu = getToolByName(self, 'plone_utils')
             pu.addPortalMessage(OVERBOOKED_MESSAGE, type="error")
@@ -190,7 +180,10 @@ class Prenotazione(base.ATCTContent):
         '''
         Add validation for already booked objects
         '''
-        self.validateOverbooking(REQUEST, errors)
+        if not REQUEST.get('data_prenotazione'):
+            errors['data_prenotazione'] = _(u"Formato della data non corretto")
+        else:
+            self.validateOverbooking(REQUEST, errors)
         return super(Prenotazione, self).post_validate(REQUEST, errors)
 
 atapi.registerType(Prenotazione, PROJECTNAME)
