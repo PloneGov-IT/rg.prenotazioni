@@ -3,7 +3,6 @@
 """
 from DateTime import DateTime
 from Products.ATContentTypes.configuration import zconf
-from Products.ATContentTypes.content import folder
 from Products.Archetypes import atapi
 from Products.Archetypes.utils import DisplayList, IntDisplayList
 from Products.DataGridField import DataGridField, DataGridWidget
@@ -15,8 +14,15 @@ from rg.prenotazioni.config import PROJECTNAME
 from rg.prenotazioni.interfaces import IPrenotazioniFolder
 from zope.interface import implements
 
+try:
+    from plone.app.folder.folder import ATFolder as BaseFolder
+    from plone.app.folder.folder import ATFolderSchema as BaseFolderSchema
+except ImportError:
+    from Products.ATContentTypes.content.folder import ATFolder as BaseFolder
+    from Products.ATContentTypes.content.folder import ATFolderSchema as BaseFolderSchema
 
-PrenotazioniFolderSchema = folder.ATFolderSchema.copy() + atapi.Schema((
+
+PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
 
     # -*- Your Archetypes field definitions here ... -*-
 
@@ -112,6 +118,19 @@ PrenotazioniFolderSchema = folder.ATFolderSchema.copy() + atapi.Schema((
         required=False,
     ),
 
+    atapi.IntegerField(
+        'futureDays',
+        required=True,
+        default=0,
+        widget=atapi.IntegerWidget(
+            label=_(u'Max days in the future'),
+            description=_('futureDays',
+                          default=u"Limit booking in the future to an amount of days in the future starting from "
+                                  u"the current day.\n"
+                                  u"Keep 0 to give no limits."),
+        ),
+    ),
+
     atapi.LinesField(
         'tipologia',
         storage=atapi.AnnotationStorage(),
@@ -138,12 +157,8 @@ PrenotazioniFolderSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
 ))
 
-# Set storage on fields copied from ATFolderSchema, making sure
-# they work well with the python bridge properties.
-
 PrenotazioniFolderSchema['title'].storage = atapi.AnnotationStorage()
 PrenotazioniFolderSchema['description'].storage = atapi.AnnotationStorage()
-
 PrenotazioniFolderSchema['location'].widget.modes = []
 PrenotazioniFolderSchema['location'].schemata = 'default'
 PrenotazioniFolderSchema['subject'].widget.modes = []
@@ -170,7 +185,7 @@ PrenotazioniFolderSchema['nextPreviousEnabled'].widget.modes = []
 PrenotazioniFolderSchema['nextPreviousEnabled'].schemata = 'default'
 
 
-class PrenotazioniFolder(folder.ATFolder):
+class PrenotazioniFolder(BaseFolder):
     """Description of the Example Type"""
     implements(IPrenotazioniFolder)
 

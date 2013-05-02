@@ -85,7 +85,7 @@
                                     <tal:aggiungi condition="not: view/uidSpostaAppuntamento">
                                         <!-- non esiste una prenotazione -->
                                         <a href="" class="aggiungiPrenotazione" title="Richiedi prenotazione"
-                                            tal:condition="python:view.displayAggiungiPrenotazione(prenotazione)"
+                                            tal:condition="python:view.displayAggiungiPrenotazione(prenotazione, day[1])"
                                             tal:attributes="href python:here_url+'/creaPrenotazione?data_prenotazione='+day[1].strftime('%Y/%m/%d')+' '+orario+':00'">+</a>
                                         <!-- esiste la prenotazione e sono editor della folder -->
                                         <a href="" class="state-pending"
@@ -138,7 +138,7 @@
                                     <tal:aggiungi condition="not: view/uidSpostaAppuntamento">
                                         <!-- non esiste una prenotazione -->
                                         <a href="" class="aggiungiPrenotazione" title="Richiedi prenotazione"
-                                            tal:condition="python:view.displayAggiungiPrenotazione(prenotazione)"
+                                            tal:condition="python:view.displayAggiungiPrenotazione(prenotazione, day[1])"
                                             tal:attributes="href python:here_url+'/creaPrenotazione?data_prenotazione='+day[1].strftime('%Y/%m/%d')+' '+orario+':00'"> +</a>
                                         <!-- esiste la prenotazione e sono editor della folder -->
                                         <a href="" class="state-pending"

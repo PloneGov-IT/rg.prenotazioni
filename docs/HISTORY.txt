@@ -1,4 +1,3 @@
-=========
 Changelog
 =========
 
@@ -27,6 +26,9 @@ Changelog
   `collective.contentrules.mailfromfield`__ [keul]
 - Removed the need of an additional date index: now we use ``Date`` [keul]
 - Removed totally useless viewlets [keul]
+- On Plone 3, switched to LargePloneFolder. **Warning**: this change
+  will totally brake old 1.x installation on Plone 3.
+- Added ``futureDays`` field and feature [keul]
 
 __ http://plone.org/products/collective.contentrules.mailfromfield
 

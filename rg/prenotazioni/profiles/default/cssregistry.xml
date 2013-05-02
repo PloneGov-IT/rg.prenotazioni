@@ -2,6 +2,7 @@
 <object name="portal_css">
 
  <stylesheet title="" cacheable="True" compression="safe" cookable="True"
-    enabled="on" expression="" id="++resource++rg-reservation.css" media="all" rel="stylesheet"
-    rendering="import"/>
+    enabled="on" expression="" id="++resource++rg.prenotazioni.resources/rg-reservation.css"
+	media="all" rel="stylesheet"
+    rendering="link"/>
 </object>

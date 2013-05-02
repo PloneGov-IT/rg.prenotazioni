@@ -5,9 +5,9 @@
 
   <include package="plone.app.contentmenu" />
 
-    <browser:resource
-	    name="rg-reservation.css"
-		file="rg-reservation.css"
+    <browser:resourceDirectory
+	    name="rg.prenotazioni.resources"
+		directory="resources"
 	    />
 
     <browser:page

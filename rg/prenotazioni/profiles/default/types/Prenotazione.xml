@@ -6,7 +6,7 @@
   <property name="description"
     i18n:translate="">Informations about a single booking</property>
   <property name="content_meta_type">Prenotazione</property>
-  <property name="content_icon">document_icon.gif</property>
+  <property name="content_icon">++resource++rg.prenotazioni.resources/calendar-icon.png</property>
   <property name="product">rg.prenotazioni</property>
   <property name="factory">addPrenotazione</property>
   <property name="immediate_view">atct_edit</property>

@@ -55,7 +55,7 @@
            </div>
 
            <div class="field" tal:condition="here/getAzienda">
-           	   <strong i18n:translate="">Agency:</strong>
+           	   <strong i18n:translate="">Company:</strong>
                <span tal:replace="context/getAzienda" />
            </div>
 

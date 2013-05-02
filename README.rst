@@ -34,16 +34,15 @@ you can insert a Booking into your Booking Folder.
 .. image:: http://blog.redturtle.it/pypi-images/rg.prenotazioni/prenotazioneadd.png/image_preview
    :alt: Add Booking
 
-Features
-========
+How to use
+==========
 
 After adding a Booking, non managers users see that the slot is busy, managers 
-see in the slot who made the request, alink to the Booking detail and a link to 
+see in the slot who made the request, a link to the Booking detail and a link to 
 move the Booking.
 
 Managers can confirm a Booking using workflow transitions. 
-The workflow transition triggers an email to be sent to the booker.
-
+The workflow transition triggers an email to be sent to the booker (see below).
 
 Content Rules (mail notifications)
 ==================================
@@ -68,7 +67,11 @@ Add **rg.prenotazioni** to the egg section of your instance:
 Notes
 =====
 
-**rg.prenotazioni** has been tested only with Plone 3.3.
+**rg.prenotazioni** has been tested only with Plone 3.3 and Plone 4.2.
+
+.. Note::
+   Version 2.x of rg.prenotazioni is a deep rewrite of version 1.x and **we are not providing any
+   migration**... sorry!
 
 Credits
 =======

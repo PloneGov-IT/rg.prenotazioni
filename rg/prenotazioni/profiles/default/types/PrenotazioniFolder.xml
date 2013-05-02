@@ -6,7 +6,7 @@
   <property name="description"
     i18n:translate="">A folder that will contain booking</property>
   <property name="content_meta_type">PrenotazioniFolder</property>
-  <property name="content_icon">folder_icon.gif</property>
+  <property name="content_icon">++resource++rg.prenotazioni.resources/calendar-add.png</property>
   <property name="product">rg.prenotazioni</property>
   <property name="factory">addPrenotazioniFolder</property>
   <property name="immediate_view">atct_edit</property>

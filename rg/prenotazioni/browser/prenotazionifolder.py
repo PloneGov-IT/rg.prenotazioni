@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 
+from datetime import timedelta, date
 from DateTime import DateTime
+
+from zope.event import notify
+
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
-from datetime import timedelta, date
-from zope.event import notify
+
 from rg.prenotazioni.prenotazione_event import MovedPrenotazione
 from rg.prenotazioni import prenotazioniMessageFactory as _
 
@@ -95,12 +98,18 @@ class PrenotazioniFolderView(BrowserView):
 
         return False
 
-    def displayAggiungiPrenotazione(self, prenotazione):
-        """
-        """
-        if not prenotazione:
-            return True
-        return False
+    def displayAggiungiPrenotazione(self, prenotazione, day):
+        """Condition for showing the "+" icon"""
+        if prenotazione:
+            return False
+
+        today = date.today()
+        context = self.context
+        if day < today:
+            return False
+        if context.getFutureDays() and day > today + timedelta(days=context.getFutureDays()):
+            return False
+        return True
 
     def displayPrenotazione(self, prenotazione, member):
         """
@@ -166,14 +175,14 @@ class PrenotazioniFolderView(BrowserView):
     def isValidDay(self, day):
         """ restituisce true se il giorno è valido
         """
-        festivi = self.context.getFestivi()
-        da_data = self.context.getDaData().strftime('%Y/%m/%d').split('/')
-        a_data = self.context.getAData() and self.context.getAData().strftime('%Y/%m/%d').split('/')
+        context = self.context
+        festivi = context.getFestivi()
+        da_data = context.getDaData().strftime('%Y/%m/%d').split('/')
+        a_data = context.getAData() and context.getAData().strftime('%Y/%m/%d').split('/')
         date_dadata = date(int(da_data[0]), int(da_data[1]), int(da_data[2]))
         date_adata = None
         if a_data:
             date_adata = date(int(a_data[0]), int(a_data[1]), int(a_data[2]))
-        today = date.today()
 
         res = []
 
@@ -186,8 +195,6 @@ class PrenotazioniFolderView(BrowserView):
                 res.append(date(int(anno), int(mm), int(gg)))
 
         if day in res:
-            return False
-        if day < today:
             return False
         if day < date_dadata:
             return False
