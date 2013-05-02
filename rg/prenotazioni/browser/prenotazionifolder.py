@@ -86,7 +86,7 @@ class PrenotazioniFolderView(BrowserView):
         giorno = DateTime(day.strftime('%Y/%m/%d') + ' ' + orario + ':00')
         prenotazioni = pc.unrestrictedSearchResults(
                            portal_type='Prenotazione',
-                           getData_prenotazione=giorno,
+                           Date=giorno,
                            path='/'.join(self.context.getPhysicalPath()
                        )
         )
@@ -196,6 +196,12 @@ class PrenotazioniFolderView(BrowserView):
 
         return True
 
+    def showUndoMoveBooking(self):
+        if self.context.REQUEST.SESSION.get('UID', ''):
+            return True
+        else:
+            return False
+
 
 class CreatePrenotazione(BrowserView):
     """
@@ -252,7 +258,6 @@ class SavePrenotazione(BrowserView):
                        'Contatta l\'amministratore.')
             pu.addPortalMessage(msg)
         self.request.RESPONSE.redirect(self.context.absolute_url())
-
 
 class CancelSpostamento(BrowserView):
 

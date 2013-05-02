@@ -23,6 +23,12 @@ Changelog
 - Addable types filtered [keul]
 - Removed use of the SESSION object for saving booking date [keul]
 - Removed workflow for ``PrenotazioniFolder``; use default ones [keul]
+- removed hard-coded content rules, now we have a dependency on
+  `collective.contentrules.mailfromfield`__ [keul]
+- Removed the need of an additional date index: now we use ``Date`` [keul]
+- Removed totally useless viewlets [keul]
+
+__ http://plone.org/products/collective.contentrules.mailfromfield
 
 1.0.2 (2012/09/07)
 ==================

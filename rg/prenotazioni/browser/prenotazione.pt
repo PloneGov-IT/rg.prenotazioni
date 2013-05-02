@@ -21,6 +21,17 @@
 
         <div tal:replace="structure provider:plone.belowcontenttitle" />
 
+		<div id="spostaprenotazione"
+		    tal:condition="view/showMoveBooking">
+		    <a title="Sposta Prenotazione" href="spostaPrenotazione"
+		        tal:attributes="href string:${context/absolute_url}/spostaPrenotazione?UID=${context/UID}">Sposta Prenotazione</a>
+		</div>
+		<div id="annullaspostaprenotazione"
+		    tal:condition="view/showUndoMoveBooking">
+		    <a title="Annulla Spostamento" href="annullaSpostamento"
+			   tal:attributes="href string:${context/absolute_url}/annullaSpostamento">Annulla Spostamento</a>
+		</div>
+
         <div class="documentDescription-box clear-block">
             <p class="documentDescription">
                <tal:block condition="here/Description">
@@ -31,32 +42,32 @@
             </p>
         </div>
 
-           <div class="field" condition="here/getTipologia_prenotazione">
-               <metal:field use-macro="python:here.widget('tipologia_prenotazione', mode='view')">
-               tipologia_prenotazione
-               </metal:field>
+        <div tal:replace="structure provider:plone.abovecontentbody" />
+
+           <div class="field" tal:condition="here/getTipologia_prenotazione">
+           	   <strong i18n:translate="">Reservation type:</strong>
+               <span tal:replace="context/getTipologia_prenotazione" />
            </div>
 
-           <div class="field" condition="here/getData_prenotazione">
+           <div class="field" tal:condition="here/getData_prenotazione">
+           	   <strong i18n:translate="">Reservation date:</strong>
                <span tal:replace="python:putils.toLocalizedTime(context.getData_prenotazione(), True)" />
            </div>
 
-           <div class="field" condition="here/getAzienda">
-               <metal:field use-macro="python:here.widget('azienda', mode='view')">
-               azienda
-               </metal:field>
+           <div class="field" tal:condition="here/getAzienda">
+           	   <strong i18n:translate="">Agency:</strong>
+               <span tal:replace="context/getAzienda" />
            </div>
 
-           <div class="field" condition="here/getTelefono">
-               <metal:field use-macro="python:here.widget('telefono', mode='view')">
-               telefono
-               </metal:field>
+           <div class="field" tal:condition="here/getTelefono">
+           	   <strong i18n:translate="">Phone number:</strong>
+               <span tal:replace="context/getTelefono" />
            </div>
 
-           <div class="field" condition="here/getEmail">
-               <metal:field use-macro="python:here.widget('email', mode='view')">
-               email
-               </metal:field>
+           <div class="field" tal:condition="here/getEmail">
+           	   <strong i18n:translate="">E-mail:</strong>
+               <a tal:attributes="href string:mailto:${context/getEmail}"
+			      tal:content="context/getEmail" />
            </div>
 		
         <div tal:replace="structure provider:plone.belowcontentbody" />

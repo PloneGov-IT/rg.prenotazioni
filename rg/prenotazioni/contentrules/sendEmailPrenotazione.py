@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from Acquisition import aq_inner
 from OFS.SimpleItem import SimpleItem
 from Products.CMFCore.utils import getToolByName
@@ -71,10 +72,3 @@ Oggetto:
 
         return True
 
-
-class SendEmailAddForm(NullAddForm):
-    """A degenerate "add form"" for create email.
-    """
-
-    def create(self):
-        return SendEmailAction()

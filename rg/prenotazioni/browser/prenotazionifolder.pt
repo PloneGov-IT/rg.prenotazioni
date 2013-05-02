@@ -20,6 +20,12 @@
 
         <div tal:replace="structure provider:plone.belowcontenttitle" />
 
+		<div id="annullaspostaprenotazione"
+		    tal:condition="view/showUndoMoveBooking">
+		    <a title="Annulla Spostamento" href="annullaSpostamento"
+			   tal:attributes="href string:${context/absolute_url}/annullaSpostamento">Annulla Spostamento</a>
+		</div>
+
         <div class="documentDescription-box clear-block">
             <p class="documentDescription">
                <tal:block condition="here/Description">

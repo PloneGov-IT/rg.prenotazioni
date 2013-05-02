@@ -4,37 +4,11 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:plone="http://namespaces.plone.org/plone"
-    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="rg.prenotazioni">
 
-
     <include package="plone.contentrules" />
-
     <include package="plone.contentrules" file="meta.zcml" />
-
-
-    <!-- Send Email action (no configurable options) -->
-
-    <adapter factory=".sendEmailPrenotazione.SendEmailActionExecutor" />
-
-    <browser:page
-       for="plone.app.contentrules.browser.interfaces.IRuleActionAdding"
-       name="rg.prenotazioni.actions.SendEmail"
-       class=".sendEmailPrenotazione.SendEmailAddForm"
-       permission="cmf.ManagePortal"
-       />
-
-    <plone:ruleAction
-         name="rg.prenotazioni.actions.SendEmail"
-         title="Send Email to prenotazioni owner"
-         description="Send Email to prenotazioni owner"
-         for="rg.prenotazioni.interfaces.IPrenotazione"
-         event="zope.component.interfaces.IObjectEvent"
-         addview="rg.prenotazioni.actions.SendEmail"
-         schema=".sendEmailPrenotazione.ISendEmailAction"
-         factory=".sendEmailPrenotazione.SendEmailAction"
-         />
-
+	<include package="collective.contentrules.mailfromfield" />
 
   <!-- Move prenotazione definition -->
   <subscriber 

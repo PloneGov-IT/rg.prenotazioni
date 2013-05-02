@@ -1,5 +1,0 @@
-<div id="spostaprenotazione"
-    tal:condition="view/display">
-    <a title="Sposta Prenotazione" href="spostaPrenotazione"
-        tal:attributes="href string:spostaPrenotazione?UID=${context/UID}">Sposta Prenotazione</a>
-</div>

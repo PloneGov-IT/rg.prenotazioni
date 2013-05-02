@@ -17,7 +17,15 @@
    </condition>
   </conditions>
   <actions>
-   <action type="rg.prenotazioni.actions.SendEmail"/>
+   <action type="plone.actions.MailFromField">
+    <property name="subject">Prenotazione accettata</property>
+	<property name="source"></property>
+	<property name="fieldName">email</property>
+	<property name="target">target</property>
+	<property name="message">La sua prenotazione "${title}" e' stata accettata:
+${url}
+	</property>
+   </action>
   </actions>
  </rule>
  <assignment name="rule-1" bubbles="True" enabled="True" location=""/>

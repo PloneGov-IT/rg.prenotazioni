@@ -1,12 +1,17 @@
 # -*- coding: utf-8 -*-
-"""Definition of the Prenotazione content type
-"""
-from Acquisition import aq_chain
+
 from DateTime import DateTime
-from Products.ATContentTypes.content import base, schemata
+from Acquisition import aq_chain
+
+from AccessControl import ClassSecurityInfo
+from Products.CMFCore.utils import getToolByName
+from Products.CMFCore import permissions
+
 from Products.Archetypes import atapi
 from Products.Archetypes.utils import DisplayList
-from Products.CMFCore.utils import getToolByName
+from Products.Archetypes.ExtensibleMetadata import _zone
+from Products.ATContentTypes.content import base, schemata
+
 from rg.prenotazioni import prenotazioniMessageFactory as _
 from rg.prenotazioni.config import PROJECTNAME
 from rg.prenotazioni.interfaces import IPrenotazione, IPrenotazioniFolder
@@ -114,6 +119,8 @@ class Prenotazione(base.ATCTContent):
     """Description of the Example Type"""
     implements(IPrenotazione)
 
+    security = ClassSecurityInfo()
+
     meta_type = "Prenotazione"
     schema = PrenotazioneSchema
 
@@ -175,6 +182,18 @@ class Prenotazione(base.ATCTContent):
             pu = getToolByName(self, 'plone_utils')
             pu.addPortalMessage(OVERBOOKED_MESSAGE, type="error")
             errors['data_prenotazione'] = OVERBOOKED_MESSAGE
+
+    security.declareProtected(permissions.View, 'Date')
+    def Date(self, zone=None):
+        """
+        Dublin Core element - default date
+        """
+        # Return reservation date
+        if zone is None:
+            zone = _zone
+        data_prenotazione = self.getField('data_prenotazione').get(self)
+        if data_prenotazione:
+            return data_prenotazione.toZone(zone).ISO()
 
     def post_validate(self, REQUEST, errors):
         '''

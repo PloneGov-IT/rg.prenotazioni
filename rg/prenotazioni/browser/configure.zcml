@@ -61,28 +61,4 @@
         permission="zope2.View"
         />
 
-    <browser:viewlet
-        name="rg.spostaprenotazione"
-        manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
-        class=".viewlets.SpostaPrenotazioneViewlet"
-        permission="zope2.View"
-        for="..interfaces.IPrenotazione"
-        />
-
-    <browser:viewlet
-        name="rg.annullaspostaprenotazione"
-        manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
-        class=".viewlets.AnnullaSpostaPrenotazioneViewlet"
-        permission="zope2.View"
-        for="..interfaces.IPrenotazione"
-        />
-
-    <browser:viewlet
-        name="rg.annullaspostaprenotazione"
-        manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
-        class=".viewlets.AnnullaSpostaPrenotazioneViewlet"
-        permission="zope2.View"
-        for="..interfaces.IPrenotazioniFolder"
-        />
-
 </configure>

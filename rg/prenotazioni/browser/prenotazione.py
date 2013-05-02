@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from Products.Five.browser import BrowserView
+from zope.component import getMultiAdapter
 
+from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
+
 from rg.prenotazioni import prenotazioniMessageFactory as _
 
 class PrenotazioneView(BrowserView):
@@ -16,3 +18,18 @@ class PrenotazioneView(BrowserView):
             putils.addPortalMessage(_(u"Booking done"))
             self.request.response.redirect(self.context.aq_inner.aq_parent.absolute_url())
         return self.index()
+
+    def showMoveBooking(self):
+        self.portal_state = getMultiAdapter((self.context, self.request),
+                                            name=u"plone_portal_state")
+        if self.portal_state.anonymous():
+            return False
+        if self.context.REQUEST.SESSION.get('UID', ''):
+            return False
+        return True
+    
+    def showUndoMoveBooking(self):
+        if self.context.REQUEST.SESSION.get('UID', ''):
+            return True
+        else:
+            return False
