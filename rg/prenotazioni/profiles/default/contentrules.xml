@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <contentrules>
- <rule name="rule-1" title="send email on state change"
+ <rule name="booking-accepted" title="Send e-mail when booking is accepted"
     description="Viene inviata una mail al richiedente per confermare la sua prenotazione" enabled="True"
     event="Products.CMFCore.interfaces.IActionSucceededEvent"
     stop-after="False">
@@ -28,5 +28,32 @@ ${url}
    </action>
   </actions>
  </rule>
- <assignment name="rule-1" bubbles="True" enabled="True" location=""/>
+
+ <rule name="booking-moved" title="Send email when booking date change"
+    description="Viene inviata una mail al richiedente per avvertire dello spostamento della prenotazione"
+	enabled="True"
+    event="rg.prenotazioni.prenotazione_event.IMovedPrenotazione"
+    stop-after="False">
+  <conditions>
+   <condition type="plone.conditions.PortalType">
+    <property name="check_types">
+     <element>Prenotazione</element>
+    </property>
+   </condition>
+  </conditions>
+  <actions>
+   <action type="plone.actions.MailFromField">
+    <property name="subject">Prenotazione modificata</property>
+	<property name="source"></property>
+	<property name="fieldName">email</property>
+	<property name="target">target</property>
+	<property name="message">L'orario della sua prenotazione "${title}" e' stata modificato:
+${url}
+	</property>
+   </action>
+  </actions>
+ </rule>
+
+ <assignment name="booking-accepted" bubbles="True" enabled="True" location=""/>
+ <assignment name="booking-moved" bubbles="True" enabled="True" location=""/>
 </contentrules>

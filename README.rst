@@ -2,7 +2,6 @@ A **booking product for Plone** that allows you to reserve slots of time across 
 
 .. contents::
 
-============
 Introduction
 ============
 
@@ -12,7 +11,7 @@ This product introduces two new contents to your Plone site:
 - `Booking`_
 
 Booking Folder
-==============
+--------------
 
 Is a folderish content type that will store your reservations (the content type `Booking`_).
 
@@ -27,7 +26,7 @@ The edit form of Booking Folder
 The default view of Booking Folder
 
 Booking
-=======
+-------
 
 Clicking on one of the plus signs that are shown in each available calendar slot,
 you can insert a Booking into your Booking Folder.
@@ -45,17 +44,15 @@ move the Booking.
 Managers can confirm a Booking using workflow transitions. 
 The workflow transition triggers an email to be sent to the booker.
 
-============
-ContentRules
-============
 
-There are an additional contentrule that can be used to notify booking owner when his booking has been rescheduled.
-There is a trigger event for contentrules called "Booking moved" that will be triggered when a
-booking is rescheduled by an admin.
+Content Rules (mail notifications)
+==================================
 
-There is also a new action that allows to configure a mail that will be sent to the booking owner.
+There are additional content rules that can be used to notify booking owner when his booking has been accepted
+or re-scheduled.
 
-============
+Rules are automatically created and enabled. See the Rule control panel to change settings.
+
 Installation
 ============
  
@@ -71,16 +68,15 @@ Add **rg.prenotazioni** to the egg section of your instance:
 Notes
 =====
 
-**rg.prenotazioni** has been fully tested only with Plone 3.1.7.
-It has been partially tested with Plone 3.3.6.
+**rg.prenotazioni** has been tested only with Plone 3.3.
 
 Credits
 =======
 
 Developed with the support of `Unione Reno Galliera`__ 
 
-  .. image:: https://blog.redturtle.it/pypi-images/rg.prenotazioni/logo-urg.jpg/image_mini
-     :alt: Logo Unione Reno Galliera
+.. image:: https://blog.redturtle.it/pypi-images/rg.prenotazioni/logo-urg.jpg/image_mini
+   :alt: Logo Unione Reno Galliera
 
 __ http://www.renogalliera.it/
 

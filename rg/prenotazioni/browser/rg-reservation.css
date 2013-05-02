@@ -65,3 +65,8 @@ td.selected {
 	margin: 0.2em 1em;
 }
 
+#content .pren .slot a.modificaPrenotazione,
+#content .pren .slot a.modificaPrenotazione:visited,
+#content .pren .slot a.modificaPrenotazione:link {
+	font-size: 90%;
+}
