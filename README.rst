@@ -76,15 +76,22 @@ Notes
 Credits
 =======
 
-Developed with the support of `Unione Reno Galliera`__ 
+Developed with the support of:
 
-.. image:: https://blog.redturtle.it/pypi-images/rg.prenotazioni/logo-urg.jpg/image_mini
-   :alt: Logo Unione Reno Galliera
+* `Unione Reno Galliera`__ 
+
+  .. image:: https://blog.redturtle.it/pypi-images/rg.prenotazioni/logo-urg.jpg/image_mini
+     :alt: Logo Unione Reno Galliera
+
+* `S. Anna Hospital, Ferrara`__
+
+  .. image:: http://www.ospfe.it/ospfe-logo.jpg 
+     :alt: S. Anna Hospital - logo
+
+All of them supports the `PloneGov initiative`__.
 
 __ http://www.renogalliera.it/
-
-Unione Reno Galliera supports the `PloneGov initiative`__.
-
+__ http://www.ospfe.it/
 __ http://www.plonegov.it/
 
 Authors
