@@ -39,7 +39,6 @@
 		<div class="documentDescription-box clear-block">
 			<span tal:replace="structure here/getDescriptionAgenda" />
 		</div>
-		
 
         <table id="week" class="pren">
             <caption tal:define="prev python:view.prevNextWeek()[0];

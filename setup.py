@@ -5,7 +5,7 @@ This module contains the tool of rg.prenotazioni
 import os
 from setuptools import setup, find_packages
 
-version = '2.0dev0'
+version = '2.0'
 
 tests_require = ['zope.testing']
 
@@ -23,6 +23,7 @@ setup(name='rg.prenotazioni',
         'Framework :: Plone :: 4.1',
         'Framework :: Plone :: 4.2',
         'Framework :: Plone :: 4.3',
+        'Programming Language :: Python',
         'License :: OSI Approved :: GNU General Public License (GPL)',
         ],
       keywords='plone plonegov booking',
@@ -36,7 +37,7 @@ setup(name='rg.prenotazioni',
       zip_safe=False,
       install_requires=['setuptools',
                         'Products.DataGridField',
-                        'collective.contentrules.mailfromfield',
+                        'collective.contentrules.mailfromfield>=0.2.0',
                         ],
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),
