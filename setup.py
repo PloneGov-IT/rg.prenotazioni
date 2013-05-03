@@ -5,7 +5,7 @@ This module contains the tool of rg.prenotazioni
 import os
 from setuptools import setup, find_packages
 
-version = '2.0'
+version = '2.0.dev1'
 
 tests_require = ['zope.testing']
 
@@ -17,6 +17,7 @@ setup(name='rg.prenotazioni',
       # Get more strings from
       # http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
+        'Development Status :: 3 - Alpha',
         'Framework :: Plone',
         'Framework :: Plone :: 3.3',
         'Framework :: Plone :: 4.0',

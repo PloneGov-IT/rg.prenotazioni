@@ -86,7 +86,7 @@
                                         <a href="" class="aggiungiPrenotazione" title="Richiedi prenotazione"
                                             tal:condition="python:view.displayAggiungiPrenotazione(prenotazione, day[1])"
                                             tal:attributes="href python:here_url+'/creaPrenotazione?data_prenotazione='+day[1].strftime('%Y/%m/%d')+' '+orario+':00'">+</a>
-                                        <!-- esiste la prenotazione e sono editor della folder -->
+                                        <!-- esiste la prenotazione e sono posso vederla -->
                                         <a href="" class="state-pending"
                                             tal:condition="python:view.displayPrenotazione(prenotazione, member)"
                                             tal:attributes="href prenotazione/getURL;
@@ -94,9 +94,9 @@
                                             tal:content="prenotazione/Title">Mario Rossi</a>
                                         <!-- cambia data -->
                                         <a href="" class="modificaPrenotazione" title="Cambia data"
-                                            tal:condition="python:view.displayPrenotazione(prenotazione, member)"
+                                            tal:condition="python:view.canEditPrenotazione(prenotazione, member)"
                                             tal:attributes="href python:here_url+'/spostaPrenotazione?UID='+prenotazione.UID"> sposta</a>
-                                        <!-- esiste la prenotazione ma non sono editor della folder -->
+                                        <!-- esiste la prenotazione ma non sono posso vederla -->
                                         <span class="slotOccupato"
                                             tal:condition="python:view.displaySlotOccupato(prenotazione, member)">Occupato</span>
                                     </tal:aggiungi>

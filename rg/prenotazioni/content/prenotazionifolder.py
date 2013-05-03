@@ -18,8 +18,8 @@ try:
     from plone.app.folder.folder import ATFolder as BaseFolder
     from plone.app.folder.folder import ATFolderSchema as BaseFolderSchema
 except ImportError:
-    from Products.ATContentTypes.content.folder import ATFolder as BaseFolder
-    from Products.ATContentTypes.content.folder import ATFolderSchema as BaseFolderSchema
+    from Products.ATContentTypes.content.folder import ATBTreeFolder as BaseFolder
+    from Products.ATContentTypes.content.folder import ATBTreeFolderSchema as BaseFolderSchema
 
 
 PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
@@ -181,8 +181,6 @@ PrenotazioniFolderSchema['allowDiscussion'].widget.modes = []
 PrenotazioniFolderSchema['allowDiscussion'].schemata = 'default'
 PrenotazioniFolderSchema['excludeFromNav'].widget.modes = []
 PrenotazioniFolderSchema['excludeFromNav'].schemata = 'default'
-PrenotazioniFolderSchema['nextPreviousEnabled'].widget.modes = []
-PrenotazioniFolderSchema['nextPreviousEnabled'].schemata = 'default'
 
 
 class PrenotazioniFolder(BaseFolder):

@@ -52,6 +52,9 @@ or re-scheduled.
 
 Rules are automatically created and enabled. See the Rule control panel to change settings.
 
+There's also a rule that can warn the Booking Folder responsible when new booking are created, but you need to
+manually enable it on folders. 
+
 Installation
 ============
  
@@ -72,6 +75,13 @@ Notes
 .. Note::
    Version 2.x of rg.prenotazioni is a deep rewrite of version 1.x and **we are not providing any
    migration**... sorry!
+
+TODO
+====
+
+* i18n support is uncomplete
+* Switch use of session to cookies
+* Tests!
 
 Credits
 =======

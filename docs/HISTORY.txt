@@ -29,6 +29,7 @@ Changelog
 - On Plone 3, switched to LargePloneFolder. **Warning**: this change
   will totally brake old 1.x installation on Plone 3.
 - Added ``futureDays`` field and feature [keul]
+- Changes to *prenotazioni_workflow*: removed useless permissions [keul]
 
 __ http://plone.org/products/collective.contentrules.mailfromfield
 

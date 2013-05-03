@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from zope.component import getMultiAdapter
+from zope.event import notify
+
+from Products.CMFCore.WorkflowCore import ActionSucceededEvent
+from Products.CMFCore.utils import getToolByName
 
 from Products.Five.browser import BrowserView
-from Products.CMFCore.utils import getToolByName
 
 from rg.prenotazioni import prenotazioniMessageFactory as _
 
@@ -16,7 +19,9 @@ class PrenotazioneView(BrowserView):
                 '/portal_factory/Prenotazione/' in self.request.get('HTTP_REFERER'):
             putils = getToolByName(self.context, 'plone_utils')
             putils.addPortalMessage(_(u"Booking done"))
+            #notify(ActionSucceededEvent(self.context, 'foo', 'submit', 'pending'))
             self.request.response.redirect(self.context.aq_inner.aq_parent.absolute_url())
+            return
         return self.index()
 
     def showMoveBooking(self):

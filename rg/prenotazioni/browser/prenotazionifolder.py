@@ -5,7 +5,10 @@ from DateTime import DateTime
 
 from zope.event import notify
 
+from zExceptions import Unauthorized
+
 from Products.CMFCore.utils import getToolByName
+from Products.CMFCore import permissions
 from Products.Five.browser import BrowserView
 
 from rg.prenotazioni.prenotazione_event import MovedPrenotazione
@@ -112,10 +115,29 @@ class PrenotazioniFolderView(BrowserView):
         return True
 
     def displayPrenotazione(self, prenotazione, member):
-        """
-        """
-        if prenotazione and member.has_permission('Modify portal content',
-                                                  self.context):
+        try:
+            if prenotazione and member.has_permission(permissions.View,
+                                                      prenotazione.getObject()):
+                return True
+        except Unauthorized:
+            pass
+        return False
+
+    def canEditPrenotazione(self, prenotazione, member):
+        try:
+            if prenotazione and member.has_permission(permissions.ModifyPortalContent,
+                                                      prenotazione.getObject()):
+                return True
+        except Unauthorized:
+            pass
+        return False
+
+    def displaySlotOccupato(self, prenotazione, member):
+        try:
+            if prenotazione and not member.has_permission(permissions.View,
+                                                          prenotazione.getObject()):
+                return True
+        except Unauthorized:
             return True
         return False
 
@@ -130,14 +152,6 @@ class PrenotazioniFolderView(BrowserView):
             res = uid
 
         return res
-
-    def displaySlotOccupato(self, prenotazione, member):
-        """
-        """
-        if prenotazione and not member.has_permission('Modify portal content',
-                                                      self.context):
-            return True
-        return False
 
     def spanRow(self, day):
         """ restituisce lo span nel caso in cui ci sia orario continuato
