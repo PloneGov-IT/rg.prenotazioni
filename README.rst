@@ -90,7 +90,7 @@ Developed with the support of:
 
 * `Unione Reno Galliera`__ 
 
-  .. image:: https://blog.redturtle.it/pypi-images/rg.prenotazioni/logo-urg.jpg/image_mini
+  .. image:: http://blog.redturtle.it/pypi-images/rg.prenotazioni/logo-urg.jpg/image_mini
      :alt: Logo Unione Reno Galliera
 
 * `S. Anna Hospital, Ferrara`__
