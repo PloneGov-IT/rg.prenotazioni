@@ -24,7 +24,6 @@ OVERBOOKED_MESSAGE = _('overbook_message',
                               u"prenotazione")
 
 
-
 PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
 
     atapi.StringField(
@@ -163,9 +162,10 @@ class Prenotazione(base.ATCTContent):
         '''
         Check if it is overbooked
         '''
-        data_prenotazione = self.getData_prenotazione() or REQUEST.get('data_prenotazione')
-        if type(data_prenotazione)==str:
-             data_prenotazione = DateTime(data_prenotazione)
+        data_prenotazione = (self.getData_prenotazione()
+                             or REQUEST.get('data_prenotazione'))
+        if type(data_prenotazione) == str:
+            data_prenotazione = DateTime(data_prenotazione)
 
         parent = self.getPrenotazioniFolder()
         for key in parent.keys():
@@ -184,6 +184,7 @@ class Prenotazione(base.ATCTContent):
             errors['data_prenotazione'] = OVERBOOKED_MESSAGE
 
     security.declareProtected(permissions.View, 'Date')
+
     def Date(self, zone=None):
         """
         Dublin Core element - default date
