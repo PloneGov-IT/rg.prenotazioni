@@ -1,64 +1,73 @@
+<?xml version="1.0"?>
 <configure
-    xmlns="http://namespaces.zope.org/zope"
-    xmlns:browser="http://namespaces.zope.org/browser"
-    i18n_domain="rg.prenotazioni">
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  i18n_domain="rg.prenotazioni">
 
   <include package="plone.app.contentmenu" />
 
-    <browser:resourceDirectory
-	    name="rg.prenotazioni.resources"
-		directory="resources"
-	    />
+  <browser:resourceDirectory
+    name="rg.prenotazioni.resources"
+    directory="resources"
+  />
 
-    <browser:page
-        for="..interfaces.IPrenotazione"
-        name="prenotazione_view"
-        class=".prenotazione.PrenotazioneView"
-		template="prenotazione.pt"
-        permission="zope2.View"
-        />
+  <browser:page
+    for="..interfaces.IPrenotazioniFolder"
+    name="prenotazione_macros"
+    template="prenotazione_macros.pt"
+    permission="zope2.View"
+  />
 
-    <browser:page
-        for="..interfaces.IPrenotazioniFolder"
-        name="prenotazionifolder_view"
-        class=".prenotazionifolder.PrenotazioniFolderView"
-		template="prenotazionifolder.pt"
-        permission="zope2.View"
-        />
+  <browser:page
+    for="..interfaces.IPrenotazione"
+    name="prenotazione_view"
+    class=".prenotazione.PrenotazioneView"
+    template="prenotazione.pt"
+    permission="zope2.View"
+  />
 
-    <browser:page
-        for="..interfaces.IPrenotazioniFolder"
-        name="createObject"
-        class=".prenotazionifolder.CreateObjectView"
-        permission="cmf.AddPortalContent"
-        />
+  <browser:page
+    for="..interfaces.IPrenotazioniFolder"
+    name="prenotazionifolder_view"
+    class=".prenotazionifolder.PrenotazioniFolderView"
+    template="prenotazionifolder.pt"
+    permission="zope2.View"
+  />
 
-    <browser:page
-        for="..interfaces.IPrenotazioniFolder"
-        name="creaPrenotazione"
-        class=".prenotazione_add.AddForm"
-        permission="zope2.View"
-        />
+  <browser:page
+    for="..interfaces.IPrenotazioniFolder"
+    name="createObject"
+    class=".prenotazionifolder.CreateObjectView"
+    permission="cmf.AddPortalContent"
+  />
 
-    <browser:page
-        for="..interfaces.IPrenotazioniFolder"
-        name="spostaPrenotazione"
-        class=".prenotazionifolder.MovePrenotazione"
-        permission="zope2.View"
-        />
+  <browser:page
+    for="..interfaces.IPrenotazioniFolder"
+    name="creaPrenotazione"
+    class=".prenotazione_add.AddForm"
+    permission="zope2.View"
+  />
 
-    <browser:page
-        for="..interfaces.IPrenotazioniFolder"
-        name="fissaPrenotazione"
-        class=".prenotazionifolder.SavePrenotazione"
-        permission="zope2.View"
-        />
+  <browser:page
+    for="..interfaces.IPrenotazioniFolder"
+    name="spostaPrenotazione"
+    class=".prenotazionifolder.MovePrenotazione"
+    permission="zope2.View"
+  />
 
-    <browser:page
-        for="..interfaces.IPrenotazioniFolder"
-        name="annullaSpostamento"
-        class=".prenotazionifolder.CancelSpostamento"
-        permission="zope2.View"
-        />
+  <browser:page
+    for="..interfaces.IPrenotazioniFolder"
+    name="fissaPrenotazione"
+    class=".prenotazionifolder.SavePrenotazione"
+    permission="zope2.View"
+  />
 
-</configure>
+  <browser:page
+    for="..interfaces.IPrenotazioniFolder"
+    name="annullaSpostamento"
+    class=".prenotazionifolder.CancelSpostamento"
+    permission="zope2.View"
+  />
+
+</configure
+>

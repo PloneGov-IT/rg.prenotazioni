@@ -1,24 +1,21 @@
 # -*- coding: utf-8 -*-
-
-from datetime import timedelta, date
 from DateTime import DateTime
-
-from zope.event import notify
-
-from zExceptions import Unauthorized
-
-from Products.CMFCore.utils import getToolByName
 from Products.CMFCore import permissions
+from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
-
-from rg.prenotazioni.prenotazione_event import MovedPrenotazione
+from datetime import timedelta, date
+from plone.memoize.view import memoize
 from rg.prenotazioni import prenotazioniMessageFactory as _
+from rg.prenotazioni.prenotazione_event import MovedPrenotazione
+from zExceptions import Unauthorized
+from zope.event import notify
 
 
 class PrenotazioniFolderView(BrowserView):
     """Default view of a PrenotazioniFolder
     """
 
+    @memoize
     def days(self):
         """
         Restituisce i giorni della settimana "customizzata" nel formato
@@ -86,8 +83,8 @@ class PrenotazioniFolderView(BrowserView):
 
         return str(ore).zfill(2) + ':' + str(minuti).zfill(2)
 
-    def getPrenotazione(self, day, orario):
-        """ restituisce le prenotazioni fissate per il giorno e l'ora indicati
+    def getPrenotazioni(self, day, orario):
+        """restituisce le prenotazioni fissate per il giorno e l'ora indicati
         """
         pc = getToolByName(self.context, 'portal_catalog', None)
         giorno = DateTime(day.strftime('%Y/%m/%d') + ' ' + orario + ':00')
@@ -97,21 +94,36 @@ class PrenotazioniFolderView(BrowserView):
                            path='/'.join(self.context.getPhysicalPath()
                        )
         )
-        if prenotazioni:
-            return prenotazioni[0]
+        return prenotazioni
 
-        return False
+    @memoize
+    def getMinimumBookableDate(self):
+        '''
+        Return, if we have it, the maximum bookable date,
+        i.e. today + the number of days specified in the container
+        '''
+        return date.today()
 
-    def displayAggiungiPrenotazione(self, prenotazione, day):
-        """Condition for showing the "+" icon"""
-        if prenotazione:
-            return False
-
+    @memoize
+    def getMaximumBookableDate(self):
+        '''
+        Return, if we have it, the maximum bookable date,
+        i.e. today + the number of days specified in the container
+        '''
+        future_days = self.context.getFutureDays()
+        if not future_days:
+            return None
         today = date.today()
-        context = self.context
-        if day < today:
+        return today + timedelta(days=future_days)
+
+    def displayAggiungiPrenotazione(self, prenotazioni, day):
+        """Condition for showing the "+" icon"""
+        if len(prenotazioni):
             return False
-        if context.getFutureDays() and day > today + timedelta(days=context.getFutureDays()):
+        if day < self.getMinimumBookableDate():
+            return False
+        if (self.getMaximumBookableDate()
+            and day > self.getMaximumBookableDate()):
             return False
         return True
 
@@ -142,17 +154,13 @@ class PrenotazioniFolderView(BrowserView):
             return True
         return False
 
+    @memoize
     def uidSpostaAppuntamento(self):
         """
         Se nella request esiste il parametro UID allora si tratta di uno
         spostamento
         """
-        res = False
-        uid = self.context.REQUEST.SESSION.get('UID', '')
-        if uid:
-            res = uid
-
-        return res
+        return self.context.REQUEST.SESSION.get('UID', False)
 
     def spanRow(self, day):
         """ restituisce lo span nel caso in cui ci sia orario continuato
