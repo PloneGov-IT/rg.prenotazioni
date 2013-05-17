@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <metadata>
-  <version>2000</version>
+  <version>2010</version>
   <dependencies>
     <dependency>profile-Products.DataGridField:default</dependency>
+    <dependency>profile-quintagroup.captcha.core:default</dependency>
   </dependencies>
 </metadata>
