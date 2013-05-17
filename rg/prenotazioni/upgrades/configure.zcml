@@ -1,0 +1,13 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
+  
+  <genericsetup:upgradeStep
+      title="Install new dependency"
+      description="Since 2010 we have quintagroup.formlib.captcha"
+      source="*"
+      destination="2010"
+      handler=".to2010.captcha"
+      profile="rg.prenotazioni:default"
+  />
+
+</configure>
