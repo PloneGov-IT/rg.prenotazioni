@@ -6,12 +6,14 @@
     i18n_domain="rg.prenotazioni">
 
   <five:registerPackage package="." initialize=".initialize" />
+  <includeDependencies package="." />
   <i18n:registerTranslations directory="locales" />
   
   <!-- Include the sub-packages that use their own configure.zcml files. -->
   <include package=".browser" />
   <include package=".content" />
   <include package=".contentrules" />
+  <include package=".upgrades" />
 
   <subscriber for=".interfaces.IPrenotazione zope.lifecycleevent.IObjectModifiedEvent"
               handler=".event.booking_created" />
