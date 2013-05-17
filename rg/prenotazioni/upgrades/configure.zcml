@@ -6,7 +6,7 @@
       description="Since 2010 we have quintagroup.formlib.captcha"
       source="*"
       destination="2010"
-      handler=".to2010.captcha"
+      handler=".to2010.install_missing_products"
       profile="rg.prenotazioni:default"
   />
 
