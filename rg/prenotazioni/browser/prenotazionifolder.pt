@@ -85,7 +85,7 @@
                                         <!-- non esiste una prenotazione -->
                                         <a href="" class="aggiungiPrenotazione" title="Richiedi prenotazione"
                                             tal:condition="python:view.displayAggiungiPrenotazione(prenotazione, day[1])"
-                                            tal:attributes="href python:here_url+'/creaPrenotazione?data_prenotazione='+day[1].strftime('%Y/%m/%d')+' '+orario+':00'">+</a>
+                                            tal:attributes="href python:here_url+'/creaPrenotazione?form.booking_date='+day[1].strftime('%Y/%m/%d')+' '+orario+':00'">+</a>
                                         <!-- esiste la prenotazione e sono posso vederla -->
                                         <a href="" class="state-pending"
                                             tal:condition="python:view.displayPrenotazione(prenotazione, member)"

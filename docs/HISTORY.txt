@@ -4,8 +4,12 @@ Changelog
 2.1 (unreleased)
 ================
 
-- Nothing changed yet.
+- anonymous users can book again [alert]
+- autoinclude dependencies zcml [alert]
+- use captchas for anonymous users [alert]
+- upgrade step for installing `quintagroup.formlib.captcha`__ [alert]
 
+__ http://plone.org/products/quintagroup.formlib.captcha
 
 2.0 (2013-05-03)
 ================

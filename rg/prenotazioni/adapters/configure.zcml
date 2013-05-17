@@ -1,0 +1,16 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+  
+
+  <adapter
+      provides=".conflict.IConflictManager"
+      for="rg.prenotazioni.interfaces.IPrenotazioniFolder"
+      factory=".conflict.ConflictManager"
+  />
+
+  <adapter
+      provides=".booker.IBooker"
+      for="rg.prenotazioni.interfaces.IPrenotazioniFolder"
+      factory=".booker.Booker"
+  />
+
+</configure>

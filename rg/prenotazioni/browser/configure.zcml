@@ -36,7 +36,7 @@
     <browser:page
         for="..interfaces.IPrenotazioniFolder"
         name="creaPrenotazione"
-        class=".prenotazionifolder.CreatePrenotazione"
+        class=".prenotazione_add.AddForm"
         permission="zope2.View"
         />
 

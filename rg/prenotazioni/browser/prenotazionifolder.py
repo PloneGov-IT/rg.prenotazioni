@@ -14,6 +14,7 @@ from Products.Five.browser import BrowserView
 from rg.prenotazioni.prenotazione_event import MovedPrenotazione
 from rg.prenotazioni import prenotazioniMessageFactory as _
 
+
 class PrenotazioniFolderView(BrowserView):
     """Default view of a PrenotazioniFolder
     """
@@ -30,7 +31,7 @@ class PrenotazioniFolderView(BrowserView):
             anno = int(data_list[2])
             mese = int(data_list[1])
             giorno = int(data_list[0])
-            #giorno=date(2002, 12, 31)
+            # giorno=date(2002, 12, 31)
             day = date(anno, mese, giorno)
         else:
             day = date.today()
@@ -224,18 +225,6 @@ class PrenotazioniFolderView(BrowserView):
             return False
 
 
-class CreatePrenotazione(BrowserView):
-    """
-    """
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
-
-    def __call__(self, *args):
-        data = self.request.get('data_prenotazione', '')
-        self.request.RESPONSE.redirect("createObject?type_name=Prenotazione&data_prenotazione=" + data)
-
-
 class MovePrenotazione(BrowserView):
     """
     """
@@ -289,7 +278,7 @@ class CancelSpostamento(BrowserView):
 
 class CreateObjectView(BrowserView):
     """Simulate the CMF createObject.cpy script"""
-    
+
     def __call__(self, *args):
         request = self.request
         context = self.context
@@ -301,15 +290,15 @@ class CreateObjectView(BrowserView):
 
         if id is None:
             id = context.generateUniqueId(type_name)
-    
+
         if type_name is None:
             raise Exception, 'Type name not specified'
-    
+
         types_tool = getToolByName(context, 'portal_types')
         fti = types_tool.getTypeInfo(type_name)
-    
+
         new_url = '/portal_factory/' + type_name + '/' + id
         new_url = new_url + '/edit?data_prenotazione=%s' % data_prenotazione
-        
+
         request.response.redirect(context.absolute_url() + new_url)
 
