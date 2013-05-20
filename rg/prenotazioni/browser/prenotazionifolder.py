@@ -277,36 +277,9 @@ class SavePrenotazione(BrowserView):
             pu.addPortalMessage(msg)
         self.request.RESPONSE.redirect(self.context.absolute_url())
 
+
 class CancelSpostamento(BrowserView):
 
     def __call__(self, *args):
         self.request.SESSION.set('UID', '')
         self.request.RESPONSE.redirect(self.context.absolute_url())
-
-
-class CreateObjectView(BrowserView):
-    """Simulate the CMF createObject.cpy script"""
-
-    def __call__(self, *args):
-        request = self.request
-        context = self.context
-        type_name = request.get('type_name')
-        id = request.get('id')
-        data_prenotazione = request.get('data_prenotazione')
-        if data_prenotazione:
-            data_prenotazione = DateTime(data_prenotazione).strftime('%Y-%m-%d %H:%M')
-
-        if id is None:
-            id = context.generateUniqueId(type_name)
-
-        if type_name is None:
-            raise Exception, 'Type name not specified'
-
-        types_tool = getToolByName(context, 'portal_types')
-        fti = types_tool.getTypeInfo(type_name)
-
-        new_url = '/portal_factory/' + type_name + '/' + id
-        new_url = new_url + '/edit?data_prenotazione=%s' % data_prenotazione
-
-        request.response.redirect(context.absolute_url() + new_url)
-
