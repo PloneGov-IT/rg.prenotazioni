@@ -8,6 +8,7 @@ Changelog
 - autoinclude dependencies zcml [alert]
 - use captchas for anonymous users [alert]
 - upgrade step for installing `quintagroup.formlib.captcha`__ [alert]
+- removed customized createObject view [alert]
 
 __ http://plone.org/products/quintagroup.formlib.captcha
 

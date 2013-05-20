@@ -36,15 +36,15 @@
 
   <browser:page
     for="..interfaces.IPrenotazioniFolder"
-    name="createObject"
-    class=".prenotazionifolder.CreateObjectView"
-    permission="cmf.AddPortalContent"
+    name="creaPrenotazione"
+    class=".prenotazione_add.AddForm"
+    permission="zope2.View"
   />
 
   <browser:page
     for="..interfaces.IPrenotazioniFolder"
-    name="creaPrenotazione"
-    class=".prenotazione_add.AddForm"
+    name="getNotAddableTypes"
+    class=".prenotazionifolder.GetNotAddableTypes"
     permission="zope2.View"
   />
 
