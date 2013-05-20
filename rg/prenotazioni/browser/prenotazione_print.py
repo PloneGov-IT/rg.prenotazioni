@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
-from Products.Five.browser import BrowserView
-from plone.memoize.view import memoize
-from rg.prenotazioni import prenotazioniLogger as logger
-from urllib import urlencode
-from Products.statusmessages.interfaces import IStatusMessage
 from Products.CMFCore.utils import getToolByName
+from Products.Five.browser import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
+from plone.memoize.view import memoize
+from urllib import urlencode
 
 
 class PrenotazionePrint(BrowserView):
