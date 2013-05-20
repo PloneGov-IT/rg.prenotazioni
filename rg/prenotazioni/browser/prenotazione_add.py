@@ -45,11 +45,11 @@ class IAddForm(Interface):
         title=_('label_email', u'Email'),
         default=u'',
     )
-    captcha = Captcha(
-        title=_('label_captcha',
-                u'Type the code from the picture shown below.'),
-        default='',
-    )
+#     captcha = Captcha(
+#         title=_('label_captcha',
+#                 u'Type the code from the picture shown below.'),
+#         default='',
+#     )
 
 
 class AddForm(PageForm):
@@ -64,7 +64,7 @@ class AddForm(PageForm):
         The fields for this form
         '''
         ff = FormFields(IAddForm)
-        ff['captcha'].custom_widget = CaptchaWidget
+        #ff['captcha'].custom_widget = CaptchaWidget
         return ff
 
     def booking_validator(self, action, data):
