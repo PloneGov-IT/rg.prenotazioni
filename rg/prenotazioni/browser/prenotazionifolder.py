@@ -283,14 +283,3 @@ class CancelSpostamento(BrowserView):
     def __call__(self, *args):
         self.request.SESSION.set('UID', '')
         self.request.RESPONSE.redirect(self.context.absolute_url())
-
-
-class GetNotAddableTypes(BrowserView):
-    '''
-    Remove addable types for this folderish type
-    '''
-    def __call__(self):
-        '''
-        Return the not addable types
-        '''
-        return ['Prenotazione']

@@ -4,6 +4,7 @@ Changelog
 2.1 (unreleased)
 ================
 
+- we can add prenotazioni only through the calendar links [alert]
 - anonymous users can book again [alert]
 - autoinclude dependencies zcml [alert]
 - use captchas for anonymous users [alert]

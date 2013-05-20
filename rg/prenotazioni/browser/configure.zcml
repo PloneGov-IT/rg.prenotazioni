@@ -43,13 +43,6 @@
 
   <browser:page
     for="..interfaces.IPrenotazioniFolder"
-    name="getNotAddableTypes"
-    class=".prenotazionifolder.GetNotAddableTypes"
-    permission="zope2.View"
-  />
-
-  <browser:page
-    for="..interfaces.IPrenotazioniFolder"
     name="spostaPrenotazione"
     class=".prenotazionifolder.MovePrenotazione"
     permission="zope2.View"
@@ -68,6 +61,17 @@
     class=".prenotazionifolder.CancelSpostamento"
     permission="zope2.View"
   />
+
+  <!-- Do not add Prenotazione through content menu -->
+  <configure package="plone.app.content">
+    <browser:page
+      for="rg.prenotazioni.interfaces.IPrenotazioniFolder"
+      name="folder_factories"
+      class="rg.prenotazioni.browser.folderfactories.FolderFactoriesView"
+      template="browser/folderfactories.pt"
+      permission="cmf.AddPortalContent"
+    />
+  </configure>
 
 </configure
 >
