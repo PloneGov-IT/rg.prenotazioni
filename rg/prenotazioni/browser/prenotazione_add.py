@@ -59,12 +59,23 @@ class AddForm(PageForm):
 
     @property
     @memoize
+    def is_anonymous(self):
+        '''
+        Check if user is anonymous
+        '''
+        return self.conte
+
+    @property
+    @memoize
     def form_fields(self):
         '''
         The fields for this form
         '''
         ff = FormFields(IAddForm)
-        ff['captcha'].custom_widget = CaptchaWidget
+        if not self.context.restrictedTraverse('plone_portal_state/anonymous')():
+            ff = ff.omit('captcha')
+        else:
+            ff['captcha'].custom_widget = CaptchaWidget
         return ff
 
     def booking_validator(self, action, data):
