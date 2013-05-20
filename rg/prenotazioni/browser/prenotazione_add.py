@@ -10,6 +10,7 @@ from zope.formlib.form import FormFields, action
 from zope.interface import Interface
 from zope.interface.declarations import implements
 from zope.schema import Datetime, TextLine, Text
+from urllib import urlencode
 
 
 class IAddForm(Interface):
@@ -104,7 +105,10 @@ class AddForm(PageForm):
         msg = _('booking_created', 'Booking created')
         IStatusMessage(self.request).add(msg, 'info')
         booking_date = data['booking_date'].strftime('%d/%m/%Y')
-        target = ('%s/@@prenotazione_print?data=%s') % (obj.absolute_url(), booking_date)
+        qs = urlencode({'data': booking_date,
+                        'uid': obj.UID()})
+        target = ('%s/@@prenotazione_print?%s'
+                  ) % (self.context.absolute_url(), qs)
         self.request.response.redirect(target)
 
     @action(_('action_cancel', u'Cancell'), name=u'cancel')

@@ -27,9 +27,9 @@
   />
 
   <browser:page
-    for="..interfaces.IPrenotazione"
+    for="..interfaces.IPrenotazioniFolder"
     name="prenotazione_print"
-    class=".prenotazione.PrenotazioneView"
+    class=".prenotazione_print.PrenotazionePrint"
     template="prenotazione_print.pt"
     permission="zope2.View"
   />
