@@ -78,12 +78,11 @@ class AddForm(PageForm):
             ff['captcha'].custom_widget = CaptchaWidget
         return ff
 
-    def validate(self, action, data):
+    def booking_validator(self, action, data):
         '''
         Checks if we can book those data
         '''
-        super_form = super(AddForm, self)
-        errors = super_form.validate(action, data)
+        errors = super(AddForm, self).validate(action, data)
         conflict_manager = IConflictManager(self.context.aq_inner)
         if conflict_manager.conflicts(data):
             errors.append
@@ -96,7 +95,8 @@ class AddForm(PageForm):
         booker = IBooker(self.context.aq_inner)
         return booker.create(data)
 
-    @action(_('action_book', u'Book'), name=u'book')
+    @action(_('action_book', u'Book'), name=u'book',
+            validator="booking_validator")
     def action_book(self, action, data):
         '''
         Book this resource
