@@ -19,19 +19,19 @@
     <tal:main-macro metal:define-macro="main"
                     tal:define="here_url context/@@plone_context_state/object_url;
                                 member context/@@plone_portal_state/member;
-								putils context/plone_utils;">
+                putils context/plone_utils;">
 
         <div tal:replace="structure provider:plone.abovecontenttitle" />
 
-   		<h3>Benvenuto: <span metal:use-macro="python:context.widget('title', mode='view')" /></h3>
-		<h1>Prenotazione avvenuta con successo</h1>
-   		<div>
-   			<p>La richiesta è stata correttamente inserita.<br />
-   			Di seguito sono elencati i dati ad essa relativi:
-   			</p>
-   		</div>
+      <h3>Benvenuto: <span metal:use-macro="python:context.widget('title', mode='view')" /></h3>
+    <h1>Prenotazione avvenuta con successo</h1>
+      <div>
+        <p>La richiesta è stata correttamente inserita.<br />
+        Di seguito sono elencati i dati ad essa relativi:
+        </p>
+      </div>
         <div class="documentDescription-box clear-block">
-        	<strong i18n:translate="">Description</strong>
+          <strong i18n:translate="">Description</strong>
             <p class="documentDescription">
                <tal:block condition="here/Description">
                    <metal:field use-macro="python:here.widget('description', mode='view')">
@@ -44,40 +44,40 @@
         <div tal:replace="structure provider:plone.abovecontentbody" />
 
            <div class="field" tal:condition="here/getTipologia_prenotazione">
-           	   <strong i18n:translate="">Reservation type:</strong>
+               <strong i18n:translate="">Reservation type:</strong>
                <span tal:replace="context/getTipologia_prenotazione" />
            </div>
 
            <div class="field" tal:condition="here/getData_prenotazione">
-           	   <strong i18n:translate="">Reservation date:</strong>
+               <strong i18n:translate="">Reservation date:</strong>
                <span tal:replace="python:putils.toLocalizedTime(context.getData_prenotazione(), True)" />
            </div>
 
            <div class="field" tal:condition="here/getAzienda">
-           	   <strong i18n:translate="">Company:</strong>
+               <strong i18n:translate="">Company:</strong>
                <span tal:replace="context/getAzienda" />
            </div>
 
            <div class="field" tal:condition="here/getTelefono">
-           	   <strong i18n:translate="">Phone number:</strong>
+               <strong i18n:translate="">Phone number:</strong>
                <span tal:replace="context/getTelefono" />
            </div>
 
            <div class="field" tal:condition="here/getEmail">
-           	   <strong i18n:translate="">E-mail:</strong>
+               <strong i18n:translate="">E-mail:</strong>
                <a tal:attributes="href string:mailto:${context/getEmail}"
-			      tal:content="context/getEmail" />
+            tal:content="context/getEmail" />
            </div>
-		
+    
         <div tal:replace="structure provider:plone.belowcontentbody" />
         <ul>
-        	<li id="document-action-print">
-				<a href="javascript:this.print();" title=""><span i18n:translate="">Print</span></a>
+          <li id="document-action-print">
+        <a href="javascript:this.print();" title=""><span i18n:translate="">Print</span></a>
             </li>
-        	<li>
-        		<a title="Prenotazioni" href="prenotoazioni"
-		        tal:attributes="href string:${context/@@plone_portal_state/portal_url}/prenotazioni">Ritorna alle prenotazioni</a>
-        	</li>
+          <li>
+            <a title="Prenotazioni" href="prenotazioni"
+            tal:attributes="href string:${context/aq_parent/absolute_url}?data=${request/data|nothing}">Ritorna alle prenotazioni</a>
+          </li>
         </ul>
 
     </tal:main-macro>

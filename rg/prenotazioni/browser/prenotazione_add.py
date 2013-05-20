@@ -78,7 +78,7 @@ class AddForm(PageForm):
             ff['captcha'].custom_widget = CaptchaWidget
         return ff
 
-    def booking_validator(self, action, data):
+    def validate(self, action, data):
         '''
         Checks if we can book those data
         '''
@@ -95,17 +95,16 @@ class AddForm(PageForm):
         booker = IBooker(self.context.aq_inner)
         return booker.create(data)
 
-    @action(_('action_book', u'Book'), name=u'book',
-            validator="booking_validator")
+    @action(_('action_book', u'Book'), name=u'book')
     def action_book(self, action, data):
         '''
         Book this resource
         '''
-        self.do_book(data)
+        obj = self.do_book(data)
         msg = _('booking_created', 'Booking created')
         IStatusMessage(self.request).add(msg, 'info')
         booking_date = data['booking_date'].strftime('%d/%m/%Y')
-        target = ('%s?data=%s') % (self.context.absolute_url(), booking_date)
+        target = ('%s/@@prenotazione_print?data=%s') % (obj.absolute_url(), booking_date)
         self.request.response.redirect(target)
 
     @action(_('action_cancel', u'Cancell'), name=u'cancel')
