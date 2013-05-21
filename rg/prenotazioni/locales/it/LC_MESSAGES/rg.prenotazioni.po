@@ -28,7 +28,7 @@ msgstr "Aggiungi Mail Action per lo spostamento delle prenotazioni"
 
 #: ./content/prenotazione.py:55
 msgid "Azienda"
-msgstr ""
+msgstr "Azienda"
 
 #: ./profiles/default/types/Prenotazione.xml
 msgid "Booking"
@@ -55,27 +55,27 @@ msgstr "Configura elemento"
 
 #: ./content/prenotazionifolder.py:60
 msgid "Data fine validità"
-msgstr ""
+msgstr "Data fine validità"
 
 #: ./content/prenotazionifolder.py:48
 msgid "Data inizio validità"
-msgstr ""
+msgstr "Data inizio validità"
 
 #: ./content/prenotazione.py:45
 msgid "Data prenotazione"
-msgstr ""
+msgstr "Data prenotazione"
 
 #: ./content/prenotazionifolder.py:39
 msgid "Descrizione Agenda"
-msgstr ""
+msgstr "Descrizione Agenda"
 
 #: ./content/prenotazionifolder.py:73
 msgid "Durata incontro"
-msgstr ""
+msgstr "Durata incotro"
 
 #: ./browser/prenotazione.pt:68
 msgid "E-mail:"
-msgstr ""
+msgstr "E-mail:"
 
 #: ./contentrules/sendMovedPrenotazione.py:138
 msgid "Edit moved booking Mail Action"
@@ -83,7 +83,7 @@ msgstr "Modifica Mail Action per lo spostamento delle prenotazioni"
 
 #: ./content/prenotazionifolder.py:151
 msgid "Email del responsabile"
-msgstr ""
+msgstr "Email del responsabile"
 
 #: ./contentrules/sendMovedPrenotazione.py:58
 msgid "Email report to prenotazione owner"
@@ -91,19 +91,19 @@ msgstr "Report email al creatore della prenotazione"
 
 #: ./content/prenotazione.py:203
 msgid "Formato della data non corretto"
-msgstr ""
+msgstr "Formato della data non corretto"
 
 #: ./content/prenotazionifolder.py:114
 msgid "Giorni festivi"
-msgstr ""
+msgstr "Giorni festivi"
 
 #: ./content/prenotazionifolder.py:115
 msgid "Indicare i giorni festivi (una per riga) nel formato gg/mm/aaaa"
-msgstr ""
+msgstr "Indicare i giorni festivi (una per riga) nel formato gg/mm/aaaa"
 
 #: ./content/prenotazionifolder.py:90
 msgid "Indicare la composizione della settimana tipo"
-msgstr ""
+msgstr "Indicare la composizione della settimana tipo"
 
 #: ./profiles/default/types/Prenotazione.xml
 msgid "Informations about a single booking"
@@ -111,15 +111,15 @@ msgstr "Informazioni relativa ad una singola prenotazione"
 
 #: ./content/prenotazionifolder.py:152
 msgid "Inserisci l'indirizzo email del responsabile delle prenotazioni"
-msgstr ""
+msgstr "Inserisci l'indirizzo email del responsabile delle prenotazioni"
 
 #: ./content/prenotazione.py:56
 msgid "Inserisci la denominazione dell'azienda del richiedente"
-msgstr ""
+msgstr "Inserisci la denominazione dell'azienda del richiedente"
 
 #: ./content/prenotazione.py:67
 msgid "Inserisci un recapito telefonico"
-msgstr ""
+msgstr "Inserisci un recapito telefonico"
 
 #: ./content/prenotazionifolder.py:126
 msgid "Max days in the future"
@@ -131,11 +131,11 @@ msgstr "Messaggio"
 
 #: ./content/prenotazione.py:87
 msgid "Nome e Cognome"
-msgstr ""
+msgstr "Nome e Cognome"
 
 #: ./content/prenotazione.py:91
 msgid "Oggetto"
-msgstr ""
+msgstr "Oggetto"
 
 #: ./browser/prenotazione.pt:63
 msgid "Phone number:"
@@ -154,7 +154,7 @@ msgstr "Tipologia:"
 
 #: ./browser/prenotazionifolder.py:231
 msgid "Seleziona la data nella quale spostare l'appuntamento"
-msgstr ""
+msgstr "Seleziona la data nella quale spostare l'appuntamento"
 
 #: ./contentrules/sendMovedPrenotazione.py:27
 msgid "Sender email"
@@ -166,7 +166,7 @@ msgstr ""
 
 #: ./content/prenotazionifolder.py:74
 msgid "Specificare la durata in minuti"
-msgstr ""
+msgstr "Specificare la durata in minuti"
 
 #: ./contentrules/sendMovedPrenotazione.py:21
 msgid "Subject"
@@ -178,15 +178,15 @@ msgstr "Oggetto del messaggio"
 
 #: ./content/prenotazione.py:66
 msgid "Telefono"
-msgstr ""
+msgstr "Telefono"
 
 #: ./content/prenotazione.py:35
 msgid "Tipologia della prenotazione"
-msgstr ""
+msgstr "Tipologia della prenotazione"
 
 #: ./content/prenotazionifolder.py:138
 msgid "Tipologie di richiesta"
-msgstr ""
+msgstr "Tipologie di richiesta"
 
 #. Default: "Leave empty, and this Booking Folder will never expire"
 #: ./content/prenotazionifolder.py:61
