@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 from DateTime import DateTime
-from Products.Archetypes.event import ObjectInitializedEvent
 from Products.CMFPlone.FactoryTool import _createObjectByType
 from zope.component import Interface
-from zope.event import notify
 from zope.interface.declarations import implements
 
 
@@ -36,6 +34,7 @@ class Booker(object):
                    'data_prenotazione': DateTime(data['booking_date']),
                    'telefono': data['phone'] or '',
                    'email': data['email'] or '',
+                   'tipologia_prenotazione': data.get('tipology', ''),
                    }
         obj.processForm(values=at_data)
         return obj

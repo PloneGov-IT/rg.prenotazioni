@@ -1,0 +1,6 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+
+  <utility component=".tipologies.TipologiesVocabularyFactory"
+           name="rg.prenotazioni.tipologies"/>
+
+</configure>

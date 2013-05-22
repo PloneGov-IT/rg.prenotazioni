@@ -9,8 +9,10 @@ from rg.prenotazioni.adapters.conflict import IConflictManager
 from zope.formlib.form import FormFields, action
 from zope.interface import Interface
 from zope.interface.declarations import implements
-from zope.schema import Datetime, TextLine, Text
+from zope.schema import Choice, Datetime, TextLine, Text
 from urllib import urlencode
+from zope.component._api import getUtility
+from zope.schema.interfaces import IVocabularyFactory
 
 
 class IAddForm(Interface):
@@ -20,6 +22,21 @@ class IAddForm(Interface):
     fullname = TextLine(
         title=_('label_fullname', u'Fullname'),
         default=u'',
+    )
+    email = TextLine(
+        title=_('label_email', u'Email'),
+        default=u'',
+    )
+    phone = TextLine(
+        title=_('label_phone', u'Phone number'),
+        required=False,
+        default=u'',
+    )
+    tipology = Choice(
+        title=_('label_tipology', u'Tipology'),
+        required=True,
+        default=u'',
+        vocabulary='rg.prenotazioni.tipologies',
     )
     subject = Text(
         title=_('label_subject', u'Subject'),
@@ -36,15 +53,6 @@ class IAddForm(Interface):
                       u'If you work for an agency please specify its name'),
         default=u'',
         required=False,
-    )
-    phone = TextLine(
-        title=_('label_phone', u'Phone number'),
-        required=False,
-        default=u'',
-    )
-    email = TextLine(
-        title=_('label_email', u'Email'),
-        default=u'',
     )
     captcha = Captcha(
         title=_('label_captcha',
@@ -66,6 +74,13 @@ class AddForm(PageForm):
         '''
         return self.conte
 
+    def len_tipologies(self):
+        '''
+        Check if we have tipologies defined here
+        '''
+        voc = getUtility(IVocabularyFactory, name="rg.prenotazioni.tipologies")
+        return len(voc(self.context))
+
     @property
     @memoize
     def form_fields(self):
@@ -77,6 +92,8 @@ class AddForm(PageForm):
             ff = ff.omit('captcha')
         else:
             ff['captcha'].custom_widget = CaptchaWidget
+        if not self.len_tipologies():
+            ff = ff.omit('tipology')
         return ff
 
     def validate(self, action, data):
