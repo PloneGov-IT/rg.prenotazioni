@@ -3,6 +3,7 @@
 from Products.CMFCore.utils import getToolByName
 from Products.DCWorkflow.DCWorkflow import WorkflowException
 
+
 def booking_created(context, event):
     try:
         factory_tool = getToolByName(context, 'portal_factory')
