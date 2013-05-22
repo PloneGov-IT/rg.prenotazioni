@@ -4,6 +4,8 @@ Changelog
 2.1 (unreleased)
 ================
 
+- working on contentrules [nicolasenno]
+- modified workflow to add refused state [nicolasenno]
 - we can add prenotazioni only through the calendar links [alert]
 - anonymous users can book again [alert]
 - autoinclude dependencies zcml [alert]
