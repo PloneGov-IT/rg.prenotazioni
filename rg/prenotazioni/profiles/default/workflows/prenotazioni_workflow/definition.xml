@@ -1,26 +1,19 @@
-<?xml version="1.0"?>
-<dc-workflow workflow_id="prenotazioni_workflow"
-             title="Prenotazioni Workflow"
-             description="Workflow for Prenotazione content type"
-             state_variable="review_state"
-             initial_state="private">
+<?xml version="1.0" encoding="UTF-8"?>
+<dc-workflow workflow_id="prenotazioni_workflow" title="Prenotazioni Workflow" description="Workflow for Prenotazione content type" state_variable="review_state" initial_state="private" manager_bypass="False">
  <permission>Access contents information</permission>
  <permission>Modify portal content</permission>
  <permission>View</permission>
  <state state_id="pending" title="In attesa">
-  <description>Waiting to be reviewed, not editable by the owner and not visible
-</description>
+  <description>Waiting to be reviewed, not editable by the owner and not visible</description>
   <exit-transition transition_id="publish"/>
-  <permission-map name="Access contents information"
-                  acquired="False">
+  <permission-map name="Access contents information" acquired="False">
    <permission-role>Owner</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Reader</permission-role>
    <permission-role>Reviewer</permission-role>
   </permission-map>
-  <permission-map name="Modify portal content"
-                  acquired="False">
+  <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Reviewer</permission-role>
   </permission-map>
@@ -35,16 +28,14 @@
  <state state_id="private" title="Private">
   <description>Fake initial state, immediately changed</description>
   <exit-transition transition_id="submit"/>
-  <permission-map name="Access contents information"
-                  acquired="False">
+  <permission-map name="Access contents information" acquired="False">
    <permission-role>Anonymous</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Reader</permission-role>
   </permission-map>
-  <permission-map name="Modify portal content"
-                  acquired="False">
+  <permission-map name="Modify portal content" acquired="False">
    <permission-role>Anonymous</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
@@ -59,16 +50,14 @@
   </permission-map>
  </state>
  <state state_id="published" title="Confermato">
-  <permission-map name="Access contents information"
-                  acquired="False">
+  <permission-map name="Access contents information" acquired="False">
    <permission-role>Owner</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Reader</permission-role>
    <permission-role>Reviewer</permission-role>
   </permission-map>
-  <permission-map name="Modify portal content"
-                  acquired="False">
+  <permission-map name="Modify portal content" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Reviewer</permission-role>
   </permission-map>
@@ -80,19 +69,21 @@
    <permission-role>Reviewer</permission-role>
   </permission-map>
  </state>
- <transition transition_id="publish" title="Conferma"
-             new_state="published" trigger="USER"
-             before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action=publish"
-          category="workflow">Conferma</action>
+ <state state_id="refused" title="Rifiutato">
+ </state>
+ <transition transition_id="publish" title="Conferma" new_state="published" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=publish" category="workflow" icon="">Conferma</action>
   <guard>
    <guard-permission>Review portal content</guard-permission>
   </guard>
  </transition>
- <transition transition_id="submit"
-             title="Transazione automatica di richiesta conferma"
-             new_state="pending" trigger="USER"
-             before_script="" after_script="">
+ <transition transition_id="refuse" title="Rifiutato" new_state="refused" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=refuse" category="workflow" icon="">Rifiutato</action>
+  <guard>
+   <guard-permission>Review portal content</guard-permission>
+  </guard>
+ </transition>
+ <transition transition_id="submit" title="Transazione automatica di richiesta conferma" new_state="pending" trigger="USER" before_script="" after_script="">
   
   <guard>
    <guard-permission>View</guard-permission>
@@ -100,15 +91,13 @@
  </transition>
  <worklist worklist_id="reviewer_queue" title="">
   <description>Reviewer tasks</description>
-  <action url="%(portal_url)s/search?review_state=pending"
-          category="global">Pending (%(count)d)</action>
+  <action url="%(portal_url)s/search?review_state=pending" category="global" icon="">Pending (%(count)d)</action>
   <guard>
    <guard-permission>Review portal content</guard-permission>
   </guard>
   <match name="review_state" values="pending"/>
  </worklist>
- <variable variable_id="action" for_catalog="False"
-           for_status="True" update_always="True">
+ <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
   <description>Previous transition</description>
   <default>
    
@@ -117,8 +106,7 @@
   <guard>
   </guard>
  </variable>
- <variable variable_id="actor" for_catalog="False"
-           for_status="True" update_always="True">
+ <variable variable_id="actor" for_catalog="False" for_status="True" update_always="True">
   <description>The ID of the user who performed the previous transition</description>
   <default>
    
@@ -127,8 +115,7 @@
   <guard>
   </guard>
  </variable>
- <variable variable_id="comments" for_catalog="False"
-           for_status="True" update_always="True">
+ <variable variable_id="comments" for_catalog="False" for_status="True" update_always="True">
   <description>Comment about the last transition</description>
   <default>
    
@@ -137,8 +124,7 @@
   <guard>
   </guard>
  </variable>
- <variable variable_id="review_history" for_catalog="False"
-           for_status="False" update_always="False">
+ <variable variable_id="review_history" for_catalog="False" for_status="False" update_always="False">
   <description>Provides access to workflow history</description>
   <default>
    
@@ -149,8 +135,7 @@
    <guard-permission>Review portal content</guard-permission>
   </guard>
  </variable>
- <variable variable_id="time" for_catalog="False"
-           for_status="True" update_always="True">
+ <variable variable_id="time" for_catalog="False" for_status="True" update_always="True">
   <description>When the previous transition was performed</description>
   <default>
    
