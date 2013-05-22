@@ -90,7 +90,7 @@ PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
             description=_(u"Indicare la composizione della settimana tipo"),
             columns={
                 "giorno": FixedColumn("Giorno"),
-                "inizio_m":  SelectColumn("Ora inizio",
+                "inizio_m": SelectColumn("Ora inizio",
                                           vocabulary="vocOreInizio",
                                           default=""),
                 "num_m": SelectColumn("Numero appuntamenti",
@@ -138,10 +138,23 @@ PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
             label=_(u'Tipologie di richiesta'),
             description=_('tipologia_help',
                           default=u"Put booking types there (one per line).\n"
-                                  u"If you did't provide this field, "
+                                  u"If you do not provide this field, "
                                   u"not type selection will be available"),
         ),
         required=False,
+    ),
+
+    atapi.LinesField(
+        'gates',
+        widget=atapi.LinesWidget(
+            label=_('gates_label', "Gates"),
+            description=_('gates_help',
+                          default=u"Put gates here (one per line). "
+                                  u"If you do not fill this field, "
+                                  u"one gate is assumed"),
+        ),
+        required=False,
+        default='',
     ),
 
     atapi.StringField(
