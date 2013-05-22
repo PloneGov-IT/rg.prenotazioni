@@ -6,13 +6,14 @@ from quintagroup.formlib.captcha import Captcha, CaptchaWidget
 from rg.prenotazioni import prenotazioniMessageFactory as _
 from rg.prenotazioni.adapters.booker import IBooker
 from rg.prenotazioni.adapters.conflict import IConflictManager
+from urllib import urlencode
+from zope.component._api import getUtility
 from zope.formlib.form import FormFields, action
 from zope.interface import Interface
 from zope.interface.declarations import implements
 from zope.schema import Choice, Datetime, TextLine, Text
-from urllib import urlencode
-from zope.component._api import getUtility
 from zope.schema.interfaces import IVocabularyFactory
+from zope.formlib.interfaces import WidgetInputError
 
 
 class IAddForm(Interface):
@@ -96,6 +97,17 @@ class AddForm(PageForm):
             ff = ff.omit('tipology')
         return ff
 
+    def set_invariant_error(self, errors, fields, msg):
+        '''
+        Set an error with invariant validation to highlights the involved
+        fields
+        '''
+        for field in fields:
+            label = self.widgets[field].label
+            error = WidgetInputError(field, label, msg)
+            errors.append(error)
+            self.widgets[field].error = msg
+
     def validate(self, action, data):
         '''
         Checks if we can book those data
@@ -103,7 +115,8 @@ class AddForm(PageForm):
         errors = super(AddForm, self).validate(action, data)
         conflict_manager = IConflictManager(self.context.aq_inner)
         if conflict_manager.conflicts(data):
-            errors.append
+            msg = _(u'Sorry this slot is not available anymore.')
+            self.set_invariant_error(errors, ['booking_date'], msg)
         return errors
 
     def do_book(self, data):
