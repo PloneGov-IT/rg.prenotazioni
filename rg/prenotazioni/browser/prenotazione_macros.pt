@@ -3,7 +3,7 @@
                   uid_spostamento view/uidSpostaAppuntamento">
     <dt>
       <tal:orario content="orario">8:00</tal:orario>
-      <a href="" class="aggiungiPrenotazione" title="Richiedi prenotazione"
+         <a href="" class="aggiungiPrenotazione" title="Richiedi prenotazione"
          tal:attributes="href python:here_url+'/creaPrenotazione?form.booking_date='+day[1].strftime('%Y/%m/%d')+' '+orario+':00'">+</a>
     </dt>  
     <!-- ADD -->
@@ -27,6 +27,9 @@
         <!-- SPOSTA -->
         <tal:sposta condition="uid_spostamento">
             <!-- esiste la prenotazione e sono editor della folder -->
+            <!-- da rivedere, ora permette solo si spostare una prenotazione 
+                all'interno di una cella solo se questa non è vuota
+            -->
             <a href=""
             class="state-pending"
             tal:condition="display_prenotazione"
@@ -34,9 +37,9 @@
             class string:state-${prenotazione/review_state}"
             tal:content="prenotazione/Title">Mario Rossi</a>
             <a href="" class="modificaPrenotazione" title="Sposta qui"
-            tal:condition="python:not view.displayPrenotazione(prenotazione, member)"
+            tal:condition="python: view.displayPrenotazione(prenotazione, member)"
             tal:attributes="href python:here_url+'/fissaPrenotazione?data_prenotazione='+day[1].strftime('%Y/%m/%d')+' '+orario+':00'">sposta qui</a>
-        </tal:sposta>  
+        </tal:sposta>
       </dd>
     </tal:repeat>
   </dl>  

@@ -10,9 +10,10 @@ from Products.Five.browser import BrowserView
 
 from rg.prenotazioni import prenotazioniMessageFactory as _
 
+
 class PrenotazioneView(BrowserView):
     """View for Prenotazione"""
-    
+
     def __call__(self, *args, **kwargs):
         # trick for redirecting
         if self.request.get('HTTP_REFERER') and \
@@ -32,7 +33,7 @@ class PrenotazioneView(BrowserView):
         if self.context.REQUEST.SESSION.get('UID', ''):
             return False
         return True
-    
+
     def showUndoMoveBooking(self):
         if self.context.REQUEST.SESSION.get('UID', ''):
             return True

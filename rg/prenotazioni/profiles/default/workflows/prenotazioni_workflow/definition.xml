@@ -6,6 +6,7 @@
  <state state_id="pending" title="In attesa">
   <description>Waiting to be reviewed, not editable by the owner and not visible</description>
   <exit-transition transition_id="publish"/>
+  <exit-transition transition_id="refuse"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Owner</permission-role>
    <permission-role>Editor</permission-role>
@@ -50,6 +51,7 @@
   </permission-map>
  </state>
  <state state_id="published" title="Confermato">
+  <exit-transition transition_id="refuse"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Owner</permission-role>
    <permission-role>Editor</permission-role>
@@ -78,7 +80,7 @@
   </guard>
  </transition>
  <transition transition_id="refuse" title="Rifiutato" new_state="refused" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action=refuse" category="workflow" icon="">Rifiutato</action>
+  <action url="%(content_url)s/content_status_modify?workflow_action=refuse" category="workflow" icon="">Rifiuta</action>
   <guard>
    <guard-permission>Review portal content</guard-permission>
   </guard>
