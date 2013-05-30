@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from zope.interface import Interface
+from plone.contentrules.engine.interfaces import IRuleAssignable
 
 
-class IPrenotazioniFolder(Interface):
+class IPrenotazioniFolder(IRuleAssignable):
     """Description of the Example Type"""
