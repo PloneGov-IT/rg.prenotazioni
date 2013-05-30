@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
 from five.formlib.formbase import PageForm
 from plone.memoize.view import memoize
@@ -9,11 +10,11 @@ from rg.prenotazioni.adapters.conflict import IConflictManager
 from urllib import urlencode
 from zope.component._api import getUtility
 from zope.formlib.form import FormFields, action
+from zope.formlib.interfaces import WidgetInputError
 from zope.interface import Interface
 from zope.interface.declarations import implements
 from zope.schema import Choice, Datetime, TextLine, Text
 from zope.schema.interfaces import IVocabularyFactory
-from zope.formlib.interfaces import WidgetInputError
 
 
 class IAddForm(Interface):
@@ -66,6 +67,7 @@ class AddForm(PageForm):
     """
     """
     implements(IAddForm)
+    template = ViewPageTemplateFile('prenotazione_add.pt')
 
     @property
     @memoize

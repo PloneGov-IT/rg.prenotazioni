@@ -51,4 +51,6 @@ class ConflictManager(object):
         '''
         Check if we already have a conflictual booking
         '''
+        if not data.get('booking_date'):
+            return False
         return not self.has_free_slots(data)
