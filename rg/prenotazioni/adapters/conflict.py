@@ -50,7 +50,7 @@ class ConflictManager(object):
         query = self.base_query.copy()
         query.update(kw)
         pc = getToolByName(self.context, 'portal_catalog')
-        brains = pc.unrestrictedSearchResults(query)
+        brains = pc.unrestrictedSearchResults(**query)
         return brains
 
     def has_free_slots(self, date):

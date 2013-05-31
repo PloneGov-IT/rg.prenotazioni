@@ -34,7 +34,7 @@ class IAddForm(Interface):
         required=False,
         default=u'',
     )
-    phone = TextLine(
+    mobile = TextLine(
         title=_('label_mobile', u'Mobile number'),
         required=False,
         default=u'',

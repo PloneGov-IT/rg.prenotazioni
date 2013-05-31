@@ -265,8 +265,12 @@ class SavePrenotazione(BrowserView):
             return msg, 'error'
 
         conflict_manager = IConflictManager(self.context)
-        appuntamenti = conflict_manager.unrestricted_prenotazioni(UID=uid,
-                                                                  Date=date)
+        if not conflict_manager.has_free_slots(date):
+            msg = 'This slot is busy'
+            logger.debug(msg)
+            return msg, 'error'
+
+        appuntamenti = conflict_manager.unrestricted_prenotazioni(UID=uid)
         if not appuntamenti:
             msg = 'No prenotazioni for %s in this context' % uid
             logger.debug(msg)
