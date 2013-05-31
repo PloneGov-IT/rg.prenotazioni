@@ -5,10 +5,13 @@ from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from datetime import timedelta, date
 from plone.memoize.view import memoize
-from rg.prenotazioni import prenotazioniMessageFactory as _
+from rg.prenotazioni import prenotazioniMessageFactory as _, prenotazioniLogger as logger
 from rg.prenotazioni.prenotazione_event import MovedPrenotazione
 from zExceptions import Unauthorized
 from zope.event import notify
+from rg.prenotazioni.adapters.conflict import IConflictManager
+
+# TODO: Do not use the session anymore!
 
 
 class PrenotazioniFolderView(BrowserView):
@@ -28,7 +31,6 @@ class PrenotazioniFolderView(BrowserView):
             anno = int(data_list[2])
             mese = int(data_list[1])
             giorno = int(data_list[0])
-            # giorno=date(2002, 12, 31)
             day = date(anno, mese, giorno)
         else:
             day = date.today()
@@ -116,16 +118,13 @@ class PrenotazioniFolderView(BrowserView):
         today = date.today()
         return today + timedelta(days=future_days)
 
-    def displayAggiungiPrenotazione(self, prenotazioni, day):
-        """Condition for showing the "+" icon"""
-        if len(prenotazioni):
-            return False
-        if day < self.getMinimumBookableDate():
-            return False
-        if (self.getMaximumBookableDate()
-            and day > self.getMaximumBookableDate()):
-            return False
-        return True
+    @property
+    @memoize
+    def conflict_manager(self):
+        '''
+        Return the conflict manager for this context
+        '''
+        return  IConflictManager(self.context)
 
     def displayPrenotazione(self, prenotazione, member):
         try:
@@ -160,7 +159,11 @@ class PrenotazioniFolderView(BrowserView):
         Se nella request esiste il parametro UID allora si tratta di uno
         spostamento
         """
-        return self.context.REQUEST.SESSION.get('UID', False)
+        uid = self.context.REQUEST.SESSION.get('UID', False)
+        if not uid:
+            return False
+        conflict_manager = IConflictManager(self.context)
+        return conflict_manager.unrestricted_prenotazioni(UID=uid)
 
     def spanRow(self, day):
         """ restituisce lo span nel caso in cui ci sia orario continuato
@@ -226,20 +229,11 @@ class PrenotazioniFolderView(BrowserView):
 
         return True
 
-    def showUndoMoveBooking(self):
-        if self.context.REQUEST.SESSION.get('UID', ''):
-            return True
-        else:
-            return False
-
 
 class MovePrenotazione(BrowserView):
     """
+    View to move a prenotazione (save data in session)
     """
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
-
     def __call__(self, *args):
         uid = self.request.get('UID', '')
         self.request.SESSION.set('UID', uid)
@@ -250,36 +244,53 @@ class MovePrenotazione(BrowserView):
 
 class SavePrenotazione(BrowserView):
     """
+    View to fix a prenotazione in another date
     """
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
-
-    def __call__(self, *args):
-        data = self.request.get('data_prenotazione', '')
+    def move(self):
+        '''
+        Move the prenotazione with the given UID
+        '''
         uid = self.request.SESSION.get('UID', '')
         self.request.SESSION.set('UID', '')
-        pc = getToolByName(self.context, 'portal_catalog')
+        if not uid:
+            msg = _('No UID')
+            logger.debug(msg)
+            return msg, 'info'
+
+        try:
+            date = DateTime(self.request.get('data_prenotazione', ''))
+        except:
+            msg = _('Problem with date')
+            logger.exception(msg)
+            return msg, 'error'
+
+        conflict_manager = IConflictManager(self.context)
+        appuntamenti = conflict_manager.unrestricted_prenotazioni(UID=uid,
+                                                                  Date=date)
+        if not appuntamenti:
+            msg = 'No prenotazioni for %s in this context' % uid
+            logger.debug(msg)
+            return msg, 'error'
+
+        appuntamento = appuntamenti[0]
+        obj = appuntamento.getObject()
+        obj.setData_prenotazione(date)
+        obj.reindexObject()
+        notify(MovedPrenotazione(obj))
+        msg = _('Appuntamento spostato correttamente.')
+        return msg, 'info'
+
+    def __call__(self, *args):
+        msg, msg_type = self.move()
         pu = getToolByName(self.context, 'plone_utils')
-        if uid:
-            appuntamenti = pc(portal_type='Prenotazione', UID=uid)
-            if appuntamenti:
-                appuntamento = appuntamenti[0]
-                obj = appuntamento.getObject()
-                data_prenotazione = DateTime(data)
-                obj.setData_prenotazione(data_prenotazione)
-                obj.reindexObject()
-                msg = ('Appuntamento spostato correttamente.')
-                notify(MovedPrenotazione(obj))
-            else:
-                msg = ('Problemi con lo spostamento. '
-                       'Contatta l\'amministratore.')
-            pu.addPortalMessage(msg)
+        pu.addPortalMessage(msg, msg_type)
         self.request.RESPONSE.redirect(self.context.absolute_url())
 
 
 class CancelSpostamento(BrowserView):
-
+    """
+    View to cancel the prenotazione move (deletes data in session)
+    """
     def __call__(self, *args):
         self.request.SESSION.set('UID', '')
         self.request.RESPONSE.redirect(self.context.absolute_url())

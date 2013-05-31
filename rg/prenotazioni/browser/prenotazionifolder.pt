@@ -10,7 +10,8 @@ i18n:domain="plone">
             <tal:main-macro metal:define-macro="main"
             tal:define="here_url context/@@plone_context_state/object_url;
             member context/@@plone_portal_state/member;
-            prenotazione_macros nocall:here/prenotazione_macros">
+            prenotazione_macros nocall:here/prenotazione_macros;
+            uid_spostamento view/uidSpostaAppuntamento">
 
                 <div tal:replace="structure provider:plone.abovecontenttitle" />
                 <h1 class="documentFirstHeading">
@@ -18,7 +19,7 @@ i18n:domain="plone">
                 </h1>
                 <div tal:replace="structure provider:plone.belowcontenttitle" />
                 <div id="annullaspostaprenotazione"
-                tal:condition="view/showUndoMoveBooking">
+                tal:condition="uid_spostamento">
                     <a title="Annulla Spostamento" href="annullaSpostamento"
                     tal:attributes="href string:${context/absolute_url}/annullaSpostamento">Annulla Spostamento</a>
                 </div>

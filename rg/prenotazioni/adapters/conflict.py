@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from DateTime import DateTime
+from Products.CMFCore.utils import getToolByName
+from plone.memoize.instance import memoize
 from zope.component import Interface
 from zope.interface.declarations import implements
-from Products.CMFCore.utils import getToolByName
 
 
 class IConflictManager(Interface):
@@ -21,6 +22,15 @@ class ConflictManager(object):
         '''
         self.context = context
 
+    @property
+    @memoize
+    def base_query(self):
+        '''
+        A query that returns objects in this context
+        '''
+        return {'portal_type': self.portal_type,
+                'path': '/'.join(self.context.getPhysicalPath())}
+
     def get_limit(self):
         '''
         Get's the limit for concurrent objects
@@ -33,17 +43,23 @@ class ConflictManager(object):
         else:
             return len(gates)
 
-    def has_free_slots(self, data):
+    def unrestricted_prenotazioni(self, **kw):
+        '''
+        Query our prenotazioni
+        '''
+        query = self.base_query.copy()
+        query.update(kw)
+        pc = getToolByName(self.context, 'portal_catalog')
+        brains = pc.unrestrictedSearchResults(query)
+        return brains
+
+    def has_free_slots(self, date):
         '''
         Calculate free slots
         '''
-        date = DateTime(data['booking_date'])
-        query = {'portal_type': self.portal_type,
-                 'Date': date,
-                 'path': '/'.join(self.context.getPhysicalPath())}
-        pc = getToolByName(self.context, 'portal_catalog')
-        brains = pc.unrestrictedSearchResults(query)
-        busy_slots = len(brains)
+        date = DateTime(date)
+        concurrent_prenotazioni = self.unrestricted_prenotazioni(Date=date)
+        busy_slots = len(concurrent_prenotazioni)
         limit = self.get_limit()
         return limit - busy_slots > 0
 
@@ -53,4 +69,4 @@ class ConflictManager(object):
         '''
         if not data.get('booking_date'):
             return False
-        return not self.has_free_slots(data)
+        return not self.has_free_slots(data['booking_date'])

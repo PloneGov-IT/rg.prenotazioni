@@ -11,6 +11,7 @@
     directory="resources"
   />
 
+  <!-- macros to be used in a prenotazione -->
   <browser:page
     for="..interfaces.IPrenotazioniFolder"
     name="prenotazione_macros"
@@ -18,6 +19,7 @@
     permission="zope2.View"
   />
 
+  <!-- prenotazione view -->
   <browser:page
     for="..interfaces.IPrenotazione"
     name="prenotazione_view"
@@ -53,21 +55,21 @@
     for="..interfaces.IPrenotazioniFolder"
     name="spostaPrenotazione"
     class=".prenotazionifolder.MovePrenotazione"
-    permission="zope2.View"
+    permission="cmf.ModifyPortalContent"
   />
 
   <browser:page
     for="..interfaces.IPrenotazioniFolder"
     name="fissaPrenotazione"
     class=".prenotazionifolder.SavePrenotazione"
-    permission="zope2.View"
+    permission="cmf.ModifyPortalContent"
   />
 
   <browser:page
     for="..interfaces.IPrenotazioniFolder"
     name="annullaSpostamento"
     class=".prenotazionifolder.CancelSpostamento"
-    permission="zope2.View"
+    permission="cmf.ModifyPortalContent"
   />
 
   <!-- Do not add Prenotazione through content menu -->

@@ -25,7 +25,33 @@ OVERBOOKED_MESSAGE = _('overbook_message',
 
 
 PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
-
+    atapi.StringField(
+        'email',
+        storage=atapi.AnnotationStorage(),
+        widget=atapi.StringWidget(
+            label="email",
+            validator=('isEmail',),
+        ),
+        required=True,
+    ),
+    atapi.StringField(
+        'telefono',
+        storage=atapi.AnnotationStorage(),
+        widget=atapi.StringWidget(
+            label=_(u"Telefono"),
+            description=_(u"Numero di telefono fisso"),
+        ),
+        required=False,
+    ),
+    atapi.StringField(
+        'mobile',
+        storage=atapi.AnnotationStorage(),
+        widget=atapi.StringWidget(
+            label=_(u"Mobile"),
+            description=_(u"Numero di cellulare"),
+        ),
+        required=False,
+    ),
     atapi.StringField(
         'tipologia_prenotazione',
         storage=atapi.AnnotationStorage(),
@@ -36,7 +62,6 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         ),
         required=False,
     ),
-
     atapi.DateTimeField(
         'data_prenotazione',
         storage=atapi.AnnotationStorage(),
@@ -46,7 +71,6 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         ),
         required=True,
     ),
-
     atapi.StringField(
         'azienda',
         storage=atapi.AnnotationStorage(),
@@ -57,25 +81,14 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         ),
         required=False,
     ),
-
     atapi.StringField(
-        'telefono',
+        'gate',
         storage=atapi.AnnotationStorage(),
         widget=atapi.StringWidget(
-            label=_(u"Telefono"),
-            description=_(u"Inserisci un recapito telefonico"),
+            label=_(u"Sportello"),
+            description=_(u"Sportello a cui presentarsi"),
         ),
         required=False,
-    ),
-
-    atapi.StringField(
-        'email',
-        storage=atapi.AnnotationStorage(),
-        widget=atapi.StringWidget(
-            label="email",
-            validator=('isEmail',),
-        ),
-        required=True,
     ),
 ))
 

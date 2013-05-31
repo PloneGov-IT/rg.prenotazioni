@@ -140,10 +140,4 @@
   </actions>
  </rule>
 
- <assignment name="booking-accepted" bubbles="True" enabled="True" location=""/>
- <assignment name="booking-moved" bubbles="True" enabled="True" location=""/>
- <assignment name="booking-created-manager" bubbles="True" enabled="True" location=""/>
- <assignment name="booking-refuse" bubbles="True" enabled="True" location=""/>
- <assignment name="booking-created-user" bubbles="True" enabled="True" location=""/>
-
 </contentrules>

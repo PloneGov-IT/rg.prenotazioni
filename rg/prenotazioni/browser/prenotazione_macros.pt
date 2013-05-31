@@ -1,12 +1,19 @@
 <metal:macro metal:define-macro="booking_slots">
-  <dl tal:define="show_add python:view.displayAggiungiPrenotazione(prenotazioni, day[1]);
-                  uid_spostamento view/uidSpostaAppuntamento">
+  <dl tal:define="data_ora python:day[1].strftime('%Y/%m/%d')+' '+orario+':00';
+                  has_free_slots python:view.conflict_manager.has_free_slots(data_ora);">
     <dt>
       <tal:orario content="orario">8:00</tal:orario>
-         <a href="" class="aggiungiPrenotazione" title="Richiedi prenotazione"
-         tal:attributes="href python:here_url+'/creaPrenotazione?form.booking_date='+day[1].strftime('%Y/%m/%d')+' '+orario+':00'">+</a>
+      <tal:has_space condition="has_free_slots">
+        <a href="" class="aggiungiPrenotazione" title="Richiedi prenotazione"
+            tal:attributes="href python:here_url+'/creaPrenotazione?form.booking_date='+data_ora"
+          >+</a>
+        <tal:sposta condition="uid_spostamento">
+          <a href="" class="modificaPrenotazione" title="Sposta qui"
+          tal:attributes="href python:here_url+'/fissaPrenotazione?data_prenotazione='+data_ora">sposta qui</a>
+        </tal:sposta>
+      </tal:has_space>
     </dt>  
-    <!-- ADD -->
+
     <tal:repeat repeat="prenotazione prenotazioni">
       <dd tal:define="display_prenotazione python:view.displayPrenotazione(prenotazione, member)">
         <tal:display condition="not:uid_spostamento">
@@ -24,22 +31,6 @@
             <span class="slotOccupato"
             tal:condition="python:view.displaySlotOccupato(prenotazione, member)">Occupato</span>
         </tal:display>
-        <!-- SPOSTA -->
-        <tal:sposta condition="uid_spostamento">
-            <!-- esiste la prenotazione e sono editor della folder -->
-            <!-- da rivedere, ora permette solo si spostare una prenotazione 
-                all'interno di una cella solo se questa non è vuota
-            -->
-            <a href=""
-            class="state-pending"
-            tal:condition="display_prenotazione"
-            tal:attributes="href prenotazione/getURL;
-            class string:state-${prenotazione/review_state}"
-            tal:content="prenotazione/Title">Mario Rossi</a>
-            <a href="" class="modificaPrenotazione" title="Sposta qui"
-            tal:condition="python: view.displayPrenotazione(prenotazione, member)"
-            tal:attributes="href python:here_url+'/fissaPrenotazione?data_prenotazione='+day[1].strftime('%Y/%m/%d')+' '+orario+':00'">sposta qui</a>
-        </tal:sposta>
       </dd>
     </tal:repeat>
   </dl>  

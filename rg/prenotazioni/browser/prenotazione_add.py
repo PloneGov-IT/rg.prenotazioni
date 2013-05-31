@@ -34,6 +34,11 @@ class IAddForm(Interface):
         required=False,
         default=u'',
     )
+    phone = TextLine(
+        title=_('label_mobile', u'Mobile number'),
+        required=False,
+        default=u'',
+    )
     tipology = Choice(
         title=_('label_tipology', u'Tipology'),
         required=True,
