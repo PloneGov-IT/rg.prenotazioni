@@ -71,8 +71,7 @@ i18n:domain="rg.prenotazioni">
                 </div>
                 <div class="field" tal:condition="here/getGate">
                     <strong i18n:translate="">Gates:</strong>
-                    <a tal:attributes="href string:mailto:${here/getGate}"
-                    tal:content="here/getGate" />
+                    <span tal:content="here/getGate">Gate no. 1</span>
                 </div>
                 
                 <div tal:replace="structure provider:plone.belowcontentbody" />
