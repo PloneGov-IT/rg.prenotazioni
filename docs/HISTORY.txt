@@ -4,6 +4,7 @@ Changelog
 2.1 (unreleased)
 ================
 
+- Added fields validation (email, phone) for prenotazioni form [nicolasenno] 
 - Added events logger for IPrenotazione [nicolasenno]
 - Modified contentrules [nicolasenno]
 - modified workflow to add refused state [nicolasenno]

@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+from Products.CMFCore.interfaces import ISiteRoot
+from Products.CMFCore.utils import getToolByName
+from Products.CMFDefault.exceptions import EmailAddressInvalid
+from Products.CMFDefault.utils import checkEmailAddress
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
 from five.formlib.formbase import PageForm
@@ -13,8 +17,46 @@ from zope.formlib.form import FormFields, action
 from zope.formlib.interfaces import WidgetInputError
 from zope.interface import Interface
 from zope.interface.declarations import implements
-from zope.schema import Choice, Datetime, TextLine, Text
+from zope.schema import Choice, Datetime, TextLine, Text, ValidationError
 from zope.schema.interfaces import IVocabularyFactory
+import re
+
+
+TELEPHONE_PATTERN = re.compile(r'^(\+){0,1}([0-9]| )*$')
+
+
+class InvalidPhone(ValidationError):
+    "Telefono non valido"
+
+
+class InvalidEmailAddress(ValidationError):
+    "Invalid email address"
+
+
+def check_phone_number(value):
+    '''
+    If value exist it should match TELEPHONE_PATTERN
+    '''
+    if not value:
+        return True
+    if isinstance(value, basestring):
+        value = value.strip()
+    if TELEPHONE_PATTERN.match(value) is not None:
+        return True
+    raise InvalidPhone(value)
+
+
+def check_valid_email(value):
+    '''Check if value is a valid email address'''
+    if not value:
+        return True
+    portal = getUtility(ISiteRoot)
+
+    reg_tool = getToolByName(portal, 'portal_registration')
+    if value and reg_tool.isValidEmail(value):
+        return True
+    else:
+        raise InvalidEmailAddress
 
 
 class IAddForm(Interface):
@@ -27,17 +69,21 @@ class IAddForm(Interface):
     )
     email = TextLine(
         title=_('label_email', u'Email'),
+        required=True,
         default=u'',
+        constraint=check_valid_email,
     )
     phone = TextLine(
         title=_('label_phone', u'Phone number'),
         required=False,
         default=u'',
+        constraint=check_phone_number,
     )
     mobile = TextLine(
         title=_('label_mobile', u'Mobile number'),
         required=False,
         default=u'',
+        constraint=check_phone_number,
     )
     tipology = Choice(
         title=_('label_tipology', u'Tipology'),
