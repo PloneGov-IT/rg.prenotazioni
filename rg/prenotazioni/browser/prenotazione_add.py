@@ -194,7 +194,7 @@ class AddForm(PageForm):
                   ) % (self.context.absolute_url(), qs)
         self.request.response.redirect(target)
 
-    @action(_('action_cancel', u'Cancell'), name=u'cancel')
+    @action(_('action_cancel', u'Cancel'), name=u'cancel')
     def action_cancel(self, action, data):
         '''
         Cancel

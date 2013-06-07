@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2013-05-31 19:04+0000\n"
-"PO-Revision-Date: 2013-05-31 21:07+0200\n"
+"POT-Creation-Date: 2013-06-07 10:58+0000\n"
+"PO-Revision-Date: 2013-06-07 12:59+0200\n"
 "Last-Translator: Alessandro Pisa <alessandro.pisa@redturtle.it>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -208,7 +208,7 @@ msgstr "Indirizzo mittente"
 msgid "Settimana Tipo"
 msgstr "Settimana Tipo"
 
-#: ./browser/prenotazione_add.py:125
+#: ./browser/prenotazione_add.py:171
 msgid "Sorry this slot is not available anymore."
 msgstr "Ci dispiace, ma la risorsa è già stata prenotata."
 
@@ -250,22 +250,22 @@ msgid "aData_help"
 msgstr "Lascia vuoto, e questa Cartella Prenotazioni non avrà scadenza"
 
 #. Default: "Book"
-#: ./browser/prenotazione_add.py:136
+#: ./browser/prenotazione_add.py:182
 msgid "action_book"
 msgstr "Prenota"
 
 #. Default: "Cancell"
-#: ./browser/prenotazione_add.py:151
+#: ./browser/prenotazione_add.py:197
 msgid "action_cancel"
 msgstr "Cancella"
 
 #. Default: "Booking created"
-#: ./browser/prenotazione_add.py:142
+#: ./browser/prenotazione_add.py:188
 msgid "booking_created"
 msgstr "Prenotazione creata"
 
 #. Default: "If you work for an agency please specify its name"
-#: ./browser/prenotazione_add.py:59
+#: ./browser/prenotazione_add.py:105
 msgid "description_agency"
 msgstr "Se lavori per un'azienda compila questo campo"
 
@@ -286,56 +286,56 @@ msgstr ""
 #: ./content/prenotazionifolder.py:151
 msgid "gates_help"
 msgstr ""
-"Inserisci gli uffici preposti (uno per riga). Se questo campo non è "
-"compilato, si assume che esista un unico ufficio preposto."
+"Inserisci gli sportelli preposti (uno per riga). Se questo campo non è "
+"compilato, si assume che esista un unico sportello preposto."
 
 #. Default: "Gates"
 #: ./content/prenotazionifolder.py:150
 msgid "gates_label"
-msgstr "Uffici preposti"
+msgstr "Sportelli preposti"
 
 #. Default: "Agency"
-#: ./browser/prenotazione_add.py:58
+#: ./browser/prenotazione_add.py:104
 msgid "label_agency"
 msgstr "Azienda"
 
 #. Default: "Booking time"
-#: ./browser/prenotazione_add.py:54
+#: ./browser/prenotazione_add.py:100
 msgid "label_booking_time"
 msgstr "Data e ora"
 
 #. Default: "Type the code from the picture shown below."
-#: ./browser/prenotazione_add.py:65
+#: ./browser/prenotazione_add.py:111
 msgid "label_captcha"
 msgstr "Inserisci il codice che leggi nell'immagine."
 
 #. Default: "Email"
-#: ./browser/prenotazione_add.py:29
+#: ./browser/prenotazione_add.py:71
 msgid "label_email"
 msgstr "Email"
 
 #. Default: "Fullname"
-#: ./browser/prenotazione_add.py:25
+#: ./browser/prenotazione_add.py:67
 msgid "label_fullname"
 msgstr "Nome completo"
 
 #. Default: "Mobile number"
-#: ./browser/prenotazione_add.py:38
+#: ./browser/prenotazione_add.py:83
 msgid "label_mobile"
 msgstr "Numero di cellulare"
 
 #. Default: "Phone number"
-#: ./browser/prenotazione_add.py:33
+#: ./browser/prenotazione_add.py:77
 msgid "label_phone"
 msgstr "Numero di Telefono"
 
 #. Default: "Subject"
-#: ./browser/prenotazione_add.py:49
+#: ./browser/prenotazione_add.py:95
 msgid "label_subject"
 msgstr "Oggetto"
 
 #. Default: "Tipology"
-#: ./browser/prenotazione_add.py:43
+#: ./browser/prenotazione_add.py:89
 msgid "label_tipology"
 msgstr "Tipologia"
 
