@@ -72,6 +72,7 @@
   </permission-map>
  </state>
  <state state_id="refused" title="Rifiutato">
+  <exit-transition transition_id="restore"/>
  </state>
  <transition transition_id="publish" title="Conferma" new_state="published" trigger="USER" before_script="" after_script="">
   <action url="%(content_url)s/content_status_modify?workflow_action=publish" category="workflow" icon="">Conferma</action>
@@ -81,6 +82,12 @@
  </transition>
  <transition transition_id="refuse" title="Rifiutato" new_state="refused" trigger="USER" before_script="" after_script="">
   <action url="%(content_url)s/content_status_modify?workflow_action=refuse" category="workflow" icon="">Rifiuta</action>
+  <guard>
+   <guard-permission>Review portal content</guard-permission>
+  </guard>
+ </transition>
+ <transition transition_id="restore" title="Ripristina" new_state="pending" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=restore" category="workflow" icon="">Ripristina</action>
   <guard>
    <guard-permission>Review portal content</guard-permission>
   </guard>

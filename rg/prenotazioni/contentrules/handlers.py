@@ -12,7 +12,7 @@ except ImportError:
             Base action executor handler """
         if is_portal_factory(event.object):
             return
-    
+
         execute(aq_parent(aq_inner(event.object)), event)
 
 
