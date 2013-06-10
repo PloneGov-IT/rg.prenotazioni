@@ -80,7 +80,7 @@
    <guard-permission>Review portal content</guard-permission>
   </guard>
  </transition>
- <transition transition_id="refuse" title="Rifiutato" new_state="refused" trigger="USER" before_script="" after_script="">
+ <transition transition_id="refuse" title="Rifiuta" new_state="refused" trigger="USER" before_script="" after_script="">
   <action url="%(content_url)s/content_status_modify?workflow_action=refuse" category="workflow" icon="">Rifiuta</action>
   <guard>
    <guard-permission>Review portal content</guard-permission>
