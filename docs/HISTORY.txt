@@ -4,16 +4,16 @@ Changelog
 2.1 (unreleased)
 ================
 
-- Added fields validation (email, phone) for prenotazioni form [nicolasenno] 
-- Added events logger for IPrenotazione [nicolasenno]
+- Added fields validation (email, phone) for prenotazioni form [nicolasenno]
 - Modified contentrules [nicolasenno]
-- modified workflow to add refused state [nicolasenno]
-- we can add prenotazioni only through the calendar links [alert]
-- anonymous users can book again [alert]
-- autoinclude dependencies zcml [alert]
-- use captchas for anonymous users [alert]
-- upgrade step for installing `quintagroup.formlib.captcha`__ [alert]
-- removed customized createObject view [alert]
+- Modified workflow to add refused state [nicolasenno]
+- We can add prenotazioni only through the calendar links [alert]
+- Anonymous users can book again [alert]
+- Autoinclude dependencies zcml [alert]
+- Use captchas for anonymous users [alert]
+- Upgrade step for installing `quintagroup.formlib.captcha`__ [alert]
+- Removed customized createObject view [alert]
+- We can now handle more than one gate [alert]
 
 __ http://plone.org/products/quintagroup.formlib.captcha
 
