@@ -5,7 +5,7 @@ Changelog
 ================
 
 - Added new workflow transition and its upgrade step [nicolasenno]
-- Added fields validation (email, phone) for prenotazioni form [nicolasenno] 
+- Added fields validation (email, phone) for prenotazioni form [nicolasenno]
 - Added events logger for IPrenotazione [nicolasenno]
 - Modified contentrules [nicolasenno]
 - Modified workflow to add refused state [nicolasenno]
@@ -16,6 +16,7 @@ Changelog
 - Upgrade step for installing `quintagroup.formlib.captcha`__ [alert]
 - Removed customized createObject view [alert]
 - We can now handle more than one gate [alert]
+- Overbooking validation handled through an adapter [alert]
 
 __ http://plone.org/products/quintagroup.formlib.captcha
 
