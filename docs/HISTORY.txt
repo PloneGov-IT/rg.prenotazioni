@@ -4,6 +4,7 @@ Changelog
 2.1 (unreleased)
 ================
 
+- Added new workflow transition and its upgrade step [nicolasenno]
 - Added fields validation (email, phone) for prenotazioni form [nicolasenno] 
 - Added events logger for IPrenotazione [nicolasenno]
 - Modified contentrules [nicolasenno]

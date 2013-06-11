@@ -2,6 +2,8 @@
 from Products.CMFCore.utils import getToolByName
 from rg.prenotazioni import prenotazioniLogger as logger
 
+PROFILE_ID = 'profile-rg.prenotazioni:default'
+
 
 def upgrade(upgrade_product, version):
     """ Decorator for updating the QuickInstaller of a upgrade """
@@ -18,7 +20,7 @@ def upgrade(upgrade_product, version):
 @upgrade('rg.prenotazioni', '2010')
 def install_missing_products(context):
     '''
-    Install quintagroup.formlib.captcha
+    Install quintagroup.formlib.captcha and perform a workflow update
     '''
     missing_products = ['quintagroup.captcha.core']
     qi = getToolByName(context, 'portal_quickinstaller')
@@ -26,3 +28,7 @@ def install_missing_products(context):
         if not qi.isProductInstalled(product):
             logger.info('Installing %s' % product)
             qi.installProduct(product)
+    # Workflow update
+    setup = getToolByName(context, 'portal_setup')
+    setup.runImportStepFromProfile(PROFILE_ID, 'workflow')
+    logger.info("Workflow has been updated")

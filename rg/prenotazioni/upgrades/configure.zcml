@@ -9,14 +9,5 @@
       handler=".to2010.install_missing_products"
       profile="rg.prenotazioni:default"
   />
-  
-  <genericsetup:upgradeStep
-      title="Update workflow"
-      description="update workflow transiction"
-      source="*"
-      destination="2020"
-      handler=".to2020.update_workflow"
-      profile="rg.prenotazioni:default"
-  />
 
 </configure>
