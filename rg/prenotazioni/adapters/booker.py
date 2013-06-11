@@ -60,7 +60,7 @@ class Booker(object):
 
         available_gates = gates - busy_gates
         if len(available_gates) == 1:
-            return available_gates[0]
+            return available_gates.pop()
 
         return self.check_less_used_gates(available_gates, data_prenotazione)
 
