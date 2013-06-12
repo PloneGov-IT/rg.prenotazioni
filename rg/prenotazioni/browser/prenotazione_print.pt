@@ -13,71 +13,73 @@ i18n:domain="rg.prenotazioni">
         disable_column_two python:request.set('disable_plone.rightcolumn',1);" />
     </head>
     <body>
-
-        <metal:main fill-slot="main">
-            <tal:main-macro metal:define-macro="main"
-            tal:define="member context/@@plone_portal_state/member;
-            prenotazione nocall:view/prenotazione;
-            putils context/plone_utils;">
-
-                <div tal:replace="structure provider:plone.abovecontenttitle" />
-                <h3>
-                    Benvenuto:
-                    <span metal:use-macro="python:prenotazione.widget('title', mode='view')" />
-                </h3>
-                <h1>Prenotazione avvenuta con successo</h1>
-                <div>
-                    <p>
-                        La richiesta è stata correttamente inserita.
-                        <br />
-                        Di seguito sono elencati i dati ad essa relativi:
-                    </p>
-                </div>
-                <div class="documentDescription-box clear-block">
-                    <strong i18n:translate="">Description</strong>
-                    <p class="documentDescription">
-                        <tal:block condition="prenotazione/Description">
-                            <metal:field use-macro="python:prenotazione.widget('description', mode='view')">Description</metal:field>
-                        </tal:block>
-                    </p>
-                </div>
-                <div tal:replace="structure provider:plone.abovecontentbody" />
-                <div class="field" tal:condition="prenotazione/getTipologia_prenotazione">
-                    <strong i18n:translate="">Reservation type:</strong>
-                    <span tal:replace="prenotazione/getTipologia_prenotazione" />
-                </div>
-                <div class="field" tal:condition="prenotazione/getData_prenotazione">
-                    <strong i18n:translate="">Reservation date:</strong>
-                    <span tal:replace="python:putils.toLocalizedTime(prenotazione.getData_prenotazione(), True)" />
-                </div>
-                <div class="field" tal:condition="prenotazione/getAzienda">
-                    <strong i18n:translate="">Company:</strong>
-                    <span tal:replace="prenotazione/getAzienda" />
-                </div>
-                <div class="field" tal:condition="prenotazione/getTelefono">
-                    <strong i18n:translate="">Phone number:</strong>
-                    <span tal:replace="prenotazione/getTelefono" />
-                </div>
-                <div class="field" tal:condition="prenotazione/getEmail">
-                    <strong i18n:translate="">E-mail:</strong>
-                    <a tal:attributes="href string:mailto:${prenotazione/getEmail}"
-                    tal:content="prenotazione/getEmail" />
-                </div>
-                <div tal:replace="structure provider:plone.belowcontentbody" />
-                <ul>
-                    <li id="document-action-print">
-                        <a href="javascript:this.print();" title="">
-                            <span i18n:translate="">Print</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a title="Prenotazioni" href="prenotazioni"
-                        tal:attributes="href string:${prenotazione/aq_parent/absolute_url}?data=${request/data|nothing}">Ritorna alle prenotazioni</a>
-                    </li>
-                </ul>
-
-            </tal:main-macro>
-        </metal:main>
-
+        <metal:content fill-slot="content" tal:define="prenotazione nocall:view/prenotazione">
+            <h1>Conferma prenotazione per:
+                <tal:title content="prenotazione/aq_parent/Title" />
+            </h1>
+            <tal:description condition="prenotazione/Description">
+                <h2>Oggetto:</h2>
+                <p tal:content="prenotazione/Description">
+                    Oggetto
+                </p>
+            </tal:description>
+            <p>
+                Gentile <b tal:content="prenotazione/Title">Fullname</b>,
+                di seguito sono elencati i dati relativi alla sua prenotazione:
+            </p>
+             <table class="listing">
+                 <tbody>
+                    <tr>
+                        <td>
+                            <b>Email</b>
+                        </td>
+                        <td tal:content="prenotazione/getEmail"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Telefono</b>
+                        </td>
+                        <td tal:content="prenotazione/getTelefono"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Cellulare</b>
+                        </td>
+                        <td tal:content="prenotazione/getMobile"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Tipo</b>
+                        </td>
+                        <td tal:content="prenotazione/getTipologia_prenotazione"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Data</b>
+                        </td>
+                        <td tal:content="prenotazione/getData_prenotazione"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Sportello</b>
+                        </td>
+                        <td tal:content="prenotazione/getGate"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul>
+                <li class="actions" id="document-action-print">
+                    <a href="javascript:this.print();" title=""
+                        tal:attributes="href view/print_action"
+                        >
+                        <span i18n:translate="">Print</span>
+                    </a>
+                </li>
+                <li class="actions">
+                    <a title="Prenotazioni" href="prenotazioni"
+                    tal:attributes="href string:${prenotazione/aq_parent/absolute_url}?data=${request/data|nothing}">Ritorna alle prenotazioni</a>
+                </li>
+            </ul>
+        </metal:content>
     </body>
 </html>

@@ -10,6 +10,8 @@ class PrenotazionePrint(BrowserView):
     '''
     This is a view to proxy autorizzazione
     '''
+    print_action = "javascript:this.print();"
+
     @property
     @memoize
     def prenotazione(self):
