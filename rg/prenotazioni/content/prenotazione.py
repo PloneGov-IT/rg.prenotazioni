@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-
-from DateTime import DateTime
 from Acquisition import aq_chain
 
 from AccessControl import ClassSecurityInfo
@@ -16,6 +14,7 @@ from rg.prenotazioni import prenotazioniMessageFactory as _
 from rg.prenotazioni.config import PROJECTNAME
 from rg.prenotazioni.interfaces import IPrenotazione, IPrenotazioniFolder
 from zope.interface import implements
+from rg.prenotazioni.adapters.conflict import IConflictManager
 
 OVERBOOKED_MESSAGE = _('overbook_message',
                       default=u"Siamo spiacenti, è già stato preso un appuntamento "
@@ -171,27 +170,13 @@ class Prenotazione(base.ATCTContent):
         email = parent.getEmail_responsabile()
         return email
 
-    def isOverbooked(self, REQUEST):
-        '''
-        Check if it is overbooked
-        '''
-        data_prenotazione = (self.getData_prenotazione()
-                             or REQUEST.get('data_prenotazione'))
-        if type(data_prenotazione) == str:
-            data_prenotazione = DateTime(data_prenotazione)
-
-        parent = self.getPrenotazioniFolder()
-        for key in parent.keys():
-            obj = parent[key]
-            if (obj != self and obj.getData_prenotazione() == data_prenotazione):
-                return True
-        return False
-
     def validateOverbooking(self, REQUEST, errors):
         '''
         Validate against overbooking
         '''
-        if self.isOverbooked(REQUEST):
+        parent = self.aq_inner.aq_parent
+        adapter = IConflictManager(parent)
+        if adapter.conflicts({'booking_date': REQUEST['data_prenotazione']}):
             pu = getToolByName(self, 'plone_utils')
             pu.addPortalMessage(OVERBOOKED_MESSAGE, type="error")
             errors['data_prenotazione'] = OVERBOOKED_MESSAGE
