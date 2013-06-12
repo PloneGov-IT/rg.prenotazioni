@@ -67,8 +67,8 @@ i18n:domain="rg.prenotazioni">
                     </tr>
                 </tbody>
             </table>
-            <ul>
-                <li class="actions" id="document-action-print">
+            <ul class="actions">
+                <li id="document-action-print">
                     <a href="javascript:this.print();" title=""
                         tal:attributes="href view/print_action"
                         >

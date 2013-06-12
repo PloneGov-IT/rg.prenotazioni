@@ -79,10 +79,10 @@ td.selected {
     line-height:250%;
 }
 
-.template-prenotazione_print ul {
+.template-prenotazione_print ul.actions {
     padding-top: 1em;
 }
 
-.template-prenotazione_print ul li.actions {
+.template-prenotazione_print ul.actions li {
     margin-right: 1em;
 }
