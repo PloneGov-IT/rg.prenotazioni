@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFCore.utils import getToolByName
-from Products.CMFDefault.exceptions import EmailAddressInvalid
-from Products.CMFDefault.utils import checkEmailAddress
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
 from five.formlib.formbase import PageForm
@@ -119,6 +117,8 @@ class AddForm(PageForm):
     """
     implements(IAddForm)
     template = ViewPageTemplateFile('prenotazione_add.pt')
+
+    hidden_fields = ["form.booking_date"]
 
     @property
     @memoize

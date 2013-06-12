@@ -64,47 +64,51 @@ i18n:domain="plone">
                                 tal:content="form_name"
                                 i18n:translate="">Form name</legend>
                                 <tal:block tal:repeat="widget view/widgets">
-                                    <div class="field"
-                                    tal:define="description widget/hint;
-                                    error widget/error;
-                                    normalized_name python:widget.name.replace('.', '-');
-                                    fieldname_class string:kssattr-fieldname-${widget/name};
-                                    error_class python:error and ' error' or ' ';
-                                    inline_validation python:normalized_name!='form-captcha'"
-                                    tal:attributes="id string:formfield-${normalized_name};
-                                    class string:field ${fieldname_class}${error_class};
-                                    data-fieldname widget/name;">
-                                        <label tal:condition="widget/label"
-                                        tal:attributes="for widget/name">
-                                            <span i18n:translate=""
-                                            tal:content="widget/label">label</span>
-                                            <span class="required" title="Required"
-                                            tal:condition="widget/required"
-                                            i18n:attributes="title title_required;">&nbsp;</span>
-                                            <span class="formHelp"
-                                            i18n:translate=""
-                                            tal:content="description"
-                                            tal:condition="description"
-                                            >field description</span>
-                                        </label>
-                                        <tal:comment tal:condition="nothing">
-                                            <!-- The structure keyword is necessary as Invariant strings have a
-                                            span tag. It is often useful to set Invariant errors on the
-                                            fields they refer to. -->
-                                        </tal:comment>
-                                        <div class="fieldErrorBox" tal:content="structure error">The Error</div>
-                                        <div class="widget formlibInlineValidation" 
-                                             tal:attributes="class python:'widget' + (inline_validation and ' formlibInlineValidation' or '')"
-                                             tal:content="structure widget">
-                                            <input type="text" />
+                                    <tal:define define="is_hidden python:widget.name in view.hidden_fields;">
+                                        <tal:hidden condition="is_hidden" replace="structure widget/hidden"/>
+                                        <div class="field"
+                                            tal:condition="not:is_hidden"
+                                            tal:define="description widget/hint;
+                                                        error widget/error;
+                                                        normalized_name python:widget.name.replace('.', '-');
+                                                        fieldname_class string:kssattr-fieldname-${widget/name};
+                                                        error_class python:error and ' error' or ' ';
+                                                        inline_validation python:normalized_name not in ('form-captcha', 'form-subject')"
+                                                        tal:attributes="id string:formfield-${normalized_name};
+                                                        class string:field ${fieldname_class}${error_class};
+                                                        data-fieldname widget/name;">
+                                            <label tal:condition="widget/label"
+                                            tal:attributes="for widget/name">
+                                                <span i18n:translate=""
+                                                tal:content="widget/label">label</span>
+                                                <span class="required" title="Required"
+                                                tal:condition="widget/required"
+                                                i18n:attributes="title title_required;">&nbsp;</span>
+                                                <span class="formHelp"
+                                                i18n:translate=""
+                                                tal:content="description"
+                                                tal:condition="description"
+                                                >field description</span>
+                                            </label>
+                                            <tal:comment tal:condition="nothing">
+                                                <!-- The structure keyword is necessary as Invariant strings have a
+                                                span tag. It is often useful to set Invariant errors on the
+                                                fields they refer to. -->
+                                            </tal:comment>
+                                            <div class="fieldErrorBox" tal:content="structure error">The Error</div>
+                                            <div class="widget formlibInlineValidation"
+                                                 tal:attributes="class python:'widget' + (inline_validation and ' formlibInlineValidation' or '')"
+                                                 tal:content="structure widget">
+                                                <input type="text" />
+                                            </div>
+                                            <tal:comment tal:condition="nothing">
+                                                <!-- TODO Put this back, the Zope3 way.
+                                                <img src="alert.gif" alt="Error"
+                                                tal:replace="structure context/alert.gif" />
+                                                -->
+                                            </tal:comment>
                                         </div>
-                                        <tal:comment tal:condition="nothing">
-                                            <!-- TODO Put this back, the Zope3 way.
-                                            <img src="alert.gif" alt="Error"
-                                            tal:replace="structure context/alert.gif" />
-                                            -->
-                                        </tal:comment>
-                                    </div>
+                                    </tal:define>
                                 </tal:block>
                                 <metal:block define-slot="authenticator">
                                     <input tal:replace="structure context/@@authenticator/authenticator" />
