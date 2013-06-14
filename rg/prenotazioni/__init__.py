@@ -3,16 +3,34 @@
 """
 from Products.Archetypes import atapi
 from Products.CMFCore import utils
+from datetime import datetime
 from logging import getLogger
+from os import environ
 from rg.prenotazioni import config
 from zope.i18nmessageid import MessageFactory
+import pytz
 
-# Define a message factory for when this product is internationalised.
-# This will be imported with the special name "_" in most modules. Strings
-# like _(u"message") will then be extracted by i18n tools for translation.
 
 prenotazioniMessageFactory = MessageFactory('rg.prenotazioni')
 prenotazioniLogger = getLogger('rg.prenotazioni')
+
+
+def get_environ_tz(default=pytz.utc):
+    '''
+    Return the environ specified timezone or utc
+    '''
+    TZ = environ.get('TZ', '')
+    if not TZ:
+        return default
+    return pytz.timezone(TZ)
+
+TZ = get_environ_tz()
+
+
+def tznow():
+    ''' Return a timezone aware now
+    '''
+    return datetime.now(TZ)
 
 
 def initialize(context):

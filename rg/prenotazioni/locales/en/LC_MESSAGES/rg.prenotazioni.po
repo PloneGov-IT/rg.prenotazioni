@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2013-06-07 10:58+0000\n"
+"POT-Creation-Date: 2013-06-14 08:53+0000\n"
 "PO-Revision-Date: 2013-06-07 14:31+0200\n"
 "Last-Translator: Alessandro Pisa <alessandro.pisa@redturtle.it>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -22,9 +22,7 @@ msgid "A folder that will contain booking"
 msgstr ""
 
 #: ./contentrules/sendMovedPrenotazione.py:124
-msgid ""
-"A mail action that sends email notify when a booking is moved in an other "
-"slot."
+msgid "A mail action that sends email notify when a booking is moved in an other slot."
 msgstr ""
 
 #: ./contentrules/sendMovedPrenotazione.py:123
@@ -35,7 +33,7 @@ msgstr ""
 msgid "Appuntamento spostato correttamente."
 msgstr "Booking moved correctly"
 
-#: ./content/prenotazione.py:78
+#: ./content/prenotazione.py:77
 msgid "Azienda"
 msgstr "Agency"
 
@@ -55,7 +53,6 @@ msgid "Booking product for Plone"
 msgstr ""
 
 #: ./browser/prenotazione.pt:60
-#: ./browser/prenotazione_print.pt:54
 msgid "Company:"
 msgstr ""
 
@@ -71,13 +68,9 @@ msgstr "Validity ending date"
 msgid "Data inizio validità"
 msgstr "Validity starting date"
 
-#: ./content/prenotazione.py:69
+#: ./content/prenotazione.py:68
 msgid "Data prenotazione"
 msgstr "Booking Date"
-
-#: ./browser/prenotazione_print.pt:37
-msgid "Description"
-msgstr "Description"
 
 #: ./content/prenotazionifolder.py:39
 msgid "Descrizione Agenda"
@@ -88,7 +81,6 @@ msgid "Durata incontro"
 msgstr "Appointment duration"
 
 #: ./browser/prenotazione.pt:68
-#: ./browser/prenotazione_print.pt:62
 msgid "E-mail:"
 msgstr ""
 
@@ -104,7 +96,7 @@ msgstr "Responsible email"
 msgid "Email report to prenotazione owner"
 msgstr "Email report to booking owner"
 
-#: ./content/prenotazione.py:217
+#: ./content/prenotazione.py:202
 msgid "Formato della data non corretto"
 msgstr "Invalid date format"
 
@@ -115,6 +107,10 @@ msgstr "Gates:"
 #: ./content/prenotazionifolder.py:114
 msgid "Giorni festivi"
 msgstr "Vacation days"
+
+#: ./browser/prenotazione_add.pt:88
+msgid "Go back to the booking folder."
+msgstr ""
 
 #: ./content/prenotazionifolder.py:115
 msgid "Indicare i giorni festivi (una per riga) nel formato gg/mm/aaaa"
@@ -132,7 +128,7 @@ msgstr "Informations about a single booking"
 msgid "Inserisci l'indirizzo email del responsabile delle prenotazioni"
 msgstr "Insert the booking responsible email address"
 
-#: ./content/prenotazione.py:79
+#: ./content/prenotazione.py:78
 msgid "Inserisci la denominazione dell'azienda del richiedente"
 msgstr "Insert the name of the agency the booker belongs to"
 
@@ -144,7 +140,7 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: ./content/prenotazione.py:50
+#: ./content/prenotazione.py:49
 msgid "Mobile"
 msgstr ""
 
@@ -152,28 +148,27 @@ msgstr ""
 msgid "No UID"
 msgstr ""
 
-#: ./content/prenotazione.py:99
+#: ./content/prenotazione.py:98
 msgid "Nome e Cognome"
 msgstr "Fullname"
 
-#: ./content/prenotazione.py:51
+#: ./content/prenotazione.py:50
 msgid "Numero di cellulare"
 msgstr "Mobile number"
 
-#: ./content/prenotazione.py:42
+#: ./content/prenotazione.py:41
 msgid "Numero di telefono fisso"
 msgstr "Telephone number"
 
-#: ./content/prenotazione.py:103
+#: ./content/prenotazione.py:102
 msgid "Oggetto"
 msgstr "Subject"
 
 #: ./browser/prenotazione.pt:64
-#: ./browser/prenotazione_print.pt:58
 msgid "Phone number:"
 msgstr ""
 
-#: ./browser/prenotazione_print.pt:70
+#: ./browser/prenotazione_print.pt:75
 msgid "Print"
 msgstr ""
 
@@ -185,12 +180,10 @@ msgid "Reno Galliera Booking"
 msgstr ""
 
 #: ./browser/prenotazione.pt:56
-#: ./browser/prenotazione_print.pt:50
 msgid "Reservation date:"
 msgstr ""
 
 #: ./browser/prenotazione.pt:52
-#: ./browser/prenotazione_print.pt:46
 msgid "Reservation type:"
 msgstr ""
 
@@ -206,7 +199,7 @@ msgstr ""
 msgid "Settimana Tipo"
 msgstr "Typical week"
 
-#: ./browser/prenotazione_add.py:171
+#: ./browser/prenotazione_add.py:190
 msgid "Sorry this slot is not available anymore."
 msgstr ""
 
@@ -214,11 +207,11 @@ msgstr ""
 msgid "Specificare la durata in minuti"
 msgstr "Specify appointment duration in minutes"
 
-#: ./content/prenotazione.py:88
+#: ./content/prenotazione.py:87
 msgid "Sportello"
 msgstr "Gate"
 
-#: ./content/prenotazione.py:89
+#: ./content/prenotazione.py:88
 msgid "Sportello a cui presentarsi"
 msgstr "Gate that will serve your booking"
 
@@ -230,11 +223,11 @@ msgstr ""
 msgid "Subject of the message"
 msgstr ""
 
-#: ./content/prenotazione.py:41
+#: ./content/prenotazione.py:40
 msgid "Telefono"
 msgstr "Phone"
 
-#: ./content/prenotazione.py:60
+#: ./content/prenotazione.py:59
 msgid "Tipologia della prenotazione"
 msgstr "Booking tipology"
 
@@ -248,22 +241,22 @@ msgid "aData_help"
 msgstr ""
 
 #. Default: "Book"
-#: ./browser/prenotazione_add.py:182
+#: ./browser/prenotazione_add.py:209
 msgid "action_book"
 msgstr ""
 
-#. Default: "Cancell"
-#: ./browser/prenotazione_add.py:197
+#. Default: "Cancel"
+#: ./browser/prenotazione_add.py:224
 msgid "action_cancel"
 msgstr "Cancel"
 
 #. Default: "Booking created"
-#: ./browser/prenotazione_add.py:188
+#: ./browser/prenotazione_add.py:215
 msgid "booking_created"
 msgstr ""
 
 #. Default: "If you work for an agency please specify its name"
-#: ./browser/prenotazione_add.py:105
+#: ./browser/prenotazione_add.py:122
 msgid "description_agency"
 msgstr ""
 
@@ -287,48 +280,63 @@ msgstr ""
 msgid "gates_label"
 msgstr ""
 
+#. Default: "Invalid email address"
+#: ./browser/prenotazione_add.py:32
+msgid "invalid_email_address"
+msgstr ""
+
+#. Default: "Invalid phone number"
+#: ./browser/prenotazione_add.py:28
+msgid "invalid_phone_number"
+msgstr ""
+
+#. Default: "This date is past"
+#: ./browser/prenotazione_add.py:36
+msgid "is_not_future_date"
+msgstr ""
+
 #. Default: "Agency"
-#: ./browser/prenotazione_add.py:104
+#: ./browser/prenotazione_add.py:121
 msgid "label_agency"
 msgstr ""
 
 #. Default: "Booking time"
-#: ./browser/prenotazione_add.py:100
+#: ./browser/prenotazione_add.py:116
 msgid "label_booking_time"
 msgstr ""
 
 #. Default: "Type the code from the picture shown below."
-#: ./browser/prenotazione_add.py:111
+#: ./browser/prenotazione_add.py:128
 msgid "label_captcha"
 msgstr ""
 
 #. Default: "Email"
-#: ./browser/prenotazione_add.py:71
+#: ./browser/prenotazione_add.py:87
 msgid "label_email"
 msgstr ""
 
 #. Default: "Fullname"
-#: ./browser/prenotazione_add.py:67
+#: ./browser/prenotazione_add.py:83
 msgid "label_fullname"
 msgstr ""
 
 #. Default: "Mobile number"
-#: ./browser/prenotazione_add.py:83
+#: ./browser/prenotazione_add.py:99
 msgid "label_mobile"
 msgstr ""
 
 #. Default: "Phone number"
-#: ./browser/prenotazione_add.py:77
+#: ./browser/prenotazione_add.py:93
 msgid "label_phone"
 msgstr ""
 
 #. Default: "Subject"
-#: ./browser/prenotazione_add.py:95
+#: ./browser/prenotazione_add.py:111
 msgid "label_subject"
 msgstr ""
 
 #. Default: "Tipology"
-#: ./browser/prenotazione_add.py:89
+#: ./browser/prenotazione_add.py:105
 msgid "label_tipology"
 msgstr ""
 
@@ -338,11 +346,9 @@ msgid "message_help"
 msgstr ""
 
 #. Default: "Siamo spiacenti, è già stato preso un appuntamento nella stessa fascia oraria, premere il pulsante ANNULLA per effettuare una nuova richiesta di prenotazione"
-#: ./content/prenotazione.py:20
+#: ./content/prenotazione.py:19
 msgid "overbook_message"
-msgstr ""
-"We are sorry, another concurrent booking has been registered, press the "
-"cancel button to make a new book request."
+msgstr "We are sorry, another concurrent booking has been registered, press the cancel button to make a new book request."
 
 #. Default: "The email address that sends the email. If no email is provided here, it will use the address from portal."
 #: ./contentrules/sendMovedPrenotazione.py:28
@@ -358,5 +364,4 @@ msgstr ""
 #: ./content/prenotazionifolder.py:139
 msgid "tipologia_help"
 msgstr ""
-
 

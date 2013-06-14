@@ -3,10 +3,11 @@ from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
+from datetime import datetime
 from five.formlib.formbase import PageForm
 from plone.memoize.view import memoize
 from quintagroup.formlib.captcha import Captcha, CaptchaWidget
-from rg.prenotazioni import prenotazioniMessageFactory as _
+from rg.prenotazioni import prenotazioniMessageFactory as _, tznow
 from rg.prenotazioni.adapters.booker import IBooker
 from rg.prenotazioni.adapters.conflict import IConflictManager
 from urllib import urlencode
@@ -24,11 +25,15 @@ TELEPHONE_PATTERN = re.compile(r'^(\+){0,1}([0-9]| )*$')
 
 
 class InvalidPhone(ValidationError):
-    "Telefono non valido"
+    __doc__ = _('invalid_phone_number', u"Invalid phone number")
 
 
 class InvalidEmailAddress(ValidationError):
-    "Invalid email address"
+    __doc__ = _('invalid_email_address', u"Invalid email address")
+
+
+class IsNotfutureDate(ValidationError):
+    __doc__ = _('is_not_future_date', u"This date is past")
 
 
 def check_phone_number(value):
@@ -57,10 +62,28 @@ def check_valid_email(value):
         raise InvalidEmailAddress
 
 
+def check_is_future_date(value):
+    '''
+    Check if this date is in the future
+    '''
+    if not value:
+        return True
+    now = tznow()
+
+    if isinstance(value, datetime) and value >= now:
+        return True
+    raise IsNotfutureDate
+
+
 class IAddForm(Interface):
     """
     Interface for creating a prenotazione
     """
+    booking_date = Datetime(
+        title=_('label_booking_time', u'Booking time'),
+        default=None,
+        constraint=check_is_future_date,
+    )
     fullname = TextLine(
         title=_('label_fullname', u'Fullname'),
         default=u'',
@@ -93,10 +116,6 @@ class IAddForm(Interface):
         title=_('label_subject', u'Subject'),
         default=u'',
         required=False,
-    )
-    booking_date = Datetime(
-        title=_('label_booking_time', u'Booking time'),
-        default=None,
     )
     agency = TextLine(
         title=_('label_agency', u'Agency'),
@@ -179,6 +198,14 @@ class AddForm(PageForm):
         booker = IBooker(self.context.aq_inner)
         return booker.create(data)
 
+    @property
+    @memoize
+    def back_to_booking_url(self):
+        '''
+        '''
+        qs = urlencode({'data': self.request.get('form.booking_date', '')})
+        return ('%s?%s') % (self.context.absolute_url(), qs)
+
     @action(_('action_book', u'Book'), name=u'book')
     def action_book(self, action, data):
         '''
@@ -192,11 +219,12 @@ class AddForm(PageForm):
                         'uid': obj.UID()})
         target = ('%s/@@prenotazione_print?%s'
                   ) % (self.context.absolute_url(), qs)
-        self.request.response.redirect(target)
+        return self.request.response.redirect(target)
 
     @action(_('action_cancel', u'Cancel'), name=u'cancel')
     def action_cancel(self, action, data):
         '''
         Cancel
         '''
-        return
+        target = self.back_to_booking_url
+        return self.request.response.redirect(target)
