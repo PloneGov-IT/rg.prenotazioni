@@ -5,7 +5,8 @@ from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from datetime import timedelta, date
 from plone.memoize.view import memoize
-from rg.prenotazioni import prenotazioniMessageFactory as _, prenotazioniLogger as logger
+from rg.prenotazioni import prenotazioniMessageFactory as _, prenotazioniLogger as logger, \
+    tznow
 from rg.prenotazioni.prenotazione_event import MovedPrenotazione
 from zExceptions import Unauthorized
 from zope.event import notify
@@ -228,6 +229,14 @@ class PrenotazioniFolderView(BrowserView):
             return False
 
         return True
+
+    @property
+    @memoize
+    def tznowstr(self):
+        '''
+        Return the tz aware now
+        '''
+        return tznow().strftime('%Y/%m/%d %H:%M:00')
 
 
 class MovePrenotazione(BrowserView):
