@@ -13,7 +13,8 @@ i18n:domain="rg.prenotazioni">
         disable_column_two python:request.set('disable_plone.rightcolumn',1);" />
     </head>
     <body>
-        <metal:content fill-slot="content" tal:define="prenotazione nocall:view/prenotazione">
+        <metal:content fill-slot="content" tal:define="prenotazione nocall:view/prenotazione;
+                                                       toLocalizedTime nocall:context/@@plone/toLocalizedTime">
             <h1>Conferma prenotazione per:
                 <tal:title content="prenotazione/aq_parent/Title" />
             </h1>
@@ -57,7 +58,13 @@ i18n:domain="rg.prenotazioni">
                         <td>
                             <b>Data</b>
                         </td>
-                        <td tal:content="prenotazione/getData_prenotazione"></td>
+                        <td tal:content="python:toLocalizedTime(prenotazione.getData_prenotazione())"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Ora</b>
+                        </td>
+                        <td tal:content="python:toLocalizedTime(prenotazione.getData_prenotazione(), time_only=True)"></td>
                     </tr>
                     <tr>
                         <td>
