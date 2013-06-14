@@ -70,3 +70,19 @@ td.selected {
 #content .pren .slot a.modificaPrenotazione:link {
 	font-size: 90%;
 }
+
+.template-prenotazione_print table.listing {
+    border-top: 1px solid #ddd;
+}
+
+.template-prenotazione_print p {
+    line-height:250%;
+}
+
+.template-prenotazione_print ul.actions {
+    padding-top: 1em;
+}
+
+.template-prenotazione_print ul.actions li {
+    margin-right: 1em;
+}
