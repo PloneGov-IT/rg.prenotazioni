@@ -97,7 +97,7 @@ i18n:domain="plone">
                                             tal:condition="not:is_hidden"
                                             tal:define="normalized_name python:widget.name.replace('.', '-');
                                                         fieldname_class string:kssattr-fieldname-${widget/name};
-                                                        inline_validation python:normalized_name not in ('form-captcha', 'form-subject')"
+                                                        inline_validation python:False"
                                                         tal:attributes="id string:formfield-${normalized_name};
                                                         class string:field ${fieldname_class}${error_class};
                                                         data-fieldname widget/name;">
