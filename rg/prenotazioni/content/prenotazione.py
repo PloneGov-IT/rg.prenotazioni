@@ -1,20 +1,19 @@
 # -*- coding: utf-8 -*-
-from Acquisition import aq_chain
-
 from AccessControl import ClassSecurityInfo
-from Products.CMFCore.utils import getToolByName
-from Products.CMFCore import permissions
-
-from Products.Archetypes import atapi
-from Products.Archetypes.utils import DisplayList
-from Products.Archetypes.ExtensibleMetadata import _zone
+from Acquisition import aq_chain
 from Products.ATContentTypes.content import base, schemata
-
+from Products.Archetypes import atapi
+from Products.Archetypes.ExtensibleMetadata import _zone
+from Products.Archetypes.utils import DisplayList
+from Products.CMFCore import permissions
+from Products.CMFCore.utils import getToolByName
 from rg.prenotazioni import prenotazioniMessageFactory as _
+from rg.prenotazioni.adapters.conflict import IConflictManager
 from rg.prenotazioni.config import PROJECTNAME
+from rg.prenotazioni.event import booking_created
 from rg.prenotazioni.interfaces import IPrenotazione, IPrenotazioniFolder
 from zope.interface import implements
-from rg.prenotazioni.adapters.conflict import IConflictManager
+
 
 OVERBOOKED_MESSAGE = _('overbook_message',
                       default=u"Siamo spiacenti, è già stato preso un appuntamento "
@@ -203,5 +202,17 @@ class Prenotazione(base.ATCTContent):
         else:
             self.validateOverbooking(REQUEST, errors)
         return super(Prenotazione, self).post_validate(REQUEST, errors)
+
+    def _postCopy(self, container, op=0):
+        '''
+        Customizing the method from CopySupport.py
+
+        Called after the copy is finished to fire the automatic transition.
+        The op var is 0 for a copy, 1 for a move.
+
+        The original method does nothing
+        '''
+        booking_created(self, None)
+        return super(Prenotazione, self)._postCopy(container, op)
 
 atapi.registerType(Prenotazione, PROJECTNAME)
