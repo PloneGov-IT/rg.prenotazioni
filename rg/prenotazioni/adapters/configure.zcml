@@ -13,4 +13,9 @@
       factory=".booker.Booker"
   />
 
+  <adapter for="rg.prenotazioni.interfaces.IPrenotazione *"
+           name="plone.contentmenu.actions"
+           factory=".prenotazione_menu.PrenotazioneActionsSubMenuItem"
+           provides="plone.app.contentmenu.interfaces.IContentMenuItem" />
+
 </configure>
