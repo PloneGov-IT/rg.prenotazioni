@@ -193,16 +193,6 @@ class Prenotazione(base.ATCTContent):
         if data_prenotazione:
             return data_prenotazione.toZone(zone).ISO()
 
-    def post_validate(self, REQUEST, errors):
-        '''
-        Add validation for already booked objects
-        '''
-        if not REQUEST.get('data_prenotazione'):
-            errors['data_prenotazione'] = _(u"Formato della data non corretto")
-        else:
-            self.validateOverbooking(REQUEST, errors)
-        return super(Prenotazione, self).post_validate(REQUEST, errors)
-
     def _postCopy(self, container, op=0):
         '''
         Customizing the method from CopySupport.py
