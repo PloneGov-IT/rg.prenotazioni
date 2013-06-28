@@ -15,6 +15,9 @@ class IConflictManager(Interface):
 class ConflictManager(object):
     implements(IConflictManager)
     portal_type = 'Prenotazione'
+    # We consider only this state as active. I.e.: prenotazioni rejected are
+    # not counted!
+    active_review_state = ['published', 'pending']
 
     def __init__(self, context):
         '''
@@ -58,7 +61,9 @@ class ConflictManager(object):
         Calculate free slots
         '''
         date = DateTime(date)
-        concurrent_prenotazioni = self.unrestricted_prenotazioni(Date=date)
+        query = {'Date': date,
+                 'review_state': self.active_review_state}
+        concurrent_prenotazioni = self.unrestricted_prenotazioni(**query)
         busy_slots = len(concurrent_prenotazioni)
         limit = self.get_limit()
         return limit - busy_slots > 0
