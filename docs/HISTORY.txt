@@ -4,6 +4,7 @@ Changelog
 2.1 (unreleased)
 ================
 
+- Temporarily enabled actions menu [nicolasenno]
 - Don't check overbooking in Prenotazione post_validate [alert]
 - Fix the review_state after copy [alert]
 - Added new workflow transition and its upgrade step [nicolasenno]
