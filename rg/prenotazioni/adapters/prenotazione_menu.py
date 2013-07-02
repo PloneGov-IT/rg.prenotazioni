@@ -9,4 +9,4 @@ class PrenotazioneActionsSubMenuItem(ActionsSubMenuItem):
     def available(self):
         ''' Never available :)
         '''
-        return False
+        return True
