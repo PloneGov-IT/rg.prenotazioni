@@ -10,7 +10,7 @@ i18n:domain="plone">
             <tal:main-macro metal:define-macro="main"
             tal:define="here_url context/@@plone_context_state/object_url;
             member context/@@plone_portal_state/member;
-            prenotazione_macros nocall:here/prenotazione_macros;
+            prenotazione_macros nocall:here/@@prenotazione_macros;
             uid_spostamento view/uidSpostaAppuntamento">
 
                 <div tal:replace="structure provider:plone.abovecontenttitle" />

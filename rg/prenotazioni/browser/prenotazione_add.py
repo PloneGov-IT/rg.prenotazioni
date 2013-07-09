@@ -3,7 +3,7 @@ from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
-from datetime import datetime
+from datetime import datetime, timedelta
 from five.formlib.formbase import PageForm
 from plone.memoize.view import memoize
 from quintagroup.formlib.captcha import Captcha, CaptchaWidget
@@ -169,6 +169,21 @@ class AddForm(PageForm):
             ff = ff.omit('tipology')
         return ff
 
+    def exceedes_date_limit(self, data):
+        '''
+        Check if we can book this slot or is it too much in the future.
+        '''
+        future_days = self.context.getFutureDays()
+        if not future_days:
+            return False
+        booking_date = data.get('booking_date', None)
+        if not isinstance(booking_date, datetime):
+            return False
+        date_limit = tznow() + timedelta(future_days)
+        if booking_date <= date_limit:
+            return False
+        return True
+
     def set_invariant_error(self, errors, fields, msg):
         '''
         Set an error with invariant validation to highlights the involved
@@ -187,7 +202,10 @@ class AddForm(PageForm):
         errors = super(AddForm, self).validate(action, data)
         conflict_manager = IConflictManager(self.context.aq_inner)
         if conflict_manager.conflicts(data):
-            msg = _(u'Sorry this slot is not available anymore.')
+            msg = _(u'Sorry, this slot is not available anymore.')
+            self.set_invariant_error(errors, ['booking_date'], msg)
+        if self.exceedes_date_limit(data):
+            msg = _(u'Sorry, you can not book this slot for now.')
             self.set_invariant_error(errors, ['booking_date'], msg)
         return errors
 

@@ -163,8 +163,7 @@ class PrenotazioniFolderView(BrowserView):
         uid = self.context.REQUEST.SESSION.get('UID', False)
         if not uid:
             return False
-        conflict_manager = IConflictManager(self.context)
-        return conflict_manager.unrestricted_prenotazioni(UID=uid)
+        return self.conflict_manager.unrestricted_prenotazioni(UID=uid)
 
     def spanRow(self, day):
         """ restituisce lo span nel caso in cui ci sia orario continuato
@@ -238,6 +237,28 @@ class PrenotazioniFolderView(BrowserView):
         '''
         return tznow().strftime('%Y/%m/%d %H:%M:00')
 
+    @property
+    @memoize
+    def date_limit(self):
+        '''If it is not None, we cannot book for dates greater than this.
+        '''
+        future_days = self.context.getFutureDays()
+        if not future_days:
+            return
+        return DateTime() + self.context.getFutureDays()
+
+    def show_add_button(self, date_time):
+        """ Show the plus button for the given date_time
+        """
+        if self.uidSpostaAppuntamento():
+            return False
+        if date_time < self.tznowstr:
+            return False
+        if self.date_limit:
+            if DateTime(date_time) > self.date_limit:
+                return False
+        return self.conflict_manager.has_free_slots(date_time)
+
 
 class MovePrenotazione(BrowserView):
     """
@@ -273,13 +294,12 @@ class SavePrenotazione(BrowserView):
             logger.exception(msg)
             return msg, 'error'
 
-        conflict_manager = IConflictManager(self.context)
-        if not conflict_manager.has_free_slots(date):
+        if not self.conflict_manager.has_free_slots(date):
             msg = 'This slot is busy'
             logger.debug(msg)
             return msg, 'error'
 
-        appuntamenti = conflict_manager.unrestricted_prenotazioni(UID=uid)
+        appuntamenti = self.conflict_manager.unrestricted_prenotazioni(UID=uid)
         if not appuntamenti:
             msg = 'No prenotazioni for %s in this context' % uid
             logger.debug(msg)

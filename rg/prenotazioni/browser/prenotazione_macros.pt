@@ -1,12 +1,13 @@
 <metal:macro metal:define-macro="booking_slots">
   <dl tal:define="data_ora python:day[1].strftime('%Y/%m/%d')+' '+orario+':00';
                   has_free_slots python:view.conflict_manager.has_free_slots(data_ora);
+                  show_add_button python:view.show_add_button(data_ora);
                   tznow view/tznowstr">
     <dt>
       <tal:orario content="orario">8:00</tal:orario>
       <tal:has_space condition="has_free_slots">
         <a href="" class="aggiungiPrenotazione" title="Richiedi prenotazione"
-            tal:condition="python:(not uid_spostamento) and (data_ora > tznow)"
+            tal:condition="python:view.show_add_button(data_ora)"
             tal:attributes="href python:here_url+'/creaPrenotazione?form.booking_date='+data_ora"
           >+</a>
         <tal:sposta condition="uid_spostamento">

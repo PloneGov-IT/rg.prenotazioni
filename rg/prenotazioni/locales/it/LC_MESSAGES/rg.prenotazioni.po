@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2013-06-14 08:53+0000\n"
+"POT-Creation-Date: 2013-07-09 10:05+0000\n"
 "PO-Revision-Date: 2013-06-14 10:55+0200\n"
 "Last-Translator: Alessandro Pisa <alessandro.pisa@redturtle.it>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -22,22 +22,18 @@ msgid "A folder that will contain booking"
 msgstr "Una cartella che conterrà le prenotazioni"
 
 #: ./contentrules/sendMovedPrenotazione.py:124
-msgid ""
-"A mail action that sends email notify when a booking is moved in an other "
-"slot."
-msgstr ""
-"Un'azione che spedisce una mail di notifica quando una prenotazione è "
-"spostata un un altro slot."
+msgid "A mail action that sends email notify when a booking is moved in an other slot."
+msgstr "Un'azione che spedisce una mail di notifica quando una prenotazione è spostata un un altro slot."
 
 #: ./contentrules/sendMovedPrenotazione.py:123
 msgid "Add moved booking Mail Action"
 msgstr "Aggiungi Mail Action per lo spostamento delle prenotazioni"
 
-#: ./browser/prenotazionifolder.py:284
+#: ./browser/prenotazionifolder.py:313
 msgid "Appuntamento spostato correttamente."
 msgstr "Appuntamento spostato correttamente."
 
-#: ./content/prenotazione.py:77
+#: ./content/prenotazione.py:76
 msgid "Azienda"
 msgstr "Azienda"
 
@@ -72,7 +68,7 @@ msgstr "Data fine validità"
 msgid "Data inizio validità"
 msgstr "Data inizio validità"
 
-#: ./content/prenotazione.py:68
+#: ./content/prenotazione.py:67
 msgid "Data prenotazione"
 msgstr "Data prenotazione"
 
@@ -99,10 +95,6 @@ msgstr "Email del responsabile"
 #: ./contentrules/sendMovedPrenotazione.py:58
 msgid "Email report to prenotazione owner"
 msgstr "Report email al creatore della prenotazione"
-
-#: ./content/prenotazione.py:202
-msgid "Formato della data non corretto"
-msgstr "Formato della data non corretto"
 
 #: ./browser/prenotazione.pt:73
 msgid "Gates:"
@@ -132,7 +124,7 @@ msgstr "Informazioni relativa ad una singola prenotazione"
 msgid "Inserisci l'indirizzo email del responsabile delle prenotazioni"
 msgstr "Inserisci l'indirizzo email del responsabile delle prenotazioni"
 
-#: ./content/prenotazione.py:78
+#: ./content/prenotazione.py:77
 msgid "Inserisci la denominazione dell'azienda del richiedente"
 msgstr "Inserisci la denominazione dell'azienda del richiedente"
 
@@ -144,27 +136,27 @@ msgstr "Massimi giorni nel futuro"
 msgid "Message"
 msgstr "Messaggio"
 
-#: ./content/prenotazione.py:49
+#: ./content/prenotazione.py:48
 msgid "Mobile"
 msgstr "Numero di cellulare"
 
-#: ./browser/prenotazionifolder.py:256
+#: ./browser/prenotazionifolder.py:286
 msgid "No UID"
 msgstr "Nessun UID"
 
-#: ./content/prenotazione.py:98
+#: ./content/prenotazione.py:97
 msgid "Nome e Cognome"
 msgstr "Nome e Cognome"
 
-#: ./content/prenotazione.py:50
+#: ./content/prenotazione.py:49
 msgid "Numero di cellulare"
 msgstr "Numero di cellulare"
 
-#: ./content/prenotazione.py:41
+#: ./content/prenotazione.py:40
 msgid "Numero di telefono fisso"
 msgstr "Numero di telefono fisso"
 
-#: ./content/prenotazione.py:102
+#: ./content/prenotazione.py:101
 msgid "Oggetto"
 msgstr "Oggetto"
 
@@ -172,11 +164,11 @@ msgstr "Oggetto"
 msgid "Phone number:"
 msgstr "Telefono:"
 
-#: ./browser/prenotazione_print.pt:75
+#: ./browser/prenotazione_print.pt:82
 msgid "Print"
 msgstr "Stampa"
 
-#: ./browser/prenotazionifolder.py:263
+#: ./browser/prenotazionifolder.py:293
 msgid "Problem with date"
 msgstr "Problema con la data"
 
@@ -191,7 +183,7 @@ msgstr "Data prenotazione:"
 msgid "Reservation type:"
 msgstr "Tipologia:"
 
-#: ./browser/prenotazionifolder.py:241
+#: ./browser/prenotazionifolder.py:271
 msgid "Seleziona la data nella quale spostare l'appuntamento"
 msgstr "Seleziona la data nella quale spostare l'appuntamento"
 
@@ -203,19 +195,23 @@ msgstr "Indirizzo mittente"
 msgid "Settimana Tipo"
 msgstr "Settimana Tipo"
 
-#: ./browser/prenotazione_add.py:190
-msgid "Sorry this slot is not available anymore."
-msgstr "Ci dispiace, ma la risorsa è già stata prenotata."
+#: ./browser/prenotazione_add.py:205
+msgid "Sorry, this slot is not available anymore."
+msgstr "Ci dispiace, ma questo intervallo di tempo non è più disponibile"
+
+#: ./browser/prenotazione_add.py:208
+msgid "Sorry, you can not book this slot for now."
+msgstr "Ci dispiace, ma questo intervallo di tempo non è al momento disponibile"
 
 #: ./content/prenotazionifolder.py:74
 msgid "Specificare la durata in minuti"
 msgstr "Specificare la durata in minuti"
 
-#: ./content/prenotazione.py:87
+#: ./content/prenotazione.py:86
 msgid "Sportello"
 msgstr "Sportello"
 
-#: ./content/prenotazione.py:88
+#: ./content/prenotazione.py:87
 msgid "Sportello a cui presentarsi"
 msgstr "Sportello a cui presentarsi"
 
@@ -227,11 +223,11 @@ msgstr "Oggetto"
 msgid "Subject of the message"
 msgstr "Oggetto del messaggio"
 
-#: ./content/prenotazione.py:40
+#: ./content/prenotazione.py:39
 msgid "Telefono"
 msgstr "Telefono"
 
-#: ./content/prenotazione.py:59
+#: ./content/prenotazione.py:58
 msgid "Tipologia della prenotazione"
 msgstr "Tipologia della prenotazione"
 
@@ -245,17 +241,17 @@ msgid "aData_help"
 msgstr "Lascia vuoto, e questa Cartella Prenotazioni non avrà scadenza"
 
 #. Default: "Book"
-#: ./browser/prenotazione_add.py:209
+#: ./browser/prenotazione_add.py:227
 msgid "action_book"
 msgstr "Prenota"
 
 #. Default: "Cancel"
-#: ./browser/prenotazione_add.py:224
+#: ./browser/prenotazione_add.py:242
 msgid "action_cancel"
 msgstr "Cancella"
 
 #. Default: "Booking created"
-#: ./browser/prenotazione_add.py:215
+#: ./browser/prenotazione_add.py:233
 msgid "booking_created"
 msgstr "Prenotazione creata"
 
@@ -273,16 +269,13 @@ msgstr "Nome completo"
 #: ./content/prenotazionifolder.py:127
 msgid "futureDays"
 msgstr ""
-"Limita la prenotazione ad un certo numero di giorni nel futuro partendo dal "
-"giorno corrente.\n"
+"Limita la prenotazione ad un certo numero di giorni nel futuro partendo dal giorno corrente.\n"
 "Lascia 0 per non dare limiti."
 
 #. Default: "Put gates here (one per line). If you do not fill this field, one gate is assumed"
 #: ./content/prenotazionifolder.py:151
 msgid "gates_help"
-msgstr ""
-"Inserisci gli sportelli preposti (uno per riga). Se questo campo non è "
-"compilato, si assume che esista un unico sportello preposto."
+msgstr "Inserisci gli sportelli preposti (uno per riga). Se questo campo non è compilato, si assume che esista un unico sportello preposto."
 
 #. Default: "Gates"
 #: ./content/prenotazionifolder.py:150
@@ -310,7 +303,7 @@ msgid "label_agency"
 msgstr "Azienda"
 
 #. Default: "Booking time"
-#: ./browser/prenotazione_add.py:116
+#: ./browser/prenotazione_add.py:83
 msgid "label_booking_time"
 msgstr "Data e ora"
 
@@ -320,60 +313,49 @@ msgid "label_captcha"
 msgstr "Inserisci il codice che leggi nell'immagine."
 
 #. Default: "Email"
-#: ./browser/prenotazione_add.py:87
+#: ./browser/prenotazione_add.py:92
 msgid "label_email"
 msgstr "Email"
 
 #. Default: "Fullname"
-#: ./browser/prenotazione_add.py:83
+#: ./browser/prenotazione_add.py:88
 msgid "label_fullname"
 msgstr "Nome completo"
 
 #. Default: "Mobile number"
-#: ./browser/prenotazione_add.py:99
+#: ./browser/prenotazione_add.py:104
 msgid "label_mobile"
 msgstr "Numero di cellulare"
 
 #. Default: "Phone number"
-#: ./browser/prenotazione_add.py:93
+#: ./browser/prenotazione_add.py:98
 msgid "label_phone"
 msgstr "Numero di telefono"
 
 #. Default: "Subject"
-#: ./browser/prenotazione_add.py:111
+#: ./browser/prenotazione_add.py:116
 msgid "label_subject"
 msgstr "Oggetto"
 
 #. Default: "Tipology"
-#: ./browser/prenotazione_add.py:105
+#: ./browser/prenotazione_add.py:110
 msgid "label_tipology"
 msgstr "Tipologia"
 
 #. Default: "Type in here the message that you want to mail. Some defined content can be replaced: ${title} will be replaced with booking title (user fullname). ${date} will be replaced with booking new date. ${url} will be replaced by the booking url. ${portal} will be replaced by the title of the portal."
 #: ./contentrules/sendMovedPrenotazione.py:36
 msgid "message_help"
-msgstr ""
-"Inserisci il messaggio che vuoi inviare per mail. E' possibile inserire "
-"alcuni marcatori che verranno sostituiti con dei valori presi "
-"dall'applicazione.\"${title}\" sarà sostituito con il titolo della "
-"prenotazione (il nome e cognome dell'utente). \"${date}\" sarà sostituito con "
-"la data della prenotazione. \"${url}\" sarà sostituito  dall'url della "
-"prenotazione. ${portal} sarà sostituito  con il titolo del portale. "
+msgstr "Inserisci il messaggio che vuoi inviare per mail. E' possibile inserire alcuni marcatori che verranno sostituiti con dei valori presi dall'applicazione.\"${title}\" sarà sostituito con il titolo della prenotazione (il nome e cognome dell'utente). \"${date}\" sarà sostituito con la data della prenotazione. \"${url}\" sarà sostituito  dall'url della prenotazione. ${portal} sarà sostituito  con il titolo del portale. "
 
 #. Default: "Siamo spiacenti, è già stato preso un appuntamento nella stessa fascia oraria, premere il pulsante ANNULLA per effettuare una nuova richiesta di prenotazione"
-#: ./content/prenotazione.py:19
+#: ./content/prenotazione.py:18
 msgid "overbook_message"
-msgstr ""
-"Siamo spiacenti, è già stato preso un appuntamento nella stessa fascia "
-"oraria, premere il pulsante ANNULLA per effettuare una nuova richiesta di "
-"prenotazione"
+msgstr "Siamo spiacenti, è già stato preso un appuntamento nella stessa fascia oraria, premere il pulsante ANNULLA per effettuare una nuova richiesta di prenotazione"
 
 #. Default: "The email address that sends the email. If no email is provided here, it will use the address from portal."
 #: ./contentrules/sendMovedPrenotazione.py:28
 msgid "source_help"
-msgstr ""
-"Il mittente della mail. Se nessun indirizzo viene inserito verrà utilizzato "
-"l'indirizzo configurato nel portale."
+msgstr "Il mittente della mail. Se nessun indirizzo viene inserito verrà utilizzato l'indirizzo configurato nel portale."
 
 #. Default: "Subject:"
 #: ./browser/prenotazione.pt:48
@@ -383,8 +365,5 @@ msgstr "Oggetto"
 #. Default: "Put booking types there (one per line).\nIf you do not provide this field, not type selection will be available"
 #: ./content/prenotazionifolder.py:139
 msgid "tipologia_help"
-msgstr ""
-"Inserisci qui i tipi di prenotazione (uno per riga).Se non compilerai questo "
-"campo, nessuna selezione del tipo sarà disponibile."
-
+msgstr "Inserisci qui i tipi di prenotazione (uno per riga).Se non compilerai questo campo, nessuna selezione del tipo sarà disponibile."
 
