@@ -5,12 +5,13 @@ from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from datetime import timedelta, date
 from plone.memoize.view import memoize
-from rg.prenotazioni import prenotazioniMessageFactory as _, prenotazioniLogger as logger, \
-    tznow
+from rg.prenotazioni import (prenotazioniMessageFactory as _,
+    prenotazioniLogger as logger, tznow)
+from rg.prenotazioni.adapters.conflict import IConflictManager
 from rg.prenotazioni.prenotazione_event import MovedPrenotazione
 from zExceptions import Unauthorized
+from zope.component import getMultiAdapter
 from zope.event import notify
-from rg.prenotazioni.adapters.conflict import IConflictManager
 
 # TODO: Do not use the session anymore!
 
@@ -128,6 +129,13 @@ class PrenotazioniFolderView(BrowserView):
         return  IConflictManager(self.context)
 
     def displayPrenotazione(self, prenotazione, member):
+        portal_state = getMultiAdapter((self.context, self.request),
+                                       name="plone_portal_state")
+        if portal_state.anonymous():
+            active_review_state = self.conflict_manager.active_review_state
+            if prenotazione.review_state not in active_review_state:
+                # Return target URL for the site anonymous visitors
+                return False
         try:
             if prenotazione and member.has_permission(permissions.View,
                                                       prenotazione.getObject()):
@@ -264,6 +272,14 @@ class MovePrenotazione(BrowserView):
     """
     View to move a prenotazione (save data in session)
     """
+    @property
+    @memoize
+    def conflict_manager(self):
+        '''
+        Return the conflict manager for this context
+        '''
+        return  IConflictManager(self.context)
+
     def __call__(self, *args):
         uid = self.request.get('UID', '')
         self.request.SESSION.set('UID', uid)
@@ -276,6 +292,14 @@ class SavePrenotazione(BrowserView):
     """
     View to fix a prenotazione in another date
     """
+    @property
+    @memoize
+    def conflict_manager(self):
+        '''
+        Return the conflict manager for this context
+        '''
+        return  IConflictManager(self.context)
+
     def move(self):
         '''
         Move the prenotazione with the given UID
