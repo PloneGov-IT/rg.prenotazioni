@@ -21,5 +21,5 @@ def reallocate_gate(obj):
     '''
     container = obj.object.aq_parent
     booking_date = obj.object.getData_prenotazione()
-    new_gate = IBooker(container).check_less_used_gates(booking_date)
+    new_gate = IBooker(container).get_available_gate(booking_date)
     obj.object.setGate(new_gate)
