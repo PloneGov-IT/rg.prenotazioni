@@ -4,6 +4,7 @@ Changelog
 2.1 (unreleased)
 ================
 
+- Fix CSS table prenotazioni [nicolasenno]
 - Hide refused review_state slots for anonymous users [alert]
 - Fix review_state refused permissions [alert]
 - Correctly take into account futureDays parameter [alert]
