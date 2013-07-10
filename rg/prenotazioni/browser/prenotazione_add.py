@@ -219,7 +219,7 @@ class AddForm(PageForm):
     @property
     @memoize
     def back_to_booking_url(self):
-        '''
+        ''' This goes back to booking view
         '''
         qs = urlencode({'data': self.request.get('form.booking_date', '')})
         return ('%s?%s') % (self.context.absolute_url(), qs)
