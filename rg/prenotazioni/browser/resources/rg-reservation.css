@@ -1,6 +1,9 @@
 /*
  * RG Prenotazioni Styles
  */
+#content table, #week {
+    width: 100% !important;
+}
 
 td.day {
     vertical-align:top;
