@@ -19,6 +19,14 @@
     permission="zope2.View"
   />
 
+  <!-- dedicated context_state_view -->
+  <browser:page
+    for="..interfaces.IPrenotazioniFolder"
+    name="prenotazioni_context_state"
+    class=".prenotazioni_context_state.PrenotazioniContextState"
+    permission="zope2.View"
+  />
+
   <!-- prenotazione view -->
   <browser:page
     for="..interfaces.IPrenotazione"
