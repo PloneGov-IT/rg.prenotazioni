@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2013-07-09 10:05+0000\n"
+"POT-Creation-Date: 2013-07-10 12:37+0000\n"
 "PO-Revision-Date: 2013-06-07 14:31+0200\n"
 "Last-Translator: Alessandro Pisa <alessandro.pisa@redturtle.it>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -29,7 +29,7 @@ msgstr ""
 msgid "Add moved booking Mail Action"
 msgstr ""
 
-#: ./browser/prenotazionifolder.py:313
+#: ./browser/prenotazionifolder.py:337
 msgid "Appuntamento spostato correttamente."
 msgstr "Booking moved correctly"
 
@@ -88,7 +88,7 @@ msgstr ""
 msgid "Edit moved booking Mail Action"
 msgstr ""
 
-#: ./content/prenotazionifolder.py:164
+#: ./content/prenotazionifolder.py:182
 msgid "Email del responsabile"
 msgstr "Responsible email"
 
@@ -120,7 +120,7 @@ msgstr "Configure your typical week"
 msgid "Informations about a single booking"
 msgstr "Informations about a single booking"
 
-#: ./content/prenotazionifolder.py:165
+#: ./content/prenotazionifolder.py:183
 msgid "Inserisci l'indirizzo email del responsabile delle prenotazioni"
 msgstr "Insert the booking responsible email address"
 
@@ -140,7 +140,7 @@ msgstr ""
 msgid "Mobile"
 msgstr ""
 
-#: ./browser/prenotazionifolder.py:286
+#: ./browser/prenotazionifolder.py:310
 msgid "No UID"
 msgstr ""
 
@@ -168,7 +168,7 @@ msgstr ""
 msgid "Print"
 msgstr ""
 
-#: ./browser/prenotazionifolder.py:293
+#: ./browser/prenotazionifolder.py:317
 msgid "Problem with date"
 msgstr "Invalid date format"
 
@@ -183,7 +183,7 @@ msgstr ""
 msgid "Reservation type:"
 msgstr ""
 
-#: ./browser/prenotazionifolder.py:271
+#: ./browser/prenotazionifolder.py:287
 msgid "Seleziona la data nella quale spostare l'appuntamento"
 msgstr "Select the new booking date"
 
@@ -363,5 +363,15 @@ msgstr ""
 #. Default: "Put booking types there (one per line).\nIf you do not provide this field, not type selection will be available"
 #: ./content/prenotazionifolder.py:139
 msgid "tipologia_help"
+msgstr ""
+
+#. Default: "Add a gate here (one per line) if, for some reason, it is not be available.The specified gate will not be taken in to account for slot allocation. Each line should match a corresponding line in the \"Gates\" field"
+#: ./content/prenotazionifolder.py:164
+msgid "unavailable_gates_help"
+msgstr ""
+
+#. Default: "Unavailable gates"
+#: ./content/prenotazionifolder.py:163
+msgid "unavailable_gates_label"
 msgstr ""
 
