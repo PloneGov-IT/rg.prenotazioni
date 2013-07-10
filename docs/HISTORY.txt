@@ -4,6 +4,7 @@ Changelog
 2.1 (unreleased)
 ================
 
+- Fix review_state refused permissions [alert]
 - Correctly take into account futureDays parameter [alert]
 - Temporarily enabled actions menu [nicolasenno]
 - Don't check overbooking in Prenotazione post_validate [alert]
