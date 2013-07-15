@@ -80,6 +80,13 @@
     permission="cmf.ModifyPortalContent"
   />
 
+  <browser:page
+    for="..interfaces.IPrenotazioniFolder"
+    name="vacations-booker"
+    class=".vacations.VacationBooker"
+    permission="cmf.ModifyPortalContent"
+  />
+
   <!-- Do not add Prenotazione through content menu -->
   <configure package="plone.app.content">
     <browser:page
