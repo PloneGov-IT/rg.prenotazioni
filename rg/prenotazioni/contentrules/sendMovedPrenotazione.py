@@ -102,11 +102,11 @@ class MailActionExecutor(object):
         dest = obj.getEmail()
         message = self.element.message
         message = message.replace("${date}", plone_view.toLocalizedTime(obj.getData_prenotazione()))
-        message = message.replace("${url}", self.check_uni(obj.absolute_url()))
+        message = message.replace("${url}", obj.absolute_url())
         message = message.replace("${title}", self.check_uni(obj.Title()))
         message = message.replace("${portal}", self.check_uni(portal.Title()))
         subject = self.element.subject
-        subject = subject.replace("${url}", self.check_uni(obj.absolute_url()))
+        subject = subject.replace("${url}", obj.absolute_url())
         subject = subject.replace("${title}", self.check_uni(obj.Title()))
         subject = subject.replace("${portal}", self.check_uni(portal.Title()))
 
