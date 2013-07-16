@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from Products.Five.browser import BrowserView
+from datetime import timedelta
 from plone.memoize.view import memoize
+from rg.prenotazioni import time2timedelta
 from rg.prenotazioni.adapters.conflict import IConflictManager
 
 
@@ -86,3 +88,53 @@ class PrenotazioniContextState(BrowserView):
         for gate in gates:
             stats.setdefault(booked_gates.count(gate), []).append(gate)
         return stats
+
+    def get_slots_by_weekday(self, weekday):
+        '''
+        Find the slots by weekday
+
+        Weekday, according to datetime.date is:
+         0. monday
+         1. tuesday
+         ...
+         6. sunday
+
+        We are returning slots as datetime.timedelta objects
+        E.g.:
+        {'m': [datetime.datetime(2013, 7, 16, 7, 15),
+               datetime.datetime(2013, 7, 16, 7, 40),
+               ...],
+         'p': [],
+        }
+        '''
+        slots = {'m': [],
+                 'p': [],
+        }
+        day = self.context.getSettimana_tipo()[weekday]
+        slot_time = int(self.context.getDurata())
+        slot_time = timedelta(minutes=slot_time)
+
+        for marker in ('m', 'p'):
+            key = 'inizio_%s' % marker
+            start = day[key]
+            if start != '0':
+                start = time2timedelta(start)
+                key = 'num_%s' % marker
+                slots[marker] = [(start + i * slot_time)
+                                 for i in range(int(day[key]))]
+        return slots
+
+    def get_slots_in_day(self, booking_date):
+        '''
+        Find the slots in booking_date
+
+        Slots are divided in morning/afternoon slots.
+        {'m': ['09:00', '09:30', ...]
+         'p': ['14:00', '14:30', ...]
+        }
+        '''
+        booking_date = booking_date.asdatetime()
+        slots = self.get_slots_by_weekday(booking_date.weekday())
+        for marker in slots:
+            slots[marker] = [booking_date + time for time in slots[marker]]
+        return slots
