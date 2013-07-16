@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2013-07-09 10:05+0000\n"
-"PO-Revision-Date: 2013-06-14 10:55+0200\n"
+"POT-Creation-Date: 2013-07-16 07:57+0000\n"
+"PO-Revision-Date: 2013-07-10 14:41+0200\n"
 "Last-Translator: Alessandro Pisa <alessandro.pisa@redturtle.it>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr "Un'azione che spedisce una mail di notifica quando una prenotazione è s
 msgid "Add moved booking Mail Action"
 msgstr "Aggiungi Mail Action per lo spostamento delle prenotazioni"
 
-#: ./browser/prenotazionifolder.py:313
+#: ./browser/prenotazionifolder.py:337
 msgid "Appuntamento spostato correttamente."
 msgstr "Appuntamento spostato correttamente."
 
@@ -88,7 +88,7 @@ msgstr "E-mail:"
 msgid "Edit moved booking Mail Action"
 msgstr "Modifica Mail Action per lo spostamento delle prenotazioni"
 
-#: ./content/prenotazionifolder.py:164
+#: ./content/prenotazionifolder.py:182
 msgid "Email del responsabile"
 msgstr "Email del responsabile"
 
@@ -120,7 +120,7 @@ msgstr "Indicare la composizione della settimana tipo"
 msgid "Informations about a single booking"
 msgstr "Informazioni relativa ad una singola prenotazione"
 
-#: ./content/prenotazionifolder.py:165
+#: ./content/prenotazionifolder.py:183
 msgid "Inserisci l'indirizzo email del responsabile delle prenotazioni"
 msgstr "Inserisci l'indirizzo email del responsabile delle prenotazioni"
 
@@ -140,7 +140,7 @@ msgstr "Messaggio"
 msgid "Mobile"
 msgstr "Numero di cellulare"
 
-#: ./browser/prenotazionifolder.py:286
+#: ./browser/prenotazionifolder.py:310
 msgid "No UID"
 msgstr "Nessun UID"
 
@@ -168,7 +168,7 @@ msgstr "Telefono:"
 msgid "Print"
 msgstr "Stampa"
 
-#: ./browser/prenotazionifolder.py:293
+#: ./browser/prenotazionifolder.py:317
 msgid "Problem with date"
 msgstr "Problema con la data"
 
@@ -183,7 +183,7 @@ msgstr "Data prenotazione:"
 msgid "Reservation type:"
 msgstr "Tipologia:"
 
-#: ./browser/prenotazionifolder.py:271
+#: ./browser/prenotazionifolder.py:287
 msgid "Seleziona la data nella quale spostare l'appuntamento"
 msgstr "Seleziona la data nella quale spostare l'appuntamento"
 
@@ -242,11 +242,13 @@ msgstr "Lascia vuoto, e questa Cartella Prenotazioni non avrà scadenza"
 
 #. Default: "Book"
 #: ./browser/prenotazione_add.py:227
+#: ./browser/vacations.py:108
 msgid "action_book"
 msgstr "Prenota"
 
 #. Default: "Cancel"
 #: ./browser/prenotazione_add.py:242
+#: ./browser/vacations.py:117
 msgid "action_cancel"
 msgstr "Cancella"
 
@@ -259,6 +261,11 @@ msgstr "Prenotazione creata"
 #: ./browser/prenotazione_add.py:122
 msgid "description_agency"
 msgstr "Se lavori per un'azienda compila questo campo"
+
+#. Default: "The gate that will be unavailable"
+#: ./browser/vacations.py:60
+msgid "description_gate"
+msgstr ""
 
 #. Default: "Fullname:"
 #: ./browser/prenotazione.pt:44
@@ -282,6 +289,11 @@ msgstr "Inserisci gli sportelli preposti (uno per riga). Se questo campo non è 
 msgid "gates_label"
 msgstr "Sportelli preposti"
 
+#. Default: "Date should be in the format YYYY/mm/dd"
+#: ./browser/vacations.py:14
+msgid "invalid_date"
+msgstr ""
+
 #. Default: "Invalid email address"
 #: ./browser/prenotazione_add.py:32
 msgid "invalid_email_address"
@@ -291,6 +303,11 @@ msgstr "Indirizzo email non valido"
 #: ./browser/prenotazione_add.py:28
 msgid "invalid_phone_number"
 msgstr "Numero di telefono non valido"
+
+#. Default: "Date should be in the format HH:MM"
+#: ./browser/vacations.py:18
+msgid "invalid_time"
+msgstr ""
 
 #. Default: "This date is past"
 #: ./browser/prenotazione_add.py:36
@@ -317,10 +334,25 @@ msgstr "Inserisci il codice che leggi nell'immagine."
 msgid "label_email"
 msgstr "Email"
 
+#. Default: "End date"
+#: ./browser/vacations.py:76
+msgid "label_end_date"
+msgstr ""
+
+#. Default: "End time"
+#: ./browser/vacations.py:81
+msgid "label_end_time"
+msgstr ""
+
 #. Default: "Fullname"
 #: ./browser/prenotazione_add.py:88
 msgid "label_fullname"
 msgstr "Nome completo"
+
+#. Default: "Gate"
+#: ./browser/vacations.py:59
+msgid "label_gate"
+msgstr ""
 
 #. Default: "Mobile number"
 #: ./browser/prenotazione_add.py:104
@@ -331,6 +363,16 @@ msgstr "Numero di cellulare"
 #: ./browser/prenotazione_add.py:98
 msgid "label_phone"
 msgstr "Numero di telefono"
+
+#. Default: "Start date"
+#: ./browser/vacations.py:66
+msgid "label_start_date"
+msgstr ""
+
+#. Default: "Start time"
+#: ./browser/vacations.py:71
+msgid "label_start_time"
+msgstr ""
 
 #. Default: "Subject"
 #: ./browser/prenotazione_add.py:116
@@ -346,6 +388,11 @@ msgstr "Tipologia"
 #: ./contentrules/sendMovedPrenotazione.py:36
 msgid "message_help"
 msgstr "Inserisci il messaggio che vuoi inviare per mail. E' possibile inserire alcuni marcatori che verranno sostituiti con dei valori presi dall'applicazione.\"${title}\" sarà sostituito con il titolo della prenotazione (il nome e cognome dell'utente). \"${date}\" sarà sostituito con la data della prenotazione. \"${url}\" sarà sostituito  dall'url della prenotazione. ${portal} sarà sostituito  con il titolo del portale. "
+
+#. Default: "No booking available for this week"
+#: ./browser/prenotazionifolder.pt:56
+msgid "no_booking_available"
+msgstr "Non è possibile prenotare appuntamenti questa settimana"
 
 #. Default: "Siamo spiacenti, è già stato preso un appuntamento nella stessa fascia oraria, premere il pulsante ANNULLA per effettuare una nuova richiesta di prenotazione"
 #: ./content/prenotazione.py:18
@@ -366,4 +413,14 @@ msgstr "Oggetto"
 #: ./content/prenotazionifolder.py:139
 msgid "tipologia_help"
 msgstr "Inserisci qui i tipi di prenotazione (uno per riga).Se non compilerai questo campo, nessuna selezione del tipo sarà disponibile."
+
+#. Default: "Add a gate here (one per line) if, for some reason, it is not be available.The specified gate will not be taken in to account for slot allocation. Each line should match a corresponding line in the \"Gates\" field"
+#: ./content/prenotazionifolder.py:164
+msgid "unavailable_gates_help"
+msgstr "Aggiungi uno sportello (uno per riga) se, per qualche motivo, non è disponibile. Lo sportello specificato non sarà considerato per l'allocazione degli appuntamenti. Il righe devono essere uguali a quelle nel campo \"Sportelli preposti\"."
+
+#. Default: "Unavailable gates"
+#: ./content/prenotazionifolder.py:163
+msgid "unavailable_gates_label"
+msgstr "Sportelli non disponibili"
 

@@ -1,54 +1,53 @@
 /*
  * RG Prenotazioni Styles
  */
-#content table, #week {
-    width: 100% !important;
+.template-prenotazionifolder_view table#week {
+  width: 100%;
 }
 
-td.day {
-    vertical-align:top;
-    min-width: 20%;
-	border: 1px solid #ddd;
-	border-collapse: collapse;
+.template-prenotazionifolder_view table#week td.day {
+  vertical-align:top;
+  border: 1px solid #ddd;
+  border-collapse: collapse;
 }
 
 td.selected {
-    background-color: #fefefe;
+  background-color: #fefefe;
 }
 
 .pren {
-    border-collapse: collapse;
-    border-spacing: 0;
-	min-width: 50%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  min-width: 50%;
 }
 
 .pren caption {
-	padding-bottom: 0.3em;
-	margin-bottom: 0.5em;
-	border: 1px solid #DDDDDD;
+  padding-bottom: 0.3em;
+  margin-bottom: 0.5em;
+  border: 1px solid #DDDDDD;
 }
 
 .pren th {
-	text-align: center;
-	font-weight: bold;
-	border: 1px solid #ddd;
+  text-align: center;
+  font-weight: bold;
+  border: 1px solid #ddd;
 }
 
 .pren .period td {
-	border: none;
+  border: none;
 }
 
 .pren tr.odd {
-    background: none repeat scroll 0 0 #EEEEEE;
+  background: none repeat scroll 0 0 #EEEEEE;
 }
 
 .pren .period {
-	width: 100%;
+  width: 100%;
 }
 
 .pren tr.odd td {
-    background: none repeat scroll 0 0 #EEEEEE;
-	line-height: 2em;
+  background: none repeat scroll 0 0 #EEEEEE;
+  line-height: 2em;
 }
 
 #content .pren .slot a,
@@ -60,32 +59,32 @@ td.selected {
 #content .pren a.aggiungiPrenotazione,
 #content .pren a.aggiungiPrenotazione:link,
 #content .pren a.aggiungiPrenotazione:visited {
-	text-decoration: none;
-	border-bottom: none;
+  text-decoration: none;
+  border-bottom: none;
 }
 
 .pren caption strong {
-	margin: 0.2em 1em;
+  margin: 0.2em 1em;
 }
 
 #content .pren .slot a.modificaPrenotazione,
 #content .pren .slot a.modificaPrenotazione:visited,
 #content .pren .slot a.modificaPrenotazione:link {
-	font-size: 90%;
+  font-size: 90%;
 }
 
 .template-prenotazione_print table.listing {
-    border-top: 1px solid #ddd;
+  border-top: 1px solid #ddd;
 }
 
 .template-prenotazione_print p {
-    line-height:250%;
+  line-height:250%;
 }
 
 .template-prenotazione_print ul.actions {
-    padding-top: 1em;
+  padding-top: 1em;
 }
 
 .template-prenotazione_print ul.actions li {
-    margin-right: 1em;
+  margin-right: 1em;
 }

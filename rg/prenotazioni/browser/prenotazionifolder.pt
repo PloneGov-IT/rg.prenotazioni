@@ -4,7 +4,7 @@ xmlns:metal="http://xml.zope.org/namespaces/metal"
 xmlns:i18n="http://xml.zope.org/namespaces/i18n"
 lang="en"
 metal:use-macro="context/main_template/macros/master"
-i18n:domain="plone">
+i18n:domain="rg.prenotazioni">
     <body>
         <metal:main fill-slot="main">
             <tal:main-macro metal:define-macro="main"
@@ -53,6 +53,9 @@ i18n:domain="plone">
                                 <th scope="col" tal:condition="python:day[0]['inizio_m']!='0' or day[0]['inizio_p']!='0'"
                                 tal:content="python:day[0]['giorno'] + ' ' + day[1].strftime('%d')">Lunedi</th>
                             </tal:days>
+                            <th tal:condition="not:view/days"
+                              i18n:translate="no_booking_available"
+                              >No booking available for this week</th>
                         </tr>
                     </thead>
                     <tbody>

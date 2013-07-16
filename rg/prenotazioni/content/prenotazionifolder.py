@@ -154,7 +154,25 @@ PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
                                   u"one gate is assumed"),
         ),
         required=False,
-        default='',
+        default=[],
+    ),
+
+    atapi.LinesField(
+        'unavailable_gates',
+        widget=atapi.LinesWidget(
+            label=_('unavailable_gates_label', "Unavailable gates"),
+            description=_('unavailable_gates_help',
+                          default=u'Add a gate here (one per line) if, '
+                                  u'for some reason, '
+                                  u'it is not be available.'
+                                  u'The specified gate will not be taken in to '
+                                  u'account for slot allocation. '
+                                  u'Each line should match a corresponding '
+                                  u'line in the "Gates" field'
+                         ),
+        ),
+        required=False,
+        default=[],
     ),
 
     atapi.StringField(

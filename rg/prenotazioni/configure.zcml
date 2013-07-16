@@ -20,6 +20,9 @@
   <subscriber for=".interfaces.IPrenotazione zope.lifecycleevent.IObjectModifiedEvent"
               handler=".event.booking_created" />
 
+  <subscriber for=".prenotazione_event.IMovedPrenotazione"
+              handler=".event.reallocate_gate" />
+
   <!-- Register the installation GenericSetup extension profile -->
   <genericsetup:registerProfile
       name="default"

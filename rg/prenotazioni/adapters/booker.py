@@ -2,7 +2,6 @@
 from DateTime import DateTime
 from Products.CMFPlone.FactoryTool import _createObjectByType
 from random import choice
-from rg.prenotazioni.adapters.conflict import IConflictManager
 from zope.component import Interface
 from zope.interface.declarations import implements
 
@@ -23,23 +22,14 @@ class Booker(object):
         '''
         self.context = context
 
-    def check_less_used_gates(self, gates, data_prenotazione):
+    def check_less_used_gates(self, data_prenotazione):
         '''
         Find which gate is les busy the day of the booking
         '''
-        adapter = IConflictManager(self.context)
-        query = {'query': [data_prenotazione.strftime('%Y/%m/%d 00:00'),
-                           data_prenotazione.strftime('%Y/%m/%d 23:59')],
-                 'range': 'minmax'}
-        brains = adapter.unrestricted_prenotazioni(Date=query)
-        booked_gates = [x._unrestrictedGetObject().getGate() for x in brains]
-
-        # This is a dictionary that maps the number of times a gate was busy
-        # today with a list of gates, e.g.:
-        # counter = {2: ['Gate 1', 'Gate 2']}
-        counter = {}
-        for gate in gates:
-            counter.setdefault(booked_gates.count(gate), []).append(gate)
+        pcs = self.context.restrictedTraverse('@@prenotazioni_context_state')
+        counter = pcs.gates_stats_in_day(data_prenotazione, only_free=True)
+        if not counter:
+            return ''
         min_times = min(counter.keys())
         # Get a random choice among the less busy one
         return choice(counter[min_times])
@@ -48,20 +38,12 @@ class Booker(object):
         '''
         Find which gate is free to serve this booking
         '''
-        gates = self.context.getGates()
-        if not gates:
+        pcs = self.context.restrictedTraverse('@@prenotazioni_context_state')
+        if not pcs.get_gates():
             return ''
-        else:
-            gates = set(gates)
-        adapter = IConflictManager(self.context)
-        concurrent = adapter.unrestricted_prenotazioni(Date=data_prenotazione)
-        busy_gates = set([x._unrestrictedGetObject().getGate()
-                          for x in concurrent])
-
-        available_gates = gates - busy_gates
+        available_gates = pcs.get_free_gates_in_slot(data_prenotazione)
         if len(available_gates) == 1:
             return available_gates.pop()
-
         return self.check_less_used_gates(available_gates, data_prenotazione)
 
     def create(self, data):

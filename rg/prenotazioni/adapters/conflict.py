@@ -37,14 +37,15 @@ class ConflictManager(object):
     def get_limit(self):
         '''
         Get's the limit for concurrent objects
-        It is given by the number of gates (if specified)
+        It is given by the number of active gates (if specified)
         or defaults to one
+        There is also a field that disables gates, we should remove them from
+        this calculation
         '''
-        gates = self.context.getGates()
-        if not gates:
+        pcs = self.context.restrictedTraverse('@@prenotazioni_context_state')
+        if not pcs.get_gates():
             return 1
-        else:
-            return len(gates)
+        return len(pcs.get_available_gates())
 
     def unrestricted_prenotazioni(self, **kw):
         '''
@@ -56,11 +57,21 @@ class ConflictManager(object):
         brains = pc.unrestrictedSearchResults(**query)
         return brains
 
+    def is_vacation_day(self, date):
+        '''
+        Check if today is a vacation day
+        '''
+        date_it = date.strftime('%d/%m/%Y')
+        festivi = self.context.getFestivi()
+        return date_it in festivi
+
     def has_free_slots(self, date):
         '''
         Calculate free slots
         '''
         date = DateTime(date)
+        if self.is_vacation_day(date):
+            return False
         query = {'Date': date,
                  'review_state': self.active_review_state}
         concurrent_prenotazioni = self.unrestricted_prenotazioni(**query)

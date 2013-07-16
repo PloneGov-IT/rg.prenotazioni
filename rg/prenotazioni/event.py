@@ -2,6 +2,7 @@
 
 from Products.CMFCore.utils import getToolByName
 from Products.DCWorkflow.DCWorkflow import WorkflowException
+from rg.prenotazioni.adapters.booker import IBooker
 
 
 def booking_created(context, event):
@@ -12,3 +13,13 @@ def booking_created(context, event):
             wtool.doActionFor(context, 'submit')
     except WorkflowException:
         pass
+
+
+def reallocate_gate(obj):
+    '''
+    We have to reallocate the gate for this object
+    '''
+    container = obj.object.aq_parent
+    booking_date = obj.object.getData_prenotazione()
+    new_gate = IBooker(container).get_available_gate(booking_date)
+    obj.object.setGate(new_gate)
