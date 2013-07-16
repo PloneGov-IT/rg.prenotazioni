@@ -46,7 +46,7 @@ class Booker(object):
             return available_gates.pop()
         return self.check_less_used_gates(data_prenotazione)
 
-    def create(self, data):
+    def create(self, data, force_gate=''):
         '''
         Create a Booking object
         '''
@@ -62,7 +62,10 @@ class Booker(object):
                    'mobile': data.get('mobile', ''),
                    'email': data['email'] or '',
                    'tipologia_prenotazione': data.get('tipology', ''),
-                   'gate': self.get_available_gate(data_prenotazione),
                    }
+        if not force_gate:
+            at_data['gate'] = self.get_available_gate(data_prenotazione)
+        else:
+            at_data['gate'] = force_gate
         obj.processForm(values=at_data)
         return obj
