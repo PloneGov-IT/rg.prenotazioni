@@ -44,7 +44,7 @@ class Booker(object):
         available_gates = pcs.get_free_gates_in_slot(data_prenotazione)
         if len(available_gates) == 1:
             return available_gates.pop()
-        return self.check_less_used_gates(available_gates, data_prenotazione)
+        return self.check_less_used_gates(data_prenotazione)
 
     def create(self, data):
         '''
