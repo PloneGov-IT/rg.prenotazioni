@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2013-07-16 07:57+0000\n"
+"POT-Creation-Date: 2013-07-16 10:50+0000\n"
 "PO-Revision-Date: 2013-07-10 14:41+0200\n"
 "Last-Translator: Alessandro Pisa <alessandro.pisa@redturtle.it>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -21,11 +21,11 @@ msgstr ""
 msgid "A folder that will contain booking"
 msgstr "Una cartella che conterrà le prenotazioni"
 
-#: ./contentrules/sendMovedPrenotazione.py:124
+#: ./contentrules/sendMovedPrenotazione.py:133
 msgid "A mail action that sends email notify when a booking is moved in an other slot."
 msgstr "Un'azione che spedisce una mail di notifica quando una prenotazione è spostata un un altro slot."
 
-#: ./contentrules/sendMovedPrenotazione.py:123
+#: ./contentrules/sendMovedPrenotazione.py:132
 msgid "Add moved booking Mail Action"
 msgstr "Aggiungi Mail Action per lo spostamento delle prenotazioni"
 
@@ -56,7 +56,7 @@ msgstr "Prodotto di prenotazioni per Plone"
 msgid "Company:"
 msgstr "Azienda:"
 
-#: ./contentrules/sendMovedPrenotazione.py:125
+#: ./contentrules/sendMovedPrenotazione.py:134
 msgid "Configure element"
 msgstr "Configura elemento"
 
@@ -84,7 +84,7 @@ msgstr "Durata incotro"
 msgid "E-mail:"
 msgstr "E-mail:"
 
-#: ./contentrules/sendMovedPrenotazione.py:138
+#: ./contentrules/sendMovedPrenotazione.py:147
 msgid "Edit moved booking Mail Action"
 msgstr "Modifica Mail Action per lo spostamento delle prenotazioni"
 
@@ -242,13 +242,13 @@ msgstr "Lascia vuoto, e questa Cartella Prenotazioni non avrà scadenza"
 
 #. Default: "Book"
 #: ./browser/prenotazione_add.py:227
-#: ./browser/vacations.py:108
+#: ./browser/vacations.py:109
 msgid "action_book"
 msgstr "Prenota"
 
 #. Default: "Cancel"
 #: ./browser/prenotazione_add.py:242
-#: ./browser/vacations.py:117
+#: ./browser/vacations.py:118
 msgid "action_cancel"
 msgstr "Cancella"
 
@@ -263,9 +263,9 @@ msgid "description_agency"
 msgstr "Se lavori per un'azienda compila questo campo"
 
 #. Default: "The gate that will be unavailable"
-#: ./browser/vacations.py:60
+#: ./browser/vacations.py:61
 msgid "description_gate"
-msgstr ""
+msgstr "Lo sportello che non sarà disponibile"
 
 #. Default: "Fullname:"
 #: ./browser/prenotazione.pt:44
@@ -290,9 +290,9 @@ msgid "gates_label"
 msgstr "Sportelli preposti"
 
 #. Default: "Date should be in the format YYYY/mm/dd"
-#: ./browser/vacations.py:14
+#: ./browser/vacations.py:15
 msgid "invalid_date"
-msgstr ""
+msgstr "La data deve essere nel formato AAAA/MM/GG"
 
 #. Default: "Invalid email address"
 #: ./browser/prenotazione_add.py:32
@@ -305,9 +305,9 @@ msgid "invalid_phone_number"
 msgstr "Numero di telefono non valido"
 
 #. Default: "Date should be in the format HH:MM"
-#: ./browser/vacations.py:18
+#: ./browser/vacations.py:19
 msgid "invalid_time"
-msgstr ""
+msgstr "L'ora deve essere nel formato HH:MM"
 
 #. Default: "This date is past"
 #: ./browser/prenotazione_add.py:36
@@ -335,14 +335,14 @@ msgid "label_email"
 msgstr "Email"
 
 #. Default: "End date"
-#: ./browser/vacations.py:76
+#: ./browser/vacations.py:77
 msgid "label_end_date"
-msgstr ""
+msgstr "Data fine"
 
 #. Default: "End time"
-#: ./browser/vacations.py:81
+#: ./browser/vacations.py:82
 msgid "label_end_time"
-msgstr ""
+msgstr "Ora fine"
 
 #. Default: "Fullname"
 #: ./browser/prenotazione_add.py:88
@@ -350,9 +350,9 @@ msgid "label_fullname"
 msgstr "Nome completo"
 
 #. Default: "Gate"
-#: ./browser/vacations.py:59
+#: ./browser/vacations.py:60
 msgid "label_gate"
-msgstr ""
+msgstr "Sportello"
 
 #. Default: "Mobile number"
 #: ./browser/prenotazione_add.py:104
@@ -365,14 +365,14 @@ msgid "label_phone"
 msgstr "Numero di telefono"
 
 #. Default: "Start date"
-#: ./browser/vacations.py:66
+#: ./browser/vacations.py:67
 msgid "label_start_date"
-msgstr ""
+msgstr "Data inizio"
 
 #. Default: "Start time"
-#: ./browser/vacations.py:71
+#: ./browser/vacations.py:72
 msgid "label_start_time"
-msgstr ""
+msgstr "Ora inizio"
 
 #. Default: "Subject"
 #: ./browser/prenotazione_add.py:116
@@ -423,4 +423,9 @@ msgstr "Aggiungi uno sportello (uno per riga) se, per qualche motivo, non è dis
 #: ./content/prenotazionifolder.py:163
 msgid "unavailable_gates_label"
 msgstr "Sportelli non disponibili"
+
+#. Default: "Vacation booking"
+#: ./profiles/default/actions.xml
+msgid "vacation_booking"
+msgstr "Prenotazione vacanze"
 
