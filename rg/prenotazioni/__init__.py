@@ -3,7 +3,7 @@
 """
 from Products.Archetypes import atapi
 from Products.CMFCore import utils
-from datetime import datetime
+from datetime import datetime, timedelta
 from logging import getLogger
 from os import environ
 from rg.prenotazioni import config
@@ -31,6 +31,15 @@ def tznow():
     ''' Return a timezone aware now
     '''
     return datetime.now(TZ)
+
+
+def time2timedelta(value):
+    '''
+    Transform the value in a timedelta object
+    value is supposed to be in the format HH(.*)MM
+    '''
+    hours, minutes = map(int, (value[0:2], value[-2:]))
+    return timedelta(hours=hours, minutes=minutes)
 
 
 def initialize(context):
