@@ -105,7 +105,7 @@ class VacationBooker(PageForm):
         '''
         return
 
-    @action(_('action_book'), name=u'book')
+    @action(_('action_book', u'Book'), name=u'book')
     def action_book(self, action, data):
         '''
         Book this resource

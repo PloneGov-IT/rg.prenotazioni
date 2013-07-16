@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2013-07-10 12:37+0000\n"
+"POT-Creation-Date: 2013-07-16 07:57+0000\n"
 "PO-Revision-Date: 2013-06-07 14:31+0200\n"
 "Last-Translator: Alessandro Pisa <alessandro.pisa@redturtle.it>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -242,11 +242,13 @@ msgstr ""
 
 #. Default: "Book"
 #: ./browser/prenotazione_add.py:227
+#: ./browser/vacations.py:108
 msgid "action_book"
 msgstr ""
 
 #. Default: "Cancel"
 #: ./browser/prenotazione_add.py:242
+#: ./browser/vacations.py:117
 msgid "action_cancel"
 msgstr "Cancel"
 
@@ -258,6 +260,11 @@ msgstr ""
 #. Default: "If you work for an agency please specify its name"
 #: ./browser/prenotazione_add.py:122
 msgid "description_agency"
+msgstr ""
+
+#. Default: "The gate that will be unavailable"
+#: ./browser/vacations.py:60
+msgid "description_gate"
 msgstr ""
 
 #. Default: "Fullname:"
@@ -280,6 +287,11 @@ msgstr ""
 msgid "gates_label"
 msgstr ""
 
+#. Default: "Date should be in the format YYYY/mm/dd"
+#: ./browser/vacations.py:14
+msgid "invalid_date"
+msgstr ""
+
 #. Default: "Invalid email address"
 #: ./browser/prenotazione_add.py:32
 msgid "invalid_email_address"
@@ -288,6 +300,11 @@ msgstr ""
 #. Default: "Invalid phone number"
 #: ./browser/prenotazione_add.py:28
 msgid "invalid_phone_number"
+msgstr ""
+
+#. Default: "Date should be in the format HH:MM"
+#: ./browser/vacations.py:18
+msgid "invalid_time"
 msgstr ""
 
 #. Default: "This date is past"
@@ -315,9 +332,24 @@ msgstr ""
 msgid "label_email"
 msgstr ""
 
+#. Default: "End date"
+#: ./browser/vacations.py:76
+msgid "label_end_date"
+msgstr ""
+
+#. Default: "End time"
+#: ./browser/vacations.py:81
+msgid "label_end_time"
+msgstr ""
+
 #. Default: "Fullname"
 #: ./browser/prenotazione_add.py:88
 msgid "label_fullname"
+msgstr ""
+
+#. Default: "Gate"
+#: ./browser/vacations.py:59
+msgid "label_gate"
 msgstr ""
 
 #. Default: "Mobile number"
@@ -328,6 +360,16 @@ msgstr ""
 #. Default: "Phone number"
 #: ./browser/prenotazione_add.py:98
 msgid "label_phone"
+msgstr ""
+
+#. Default: "Start date"
+#: ./browser/vacations.py:66
+msgid "label_start_date"
+msgstr ""
+
+#. Default: "Start time"
+#: ./browser/vacations.py:71
+msgid "label_start_time"
 msgstr ""
 
 #. Default: "Subject"
@@ -343,6 +385,11 @@ msgstr ""
 #. Default: "Type in here the message that you want to mail. Some defined content can be replaced: ${title} will be replaced with booking title (user fullname). ${date} will be replaced with booking new date. ${url} will be replaced by the booking url. ${portal} will be replaced by the title of the portal."
 #: ./contentrules/sendMovedPrenotazione.py:36
 msgid "message_help"
+msgstr ""
+
+#. Default: "No booking available for this week"
+#: ./browser/prenotazionifolder.pt:56
+msgid "no_booking_available"
 msgstr ""
 
 #. Default: "Siamo spiacenti, è già stato preso un appuntamento nella stessa fascia oraria, premere il pulsante ANNULLA per effettuare una nuova richiesta di prenotazione"
