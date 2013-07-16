@@ -4,10 +4,11 @@ Changelog
 2.1 (unreleased)
 ================
 
-- implemented view for booking vacations [alert]
-- slot calculation made in prenotazioni state view [alert]
-- added parameter force_gate in booking creation [alert]
-- added utility time2timedelta [alert]
+- View for booking vacations supports also gateless bookings [alert]
+- Implemented view for booking vacations [alert]
+- Slot calculation made in prenotazioni state view [alert]
+- Added parameter force_gate in booking creation [alert]
+- Added utility time2timedelta [alert]
 - Fix CSS table prenotazioni [nicolasenno]
 - Hide refused review_state slots for anonymous users [alert]
 - Fix review_state refused permissions [alert]

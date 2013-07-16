@@ -119,6 +119,8 @@ class VacationBooking(PageForm):
         ff = FormFields(IVacationBooking)
         today = unicode(date.today().strftime('%Y/%m/%d'))
         ff['start_date'].field.default = today
+        if not self.context.getGates():
+            ff = ff.omit('gate')
         return ff
 
     def get_slots(self, data):
@@ -152,7 +154,7 @@ class VacationBooking(PageForm):
                          'email': u'',
                          'tipologia_prenotazione': u'',
                          }
-            booker.create(slot_data, force_gate=data['gate'])
+            booker.create(slot_data, force_gate=data.get('gate'))
 
         msg = _('booking_created')
         IStatusMessage(self.request).add(msg, 'info')
