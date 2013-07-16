@@ -70,6 +70,15 @@ class MailActionExecutor(object):
         self.element = element
         self.event = event
 
+    def check_uni(self, value):
+        """
+        Verifica il contenuto da rimpiazzare ed effettua la conversione unicode
+        se necessario
+        """
+        if not isinstance(value, unicode):
+            value = value.decode('utf-8')
+        return value
+
     def __call__(self):
         mailhost = getToolByName(aq_inner(self.context), "MailHost")
         if not mailhost:
@@ -93,13 +102,13 @@ class MailActionExecutor(object):
         dest = obj.getEmail()
         message = self.element.message
         message = message.replace("${date}", plone_view.toLocalizedTime(obj.getData_prenotazione()))
-        message = message.replace("${url}", obj.absolute_url())
-        message = message.replace("${title}", obj.Title())
-        message = message.replace("${portal}", portal.Title())
+        message = message.replace("${url}", self.check_uni(obj.absolute_url()))
+        message = message.replace("${title}", self.check_uni(obj.Title()))
+        message = message.replace("${portal}", self.check_uni(portal.Title()))
         subject = self.element.subject
-        subject = subject.replace("${url}", obj.absolute_url())
-        subject = subject.replace("${title}", obj.Title())
-        subject = subject.replace("${portal}", portal.Title())
+        subject = subject.replace("${url}", self.check_uni(obj.absolute_url()))
+        subject = subject.replace("${title}", self.check_uni(obj.Title()))
+        subject = subject.replace("${portal}", self.check_uni(portal.Title()))
 
         self.context.plone_log('sending to: %s' % dest)
         try:
