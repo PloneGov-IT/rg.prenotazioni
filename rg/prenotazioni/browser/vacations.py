@@ -4,10 +4,11 @@ from five.formlib.formbase import PageForm
 from plone.memoize.view import memoize
 from rg.prenotazioni import (prenotazioniMessageFactory as _,
     prenotazioniLogger as logger)
-from zope.formlib.form import FormFields, FormFields, action
+from zope.formlib.form import FormFields, action
 from zope.interface import Interface
 from zope.interface.declarations import implements
 from zope.schema import Choice, TextLine, ValidationError
+from Products.Five.browser import BrowserView
 
 
 class InvalidDate(ValidationError):
@@ -54,7 +55,7 @@ def check_time(value):
     raise InvalidTime(value)
 
 
-class IVacationBooker(Interface):
+class IVacationBooking(Interface):
     gate = Choice(
         title=_('label_gate', u'Gate'),
         description=_('description_gate',
@@ -84,11 +85,11 @@ class IVacationBooker(Interface):
     )
 
 
-class VacationBooker(PageForm):
+class VacationBooking(PageForm):
     '''
     This is a view that allows to book a gate for a certain period
     '''
-    implements(IVacationBooker)
+    implements(IVacationBooking)
 
     @property
     @memoize
@@ -96,7 +97,7 @@ class VacationBooker(PageForm):
         '''
         The fields for this form
         '''
-        ff = FormFields(IVacationBooker)
+        ff = FormFields(IVacationBooking)
         return ff
 
     def do_book(self, data):
@@ -110,7 +111,7 @@ class VacationBooker(PageForm):
         '''
         Book this resource
         '''
-        obj = self.do_book(data)
+        self.do_book(data)
         target = self.context.absolute_url()
         return self.request.response.redirect(target)
 
@@ -121,3 +122,13 @@ class VacationBooker(PageForm):
         '''
         target = self.context.absolute_url()
         return self.request.response.redirect(target)
+
+
+class VacationBookingShow(BrowserView):
+    '''
+    Should this functionality be published?
+    '''
+    def __call__(self):
+        ''' Return True for the time being
+        '''
+        return True

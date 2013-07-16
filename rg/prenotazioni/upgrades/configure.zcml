@@ -10,4 +10,13 @@
       profile="rg.prenotazioni:default"
   />
 
+  <genericsetup:upgradeStep
+      title="Install new actions"
+      description="Since 2010 we have a new action called vacation-booking"
+      source="*"
+      destination="2010"
+      handler=".to2010.update_actions"
+      profile="rg.prenotazioni:default"
+  />
+
 </configure>

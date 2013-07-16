@@ -82,8 +82,15 @@
 
   <browser:page
     for="..interfaces.IPrenotazioniFolder"
-    name="vacations-booker"
-    class=".vacations.VacationBooker"
+    name="vacation-booking"
+    class=".vacations.VacationBooking"
+    permission="cmf.ModifyPortalContent"
+  />
+
+  <browser:page
+    for="..interfaces.IPrenotazioniFolder"
+    name="vacation-booking-show"
+    class=".vacations.VacationBookingShow"
     permission="cmf.ModifyPortalContent"
   />
 

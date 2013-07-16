@@ -32,3 +32,12 @@ def install_missing_products(context):
     setup = getToolByName(context, 'portal_setup')
     setup.runImportStepFromProfile(PROFILE_ID, 'workflow')
     logger.info("Workflow has been updated")
+
+
+def update_actions(context):
+    '''
+    Run generic setup actions.xml
+    '''
+    setup = getToolByName(context, 'portal_setup')
+    setup.runImportStepFromProfile(PROFILE_ID, 'actions')
+    logger.info("actions.xml has been run")
