@@ -17,11 +17,11 @@ from rg.prenotazioni.adapters.conflict import IConflictManager
 
 
 class InvalidDate(ValidationError):
-    __doc__ = _('invalid_date', u"Date should be in the format YYYY/mm/dd")
+    __doc__ = _('invalid_date')
 
 
 class InvalidTime(ValidationError):
-    __doc__ = _('invalid_time', u"Date should be in the format HH:MM")
+    __doc__ = _('invalid_time')
 
 
 def check_date(value):

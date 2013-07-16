@@ -230,7 +230,7 @@ class AddForm(PageForm):
         Book this resource
         '''
         obj = self.do_book(data)
-        msg = _('booking_created', 'Booking created')
+        msg = _('booking_created')
         IStatusMessage(self.request).add(msg, 'info')
         booking_date = data['booking_date'].strftime('%d/%m/%Y')
         qs = urlencode({'data': booking_date,
