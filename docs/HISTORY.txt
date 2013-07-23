@@ -4,6 +4,7 @@ Changelog
 2.1 (unreleased)
 ================
 
+- Fix slot visualization for both anonymous and logged [nicolasenno]
 - View for booking vacations supports also gateless bookings [alert]
 - Implemented view for booking vacations [alert]
 - Slot calculation made in prenotazioni state view [alert]
