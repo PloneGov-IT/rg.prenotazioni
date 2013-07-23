@@ -49,6 +49,15 @@ class PrenotazioniFolderView(BrowserView):
                     res.append((item, giorno))
         return res
 
+    def empty_week(self):
+        """
+        Check if we have an empty week
+        """
+        for d in self.days():
+            if d[0]['inizio_m'] != '0' or d[0]['inizio_p'] != '0':
+                return False
+        return True
+
     def slots(self, day):
         """ restituisce gli slot disponibili nel giorno indicato
         """
