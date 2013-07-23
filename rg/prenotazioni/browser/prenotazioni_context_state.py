@@ -140,15 +140,3 @@ class PrenotazioniContextState(BrowserView):
         for marker in slots:
             slots[marker] = [booking_date + time for time in slots[marker]]
         return slots
-
-    def check_visible_slot(self, prenotazione, member):
-        '''
-        Check if the slot must be visible or not.
-
-        :param prenotazione: a Prenotazione object
-        '''
-        wf_tool = getToolByName(self, 'portal_workflow')
-        review_state = wf_tool.getInfoFor(prenotazione, 'review_state')
-        if member.has_permission('Edit', self.context):
-            return False
-        return review_state in self.active_review_state

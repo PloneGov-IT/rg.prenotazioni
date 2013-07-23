@@ -1,40 +1,48 @@
 <metal:macro metal:define-macro="booking_slots" i18n:domain="rg.prenotazioni">
   <dl tal:define="data_ora python:day[1].strftime('%Y/%m/%d')+' '+orario+':00';
-                  has_free_slots python:view.conflict_manager.has_free_slots(data_ora);
-                  show_add_button python:view.show_add_button(data_ora);
-                  tznow view/tznowstr">
-    <dt>
+                  has_free_slots python:view.conflict_manager.has_free_slots(data_ora);>
+
+    <metal:booking_slots metal:use-macro="prenotazione_macros/desc_term" />
+    <dd tal:condition="not:has_free_slots">
+        <span class="slotOccupato">Occupato</span>
+    </dd>
+  </dl>
+</metal:macro>
+
+<!-- posso vedere tutte le prenotazioni in quanto ho permessi di edit-->
+<metal:macro metal:define-macro="booking_slots_edit" i18n:domain="rg.prenotazioni">
+  <dl tal:define="data_ora python:day[1].strftime('%Y/%m/%d')+' '+orario+':00';
+                  has_free_slots python:view.conflict_manager.has_free_slots(data_ora);">
+
+    <metal:booking_slots metal:use-macro="prenotazione_macros/desc_term" />
+    <tal:repeat repeat="prenotazione prenotazioni">
+      <dd>
+        <tal:display condition="not:uid_spostamento">
+            <!-- esiste la prenotazione -->
+            <a href="" class="state-pending"
+                tal:attributes="href prenotazione/getURL;
+                class string:state-${prenotazione/review_state}"
+                tal:content="prenotazione/Title">Mario Rossi</a>
+            <!-- cambia data -->
+            <a href="" class="modificaPrenotazione" title="Cambia data"
+                tal:attributes="href python:here_url+'/spostaPrenotazione?UID='+prenotazione.UID">sposta</a>
+        </tal:display>
+      </dd>
+    </tal:repeat>
+  </dl>
+</metal:macro>
+
+<metal:macro metal:define-macro="desc_term" i18n:domain="rg.prenotazioni">
+    <dt tal:define="show_add_button python:view.show_add_button(data_ora);">
       <tal:orario content="orario">8:00</tal:orario>
       <tal:has_space condition="has_free_slots">
         <a href="" class="aggiungiPrenotazione" title="Richiedi prenotazione"
             tal:condition="python:view.show_add_button(data_ora)"
-            tal:attributes="href python:here_url+'/creaPrenotazione?form.booking_date='+data_ora"
-          >+</a>
+            tal:attributes="href python:here_url+'/creaPrenotazione?form.booking_date='+data_ora">+</a>
         <tal:sposta condition="uid_spostamento">
           <a href="" class="modificaPrenotazione" title="Sposta qui"
           tal:attributes="href python:here_url+'/fissaPrenotazione?data_prenotazione='+data_ora">sposta qui</a>
         </tal:sposta>
       </tal:has_space>
     </dt>
-
-    <tal:repeat repeat="prenotazione prenotazioni">
-      <dd tal:define="display_prenotazione python:view.displayPrenotazione(prenotazione, member)">
-        <tal:display condition="not:uid_spostamento">
-            <!-- esiste la prenotazione e posso vederla -->
-            <a href="" class="state-pending"
-            tal:condition="display_prenotazione"
-            tal:attributes="href prenotazione/getURL;
-            class string:state-${prenotazione/review_state}"
-            tal:content="prenotazione/Title">Mario Rossi</a>
-            <!-- cambia data -->
-            <a href="" class="modificaPrenotazione" title="Cambia data"
-            tal:condition="python:view.canEditPrenotazione(prenotazione, member)"
-            tal:attributes="href python:here_url+'/spostaPrenotazione?UID='+prenotazione.UID">sposta</a>
-            <!-- esiste la prenotazione ma non sono posso vederla -->
-            <span class="slotOccupato"
-            tal:condition="python:view.displaySlotOccupato(prenotazione, member)">Occupato</span>
-        </tal:display>
-      </dd>
-    </tal:repeat>
-  </dl>  
 </metal:macro>

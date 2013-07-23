@@ -10,6 +10,7 @@ i18n:domain="rg.prenotazioni">
             <tal:main-macro metal:define-macro="main"
             tal:define="here_url context/@@plone_context_state/object_url;
             member context/@@plone_portal_state/member;
+            is_editable context/@@plone_context_state/is_editable;
             prenotazione_macros nocall:here/@@prenotazione_macros;
             uid_spostamento view/uidSpostaAppuntamento">
 
@@ -74,7 +75,12 @@ i18n:domain="rg.prenotazioni">
                                                 <td class="slot"
                                                 tal:define="orario python:view.getTime(day[0], slot,'m');
                                                 prenotazioni python:view.getPrenotazioni(day[1], orario)">
-                                                    <metal:booking_slots metal:use-macro="prenotazione_macros/booking_slots" />
+                                                    <span tal:condition="is_editable">
+                                                        <metal:booking_slots metal:use-macro="prenotazione_macros/booking_slots_edit" />
+                                                    </span>
+                                                    <span tal:condition="not:is_editable">
+                                                        <metal:booking_slots metal:use-macro="prenotazione_macros/booking_slots" />
+                                                    </span>
                                                 </td>
                                             </tr>
                                         </tal:slots>

@@ -153,13 +153,6 @@ class PrenotazioniFolderView(BrowserView):
             pass
         return False
 
-    def displaySlotOccupato(self, brain, member):
-        '''
-        Return true if the slot must be visible
-        '''
-        pcs = self.context.restrictedTraverse('@@prenotazioni_context_state')
-        return pcs.check_visible_slot(brain._unrestrictedGetObject(), member)
-
     @memoize
     def uidSpostaAppuntamento(self):
         """
