@@ -1,6 +1,6 @@
 <metal:macro metal:define-macro="booking_slots" i18n:domain="rg.prenotazioni">
   <dl tal:define="data_ora python:day[1].strftime('%Y/%m/%d')+' '+orario+':00';
-                  has_free_slots python:view.conflict_manager.has_free_slots(data_ora);>
+                  has_free_slots python:view.conflict_manager.has_free_slots(data_ora);">
 
     <metal:booking_slots metal:use-macro="prenotazione_macros/desc_term" />
     <dd tal:condition="not:has_free_slots">
