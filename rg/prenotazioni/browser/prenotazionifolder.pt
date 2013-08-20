@@ -10,6 +10,7 @@ i18n:domain="rg.prenotazioni">
             <tal:main-macro metal:define-macro="main"
             tal:define="here_url context/@@plone_context_state/object_url;
             member context/@@plone_portal_state/member;
+            isAnon context/@@plone_portal_state/anonymous;
             is_editable context/@@plone_context_state/is_editable;
             prenotazione_macros nocall:here/@@prenotazione_macros;
             uid_spostamento view/uidSpostaAppuntamento">
@@ -75,10 +76,10 @@ i18n:domain="rg.prenotazioni">
                                                 <td class="slot"
                                                 tal:define="orario python:view.getTime(day[0], slot,'m');
                                                 prenotazioni python:view.getPrenotazioni(day[1], orario)">
-                                                    <span tal:condition="is_editable">
+                                                    <span tal:condition="not:isAnon">
                                                         <metal:booking_slots metal:use-macro="prenotazione_macros/booking_slots_edit" />
                                                     </span>
-                                                    <span tal:condition="not:is_editable">
+                                                    <span tal:condition="isAnon">
                                                         <metal:booking_slots metal:use-macro="prenotazione_macros/booking_slots" />
                                                     </span>
                                                 </td>
@@ -97,11 +98,16 @@ i18n:domain="rg.prenotazioni">
                                     <table class="plain period">
                                         <tal:slots repeat="slot python:view.slots(day[0])[1]">
                                             <tr tal:define="oddrow repeat/slot/odd"
-                                            tal:attributes="class python:oddrow and 'even' or 'odd'">
+                                            tal:attributes="class python:oddrow and 'odd' or 'even'">
                                                 <td class="slot"
                                                 tal:define="orario python:view.getTime(day[0], slot,'p');
                                                 prenotazioni python:view.getPrenotazioni(day[1], orario)">
-                                                    <metal:booking_slots metal:use-macro="prenotazione_macros/booking_slots" />
+                                                    <span tal:condition="not:isAnon">
+                                                        <metal:booking_slots metal:use-macro="prenotazione_macros/booking_slots_edit" />
+                                                    </span>
+                                                    <span tal:condition="isAnon">
+                                                        <metal:booking_slots metal:use-macro="prenotazione_macros/booking_slots" />
+                                                    </span>
                                                 </td>
                                             </tr>
                                         </tal:slots>
