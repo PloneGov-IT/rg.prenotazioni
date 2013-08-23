@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+from DateTime import DateTime
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
 from datetime import datetime, timedelta
 from five.formlib.formbase import PageForm
+from plone.app.form.validators import null_validator
 from plone.memoize.view import memoize
 from quintagroup.formlib.captcha import Captcha, CaptchaWidget
 from rg.prenotazioni import prenotazioniMessageFactory as _, tznow
@@ -219,10 +221,14 @@ class AddForm(PageForm):
     @property
     @memoize
     def back_to_booking_url(self):
-        ''' This goes back to booking view
+        ''' This goes back to booking view.
         '''
-        qs = urlencode({'data': self.request.get('form.booking_date', '')})
-        return ('%s?%s') % (self.context.absolute_url(), qs)
+        try:
+            b_date = self.request.get('form.booking_date', '')
+            qs = urlencode({'data': DateTime(b_date).strftime('%d/%m/%Y')})
+            return ('%s?%s') % (self.context.absolute_url(), qs)
+        except:
+            return self.context.absolute_url()
 
     @action(_('action_book', u'Book'), name=u'book')
     def action_book(self, action, data):
@@ -239,7 +245,8 @@ class AddForm(PageForm):
                   ) % (self.context.absolute_url(), qs)
         return self.request.response.redirect(target)
 
-    @action(_('action_cancel', u'Cancel'), name=u'cancel')
+    @action(_(u"action_cancel", default=u"Cancel"),
+            validator=null_validator, name=u'cancel')
     def action_cancel(self, action, data):
         '''
         Cancel

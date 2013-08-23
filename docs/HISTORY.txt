@@ -3,6 +3,7 @@ Changelog
 
 2.1 (unreleased)
 ================
+- Fix cancel action on new booking [nicolasenno]
 - Fix booking visualization issue on PM time [nicolasenno]
 - Fix check booking not available [nicolasenno]
 - Fix slot visualization for both anonymous and logged [nicolasenno]
