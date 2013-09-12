@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.2 (unreleased)
+================
+
+- Nothing changed yet.
+
+
 2.1 (2013-09-12)
 ================
 - Fix cancel action on new booking [nicolasenno]
