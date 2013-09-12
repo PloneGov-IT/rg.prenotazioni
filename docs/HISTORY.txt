@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.1 (unreleased)
+2.1 (2013-09-12)
 ================
 - Fix cancel action on new booking [nicolasenno]
 - Fix booking visualization issue on PM time [nicolasenno]
