@@ -19,4 +19,13 @@
       profile="rg.prenotazioni:default"
   />
 
+  <genericsetup:upgradeStep
+      title="Update to version 3.0"
+      description="New major release"
+      source="*"
+      destination="3000"
+      handler=".to3000.run_all_steps"
+      profile="rg.prenotazioni:default"
+  />
+
 </configure>

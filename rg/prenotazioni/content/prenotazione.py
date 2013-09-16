@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_chain
+from DateTime import DateTime
 from Products.ATContentTypes.content import base, schemata
+from Products.ATContentTypes.utils import DT2dt
 from Products.Archetypes import atapi
 from Products.Archetypes.ExtensibleMetadata import _zone
 from Products.Archetypes.utils import DisplayList
 from Products.CMFCore import permissions
 from Products.CMFCore.utils import getToolByName
+from datetime import timedelta
 from rg.prenotazioni import prenotazioniMessageFactory as _
 from rg.prenotazioni.adapters.conflict import IConflictManager
 from rg.prenotazioni.config import PROJECTNAME
@@ -87,6 +90,15 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
             description=_(u"Sportello a cui presentarsi"),
         ),
         required=False,
+    ),
+    atapi.DateTimeField(
+        'data_scadenza',
+        storage=atapi.AnnotationStorage(),
+        widget=atapi.StringWidget(
+            label=_(u'Data scadenza prenotazione'),
+            visible={'edit': 'hidden', 'view': 'visible'},
+        ),
+        required=True,
     ),
 ))
 
@@ -204,5 +216,16 @@ class Prenotazione(base.ATCTContent):
         '''
         booking_created(self, None)
         return super(Prenotazione, self)._postCopy(container, op)
+
+    def getExpirationDate(self):
+        """ Ritorna la data di scadenza della prenotazione.
+        Per il calcolo della scadenza viene sommata alla data e ora di prenotazione
+        il valore del campo "durata incotro"
+        """
+        offset = self.getPrenotazioniFolder().getDurata()
+        data = self.getField('data_prenotazione').get(self)
+        scadenza = DT2dt(data) + timedelta(minutes=offset)
+        return DateTime(scadenza.strftime('%Y/%m/%d %H:%M:00'))
+
 
 atapi.registerType(Prenotazione, PROJECTNAME)

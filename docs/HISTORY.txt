@@ -27,7 +27,6 @@ Changelog
 - Fix the review_state after copy [alert]
 - Added new workflow transition and its upgrade step [nicolasenno]
 - Added fields validation (email, phone) for prenotazioni form [nicolasenno]
-- Added events logger for IPrenotazione [nicolasenno]
 - Modified contentrules [nicolasenno]
 - Modified workflow to add refused state [nicolasenno]
 - We can add prenotazioni only through the calendar links [alert]

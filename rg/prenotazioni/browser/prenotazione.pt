@@ -53,8 +53,10 @@ i18n:domain="rg.prenotazioni">
                     <span tal:replace="here/getTipologia_prenotazione" />
                 </div>
                 <div class="field" tal:condition="here/getData_prenotazione">
-                    <strong i18n:translate="">Reservation date:</strong>
+                    <strong i18n:translate="">Reservation date: da </strong>
                     <span tal:replace="python:putils.toLocalizedTime(here.getData_prenotazione(), True)" />
+                    <strong i18n:translate=""> a </strong>
+                    <span tal:content="python:putils.toLocalizedTime(here.getData_scadenza(), True)" />
                 </div>
                 <div class="field" tal:condition="here/getAzienda">
                     <strong i18n:translate="">Company:</strong>
@@ -73,7 +75,6 @@ i18n:domain="rg.prenotazioni">
                     <strong i18n:translate="">Gates:</strong>
                     <span tal:content="here/getGate">Gate no. 1</span>
                 </div>
-                
                 <div tal:replace="structure provider:plone.belowcontentbody" />
 
             </tal:main-macro>
