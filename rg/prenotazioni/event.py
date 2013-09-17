@@ -23,3 +23,12 @@ def reallocate_gate(obj):
     booking_date = obj.object.getData_prenotazione()
     new_gate = IBooker(container).get_available_gate(booking_date)
     obj.object.setGate(new_gate)
+
+
+def reallocate_container(obj):
+    '''
+    If we moved Prenotazione to a new week we should move it
+    '''
+    import pdb;pdb.set_trace()
+    container = obj.object.getPrenotazioniFolder()
+    IBooker(container).fix_container(obj.object)

@@ -23,6 +23,11 @@ def set_expiration_date(context):
     logger.info("All IPrenotazione documents have been updated")
 
 
+def fix_container(context):
+    ''' Fix the container for Prenotazione object
+    '''
+
+
 def upgrade_types(context):
     ''' Upgrade portal_types to read the new PrenotazioniWeek type
     '''

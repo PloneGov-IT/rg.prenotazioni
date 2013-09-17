@@ -4,6 +4,7 @@ from Products.CMFPlone.FactoryTool import _createObjectByType
 from random import choice
 from zope.component import Interface
 from zope.interface.declarations import implements
+from rg.prenotazioni import prenotazioniLogger
 
 
 class IBooker(Interface):
@@ -80,3 +81,15 @@ class Booker(object):
             at_data['gate'] = force_gate
         obj.processForm(values=at_data)
         return obj
+
+    def fix_container(self, booking):
+        ''' Take a booking and move it to the right week
+        '''
+        fake_data = {'booking_date': booking.getData_prenotazione()}
+        old_container = booking.aq_parent
+        new_container = self.get_container(fake_data)
+        if old_container == new_container:
+            return
+        booking_id = booking.getId()
+        cut_data = old_container.manage_cutObjects(booking_id)
+        new_container.manage_pasteObjects(cut_data)

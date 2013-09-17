@@ -23,6 +23,9 @@
   <subscriber for=".prenotazione_event.IMovedPrenotazione"
               handler=".event.reallocate_gate" />
 
+  <subscriber for=".prenotazione_event.IMovedPrenotazione"
+              handler=".event.reallocate_container" />
+
   <!-- Register the installation GenericSetup extension profile -->
   <genericsetup:registerProfile
       name="default"
