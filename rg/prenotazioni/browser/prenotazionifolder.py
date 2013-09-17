@@ -136,6 +136,13 @@ class PrenotazioniFolderView(week.View):
             return
         return DateTime() + self.context.getFutureDays()
 
+    def slots(self, day):
+        """ restituisce gli slot disponibili nel giorno indicato
+        """
+        m = int(day['num_m'])
+        p = int(day['num_p'])
+        return ([x for x in range(0, m)], [x for x in range(0, p)])
+
     def show_add_button(self, date_time):
         """ Show the plus button for the given date_time
         """
