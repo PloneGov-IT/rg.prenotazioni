@@ -85,7 +85,7 @@ i18n:domain="rg.prenotazioni">
                 </li>
                 <li class="actions">
                     <a title="Prenotazioni" href="prenotazioni"
-                    tal:attributes="href string:${prenotazione/aq_parent/absolute_url}?data=${request/data|nothing}">Ritorna alle prenotazioni</a>
+                    tal:attributes="href string:${prenotazioni_folder/absolute_url}?data=${request/data|nothing}">Ritorna alle prenotazioni</a>
                 </li>
             </ul>
         </metal:content>
