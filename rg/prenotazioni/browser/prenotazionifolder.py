@@ -240,7 +240,7 @@ class PrenotazioniFolderView(BaseView):
     def show_add_button(self, date_time):
         """ Show the plus button for the given date_time
         """
-        if self.uid_move_booking():
+        if self.prenotazioni.uid_move_booking:
             return False
         if date_time < self.tznowstr:
             return False
