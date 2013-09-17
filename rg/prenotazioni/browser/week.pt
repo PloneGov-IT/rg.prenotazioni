@@ -46,7 +46,12 @@
                                     <ul class="plain period" 
                                         tal:define="bookings python:view.prenotazioni.search_bookings_in_day(day)">
                                       <li tal:repeat="booking bookings"><div tal:define="booking booking/getObject">
-                                        <h3 tal:content="booking/Title"></h3>
+                                        <h3>
+                                          <a href="" 
+                                            tal:attributes="href booking/absolute_url"
+                                            tal:content="booking/Title">
+                                          </a>
+                                        </h3>
                                         <p tal:content="booking/getData_prenotazione"></p>
                                         <p tal:content="booking/getData_scadenza"></p>
                                       </div></li>
