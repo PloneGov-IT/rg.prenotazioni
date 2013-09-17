@@ -4,6 +4,7 @@ Changelog
 2.2 (unreleased)
 ================
 
+- Adding a type PrenotazioniWeek
 - Adding a new week view
   [alert]
 
