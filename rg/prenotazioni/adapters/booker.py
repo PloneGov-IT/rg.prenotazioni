@@ -15,6 +15,7 @@ class IBooker(Interface):
 class Booker(object):
     implements(IBooker)
     portal_type = 'Prenotazione'
+    container_type = 'PrenotazioniWeek'
 
     def __init__(self, context):
         '''
@@ -46,12 +47,22 @@ class Booker(object):
             return available_gates.pop()
         return self.check_less_used_gates(data_prenotazione)
 
+    def get_container(self, data):
+        ''' Get a container to store the data
+        '''
+        data_prenotazione = DateTime(data['booking_date'])
+        key = data_prenotazione.strftime('%Y-%W')
+        if not key in self.context:
+            _createObjectByType(self.container_type, self.context, key)
+        return self.context[key]
+
     def create(self, data, force_gate=''):
         '''
         Create a Booking object
         '''
-        key = self.context.generateUniqueId(self.portal_type)
-        obj = _createObjectByType(self.portal_type, self.context, key)
+        container = self.get_container(data)
+        key = container.generateUniqueId(self.portal_type)
+        obj = _createObjectByType(self.portal_type, container, key)
         # map form data to AT fields
         data_prenotazione = DateTime(data['booking_date'])
         at_data = {'title': data['fullname'],
