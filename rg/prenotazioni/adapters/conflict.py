@@ -57,6 +57,15 @@ class ConflictManager(object):
         brains = pc.unrestrictedSearchResults(**query)
         return brains
 
+    def search_bookings_in_day(self, start, stop, **kw):
+        '''
+        Query our prenotazioni
+        '''
+        query = kw.copy()
+        query['Date'] = {'query': [start, stop],
+                         'range': 'min:max'}
+        return self.unrestricted_prenotazioni(**query)
+
     def is_vacation_day(self, date):
         '''
         Check if today is a vacation day
