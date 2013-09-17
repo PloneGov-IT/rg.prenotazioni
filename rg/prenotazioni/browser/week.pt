@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      metal:use-macro="context/main_template/macros/master">
+
+    <metal:block fill-slot="content-description">
+        <div id="annullaspostaprenotazione"
+             tal:condition="view/uid_move_booking">
+            <a title="Annulla Spostamento" href="annullaSpostamento"
+               tal:attributes="href string:${context/absolute_url}/annullaSpostamento">Annulla Spostamento</a>
+        </div>
+        <div class="documentDescription-box clear-block">
+            <p class="documentDescription">
+                <tal:block condition="here/Description">
+                    <metal:field use-macro="python:here.widget('description', mode='view')">Description</metal:field>
+                </tal:block>
+            </p>
+        </div>
+        <div class="documentDescription-box clear-block">
+            <span tal:replace="structure here/getDescriptionAgenda" />
+        </div>      
+    </metal:block>
+    <metal:block fill-slot="content-core">
+        
+        
+              
+    </metal:block>
+
+</html>

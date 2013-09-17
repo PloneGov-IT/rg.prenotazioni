@@ -14,6 +14,25 @@ class PrenotazioniContextState(BrowserView):
     '''
     active_review_state = ['published', 'pending']
 
+    @property
+    @memoize
+    def conflict_manager(self):
+        '''
+        Return the conflict manager for this context
+        '''
+        return  IConflictManager(self.context)
+
+    @property
+    @memoize
+    def uid_move_booking(self):
+        '''
+        Get's the gates, available and unavailable
+        '''
+        uid = self.request.SESSION.get('UID', False)
+        if not uid:
+            return False
+        return self.conflict_manager.unrestricted_prenotazioni(UID=uid)
+
     @memoize
     def get_gates(self):
         '''
@@ -43,8 +62,7 @@ class PrenotazioniContextState(BrowserView):
 
         :param booking_date: a DateTime object
         '''
-        adapter = IConflictManager(self.context)
-        brains = adapter.unrestricted_prenotazioni(Date=booking_date)
+        brains = self.conflict_manager.unrestricted_prenotazioni(Date=booking_date)
         return set([x._unrestrictedGetObject().getGate() for x in brains])
 
     def get_free_gates_in_slot(self, booking_date):
@@ -63,11 +81,10 @@ class PrenotazioniContextState(BrowserView):
 
         :param booking_date: a DateTime object
         '''
-        adapter = IConflictManager(self.context)
         query = {'query': [booking_date.strftime('%Y/%m/%d 00:00'),
                            booking_date.strftime('%Y/%m/%d 23:59')],
                  'range': 'minmax'}
-        return adapter.unrestricted_prenotazioni(Date=query)
+        return self.conflict_manager.unrestricted_prenotazioni(Date=query)
 
     def gates_stats_in_day(self, booking_date, only_free=False):
         '''

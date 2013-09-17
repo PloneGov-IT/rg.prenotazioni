@@ -13,7 +13,7 @@ i18n:domain="rg.prenotazioni">
             isAnon context/@@plone_portal_state/anonymous;
             is_editable context/@@plone_context_state/is_editable;
             prenotazione_macros nocall:here/@@prenotazione_macros;
-            uid_spostamento view/uidSpostaAppuntamento">
+            uid_spostamento view/uid_move_booking">
 
                 <div tal:replace="structure provider:plone.abovecontenttitle" />
                 <h1 class="documentFirstHeading">

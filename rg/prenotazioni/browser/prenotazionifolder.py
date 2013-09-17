@@ -129,14 +129,6 @@ class PrenotazioniFolderView(BrowserView):
         today = date.today()
         return today + timedelta(days=future_days)
 
-    @property
-    @memoize
-    def conflict_manager(self):
-        '''
-        Return the conflict manager for this context
-        '''
-        return  IConflictManager(self.context)
-
     def displayPrenotazione(self, prenotazione, member):
         portal_state = getMultiAdapter((self.context, self.request),
                                        name="plone_portal_state")
@@ -161,17 +153,6 @@ class PrenotazioniFolderView(BrowserView):
         except Unauthorized:
             pass
         return False
-
-    @memoize
-    def uidSpostaAppuntamento(self):
-        """
-        Se nella request esiste il parametro UID allora si tratta di uno
-        spostamento
-        """
-        uid = self.context.REQUEST.SESSION.get('UID', False)
-        if not uid:
-            return False
-        return self.conflict_manager.unrestricted_prenotazioni(UID=uid)
 
     def spanRow(self, day):
         """ restituisce lo span nel caso in cui ci sia orario continuato
@@ -258,7 +239,7 @@ class PrenotazioniFolderView(BrowserView):
     def show_add_button(self, date_time):
         """ Show the plus button for the given date_time
         """
-        if self.uidSpostaAppuntamento():
+        if self.uid_move_booking():
             return False
         if date_time < self.tznowstr:
             return False
