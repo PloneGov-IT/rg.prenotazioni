@@ -19,13 +19,28 @@
       profile="rg.prenotazioni:default"
   />
 
-  <genericsetup:upgradeStep
-      title="Update to version 3.0"
-      description="New major release"
-      source="*"
-      destination="3000"
-      handler=".to3000.run_all_steps"
-      profile="rg.prenotazioni:default"
-  />
+
+  <genericsetup:upgradeSteps
+    source="*"
+    destination="3000"
+    profile="rg.prenotazioni:default">
+
+    <genericsetup:upgradeStep
+      title="Upgrade version"
+      handler=".to3000.upgrade_version"
+    />
+
+    <genericsetup:upgradeStep
+      title="Set expiration date"
+      handler=".to3000.set_expiration_date"
+    />
+    
+    <genericsetup:upgradeStep
+      title="Reload types for the new PrenotazioniWeek type"
+      handler=".to3000.upgrade_types"
+    />
+    
+    
+  </genericsetup:upgradeSteps>
 
 </configure>

@@ -161,9 +161,8 @@ class Prenotazione(base.ATCTContent):
         for parent in aq_chain(self):
             if IPrenotazioniFolder.providedBy(parent):
                 return parent
-        raise Exception(
-            "Could not find Prenotazioni Folder in acquisition chain of %r" %
-            self)
+        raise Exception("Could not find Prenotazioni Folder "
+                        "in acquisition chain of %r" % self)
 
     def getElencoTipologie(self):
         """ restituisce l'elenco delle tipologie sulla folder padre
@@ -177,16 +176,13 @@ class Prenotazione(base.ATCTContent):
     def getEmailResponsabile(self):
         """
         """
-        parent = self.aq_inner.aq_parent
-        email = parent.getEmail_responsabile()
-        return email
+        return self.getPrenotazioniFolder().getEmail_responsabile()
 
     def validateOverbooking(self, REQUEST, errors):
         '''
         Validate against overbooking
         '''
-        parent = self.aq_inner.aq_parent
-        adapter = IConflictManager(parent)
+        adapter = IConflictManager(self.getPrenotazioniFolder())
         if adapter.conflicts({'booking_date': REQUEST['data_prenotazione']}):
             pu = getToolByName(self, 'plone_utils')
             pu.addPortalMessage(OVERBOOKED_MESSAGE, type="error")

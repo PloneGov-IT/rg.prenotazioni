@@ -19,7 +19,7 @@ def reallocate_gate(obj):
     '''
     We have to reallocate the gate for this object
     '''
-    container = obj.object.aq_parent
+    container = obj.object.getPrenotazioniFolder()
     booking_date = obj.object.getData_prenotazione()
     new_gate = IBooker(container).get_available_gate(booking_date)
     obj.object.setGate(new_gate)

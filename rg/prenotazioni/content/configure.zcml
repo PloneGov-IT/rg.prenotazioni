@@ -16,6 +16,16 @@
         set_schema="..interfaces.IPrenotazioniFolder"
         />
   </class>
+  <class class=".prenotazioniweek.PrenotazioniWeek">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IPrenotazioniWeek"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IPrenotazioniWeek"
+        />
+  </class>
   <class class=".prenotazione.Prenotazione">
     <require
         permission="zope2.View"
@@ -26,6 +36,5 @@
         set_schema="..interfaces.IPrenotazione"
         />
   </class>
-
 
 </configure>

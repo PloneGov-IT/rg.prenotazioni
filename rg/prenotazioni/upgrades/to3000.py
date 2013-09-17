@@ -5,18 +5,7 @@ from rg.prenotazioni.interfaces import IPrenotazione
 
 PROJECTNAME = 'rg.prenotazioni'
 PROFILE_ID = 'profile-rg.prenotazioni:default'
-
-
-def upgrade(upgrade_product, version):
-    """ Decorator for updating the QuickInstaller of a upgrade """
-    def wrap_func(fn):
-        def wrap_func_args(context, *args):
-            qi = getToolByName(context, 'portal_quickinstaller')
-            p = qi.get(upgrade_product)
-            setattr(p, 'installedversion', version)
-            return fn(context, *args)
-        return wrap_func_args
-    return wrap_func
+VERSION = '3000'
 
 
 def set_expiration_date(context):
@@ -34,10 +23,18 @@ def set_expiration_date(context):
     logger.info("All IPrenotazione documents have been updated")
 
 
-@upgrade(PROJECTNAME, '3000')
-def run_all_steps(context):
+def upgrade_types(context):
+    ''' Upgrade portal_types to read the new PrenotazioniWeek type
     '''
-    Run all the needed steps to upgrade to 3000
-    '''
-    set_expiration_date(context)
+    portal_setup = getToolByName(context, 'portal_setup')
+    portal_setup.runImportStepFromProfile(PROFILE_ID, 'typeinfo')
+    logger.info('types.xml updated for %s' % PROFILE_ID)
 
+
+def upgrade_version(context):
+    '''
+    Just set the version for this step
+    '''
+    qi = getToolByName(context, 'portal_quickinstaller')
+    p = qi.get(PROJECTNAME)
+    setattr(p, 'installedversion', VERSION)
