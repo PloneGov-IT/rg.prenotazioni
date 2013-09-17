@@ -40,28 +40,18 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <tal:days repeat="day view/days">
+                            <tal:days repeat="day view/actual_week_days">
                                 <td class="day"
-                                tal:define="mattina python:day[0]['inizio_m']!='0';
-                                pomeriggio python:day[0]['inizio_p']!='0'"
-                                tal:condition="python:mattina or pomeriggio"
-                                tal:attributes="rowspan python:day[0]['inizio_p'] != '0' and 1 or 2;
-                                                class python:day[1]==view.actual_date and 'day selected' or 'day'">
-                                    <table class="plain period">
-                                        
-                                    </table>
-                                </td>
-                            </tal:days>
-                        </tr>
-                        <tr>
-                            <tal:days repeat="day view/days">
-                                <td tal:define="mattina python:day[0]['inizio_m']!='0';
-                                pomeriggio python:day[0]['inizio_p']!='0'"
-                                tal:condition="python:pomeriggio"
-                                tal:attributes="class python:day[1]==view.actual_date and 'day selected' or 'day'">
-                                    <table class="plain period">
-                                        
-                                    </table>
+                                    tal:attributes="class python:day==view.actual_date and 'day selected' or 'day'">
+                                    <ul class="plain period" 
+                                        tal:define="bookings python:view.prenotazioni.search_bookings_in_day(day)">
+                                      <li tal:repeat="booking bookings"><div tal:define="booking booking/getObject">
+                                        <h3 tal:content="booking/Title"></h3>
+                                        <p tal:content="booking/getData_prenotazione"></p>
+                                        <p tal:content="booking/getData_scadenza"></p>
+                                      </div></li>
+                                       
+                                    </ul>
                                 </td>
                             </tal:days>
                         </tr>

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from datetime import date, timedelta
-from rg.prenotazioni.browser.base import BaseView
-from plone.memoize.view import memoize
 from Products.CMFCore.utils import getToolByName
+from datetime import date, timedelta
+from plone.memoize.view import memoize
+from rg.prenotazioni.browser.base import BaseView
 
 
 class View(BaseView):
@@ -27,6 +27,16 @@ class View(BaseView):
         else:
             data = date.today()
         return data
+
+    @property
+    @memoize
+    def actual_week_days(self):
+        """ The days in this week
+        """
+        actual_date = self.actual_date
+        weekday = actual_date.weekday()
+        return [actual_date - timedelta(x)
+                for x in range(-weekday, 7 - weekday)]
 
     @property
     @memoize
@@ -99,11 +109,9 @@ class View(BaseView):
         weekday = self.actual_date.weekday()
 
         res = []
-        for x in (range(len(settimana))):
-            item = settimana[x]
-            diff = weekday - x
+        for x, item in enumerate(settimana):
             if item['inizio_m'] or item['inizio_p']:
-                giorno = self.actual_date - timedelta(days=diff)
+                giorno = self.actual_date - timedelta(weekday - x)
                 if self.isValidDay(giorno):
                     res.append((item, giorno))
         return res
