@@ -81,10 +81,9 @@ class PrenotazioniContextState(BrowserView):
 
         :param booking_date: a DateTime object
         '''
-        query = {'query': [booking_date.strftime('%Y/%m/%d 00:00'),
-                           booking_date.strftime('%Y/%m/%d 23:59')],
-                 'range': 'minmax'}
-        return self.conflict_manager.unrestricted_prenotazioni(Date=query)
+        start = booking_date.strftime('%Y/%m/%d 00:00')
+        stop = booking_date.strftime('%Y/%m/%d 23:59')
+        return self.conflict_manager.search_bookings_in_day(start, stop)
 
     def gates_stats_in_day(self, booking_date, only_free=False):
         '''
