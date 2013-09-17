@@ -36,18 +36,8 @@ i18n:domain="rg.prenotazioni">
                     <span tal:replace="structure here/getDescriptionAgenda" />
                 </div>
                 <table id="week" class="pren">
-                    <caption tal:define="prev python:view.prevNextWeek()[0];
-                    next python:view.prevNextWeek()[1]">
-                        <a id="prevWeekLink" href="#"
-                        tal:attributes="href string:${here_url}?data=${prev}">&larr; settimana precedente</a>
-                        <strong tal:define="date view/requestData">
-                            <tal:month i18n:domain="plonelocales"
-                            i18n:translate=""
-                            content="python:view.monthMsgid(date.month)" />
-                            <tal:year content="date/year" />
-                        </strong>
-                        <a id="nextWeekLink" href="#"
-                        tal:attributes="href string:${here_url}?data=${next}">settimana successiva &rarr;</a>
+                    <caption>
+                      <metal:macro metal:use-macro="prenotazione_macros/week_navigator" />
                     </caption>
                     <thead>
                         <tr>
@@ -68,7 +58,7 @@ i18n:domain="rg.prenotazioni">
                                 pomeriggio python:day[0]['inizio_p']!='0'"
                                 tal:condition="python:mattina or pomeriggio"
                                 tal:attributes="rowspan python:view.spanRow(day[0]);
-                                class python:day[1]==view.requestData() and 'day selected' or 'day'">
+                                class python:day[1]==view.actual_date and 'day selected' or 'day'">
                                     <table class="plain period">
                                         <tal:slots repeat="slot python:view.slots(day[0])[0]">
                                             <tr tal:define="oddrow repeat/slot/odd"
@@ -94,7 +84,7 @@ i18n:domain="rg.prenotazioni">
                                 <td tal:define="mattina python:day[0]['inizio_m']!='0';
                                 pomeriggio python:day[0]['inizio_p']!='0'"
                                 tal:condition="python:pomeriggio"
-                                tal:attributes="class python:day[1]==view.requestData() and 'day selected' or 'day'">
+                                tal:attributes="class python:day[1]==view.actual_date and 'day selected' or 'day'">
                                     <table class="plain period">
                                         <tal:slots repeat="slot python:view.slots(day[0])[1]">
                                             <tr tal:define="oddrow repeat/slot/odd"

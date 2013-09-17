@@ -1,3 +1,18 @@
+<!-- The macro used to go navigate through the weeks -->
+<metal:macro metal:define-macro="week_navigator" i18n:domain="rg.prenotazioni">
+  <a id="prevWeekLink" href="#"
+     tal:attributes="href string:${request/getURL}?data=${view/prev_week}"
+     >&larr; settimana precedente</a>
+  <strong><tal:month i18n:domain="plonelocales"
+                     i18n:translate=""
+                     content="view/actual_translated_month" />
+          <tal:year content="view/actual_date/year" /></strong>
+  <a id="nextWeekLink" href="#" 
+     tal:attributes="href string:${request/getURL}?data=${view/next_week}"
+     >settimana successiva &rarr;</a>
+</metal:macro>
+
+<!-- A slot for booking -->
 <metal:macro metal:define-macro="booking_slots" i18n:domain="rg.prenotazioni">
   <dl tal:define="data_ora python:day[1].strftime('%Y/%m/%d')+' '+orario+':00';
                   has_free_slots python:view.conflict_manager.has_free_slots(data_ora);">

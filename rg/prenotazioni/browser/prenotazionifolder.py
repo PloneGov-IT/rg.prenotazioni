@@ -13,58 +13,14 @@ from rg.prenotazioni.prenotazione_event import MovedPrenotazione
 from zExceptions import Unauthorized
 from zope.component import getMultiAdapter
 from zope.event import notify
+from rg.prenotazioni.browser import week
 
 # TODO: Do not use the session anymore!
 
 
-class PrenotazioniFolderView(BaseView):
+class PrenotazioniFolderView(week.View):
     """Default view of a PrenotazioniFolder
     """
-
-    @memoize
-    def days(self):
-        """
-        Restituisce i giorni della settimana "customizzata" nel formato
-        (dict,datetime.date)
-        """
-        settimana = self.context.getSettimana_tipo()
-        data = self.context.REQUEST.get('data', '')
-        if data:
-            data_list = data.split('/')
-            anno = int(data_list[2])
-            mese = int(data_list[1])
-            giorno = int(data_list[0])
-            day = date(anno, mese, giorno)
-        else:
-            day = date.today()
-
-        weekday = day.weekday()
-
-        res = []
-        for x in (range(len(settimana))):
-            item = settimana[x]
-            diff = weekday - x
-            if item['inizio_m'] or item['inizio_p']:
-                giorno = day - timedelta(days=diff)
-                if self.isValidDay(giorno):
-                    res.append((item, giorno))
-        return res
-
-    def empty_week(self):
-        """
-        Check if we have an empty week
-        """
-        for d in self.days():
-            if d[0]['inizio_m'] != '0' or d[0]['inizio_p'] != '0':
-                return False
-        return True
-
-    def slots(self, day):
-        """ restituisce gli slot disponibili nel giorno indicato
-        """
-        m = int(day['num_m'])
-        p = int(day['num_p'])
-        return ([x for x in range(0, m)], [x for x in range(0, p)])
 
     def getTime(self, day, slot, pm):
         """ restituisce l'ora associata allo slot indicato del giorno
@@ -161,63 +117,6 @@ class PrenotazioniFolderView(BaseView):
         if day['inizio_p'] != '0':
             return 1
         return 2
-
-    def requestData(self):
-        """ restituisce il nome del mese e l'anno della data in request
-        """
-        day = self.context.REQUEST.get('data', '')
-        if day:
-            day_list = day.split('/')
-            data = date(int(day_list[2]), int(day_list[1]), int(day_list[0]))
-        else:
-            data = date.today()
-        return data
-
-    def monthMsgid(self, month):
-        """
-        """
-        ts = getToolByName(self.context, 'translation_service')
-        return ts.month(month)
-
-    def prevNextWeek(self):
-        """ restituisce la data +/- 7
-        """
-        data = self.requestData()
-        lastdata = data - timedelta(days=7)
-        nextdata = data + timedelta(days=7)
-
-        return (lastdata.strftime('%d/%m/%Y'), nextdata.strftime('%d/%m/%Y'))
-
-    def isValidDay(self, day):
-        """ restituisce true se il giorno è valido
-        """
-        context = self.context
-        festivi = context.getFestivi()
-        da_data = context.getDaData().strftime('%Y/%m/%d').split('/')
-        a_data = context.getAData() and context.getAData().strftime('%Y/%m/%d').split('/')
-        date_dadata = date(int(da_data[0]), int(da_data[1]), int(da_data[2]))
-        date_adata = None
-        if a_data:
-            date_adata = date(int(a_data[0]), int(a_data[1]), int(a_data[2]))
-
-        res = []
-
-        for festivo in festivi:
-            festivo_list = festivo.split('/')
-            if len(festivo_list) == 3:
-                gg = festivo_list[0]
-                mm = festivo_list[1]
-                anno = festivo_list[2]
-                res.append(date(int(anno), int(mm), int(gg)))
-
-        if day in res:
-            return False
-        if day < date_dadata:
-            return False
-        if date_adata and day > date_adata:
-            return False
-
-        return True
 
     @property
     @memoize

@@ -20,10 +20,53 @@
             <span tal:replace="structure here/getDescriptionAgenda" />
         </div>      
     </metal:block>
-    <metal:block fill-slot="content-core">
-        
-        
-              
+    <metal:block fill-slot="content-core"
+                 tal:define="prenotazione_macros nocall:here/@@prenotazione_macros;
+                 ">
+        <table id="week" class="pren">
+                    <caption>
+                      <metal:macro metal:use-macro="prenotazione_macros/week_navigator" />
+                    </caption>
+                    <thead>
+                        <tr>
+                            <tal:days repeat="day view/days">
+                                <th scope="col" tal:condition="python:day[0]['inizio_m']!='0' or day[0]['inizio_p']!='0'"
+                                tal:content="python:day[0]['giorno'] + ' ' + day[1].strftime('%d')">Lunedi</th>
+                            </tal:days>
+                            <th tal:condition="view/empty_week"
+                              i18n:translate="no_booking_available"
+                              >No booking available for this week</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <tal:days repeat="day view/days">
+                                <td class="day"
+                                tal:define="mattina python:day[0]['inizio_m']!='0';
+                                pomeriggio python:day[0]['inizio_p']!='0'"
+                                tal:condition="python:mattina or pomeriggio"
+                                tal:attributes="rowspan python:day[0]['inizio_p'] != '0' and 1 or 2;
+                                                class python:day[1]==view.actual_date and 'day selected' or 'day'">
+                                    <table class="plain period">
+                                        
+                                    </table>
+                                </td>
+                            </tal:days>
+                        </tr>
+                        <tr>
+                            <tal:days repeat="day view/days">
+                                <td tal:define="mattina python:day[0]['inizio_m']!='0';
+                                pomeriggio python:day[0]['inizio_p']!='0'"
+                                tal:condition="python:pomeriggio"
+                                tal:attributes="class python:day[1]==view.actual_date and 'day selected' or 'day'">
+                                    <table class="plain period">
+                                        
+                                    </table>
+                                </td>
+                            </tal:days>
+                        </tr>
+                    </tbody>
+                </table>
     </metal:block>
 
 </html>
