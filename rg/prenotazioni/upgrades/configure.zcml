@@ -34,6 +34,11 @@
       title="Set expiration date"
       handler=".to3000.set_expiration_date"
     />
+
+    <genericsetup:upgradeStep
+      title="Fix booking container"
+      handler=".to3000.fix_container"
+    />
     
     <genericsetup:upgradeStep
       title="Reload types for the new PrenotazioniWeek type"

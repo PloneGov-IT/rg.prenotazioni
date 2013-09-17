@@ -2,6 +2,7 @@
 from Products.CMFCore.utils import getToolByName
 from rg.prenotazioni import prenotazioniLogger as logger
 from rg.prenotazioni.interfaces import IPrenotazione
+from rg.prenotazioni.adapters.booker import IBooker
 
 PROJECTNAME = 'rg.prenotazioni'
 PROFILE_ID = 'profile-rg.prenotazioni:default'
@@ -26,6 +27,17 @@ def set_expiration_date(context):
 def fix_container(context):
     ''' Fix the container for Prenotazione object
     '''
+    catalog = getToolByName(context, 'portal_catalog')
+    brains = catalog(portal_type="PrenotazioniFolder")
+    query = {'portal_type': 'Prenotazione'}
+    for brain in brains:
+        obj = brain.getObject()
+        booker = IBooker(obj)
+        bookings = obj.listFolderContents(query)
+        for booking in bookings:
+            booker.fix_container(booking)
+            logger.info("Fix container for %s"
+                        % '/'.join(booking.getPhysicalPath()))
 
 
 def upgrade_types(context):
