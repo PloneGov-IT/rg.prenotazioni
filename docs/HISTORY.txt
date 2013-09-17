@@ -4,7 +4,8 @@ Changelog
 2.2 (unreleased)
 ================
 
-- Nothing changed yet.
+- Adding a new week view
+  [alert]
 
 
 2.1 (2013-09-12)

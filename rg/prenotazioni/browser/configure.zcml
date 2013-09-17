@@ -54,6 +54,14 @@
 
   <browser:page
     for="..interfaces.IPrenotazioniFolder"
+    name="prenotazioni_week_view"
+    class=".week.View"
+    template="week.pt"
+    permission="zope2.View"
+  />
+
+  <browser:page
+    for="..interfaces.IPrenotazioniFolder"
     name="creaPrenotazione"
     class=".prenotazione_add.AddForm"
     permission="zope2.View"
