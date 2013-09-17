@@ -5,7 +5,7 @@
 
     <metal:block fill-slot="content-description">
         <div id="annullaspostaprenotazione"
-             tal:condition="view/uid_move_booking">
+             tal:condition="view/prenotazioni/uid_move_booking">
             <a title="Annulla Spostamento" href="annullaSpostamento"
                tal:attributes="href string:${context/absolute_url}/annullaSpostamento">Annulla Spostamento</a>
         </div>

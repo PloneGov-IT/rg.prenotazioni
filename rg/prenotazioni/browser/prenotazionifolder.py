@@ -6,8 +6,9 @@ from Products.Five.browser import BrowserView
 from datetime import timedelta, date
 from plone.memoize.view import memoize
 from rg.prenotazioni import (prenotazioniMessageFactory as _,
-    prenotazioniLogger as logger, tznow)
+                             prenotazioniLogger as logger, tznow)
 from rg.prenotazioni.adapters.conflict import IConflictManager
+from rg.prenotazioni.browser.base import BaseView
 from rg.prenotazioni.prenotazione_event import MovedPrenotazione
 from zExceptions import Unauthorized
 from zope.component import getMultiAdapter
@@ -16,7 +17,7 @@ from zope.event import notify
 # TODO: Do not use the session anymore!
 
 
-class PrenotazioniFolderView(BrowserView):
+class PrenotazioniFolderView(BaseView):
     """Default view of a PrenotazioniFolder
     """
 
@@ -249,7 +250,7 @@ class PrenotazioniFolderView(BrowserView):
         return self.conflict_manager.has_free_slots(date_time)
 
 
-class MovePrenotazione(BrowserView):
+class MovePrenotazione(BaseView):
     """
     View to move a prenotazione (save data in session)
     """
