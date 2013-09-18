@@ -55,3 +55,44 @@ def upgrade_version(context):
     qi = getToolByName(context, 'portal_quickinstaller')
     p = qi.get(PROJECTNAME)
     setattr(p, 'installedversion', VERSION)
+
+
+def upgrade_week_values(context):
+    ''' Upgrade values of settimana_tipo for prenotazioni_folder content type
+    '''
+    catalog = getToolByName(context, 'portal_catalog')
+    brains = catalog(portal_type="PrenotazioniFolder")
+    for brain in brains:
+        obj = brain.getObject()
+        span = obj.getDurata()
+        week = obj.getSettimana_tipo()
+        if week:
+            for day in week:
+                get_merge_time(day, span)
+    logger.info('Updated values for prenotazioni_folder in %s' % PROFILE_ID)
+
+
+def get_merge_time(day, span):
+    ''' Utiliy function
+    '''
+    num_m = day.pop('num_m', '')
+    num_p = day.pop('num_p', '')
+    if num_m:
+        m_time = day.get('inizio_m', '0')
+        day['end_m'] = get_end_time(m_time, num_m, span)
+    if num_p:
+        p_time = day.get('inizio_p', '0')
+        day['end_p'] = get_end_time(p_time, num_p, span)
+
+
+def get_end_time(starttime, num, span):
+    ''' Utility function
+    '''
+    if not starttime or len(starttime) < 4:
+        return '0000'
+    m = int(starttime[2:])
+    hour = int(starttime[:2]) + (m + int(num) * span) / 60
+    minute = (m + int(num) * span) % 60
+    return str(hour).zfill(2) + str(minute).zfill(2)
+
+

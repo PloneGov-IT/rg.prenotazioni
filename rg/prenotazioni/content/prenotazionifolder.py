@@ -80,7 +80,7 @@ PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
     DataGridField(
         'settimana_tipo',
         storage=atapi.AnnotationStorage(),
-        columns=('giorno', 'inizio_m', 'num_m', 'inizio_p', 'num_p'),
+        columns=('giorno', 'inizio_m', 'end_m', 'inizio_p', 'end_p'),
         fixed_rows="vocGiorniSettimana",
         allow_delete=False,
         allow_insert=False,
@@ -90,17 +90,17 @@ PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
             description=_(u"Indicare la composizione della settimana tipo"),
             columns={
                 "giorno": FixedColumn("Giorno"),
-                "inizio_m": SelectColumn("Ora inizio",
+                "inizio_m": SelectColumn("Ora inizio mattina",
                                           vocabulary="vocOreInizio",
                                           default=""),
-                "num_m": SelectColumn("Numero appuntamenti",
-                                      vocabulary="vocNumeroAppuntamenti",
+                "end_m": SelectColumn("Ora fine mattina",
+                                      vocabulary="vocOreInizio",
                                       default=""),
-                "inizio_p": SelectColumn("Ora inizio",
+                "inizio_p": SelectColumn("Ora inizio pomeriggio",
                                          vocabulary="vocOreInizio",
                                          default=""),
-                "num_p": SelectColumn("Numero appuntamenti",
-                                      vocabulary="vocNumeroAppuntamenti",
+                "end_p": SelectColumn("Ora fine pomeriggio",
+                                      vocabulary="vocOreInizio",
                                       default=""),
             }
         ),
@@ -246,9 +246,9 @@ class PrenotazioniFolder(BaseFolder):
             rows.append(FixedRow(keyColumn="giorno",
                                  initialData={"giorno": giorno,
                                               'inizio_m': '',
-                                              'num_m': '',
+                                              'end_m': '',
                                               'inizio_p': '',
-                                              'num_p': ''
+                                              'end_p': ''
                                               }))
 
         return rows

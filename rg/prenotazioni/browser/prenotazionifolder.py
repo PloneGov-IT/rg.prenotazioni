@@ -139,8 +139,15 @@ class PrenotazioniFolderView(week.View):
     def slots(self, day):
         """ restituisce gli slot disponibili nel giorno indicato
         """
-        m = int(day['num_m'])
-        p = int(day['num_p'])
+        try:
+            m = int(day['num_m'])
+            p = int(day['num_p'])
+        except:
+            span = self.context.getDurata()
+            mdiff = (int(day.get('end_m', '0')) - int(day.get('inizio_m', '0')))
+            pdiff = (int(day.get('end_p', '0')) - int(day.get('inizio_p', '0')))
+            m = mdiff / span
+            p = pdiff / span
         return ([x for x in range(0, m)], [x for x in range(0, p)])
 
     def show_add_button(self, date_time):
