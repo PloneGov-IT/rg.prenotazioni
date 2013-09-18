@@ -4,7 +4,8 @@ Changelog
 2.2 (unreleased)
 ================
 
-- Added upgrade steps for prenotazioni_folder [nicolasenno]
+- Added upgrade step for "tipologia" field in prenotazioni_folder [nicolasenno]
+- Added upgrade step for "settimana_tipo" in prenotazioni_folder [nicolasenno]
 - Modified settimana_tipo colunms in prenotazioni_folder [nicolasenno]
 - Added expiration field to IPrenotazione content type and created
   the upgrade step for its value [nicolasenno]

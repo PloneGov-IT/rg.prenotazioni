@@ -7,6 +7,7 @@ from Products.Archetypes import atapi
 from Products.Archetypes.utils import DisplayList, IntDisplayList
 from Products.DataGridField import DataGridField, DataGridWidget
 from Products.DataGridField.DataGridField import FixedRow
+from Products.DataGridField.FixedColumn import Column
 from Products.DataGridField.FixedColumn import FixedColumn
 from Products.DataGridField.SelectColumn import SelectColumn
 from rg.prenotazioni import prenotazioniMessageFactory as _
@@ -65,18 +66,6 @@ PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
         required=False,
     ),
 
-    atapi.IntegerField(
-        'durata',
-        storage=atapi.AnnotationStorage(),
-        vocabulary="vocDurataIncontro",
-        widget=atapi.SelectionWidget(
-            label=_(u"Durata incontro"),
-            description=_(u"Specificare la durata in minuti"),
-        ),
-        required=True,
-        validators=('isInt'),
-    ),
-
     DataGridField(
         'settimana_tipo',
         storage=atapi.AnnotationStorage(),
@@ -131,17 +120,27 @@ PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
         ),
     ),
 
-    atapi.LinesField(
+    DataGridField(
         'tipologia',
         storage=atapi.AnnotationStorage(),
-        widget=atapi.LinesWidget(
-            label=_(u'Tipologie di richiesta'),
+        columns=('name', 'duration'),
+        allow_delete=True,
+        allow_insert=True,
+        allow_reorder=False,
+        widget=DataGridWidget(
+            label=_(u"Tipologie di richiesta"),
             description=_('tipologia_help',
                           default=u"Put booking types there (one per line).\n"
                                   u"If you do not provide this field, "
                                   u"not type selection will be available"),
+            columns={
+                "typology": Column(_(u"Typology name"), default=""),
+                "duration": SelectColumn(_(u"Duration value"),
+                                          vocabulary="vocDurataIncontro",
+                                          default=""),
+            }
         ),
-        required=False,
+        required=True,
     ),
 
     atapi.LinesField(
@@ -226,7 +225,6 @@ class PrenotazioniFolder(BaseFolder):
 
     daData = atapi.ATFieldProperty('daData')
     aData = atapi.ATFieldProperty('aData')
-    durata = atapi.ATFieldProperty('durata')
     settimana_tipo = atapi.ATFieldProperty('settimana_tipo')
     festivi = atapi.ATFieldProperty('festivi')
     tipologia = atapi.ATFieldProperty('tipologia')

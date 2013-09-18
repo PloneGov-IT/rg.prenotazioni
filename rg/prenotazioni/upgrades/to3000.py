@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 from Products.CMFCore.utils import getToolByName
 from rg.prenotazioni import prenotazioniLogger as logger
-from rg.prenotazioni.interfaces import IPrenotazione
 from rg.prenotazioni.adapters.booker import IBooker
+from rg.prenotazioni.interfaces import IPrenotazione
+from zope.annotation.interfaces import IAnnotations
 
 PROJECTNAME = 'rg.prenotazioni'
 PROFILE_ID = 'profile-rg.prenotazioni:default'
 VERSION = '3000'
+ANNOTATION_ROOT = 'Archetypes.storage.AnnotationStorage-'
 
 
 def set_expiration_date(context):
@@ -57,19 +59,46 @@ def upgrade_version(context):
     setattr(p, 'installedversion', VERSION)
 
 
-def upgrade_week_values(context):
-    ''' Upgrade values of settimana_tipo for prenotazioni_folder content type
+def upgrade_tipologia(context):
+    ''' From now on "durata" and "tipologia" are merged in one single field
+    This is the upgrade step which perform the merge action on
+    prenotazioni_folder objects
     '''
     catalog = getToolByName(context, 'portal_catalog')
     brains = catalog(portal_type="PrenotazioniFolder")
     for brain in brains:
         obj = brain.getObject()
-        span = obj.getDurata()
+        duration = getAnnotaionValue(obj, 'durata')
+        typologies = getAnnotaionValue(obj, 'tipologia') or ['']
+        for typology in typologies:
+            obj.setTipologia([{'name': typology, 'duration': str(duration)}])
+    logger.info('Updated "tipologia" in prenotazioni_folder for %s' %
+                                                                PROFILE_ID)
+
+
+def upgrade_week_values(context):
+    ''' Upgrade values of "settimana_tipo" in prenotazioni_folder content type
+    '''
+    catalog = getToolByName(context, 'portal_catalog')
+    brains = catalog(portal_type="PrenotazioniFolder")
+    for brain in brains:
+        obj = brain.getObject()
+        span = getAnnotaionValue(obj, 'durata')
         week = obj.getSettimana_tipo()
         if week:
             for day in week:
                 get_merge_time(day, span)
-    logger.info('Updated values for prenotazioni_folder in %s' % PROFILE_ID)
+    logger.info('Updated "settimana_tipo" in prenotazioni_folder for %s' %
+                                                                    PROFILE_ID)
+
+
+# ------------------------- UTILITIES ------------------------------
+def getAnnotaionValue(context, field_name):
+    ''' Utility function to get annotations value from ZODB
+    '''
+    key = ANNOTATION_ROOT + field_name
+    annotations = IAnnotations(context)
+    return annotations.get(key, ())
 
 
 def get_merge_time(day, span):
@@ -94,5 +123,4 @@ def get_end_time(starttime, num, span):
     hour = int(starttime[:2]) + (m + int(num) * span) / 60
     minute = (m + int(num) * span) % 60
     return str(hour).zfill(2) + str(minute).zfill(2)
-
 

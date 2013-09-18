@@ -50,6 +50,11 @@
       handler=".to3000.upgrade_week_values"
     />
 
+    <genericsetup:upgradeStep
+      title="Update tipologia and durata fields"
+      handler=".to3000.upgrade_tipologia"
+    />
+
   </genericsetup:upgradeSteps>
 
 </configure>
