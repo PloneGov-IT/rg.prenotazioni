@@ -8,10 +8,14 @@
   -->
 <object name="portal_types" meta_type="Plone Types Tool">
   <!-- -*- extra stuff goes here -*- -->
-  <object name="Prenotazione"
-    meta_type="Factory-based Type Information with dynamic views" />
   <object name="PrenotazioniFolder"
+    meta_type="Factory-based Type Information with dynamic views" />
+  <object name="PrenotazioniYear"
     meta_type="Factory-based Type Information with dynamic views" />
   <object name="PrenotazioniWeek"
     meta_type="Factory-based Type Information with dynamic views" />
+  <object name="PrenotazioniDay"
+    meta_type="Factory-based Type Information with dynamic views" />
+  <object name="Prenotazione"
+    meta_type="Factory-based Type Information with dynamic views" />    
 </object>

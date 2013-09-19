@@ -1,15 +1,11 @@
 # -*- coding: utf-8 -*-
 from AccessControl import ClassSecurityInfo
-from Acquisition import aq_chain
-from DateTime import DateTime
 from Products.ATContentTypes.content import base, schemata
-from Products.ATContentTypes.utils import DT2dt
 from Products.Archetypes import atapi
 from Products.Archetypes.ExtensibleMetadata import _zone
 from Products.Archetypes.utils import DisplayList
 from Products.CMFCore import permissions
 from Products.CMFCore.utils import getToolByName
-from datetime import timedelta
 from rg.prenotazioni import prenotazioniMessageFactory as _
 from rg.prenotazioni.adapters.conflict import IConflictManager
 from rg.prenotazioni.config import PROJECTNAME
@@ -19,8 +15,10 @@ from zope.interface import implements
 
 
 OVERBOOKED_MESSAGE = _('overbook_message',
-                      default=u"Siamo spiacenti, è già stato preso un appuntamento "
-                              u"nella stessa fascia oraria, premere il pulsante "
+                      default=u"Siamo spiacenti, "
+                              u"è già stato preso un appuntamento "
+                              u"nella stessa fascia oraria, "
+                              u"premere il pulsante "
                               u"ANNULLA per effettuare una nuova richiesta di "
                               u"prenotazione")
 
@@ -56,10 +54,9 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
     atapi.StringField(
         'tipologia_prenotazione',
         storage=atapi.AnnotationStorage(),
-        vocabulary='getElencoTipologie',
+        vocabulary_factory='rg.prenotazioni.tipologies',
         widget=atapi.SelectionWidget(
             label=_(u"Tipologia della prenotazione"),
-            condition='object/getElencoTipologie',
         ),
         required=False,
     ),
@@ -153,24 +150,26 @@ class Prenotazione(base.ATCTContent):
         # simulate required field using Archetypes inner feature
         if not value and self.getElencoTipologie():
             errors = {}
-            return self.getField('tipologia_prenotazione').validate_required(self, value, errors)
+            return self.getField('tipologia_prenotazione'
+                                 ).validate_required(self, value, errors)
 
     def getPrenotazioniFolder(self):
         """Ritorna l'oggetto prenotazioni folder"""
 
-        for parent in aq_chain(self):
+        for parent in self.aq_chain:
             if IPrenotazioniFolder.providedBy(parent):
                 return parent
         raise Exception("Could not find Prenotazioni Folder "
                         "in acquisition chain of %r" % self)
 
     def getElencoTipologie(self):
-        """ restituisce l'elenco delle tipologie sulla folder padre
+        """ restituisce l'elenco delle tipologie ottenute dalla folder padre
         """
         elenco_tipologie = DisplayList()
         items = self.getPrenotazioniFolder().getTipologia()
         for item in items:
-            elenco_tipologie.add(item, item)
+            elenco_tipologie.add(item.get('name', ''),
+                                 item.get('duration', ''))
         return elenco_tipologie
 
     def getEmailResponsabile(self):
@@ -212,16 +211,5 @@ class Prenotazione(base.ATCTContent):
         '''
         booking_created(self, None)
         return super(Prenotazione, self)._postCopy(container, op)
-
-    def getExpirationDate(self):
-        """ Ritorna la data di scadenza della prenotazione.
-        Per il calcolo della scadenza viene sommata alla data e ora di prenotazione
-        il valore del campo "durata incotro"
-        """
-        offset = self.getPrenotazioniFolder().getDurata()
-        data = self.getField('data_prenotazione').get(self)
-        scadenza = DT2dt(data) + timedelta(minutes=offset)
-        return DateTime(scadenza.strftime('%Y/%m/%d %H:%M:00'))
-
 
 atapi.registerType(Prenotazione, PROJECTNAME)

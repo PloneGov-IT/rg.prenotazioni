@@ -2,9 +2,9 @@
 from DateTime import DateTime
 from Products.CMFPlone.FactoryTool import _createObjectByType
 from random import choice
+from rg.prenotazioni.config import MIN_IN_DAY
 from zope.component import Interface
 from zope.interface.declarations import implements
-from rg.prenotazioni import prenotazioniLogger
 
 
 class IBooker(Interface):
@@ -13,10 +13,30 @@ class IBooker(Interface):
     '''
 
 
+def get_or_create_obj(folder, key, portal_type):
+    '''
+    Get the object with id key from folder
+    If it does not exist create an object with the given key and portal_type
+
+    :param folder: a Plone folderish object
+    :param key: the key of the child object
+    :param portal_type: the portal_type of the child object
+    '''
+    if key in folder:
+        return folder[key]
+    obj = _createObjectByType(portal_type, folder, key)
+    obj.setTitle(key)
+    obj.unmarkCreationFlag()
+    obj.reindexObject()
+    return obj
+
+
 class Booker(object):
     implements(IBooker)
     portal_type = 'Prenotazione'
-    container_type = 'PrenotazioniWeek'
+    day_type = 'PrenotazioniDay'
+    week_type = 'PrenotazioniWeek'
+    year_type = 'PrenotazioniYear'
 
     def __init__(self, context):
         '''
@@ -52,10 +72,22 @@ class Booker(object):
         ''' Get a container to store the data
         '''
         data_prenotazione = DateTime(data['booking_date'])
-        key = data_prenotazione.strftime('%Y-%W')
-        if not key in self.context:
-            _createObjectByType(self.container_type, self.context, key)
-        return self.context[key]
+        year_id = data_prenotazione.strftime('%Y')
+        year = get_or_create_obj(self.context, year_id, self.year_type)
+        week_id = data_prenotazione.strftime('%W')
+        week = get_or_create_obj(year, week_id, self.week_type)
+        day_id = data_prenotazione.strftime('%u')
+        day = get_or_create_obj(week, day_id, self.day_type)
+        return day
+
+    def getTipologiaDuration(self, name):
+        ''' Return the duration for a given tipologia
+        '''
+        tipologie = self.context.getTipologia()
+        for t in tipologie:
+            if t['name'] == name:
+                return t['duration']
+        return 1
 
     def create(self, data, force_gate=''):
         '''
@@ -66,10 +98,14 @@ class Booker(object):
         obj = _createObjectByType(self.portal_type, container, key)
         # map form data to AT fields
         data_prenotazione = DateTime(data['booking_date'])
+        tipology = data.get('tipology', '')
+        data_scadenza = (data_prenotazione
+                         + float(self.getTipologiaDuration(tipology)) / MIN_IN_DAY)
         at_data = {'title': data['fullname'],
                    'description': data['subject'] or '',
                    'azienda': data['agency'] or '',
                    'data_prenotazione': data_prenotazione,
+                   'data_scadenza': data_scadenza,
                    'telefono': data.get('phone', ''),
                    'mobile': data.get('mobile', ''),
                    'email': data['email'] or '',
@@ -92,4 +128,6 @@ class Booker(object):
             return
         booking_id = booking.getId()
         cut_data = old_container.manage_cutObjects(booking_id)
-        new_container.manage_pasteObjects(cut_data)
+        paste_data = new_container.manage_pasteObjects(cut_data)
+        [new_container[data['new_id']].reindexObject() for data in paste_data]
+

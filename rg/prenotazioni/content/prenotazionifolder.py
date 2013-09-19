@@ -7,20 +7,13 @@ from Products.Archetypes import atapi
 from Products.Archetypes.utils import DisplayList, IntDisplayList
 from Products.DataGridField import DataGridField, DataGridWidget
 from Products.DataGridField.DataGridField import FixedRow
-from Products.DataGridField.FixedColumn import Column
-from Products.DataGridField.FixedColumn import FixedColumn
+from Products.DataGridField.FixedColumn import Column, FixedColumn
 from Products.DataGridField.SelectColumn import SelectColumn
 from rg.prenotazioni import prenotazioniMessageFactory as _
 from rg.prenotazioni.config import PROJECTNAME
+from rg.prenotazioni.content.basefolder import BaseFolder, BaseFolderSchema
 from rg.prenotazioni.interfaces import IPrenotazioniFolder
 from zope.interface import implements
-
-try:
-    from plone.app.folder.folder import ATFolder as BaseFolder
-    from plone.app.folder.folder import ATFolderSchema as BaseFolderSchema
-except ImportError:
-    from Products.ATContentTypes.content.folder import ATBTreeFolder as BaseFolder
-    from Products.ATContentTypes.content.folder import ATBTreeFolderSchema as BaseFolderSchema
 
 
 PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((

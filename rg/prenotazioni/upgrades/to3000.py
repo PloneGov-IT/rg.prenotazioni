@@ -2,7 +2,8 @@
 from Products.CMFCore.utils import getToolByName
 from rg.prenotazioni import prenotazioniLogger as logger
 from rg.prenotazioni.adapters.booker import IBooker
-from rg.prenotazioni.interfaces import IPrenotazione
+from rg.prenotazioni.adapters.conflict import IConflictManager
+from rg.prenotazioni.config import MIN_IN_DAY
 from zope.annotation.interfaces import IAnnotations
 
 PROJECTNAME = 'rg.prenotazioni'
@@ -11,18 +12,56 @@ VERSION = '3000'
 ANNOTATION_ROOT = 'Archetypes.storage.AnnotationStorage-'
 
 
+def get_end_time(starttime, num, span):
+    ''' Utility function
+    '''
+    if not starttime or len(starttime) < 4:
+        return ''
+    m = int(starttime[2:])
+    hour = int(starttime[:2]) + (m + int(num) * span) / 60
+    minute = (m + int(num) * span) % 60
+    return str(hour).zfill(2) + str(minute).zfill(2)
+
+
+def get_merge_time(day, span):
+    ''' Utiliy function
+    '''
+    num_m = day.pop('num_m', '')
+    num_p = day.pop('num_p', '')
+    if num_m:
+        m_time = day.get('inizio_m', '0')
+        day['end_m'] = get_end_time(m_time, num_m, span)
+    if num_p:
+        p_time = day.get('inizio_p', '0')
+        day['end_p'] = get_end_time(p_time, num_p, span)
+
+
+def getAnnotaionValue(context, field_name, fallback=()):
+    ''' Utility function to get annotations value from ZODB
+    '''
+    key = ANNOTATION_ROOT + field_name
+    annotations = IAnnotations(context)
+    return annotations.get(key, fallback)
+
+
 def set_expiration_date(context):
     ''' Upgrade all IPrenotazione object in order to provide the expiration
     date for each reservation
     '''
+
     catalog = getToolByName(context, 'portal_catalog')
-    prenotazioni = catalog(object_provides=IPrenotazione.__identifier__)
-    for prenotazione in prenotazioni:
-        obj = prenotazione.getObject()
-        scadenza = obj.getExpirationDate()
-        obj.setData_scadenza(scadenza)
-        logger.info("Prenotazione %s , scadenza %s" %
-                    (obj.Date(), scadenza))
+    brains = catalog(portal_type="PrenotazioniFolder")
+    for brain in brains:
+        obj = brain.getObject()
+        durata = getAnnotaionValue(obj, 'durata')
+        if durata:
+            durata = float(getAnnotaionValue(obj, 'durata')) / MIN_IN_DAY
+            conflict_manager = IConflictManager(obj)
+            prenotazioni = conflict_manager.unrestricted_prenotazioni()
+
+            for prenotazione in prenotazioni:
+                p = prenotazione.getObject()
+                p.setData_scadenza(p.getData_prenotazione() + durata)
     logger.info("All IPrenotazione documents have been updated")
 
 
@@ -31,15 +70,16 @@ def fix_container(context):
     '''
     catalog = getToolByName(context, 'portal_catalog')
     brains = catalog(portal_type="PrenotazioniFolder")
-    query = {'portal_type': 'Prenotazione'}
     for brain in brains:
         obj = brain.getObject()
         booker = IBooker(obj)
-        bookings = obj.listFolderContents(query)
+        conflict_manager = IConflictManager(obj)
+        bookings = conflict_manager.unrestricted_prenotazioni()
         for booking in bookings:
-            booker.fix_container(booking)
-            logger.info("Fix container for %s"
-                        % '/'.join(booking.getPhysicalPath()))
+            booker.fix_container(booking.getObject())
+        logger.info("Fixed %s objects for %s" %
+                    (len(bookings), '/'.join(obj.getPhysicalPath()))
+                    )
 
 
 def upgrade_types(context):
@@ -90,37 +130,4 @@ def upgrade_week_values(context):
                 get_merge_time(day, span)
     logger.info('Updated "settimana_tipo" in prenotazioni_folder for %s' %
                                                                     PROFILE_ID)
-
-
-# ------------------------- UTILITIES ------------------------------
-def getAnnotaionValue(context, field_name):
-    ''' Utility function to get annotations value from ZODB
-    '''
-    key = ANNOTATION_ROOT + field_name
-    annotations = IAnnotations(context)
-    return annotations.get(key, ())
-
-
-def get_merge_time(day, span):
-    ''' Utiliy function
-    '''
-    num_m = day.pop('num_m', '')
-    num_p = day.pop('num_p', '')
-    if num_m:
-        m_time = day.get('inizio_m', '0')
-        day['end_m'] = get_end_time(m_time, num_m, span)
-    if num_p:
-        p_time = day.get('inizio_p', '0')
-        day['end_p'] = get_end_time(p_time, num_p, span)
-
-
-def get_end_time(starttime, num, span):
-    ''' Utility function
-    '''
-    if not starttime or len(starttime) < 4:
-        return '0000'
-    m = int(starttime[2:])
-    hour = int(starttime[:2]) + (m + int(num) * span) / 60
-    minute = (m + int(num) * span) % 60
-    return str(hour).zfill(2) + str(minute).zfill(2)
 

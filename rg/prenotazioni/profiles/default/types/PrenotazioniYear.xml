@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
-<object name="PrenotazioniFolder"
+<object name="PrenotazioniYear"
    meta_type="Factory-based Type Information with dynamic views"
    i18n:domain="rg.prenotazioni" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
-  <property name="title" i18n:translate="">Booking Folder</property>
+  <property name="title" i18n:translate="">Booking Year Folder</property>
   <property name="description"
-    i18n:translate="">A folder that will contain booking</property>
-  <property name="content_meta_type">PrenotazioniFolder</property>
+    i18n:translate="">A folder that will contain booking for this year</property>
+  <property name="content_meta_type">PrenotazioniYear</property>
   <property name="content_icon">++resource++rg.prenotazioni.resources/calendar-add.png</property>
   <property name="product">rg.prenotazioni</property>
-  <property name="factory">addPrenotazioniFolder</property>
+  <property name="factory">addPrenotazioniYear</property>
   <property name="immediate_view">atct_edit</property>
   <property name="global_allow">True</property>
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types">
-    <element value="PrenotazioniYear"/>
+    <element value="PrenotazioneWeek"/>
   </property>
   <property name="allow_discussion">False</property>
   <property name="default_view">prenotazioni_week_view</property>

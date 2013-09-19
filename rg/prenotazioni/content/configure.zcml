@@ -16,6 +16,20 @@
         set_schema="..interfaces.IPrenotazioniFolder"
         />
   </class>
+
+  <!-- Year container -->
+  <class class=".prenotazioniyear.PrenotazioniYear">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IPrenotazioniYear"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IPrenotazioniYear"
+        />
+  </class>
+
+  <!-- Week container -->
   <class class=".prenotazioniweek.PrenotazioniWeek">
     <require
         permission="zope2.View"
@@ -26,6 +40,19 @@
         set_schema="..interfaces.IPrenotazioniWeek"
         />
   </class>
+
+  <!-- Day container -->
+  <class class=".prenotazioniday.PrenotazioniDay">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IPrenotazioniDay"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IPrenotazioniDay"
+        />
+  </class>
+  
   <class class=".prenotazione.Prenotazione">
     <require
         permission="zope2.View"
