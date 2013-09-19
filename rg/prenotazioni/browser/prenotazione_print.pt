@@ -65,7 +65,12 @@ i18n:domain="rg.prenotazioni">
                         <td>
                             <b>Ora</b>
                         </td>
-                        <td tal:content="python:toLocalizedTime(prenotazione.getData_prenotazione(), time_only=True)"></td>
+                        <td>
+                          Dalle
+                          <tal:from tal:content="python:toLocalizedTime(prenotazione.getData_prenotazione(), time_only=True)">
+                          alle
+                          <tal:from tal:content="python:toLocalizedTime(prenotazione.getData_scadenza(), time_only=True)">
+                        </td>
                     </tr>
                     <tr>
                         <td>
