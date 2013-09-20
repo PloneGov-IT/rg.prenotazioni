@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
+from AccessControl.SecurityManagement import getSecurityManager, \
+    newSecurityManager, setSecurityManager
+from AccessControl.User import UnrestrictedUser as BaseUnrestrictedUser
 from DateTime import DateTime
 from Products.CMFPlone.FactoryTool import _createObjectByType
+from plone import api
 from random import choice
 from rg.prenotazioni.config import MIN_IN_DAY
 from zope.component import Interface
@@ -11,6 +15,15 @@ class IBooker(Interface):
     '''
     Interface for a booker
     '''
+
+
+class UnrestrictedUser(BaseUnrestrictedUser):
+    """Unrestricted user that still has an id.
+    """
+    def getId(self):
+        """Return the ID of the user.
+        """
+        return self.getUserName()
 
 
 def get_or_create_obj(folder, key, portal_type):
@@ -95,28 +108,42 @@ class Booker(object):
         '''
         container = self.get_container(data)
         key = container.generateUniqueId(self.portal_type)
-        obj = _createObjectByType(self.portal_type, container, key)
-        # map form data to AT fields
-        data_prenotazione = DateTime(data['booking_date'])
-        tipology = data.get('tipology', '')
-        data_scadenza = (data_prenotazione
-                         + float(self.getTipologiaDuration(tipology)) / MIN_IN_DAY)
-        at_data = {'title': data['fullname'],
-                   'description': data['subject'] or '',
-                   'azienda': data['agency'] or '',
-                   'data_prenotazione': data_prenotazione,
-                   'data_scadenza': data_scadenza,
-                   'telefono': data.get('phone', ''),
-                   'mobile': data.get('mobile', ''),
-                   'email': data['email'] or '',
-                   'tipologia_prenotazione': data.get('tipology', ''),
-                   }
-        if not force_gate:
-            at_data['gate'] = self.get_available_gate(data_prenotazione)
-        else:
-            at_data['gate'] = force_gate
-        obj.processForm(values=at_data)
-        return obj
+        sm = getSecurityManager()
+        try:
+            try:
+                tmp_user = UnrestrictedUser(sm.getUser().getId(), '',
+                                            ['Manager'], '')
+                portal = api.portal.get()
+                tmp_user = tmp_user.__of__(portal.acl_users)
+                newSecurityManager(None, tmp_user)
+
+                obj = _createObjectByType(self.portal_type, container, key)
+                # map form data to AT fields
+                data_prenotazione = DateTime(data['booking_date'])
+                tipology = data.get('tipology', '')
+                data_scadenza = (data_prenotazione
+                                 + float(self.getTipologiaDuration(tipology)) / MIN_IN_DAY)
+                at_data = {'title': data['fullname'],
+                           'description': data['subject'] or '',
+                           'azienda': data['agency'] or '',
+                           'data_prenotazione': data_prenotazione,
+                           'data_scadenza': data_scadenza,
+                           'telefono': data.get('phone', ''),
+                           'mobile': data.get('mobile', ''),
+                           'email': data['email'] or '',
+                           'tipologia_prenotazione': data.get('tipology', ''),
+                           }
+                if not force_gate:
+                    at_data['gate'] = self.get_available_gate(data_prenotazione)
+                else:
+                    at_data['gate'] = force_gate
+                obj.processForm(values=at_data)
+                return obj
+            except:
+                raise
+        finally:
+            # Restore the old security manager
+            setSecurityManager(sm)
 
     def fix_container(self, booking):
         ''' Take a booking and move it to the right week
