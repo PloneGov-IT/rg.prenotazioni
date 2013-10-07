@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from AccessControl.SecurityManagement import getSecurityManager, \
-    newSecurityManager, setSecurityManager
 from AccessControl.User import UnrestrictedUser as BaseUnrestrictedUser
 from DateTime import DateTime
 from Products.CMFPlone.FactoryTool import _createObjectByType
@@ -84,12 +82,14 @@ class Booker(object):
     def get_container(self, data):
         ''' Get a container to store the data
         '''
-        data_prenotazione = DateTime(data['booking_date'])
-        year_id = data_prenotazione.strftime('%Y')
+        booking_date = data['booking_date']
+        if isinstance(booking_date, basestring):
+            booking_date = DateTime(booking_date)
+        year_id = booking_date.strftime('%Y')
         year = get_or_create_obj(self.context, year_id, self.year_type)
-        week_id = data_prenotazione.strftime('%W')
+        week_id = booking_date.strftime('%W')
         week = get_or_create_obj(year, week_id, self.week_type)
-        day_id = data_prenotazione.strftime('%u')
+        day_id = booking_date.strftime('%u')
         day = get_or_create_obj(week, day_id, self.day_type)
         return day
 

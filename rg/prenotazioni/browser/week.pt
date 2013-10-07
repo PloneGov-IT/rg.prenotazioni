@@ -18,50 +18,30 @@
         </div>
         <div class="documentDescription-box clear-block">
             <span tal:replace="structure here/getDescriptionAgenda" />
-        </div>      
+        </div>
     </metal:block>
     <metal:block fill-slot="content-core"
                  tal:define="prenotazione_macros nocall:here/@@prenotazione_macros;
                  ">
         <table id="week" class="pren">
-                    <caption>
-                      <metal:macro metal:use-macro="prenotazione_macros/week_navigator" />
-                    </caption>
-                    <thead>
-                        <tr>
-                            <tal:days repeat="day view/days">
-                                <th scope="col" tal:condition="python:day[0]['inizio_m']!='0' or day[0]['inizio_p']!='0'"
-                                tal:content="python:day[0]['giorno'] + ' ' + day[1].strftime('%d')">Lunedi</th>
-                            </tal:days>
-                            <th tal:condition="view/empty_week"
-                              i18n:translate="no_booking_available"
-                              >No booking available for this week</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <tal:days repeat="day view/actual_week_days">
-                                <td class="day"
-                                    tal:attributes="class python:day==view.actual_date and 'day selected' or 'day'">
-                                    <ul class="plain period" 
-                                        tal:define="bookings python:view.prenotazioni.search_bookings_in_day(day)">
-                                      <li tal:repeat="booking bookings"><div tal:define="booking booking/getObject">
-                                        <h3>
-                                          <a href="" 
-                                            tal:attributes="href booking/absolute_url"
-                                            tal:content="booking/Title">
-                                          </a>
-                                        </h3>
-                                        <p tal:content="booking/getData_prenotazione"></p>
-                                        <p tal:content="booking/getData_scadenza"></p>
-                                      </div></li>
-                                       
-                                    </ul>
-                                </td>
-                            </tal:days>
-                        </tr>
-                    </tbody>
-                </table>
+          <caption>
+            <metal:macro metal:use-macro="prenotazione_macros/week_navigator" />
+          </caption>
+          <thead>
+              <tr>
+                  <tal:days repeat="day view/actual_week_days">
+                      <th scope="col" tal:content="python:day.strftime('%d')">Lunedi</th>
+                  </tal:days>
+                  <th tal:condition="view/empty_week"
+                    i18n:translate="no_booking_available"
+                    >No booking available for this week</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tal:periods repeat="period python: ('morning', 'afternoon')">
+                <metal:macro metal:use-macro="prenotazione_macros/day_period" />
+              </tal:periods>
+          </tbody>
+      </table>
     </metal:block>
-
 </html>

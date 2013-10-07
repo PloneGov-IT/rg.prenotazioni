@@ -6,6 +6,7 @@ from datetime import timedelta
 from plone.memoize.view import memoize
 from rg.prenotazioni import time2timedelta
 from rg.prenotazioni.adapters.conflict import IConflictManager
+from rg.prenotazioni.adapters.booker import IBooker
 
 
 class PrenotazioniContextState(BrowserView):
@@ -16,11 +17,19 @@ class PrenotazioniContextState(BrowserView):
 
     @property
     @memoize
+    def booker(self):
+        '''
+        Return the conflict manager for this context
+        '''
+        return IBooker(self.context)
+
+    @property
+    @memoize
     def conflict_manager(self):
         '''
         Return the conflict manager for this context
         '''
-        return  IConflictManager(self.context)
+        return IConflictManager(self.context)
 
     @property
     @memoize
@@ -75,15 +84,17 @@ class PrenotazioniContextState(BrowserView):
         busy = set(self.get_busy_gates_in_slot(booking_date))
         return available - busy
 
-    def search_bookings_in_day(self, booking_date):
+    def get_bookings_in_day(self, booking_date, period='day'):
         '''
         The Prenotazione objects for today
 
-        :param booking_date: a DateTime object
+        :param booking_date: a date as a datetime or a string
+        :param period: a DateTime object
         '''
-        start = booking_date.strftime('%Y/%m/%d 00:00')
-        stop = booking_date.strftime('%Y/%m/%d 23:59')
-        return self.conflict_manager.search_bookings_in_day(start, stop)
+        day_folder = self.booker.get_container({'booking_date': booking_date})
+        query = {'portal_type': self.booker.portal_type}
+        bookings = day_folder.listFolderContents(query)
+        return bookings
 
     def gates_stats_in_day(self, booking_date, only_free=False):
         '''
@@ -96,8 +107,12 @@ class PrenotazioniContextState(BrowserView):
 
         :param booking_date: a DateTime object
         '''
+        start = booking_date.strftime('%Y/%m/%d 00:00')
+        stop = booking_date.strftime('%Y/%m/%d 23:59')
         booked_gates = [x._unrestrictedGetObject().getGate()
-                        for x in self.search_bookings_in_day(booking_date)]
+                        for x
+                        in (self.conflict_manager
+                            .search_bookings_in_day(start, stop))]
         stats = {}
         if only_free:
             gates = self.get_free_gates_in_slot(booking_date)

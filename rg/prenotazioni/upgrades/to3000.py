@@ -12,6 +12,39 @@ VERSION = '3000'
 ANNOTATION_ROOT = 'Archetypes.storage.AnnotationStorage-'
 
 
+def upgrade_types(context):
+    ''' Upgrade portal_types to read the new PrenotazioniWeek type
+    '''
+    portal_setup = getToolByName(context, 'portal_setup')
+    portal_setup.runImportStepFromProfile(PROFILE_ID, 'typeinfo')
+    logger.info('types.xml updated for %s' % PROFILE_ID)
+
+
+def fix_container(context):
+    ''' Fix the container for Prenotazione object
+    '''
+    catalog = getToolByName(context, 'portal_catalog')
+    brains = catalog(portal_type="PrenotazioniFolder")
+    for brain in brains:
+        obj = brain.getObject()
+        booker = IBooker(obj)
+        conflict_manager = IConflictManager(obj)
+        bookings = conflict_manager.unrestricted_prenotazioni()
+        for booking in bookings:
+            booker.fix_container(booking.getObject())
+        logger.info("Fixed %s objects for %s" %
+                    (len(bookings), '/'.join(obj.getPhysicalPath()))
+                    )
+
+
+def getAnnotaionValue(context, field_name, fallback=()):
+    ''' Utility function to get annotations value from ZODB
+    '''
+    key = ANNOTATION_ROOT + field_name
+    annotations = IAnnotations(context)
+    return annotations.get(key, fallback)
+
+
 def get_end_time(starttime, num, span):
     ''' Utility function
     '''
@@ -28,20 +61,32 @@ def get_merge_time(day, span):
     '''
     num_m = day.pop('num_m', '')
     num_p = day.pop('num_p', '')
+    m_time = day.get('inizio_m', '0')
+    if m_time == '0':
+        day['inizio_m'] = ''
+        p_time = day.get('inizio_p', '0')
+    if p_time == '0':
+        day['inizio_p'] = ''
     if num_m:
-        m_time = day.get('inizio_m', '0')
         day['end_m'] = get_end_time(m_time, num_m, span)
     if num_p:
-        p_time = day.get('inizio_p', '0')
         day['end_p'] = get_end_time(p_time, num_p, span)
 
 
-def getAnnotaionValue(context, field_name, fallback=()):
-    ''' Utility function to get annotations value from ZODB
+def upgrade_week_values(context):
+    ''' Upgrade values of "settimana_tipo" in prenotazioni_folder content type
     '''
-    key = ANNOTATION_ROOT + field_name
-    annotations = IAnnotations(context)
-    return annotations.get(key, fallback)
+    catalog = getToolByName(context, 'portal_catalog')
+    brains = catalog(portal_type="PrenotazioniFolder")
+    for brain in brains:
+        obj = brain.getObject()
+        span = getAnnotaionValue(obj, 'durata')
+        week = obj.getSettimana_tipo()
+        if week:
+            for day in week:
+                get_merge_time(day, span)
+    logger.info('Updated "settimana_tipo" in prenotazioni_folder '
+                'for %s' % PROFILE_ID)
 
 
 def set_expiration_date(context):
@@ -63,40 +108,6 @@ def set_expiration_date(context):
                 p = prenotazione.getObject()
                 p.setData_scadenza(p.getData_prenotazione() + durata)
     logger.info("All IPrenotazione documents have been updated")
-
-
-def fix_container(context):
-    ''' Fix the container for Prenotazione object
-    '''
-    catalog = getToolByName(context, 'portal_catalog')
-    brains = catalog(portal_type="PrenotazioniFolder")
-    for brain in brains:
-        obj = brain.getObject()
-        booker = IBooker(obj)
-        conflict_manager = IConflictManager(obj)
-        bookings = conflict_manager.unrestricted_prenotazioni()
-        for booking in bookings:
-            booker.fix_container(booking.getObject())
-        logger.info("Fixed %s objects for %s" %
-                    (len(bookings), '/'.join(obj.getPhysicalPath()))
-                    )
-
-
-def upgrade_types(context):
-    ''' Upgrade portal_types to read the new PrenotazioniWeek type
-    '''
-    portal_setup = getToolByName(context, 'portal_setup')
-    portal_setup.runImportStepFromProfile(PROFILE_ID, 'typeinfo')
-    logger.info('types.xml updated for %s' % PROFILE_ID)
-
-
-def upgrade_version(context):
-    '''
-    Just set the version for this step
-    '''
-    qi = getToolByName(context, 'portal_quickinstaller')
-    p = qi.get(PROJECTNAME)
-    setattr(p, 'installedversion', VERSION)
 
 
 def upgrade_tipologia(context):
@@ -124,17 +135,10 @@ def upgrade_tipologia(context):
                 ' for %s' % PROFILE_ID)
 
 
-def upgrade_week_values(context):
-    ''' Upgrade values of "settimana_tipo" in prenotazioni_folder content type
+def upgrade_version(context):
     '''
-    catalog = getToolByName(context, 'portal_catalog')
-    brains = catalog(portal_type="PrenotazioniFolder")
-    for brain in brains:
-        obj = brain.getObject()
-        span = getAnnotaionValue(obj, 'durata')
-        week = obj.getSettimana_tipo()
-        if week:
-            for day in week:
-                get_merge_time(day, span)
-    logger.info('Updated "settimana_tipo" in prenotazioni_folder '
-                'for %s' % PROFILE_ID)
+    Just set the version for this step
+    '''
+    qi = getToolByName(context, 'portal_quickinstaller')
+    p = qi.get(PROJECTNAME)
+    setattr(p, 'installedversion', VERSION)

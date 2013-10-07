@@ -35,8 +35,19 @@ class View(BaseView):
         """
         actual_date = self.actual_date
         weekday = actual_date.weekday()
-        return [actual_date - timedelta(x)
-                for x in range(-weekday, 7 - weekday)]
+        monday = actual_date - timedelta(weekday)
+        return [monday + timedelta(x) for x in range(0, 7)]
+
+    @memoize
+    def get_day_ranges(self, day):
+        ''' Return the time ranges of this day
+        '''
+        weekday = day.weekday()
+        week_table = self.context.getSettimana_tipo()
+        day_table = week_table[weekday]
+        return {'morning': (day_table['inizio_m'], day_table['end_m']),
+                'afternoon': (day_table['inizio_p'], day_table['end_p'])
+                }
 
     @property
     @memoize
@@ -115,6 +126,20 @@ class View(BaseView):
                 if self.isValidDay(giorno):
                     res.append((item, giorno))
         return res
+
+    def get_booking_url(self, day, period):
+        ''' Returns, if possible, the booking URL
+        '''
+        # we have some conditions to check
+        if not self.isValidDay(day):
+            return ''
+        if not all(self.get_day_ranges(day)[period]):
+            return ''
+        return ('%s/creaPrenotazione?form.booking_date=%s'
+                % (self.context.absolute_url(),
+                   str(day)
+                   )
+                )
 
     def __call__(self):
         ''' Hide the portlets before serving the template

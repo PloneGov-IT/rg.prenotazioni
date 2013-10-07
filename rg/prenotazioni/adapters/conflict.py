@@ -57,7 +57,7 @@ class ConflictManager(object):
         brains = pc.unrestrictedSearchResults(**query)
         return brains
 
-    def search_bookings_in_day(self, start, stop, **kw):
+    def search_bookings_by_date_range(self, start, stop, **kw):
         '''
         Query our prenotazioni
         '''

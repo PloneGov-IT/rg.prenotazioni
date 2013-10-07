@@ -9,7 +9,7 @@ Changelog
 - Modified settimana_tipo colunms in prenotazioni_folder [nicolasenno]
 - Added expiration field to IPrenotazione content type and created
   the upgrade step for its value [nicolasenno]
-- Adding a type PrenotazioniWeek
+- Adding a portal types PrenotazioniWeek, PrenotazioniYear, PrenotazioniDay
 - Adding a new week view
   [alert]
 

@@ -38,12 +38,12 @@
       title="Update value of prenotazione_folder"
       handler=".to3000.upgrade_week_values"
     />
-    
+
    <genericsetup:upgradeStep
       title="Update tipologia and durata fields"
       handler=".to3000.upgrade_tipologia"
     />
-   
+
     <genericsetup:upgradeStep
       title="Set expiration date"
       handler=".to3000.set_expiration_date"

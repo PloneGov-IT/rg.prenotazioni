@@ -252,7 +252,7 @@ class PrenotazioniFolder(BaseFolder):
         minutes = ['00', '15', '30', '45']
 
         res = DisplayList()
-        res.add('0', '--:--')
+        res.add('', '--:--')
         for hour in hours:
             for minute in minutes:
                 time = hour + ':' + minute
