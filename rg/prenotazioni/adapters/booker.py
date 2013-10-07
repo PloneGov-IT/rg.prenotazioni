@@ -102,12 +102,41 @@ class Booker(object):
                 return t['duration']
         return 1
 
-    def create(self, data, force_gate=''):
-        '''
-        Create a Booking object
+    def _create(self, data, force_gate=''):
+        ''' Create a Booking object
         '''
         container = self.get_container(data)
         key = container.generateUniqueId(self.portal_type)
+        obj = _createObjectByType(self.portal_type, container, key)
+        # map form data to AT fields
+        data_prenotazione = DateTime(data['booking_date'])
+        tipology = data.get('tipology', '')
+        data_scadenza = (data_prenotazione
+                         + float(self.getTipologiaDuration(tipology)) / MIN_IN_DAY)
+        at_data = {'title': data['fullname'],
+                   'description': data['subject'] or '',
+                   'azienda': data['agency'] or '',
+                   'data_prenotazione': data_prenotazione,
+                   'data_scadenza': data_scadenza,
+                   'telefono': data.get('phone', ''),
+                   'mobile': data.get('mobile', ''),
+                   'email': data['email'] or '',
+                   'tipologia_prenotazione': data.get('tipology', ''),
+                   }
+        if not force_gate:
+            at_data['gate'] = self.get_available_gate(data_prenotazione)
+        else:
+            at_data['gate'] = force_gate
+        obj.processForm(values=at_data)
+        return obj
+
+    def create(self, data, force_gate=''):
+        '''
+        Create a Booking object
+
+        Like create but we disable security checks to allow creation
+        for anonymous users
+        '''
         sm = getSecurityManager()
         try:
             try:
@@ -116,29 +145,7 @@ class Booker(object):
                 portal = api.portal.get()
                 tmp_user = tmp_user.__of__(portal.acl_users)
                 newSecurityManager(None, tmp_user)
-
-                obj = _createObjectByType(self.portal_type, container, key)
-                # map form data to AT fields
-                data_prenotazione = DateTime(data['booking_date'])
-                tipology = data.get('tipology', '')
-                data_scadenza = (data_prenotazione
-                                 + float(self.getTipologiaDuration(tipology)) / MIN_IN_DAY)
-                at_data = {'title': data['fullname'],
-                           'description': data['subject'] or '',
-                           'azienda': data['agency'] or '',
-                           'data_prenotazione': data_prenotazione,
-                           'data_scadenza': data_scadenza,
-                           'telefono': data.get('phone', ''),
-                           'mobile': data.get('mobile', ''),
-                           'email': data['email'] or '',
-                           'tipologia_prenotazione': data.get('tipology', ''),
-                           }
-                if not force_gate:
-                    at_data['gate'] = self.get_available_gate(data_prenotazione)
-                else:
-                    at_data['gate'] = force_gate
-                obj.processForm(values=at_data)
-                return obj
+                return self._create(data, force_gate)
             except:
                 raise
         finally:
@@ -157,4 +164,3 @@ class Booker(object):
         cut_data = old_container.manage_cutObjects(booking_id)
         paste_data = new_container.manage_pasteObjects(cut_data)
         [new_container[data['new_id']].reindexObject() for data in paste_data]
-
