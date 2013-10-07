@@ -137,20 +137,8 @@ class Booker(object):
         Like create but we disable security checks to allow creation
         for anonymous users
         '''
-        sm = getSecurityManager()
-        try:
-            try:
-                tmp_user = UnrestrictedUser(sm.getUser().getId(), '',
-                                            ['Manager'], '')
-                portal = api.portal.get()
-                tmp_user = tmp_user.__of__(portal.acl_users)
-                newSecurityManager(None, tmp_user)
-                return self._create(data, force_gate)
-            except:
-                raise
-        finally:
-            # Restore the old security manager
-            setSecurityManager(sm)
+        with api.env.adopt_roles(['Manager', 'Member']):
+            return self._create(data, force_gate)
 
     def fix_container(self, booking):
         ''' Take a booking and move it to the right week
