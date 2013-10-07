@@ -16,15 +16,24 @@ class TipologiesVocabulary(object):
         return context.getTipologia()
 
     def tipology2term(self, idx, tipology):
+        ''' return a vocabulary tern with this
         '''
-        '''
-        name = tipology.get('name', '').decode('utf8')
-        duration = str(tipology.get('duration', ''))
+        idx = str(idx)
+        name = tipology.get('name', '')
+        if isinstance(name, str):
+            name = name.decode('utf8')
+        duration = tipology.get('duration', '')
+        if isinstance(duration, str):
+            duration = duration.decode('utf8')
+
         if not duration:
             title = name
         else:
-            title = u"%s [%s min]" % (name, duration)
-        return SimpleTerm(title, str(idx), title)
+            title = u"%s (%s min)" % (name, duration)
+        # fix for buggy implementation
+        term = SimpleTerm(name, token='changeme', title=title)
+        term.token = name
+        return term
 
     def get_terms(self, context):
         ''' The vocabulary terms
