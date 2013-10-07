@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.2 (unreleased)
+3.0 (unreleased)
 ================
 
 - Added upgrade step for "tipologia" field in prenotazioni_folder [nicolasenno]

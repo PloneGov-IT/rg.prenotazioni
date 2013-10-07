@@ -64,7 +64,7 @@ def get_merge_time(day, span):
     m_time = day.get('inizio_m', '0')
     if m_time == '0':
         day['inizio_m'] = ''
-        p_time = day.get('inizio_p', '0')
+    p_time = day.get('inizio_p', '0')
     if p_time == '0':
         day['inizio_p'] = ''
     if num_m:
