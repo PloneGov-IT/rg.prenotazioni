@@ -29,6 +29,5 @@ def reallocate_container(obj):
     '''
     If we moved Prenotazione to a new week we should move it
     '''
-    import pdb;pdb.set_trace()
     container = obj.object.getPrenotazioniFolder()
     IBooker(container).fix_container(obj.object)
