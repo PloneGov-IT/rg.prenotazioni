@@ -149,13 +149,6 @@ class AddForm(PageForm):
         '''
         return self.conte
 
-    def len_tipologies(self):
-        '''
-        Check if we have tipologies defined here
-        '''
-        voc = getUtility(IVocabularyFactory, name="rg.prenotazioni.tipologies")
-        return len(voc(self.context))
-
     @property
     @memoize
     def form_fields(self):
@@ -167,8 +160,6 @@ class AddForm(PageForm):
             ff = ff.omit('captcha')
         else:
             ff['captcha'].custom_widget = CaptchaWidget
-        if not self.len_tipologies():
-            ff = ff.omit('tipology')
         return ff
 
     def exceedes_date_limit(self, data):
