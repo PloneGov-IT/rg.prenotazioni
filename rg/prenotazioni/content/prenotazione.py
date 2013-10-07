@@ -7,7 +7,6 @@ from Products.Archetypes.utils import DisplayList
 from Products.CMFCore import permissions
 from Products.CMFCore.utils import getToolByName
 from rg.prenotazioni import prenotazioniMessageFactory as _
-from rg.prenotazioni.adapters.conflict import IConflictManager
 from rg.prenotazioni.config import PROJECTNAME
 from rg.prenotazioni.event import booking_created
 from rg.prenotazioni.interfaces import IPrenotazione, IPrenotazioniFolder
@@ -146,13 +145,6 @@ class Prenotazione(base.ATCTContent):
     title = atapi.ATFieldProperty('title')
     description = atapi.ATFieldProperty('description')
 
-    def validate_tipologia_prenotazione(self, value):
-        # simulate required field using Archetypes inner feature
-        if not value and self.getElencoTipologie():
-            errors = {}
-            return self.getField('tipologia_prenotazione'
-                                 ).validate_required(self, value, errors)
-
     def getPrenotazioniFolder(self):
         """Ritorna l'oggetto prenotazioni folder"""
 
@@ -162,30 +154,10 @@ class Prenotazione(base.ATCTContent):
         raise Exception("Could not find Prenotazioni Folder "
                         "in acquisition chain of %r" % self)
 
-    def getElencoTipologie(self):
-        """ restituisce l'elenco delle tipologie ottenute dalla folder padre
-        """
-        elenco_tipologie = DisplayList()
-        items = self.getPrenotazioniFolder().getTipologia()
-        for item in items:
-            elenco_tipologie.add(item.get('name', ''),
-                                 item.get('duration', ''))
-        return elenco_tipologie
-
     def getEmailResponsabile(self):
         """
         """
         return self.getPrenotazioniFolder().getEmail_responsabile()
-
-    def validateOverbooking(self, REQUEST, errors):
-        '''
-        Validate against overbooking
-        '''
-        adapter = IConflictManager(self.getPrenotazioniFolder())
-        if adapter.conflicts({'booking_date': REQUEST['data_prenotazione']}):
-            pu = getToolByName(self, 'plone_utils')
-            pu.addPortalMessage(OVERBOOKED_MESSAGE, type="error")
-            errors['data_prenotazione'] = OVERBOOKED_MESSAGE
 
     security.declareProtected(permissions.View, 'Date')
 
