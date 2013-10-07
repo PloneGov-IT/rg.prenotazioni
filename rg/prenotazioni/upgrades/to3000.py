@@ -104,16 +104,24 @@ def upgrade_tipologia(context):
     This is the upgrade step which perform the merge action on
     prenotazioni_folder objects
     '''
+    def new_style_tipologie(value, duration):
+        ''' Check is this value should be migrated
+        '''
+        if isinstance(value, basestring):
+            value = {'name': value, 'duration': str(duration)}
+        return value
+
     catalog = getToolByName(context, 'portal_catalog')
     brains = catalog(portal_type="PrenotazioniFolder")
     for brain in brains:
         obj = brain.getObject()
         duration = getAnnotaionValue(obj, 'durata')
-        typologies = getAnnotaionValue(obj, 'tipologia') or ['']
-        for typology in typologies:
-            obj.setTipologia([{'name': typology, 'duration': str(duration)}])
-    logger.info('Updated "tipologia" in prenotazioni_folder for %s' %
-                                                                PROFILE_ID)
+        items = [new_style_tipologie(item, duration)
+                 for item
+                 in getAnnotaionValue(obj, 'tipologia', [''])]
+        obj.setTipologia(items)
+    logger.info('Updated "tipologia" in prenotazioni_folder '
+                ' for %s' % PROFILE_ID)
 
 
 def upgrade_week_values(context):
@@ -128,6 +136,5 @@ def upgrade_week_values(context):
         if week:
             for day in week:
                 get_merge_time(day, span)
-    logger.info('Updated "settimana_tipo" in prenotazioni_folder for %s' %
-                                                                    PROFILE_ID)
-
+    logger.info('Updated "settimana_tipo" in prenotazioni_folder '
+                'for %s' % PROFILE_ID)
