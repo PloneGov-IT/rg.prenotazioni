@@ -227,7 +227,7 @@ class PrenotazioniContextState(BrowserView):
         duration = self.get_tipology_duration(tipology)
 
         hm_now = datetime.now().strftime('%H:%m')
-        for slots in availability.iteritems():
+        for slots in availability.itervalues():
             for slot in slots:
                 if (len(slot) > duration and
                     (booking_date > self.today
