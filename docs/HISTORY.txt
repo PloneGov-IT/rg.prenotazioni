@@ -10,7 +10,9 @@ Changelog
 - Added expiration field to IPrenotazione content type and created
   the upgrade step for its value [nicolasenno]
 - Adding a portal types PrenotazioniWeek, PrenotazioniYear, PrenotazioniDay
+- Added the concept of slots
 - Adding a new week view
+- Depends non pyinter
   [alert]
 
 

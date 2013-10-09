@@ -29,12 +29,10 @@
           </caption>
           <thead>
               <tr>
+                  <th scope="col">&nbsp;</th>
                   <tal:days repeat="day view/actual_week_days">
                       <th scope="col" tal:content="python:day.strftime('%d')">Lunedi</th>
                   </tal:days>
-                  <th tal:condition="view/empty_week"
-                    i18n:translate="no_booking_available"
-                    >No booking available for this week</th>
               </tr>
           </thead>
           <tbody>

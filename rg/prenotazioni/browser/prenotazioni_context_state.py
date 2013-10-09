@@ -1,12 +1,51 @@
 # -*- coding: utf-8 -*-
-from Products.CMFCore import permissions
-from Products.CMFCore.utils import getToolByName
+from DateTime import DateTime
 from Products.Five.browser import BrowserView
-from datetime import timedelta
+from datetime import date, datetime
 from plone.memoize.view import memoize
-from rg.prenotazioni import time2timedelta
-from rg.prenotazioni.adapters.conflict import IConflictManager
 from rg.prenotazioni.adapters.booker import IBooker
+from rg.prenotazioni.adapters.conflict import IConflictManager
+from rg.prenotazioni.adapters.slot import ISlot, BaseSlot
+
+
+def hm2handm(hm):
+    ''' This is a utility function that will return the hour and date of day
+    to the value passed in the string hm
+
+    :param day: a datetime date
+    :param hm: a string in the format "%H%m"
+    '''
+    if (not hm) or (not isinstance(hm, basestring)) or (len(hm) != 4):
+        raise ValueError(hm)
+    return (hm[:2], hm[2:])
+
+
+def hm2DT(day, hm):
+    ''' This is a utility function that will return the hour and date of day
+    to the value passed in the string hm
+
+    :param day: a datetime date
+    :param hm: a string in the format "%H%m"
+    '''
+    if not hm:
+        return None
+    date = day.strftime('%Y/%m/%d')
+    h, m = hm2handm(hm)
+    tzone = DateTime().timezone()
+    return DateTime('%s %s:%s %s' % (date, h, m, tzone))
+
+
+def hm2seconds(hm):
+    ''' This is a utility function that will return
+    to the value passed in the string hm
+
+    :param day: a datetime date
+    :param hm: a string in the format "%H%m"
+    '''
+    if not hm:
+        return None
+    h, m = hm2handm(hm)
+    return h * 3600 + m * 60
 
 
 class PrenotazioniContextState(BrowserView):
@@ -84,17 +123,109 @@ class PrenotazioniContextState(BrowserView):
         busy = set(self.get_busy_gates_in_slot(booking_date))
         return available - busy
 
-    def get_bookings_in_day(self, booking_date, period='day'):
+    @memoize
+    def get_day_intervals(self, day):
+        ''' Return the time ranges of this day
+        '''
+        weekday = day.weekday()
+        week_table = self.context.getSettimana_tipo()
+        day_table = week_table[weekday]
+        return {'morning': BaseSlot(hm2DT(day, day_table['inizio_m']),
+                                    hm2DT(day, day_table['end_m'])),
+                'afternoon': BaseSlot(hm2DT(day, day_table['inizio_p']),
+                                      hm2DT(day, day_table['end_p']))
+                }
+
+    @memoize
+    def get_bookings_in_day_folder(self, booking_date):
         '''
         The Prenotazione objects for today
 
         :param booking_date: a date as a datetime or a string
-        :param period: a DateTime object
         '''
         day_folder = self.booker.get_container({'booking_date': booking_date})
         query = {'portal_type': self.booker.portal_type}
         bookings = day_folder.listFolderContents(query)
+        bookings.sort(key=lambda x: x.getData_prenotazione())
         return bookings
+
+    @memoize
+    def get_slots_in_day_folder(self, booking_date):
+        '''
+        The Prenotazione objects for today
+
+        :param booking_date: a date as a datetime or a string
+        '''
+        bookings = self.get_bookings_in_day_folder(booking_date)
+        return map(ISlot, bookings)
+
+    @memoize
+    def get_slots_in_day_period(self, booking_date, period='day'):
+        '''
+        The Slots objects for today
+
+        :param booking_date: a date as a datetime or a string
+        :param period: a string
+        '''
+        interval = self.get_day_intervals(booking_date)[period]
+        slots = self.get_slots_in_day_folder(booking_date)
+        return [slot for slot in slots if slot in interval]
+
+    @memoize
+    def get_slots_in_day_period_by_gate(self, booking_date, period='day'):
+        ''' This will return the busy slots divided by gate:
+
+        return a dictionary like:
+        {'gate1': [slot1],
+         'gate2': [slot2, slot3],
+        }
+        '''
+        slots_by_gate = {}
+        slots = self.get_slots_in_day_period(booking_date, period)
+        for slot in slots:
+            slots_by_gate.setdefault(slot.gate, []).append(slot)
+        return slots_by_gate
+
+    @memoize
+    def get_gates_availability_in_day_period(self, booking_date, period='day'):
+        ''' Return the gates availability
+        '''
+        interval = self.get_day_intervals(booking_date)[period]
+        slots_by_gate = self.get_slots_in_day_period_by_gate(booking_date,
+                                                             period)
+        availability = {gate: interval for gate in self.get_gates()}
+        for gate in slots_by_gate:
+            gate_slots = slots_by_gate.get(gate, [])
+            availability[gate] = availability[gate] - gate_slots
+        return availability
+
+    def get_tipology_duration(self, tipology):
+        ''' Return the seconds for this tipology
+        '''
+        return int(tipology['duration']) * 60
+
+    def get_first_slot(self, tipology, booking_date, period='day'):
+        '''
+        The Prenotazione objects for today
+
+        :param tipology: a dict with name and duration
+        :param booking_date: a date as a datetime or a string
+        :param period: a DateTime object
+        '''
+        if booking_date < date.today():
+            return
+        availability = self.get_gates_availability_in_day_period(booking_date,
+                                                                 period)
+        good_slots = []
+        duration = self.get_tipology_duration(tipology)
+
+        hm_now = datetime.now().strftime('%H:%m')
+        for slots in availability.iteritems():
+            good_slots.extend([x for x in slots
+                               if (len(x) > duration and x.start() > hm_now)])
+        if not good_slots:
+            return
+        return good_slots[0]
 
     def gates_stats_in_day(self, booking_date, only_free=False):
         '''
@@ -122,52 +253,7 @@ class PrenotazioniContextState(BrowserView):
             stats.setdefault(booked_gates.count(gate), []).append(gate)
         return stats
 
-    def get_slots_by_weekday(self, weekday):
+    def __call__(self):
+        ''' Return itself
         '''
-        Find the slots by weekday
-
-        Weekday, according to datetime.date is:
-         0. monday
-         1. tuesday
-         ...
-         6. sunday
-
-        We are returning slots as datetime.timedelta objects
-        E.g.:
-        {'m': [datetime.datetime(2013, 7, 16, 7, 15),
-               datetime.datetime(2013, 7, 16, 7, 40),
-               ...],
-         'p': [],
-        }
-        '''
-        slots = {'m': [],
-                 'p': [],
-        }
-        day = self.context.getSettimana_tipo()[weekday]
-        slot_time = int(self.context.getDurata())
-        slot_time = timedelta(minutes=slot_time)
-
-        for marker in ('m', 'p'):
-            key = 'inizio_%s' % marker
-            start = day[key]
-            if start != '0':
-                start = time2timedelta(start)
-                key = 'num_%s' % marker
-                slots[marker] = [(start + i * slot_time)
-                                 for i in range(int(day[key]))]
-        return slots
-
-    def get_slots_in_day(self, booking_date):
-        '''
-        Find the slots in booking_date
-
-        Slots are divided in morning/afternoon slots.
-        {'m': ['09:00', '09:30', ...]
-         'p': ['14:00', '14:30', ...]
-        }
-        '''
-        booking_date = booking_date.asdatetime()
-        slots = self.get_slots_by_weekday(booking_date.weekday())
-        for marker in slots:
-            slots[marker] = [booking_date + time for time in slots[marker]]
-        return slots
+        return self

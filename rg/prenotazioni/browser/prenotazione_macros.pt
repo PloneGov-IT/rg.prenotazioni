@@ -15,18 +15,19 @@
 <!-- The macro that renders a period of the the day (morning, afternoon) -->
 <metal:macro metal:define-macro="day_period" i18n:domain="rg.prenotazioni">
   <tr>
+    <td tal:content="period"></td>
     <tal:days repeat="day view/actual_week_days">
       <td class="day"
-          tal:define="time_range python:view.get_day_ranges(day)[period]"
+          tal:define="interval python:view.prenotazioni.get_day_intervals(day)[period]"
           tal:attributes="class python:day==view.actual_date and 'day selected' or 'day'">
         <ul class="plain period" 
-            tal:define="bookings python:view.prenotazioni.get_bookings_in_day(day)">
-          <li tal:condition="python:all(time_range)">
-            From <tal:from replace="python:time_range[0]" />
-            to <tal:from replace="python:time_range[1]" />
+            tal:define="slots python:view.prenotazioni.get_slots_in_day_period(day, period)">
+          <li tal:condition="interval">
+            From <tal:from replace="interval/start" />
+            to <tal:from replace="interval/stop" />
           </li>
-          <li tal:repeat="booking bookings">
-            <div tal:define="booking booking/getObject">
+          <li tal:repeat="slot slots">
+            <div tal:define="booking nocall:slot/context">
               <h3>
                 <a href="" 
                    tal:attributes="href booking/absolute_url"
@@ -42,14 +43,20 @@
     </tal:days>
   </tr>
   <tr>
+    <td></td>
     <tal:days repeat="day view/actual_week_days">
-      <td tal:define="booking_url python:view.get_booking_url(day, period);">
-        <a rel="nofollow"
-           tal:attributes="href booking_url"
-           tal:condition="booking_url"
-           i18n:translate="book_first_available_slot"
-           >Book the first available slot
-        </a>
+      <td tal:define="booking_urls python:view.get_booking_urls(day, period);">
+        <ul tal:condition="booking_urls">
+          <li tal:repeat="booking_url booking_urls">
+            <a rel="nofollow"
+               tal:attributes="href booking_url/href">
+               <tal:i18n i18n:translate="suggest_booking_for">
+                 Book the first available slot for
+               </tal:i18n>
+               <tal:name replace="booking_url/text" />
+            </a>
+          </li>
+        </ul>
       </td>
       </tal:days>
    </tr>

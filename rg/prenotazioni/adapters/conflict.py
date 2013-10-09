@@ -27,6 +27,13 @@ class ConflictManager(object):
 
     @property
     @memoize
+    def prenotazioni(self):
+        ''' The prenotazioni context state view
+        '''
+        return self.context.restrictedTraverse('@@prenotazioni_context_state')
+
+    @property
+    @memoize
     def base_query(self):
         '''
         A query that returns objects in this context
@@ -42,10 +49,9 @@ class ConflictManager(object):
         There is also a field that disables gates, we should remove them from
         this calculation
         '''
-        pcs = self.context.restrictedTraverse('@@prenotazioni_context_state')
-        if not pcs.get_gates():
+        if not self.prenotazioni.get_gates():
             return 1
-        return len(pcs.get_available_gates())
+        return len(self.prenotazioni.get_available_gates())
 
     def unrestricted_prenotazioni(self, **kw):
         '''
@@ -73,6 +79,14 @@ class ConflictManager(object):
         date_it = date.strftime('%d/%m/%Y')
         festivi = self.context.getFestivi()
         return date_it in festivi
+
+    def find_first_slot(self, date, period):
+        ''' Find the first slot available
+
+        :param date: a datetime object
+        '''
+
+
 
     def has_free_slots(self, date):
         '''

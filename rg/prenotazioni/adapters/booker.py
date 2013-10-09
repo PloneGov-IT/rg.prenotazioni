@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from AccessControl.User import UnrestrictedUser as BaseUnrestrictedUser
 from DateTime import DateTime
 from Products.CMFPlone.FactoryTool import _createObjectByType
 from plone import api
@@ -13,15 +12,6 @@ class IBooker(Interface):
     '''
     Interface for a booker
     '''
-
-
-class UnrestrictedUser(BaseUnrestrictedUser):
-    """Unrestricted user that still has an id.
-    """
-    def getId(self):
-        """Return the ID of the user.
-        """
-        return self.getUserName()
 
 
 def get_or_create_obj(folder, key, portal_type):

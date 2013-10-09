@@ -1,5 +1,4 @@
 <configure xmlns="http://namespaces.zope.org/zope">
-  
 
   <adapter
       provides=".conflict.IConflictManager"
@@ -17,5 +16,12 @@
            name="plone.contentmenu.actions"
            factory=".prenotazione_menu.PrenotazioneActionsSubMenuItem"
            provides="plone.app.contentmenu.interfaces.IContentMenuItem" />
+
+  <adapter
+      provides=".slot.ISlot"
+      for="rg.prenotazioni.interfaces.IPrenotazione"
+      factory=".slot.Slot"
+  />
+
 
 </configure>
