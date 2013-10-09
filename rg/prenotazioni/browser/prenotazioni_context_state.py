@@ -56,6 +56,13 @@ class PrenotazioniContextState(BrowserView):
 
     @property
     @memoize
+    def today(self):
+        ''' Cache for today date
+        '''
+        return date.today()
+
+    @property
+    @memoize
     def booker(self):
         '''
         Return the conflict manager for this context
@@ -212,7 +219,7 @@ class PrenotazioniContextState(BrowserView):
         :param booking_date: a date as a datetime or a string
         :param period: a DateTime object
         '''
-        if booking_date < date.today():
+        if booking_date < self.today:
             return
         availability = self.get_gates_availability_in_day_period(booking_date,
                                                                  period)
@@ -221,8 +228,11 @@ class PrenotazioniContextState(BrowserView):
 
         hm_now = datetime.now().strftime('%H:%m')
         for slots in availability.iteritems():
-            good_slots.extend([x for x in slots
-                               if (len(x) > duration and x.start() > hm_now)])
+            for slot in slots:
+                if (len(slot) > duration and
+                    (booking_date > self.today
+                     or slot.start() > hm_now)):
+                        good_slots.append(slot)
         if not good_slots:
             return
         return good_slots[0]

@@ -22,13 +22,6 @@ class View(BaseView):
 
     @property
     @memoize
-    def today(self):
-        ''' Cache for today date
-        '''
-        return date.today()
-
-    @property
-    @memoize
     def actual_date(self):
         """ restituisce il nome del mese e l'anno della data in request
         """
@@ -37,7 +30,7 @@ class View(BaseView):
             day_list = day.split('/')
             data = date(int(day_list[2]), int(day_list[1]), int(day_list[0]))
         else:
-            data = self.today
+            data = self.prenotazioni.today
         return data
 
     @property
@@ -75,7 +68,7 @@ class View(BaseView):
     def isValidDay(self, day):
         """ restituisce true se il giorno è valido
         """
-        if day <= self.today:
+        if day <= self.prenotazioni.today:
             return False
         if self.conflict_manager.is_vacation_day(day):
             return False
