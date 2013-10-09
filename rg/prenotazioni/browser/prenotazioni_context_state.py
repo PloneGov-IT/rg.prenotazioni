@@ -229,9 +229,9 @@ class PrenotazioniContextState(BrowserView):
         hm_now = datetime.now().strftime('%H:%m')
         for slots in availability.itervalues():
             for slot in slots:
-                if (len(slot) > duration and
+                if (len(slot) >= duration and
                     (booking_date > self.today
-                     or slot.start() > hm_now)):
+                     or slot.start() >= hm_now)):
                         good_slots.append(slot)
         if not good_slots:
             return

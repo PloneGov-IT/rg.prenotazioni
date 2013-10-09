@@ -4,7 +4,7 @@
 from DateTime import DateTime
 from Products.ATContentTypes.configuration import zconf
 from Products.Archetypes import atapi
-from Products.Archetypes.utils import DisplayList, IntDisplayList
+from Products.Archetypes.utils import DisplayList
 from Products.DataGridField import DataGridField, DataGridWidget
 from Products.DataGridField.DataGridField import FixedRow
 from Products.DataGridField.FixedColumn import Column, FixedColumn
@@ -225,7 +225,7 @@ class PrenotazioniFolder(BaseFolder):
     def vocDurataIncontro(self):
         """
         """
-        return IntDisplayList([(x, x) for x in range(10, 95, 5)])
+        return DisplayList([(str(x), str(x)) for x in range(10, 95, 5)])
 
     def vocGiorniSettimana(self):
         """
