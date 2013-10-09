@@ -105,8 +105,11 @@ class View(BaseView):
             if first_slot:
                 booking_date = str(hm2DT(day,
                                          first_slot.start().replace(':', '')))
-                options = {'form.booking_date': booking_date}
-                urls.append({'text': tipologia['name'],
+                options = {'form.booking_date': booking_date,
+                           'form.tipology': tipologia['name'],
+                           }
+                urls.append({'text': '%s (%s)' % (tipologia['name'],
+                                                  first_slot.start()),
                              'href': ('%s?%s' % (base_url, urlencode(options)))
                              })
         return urls

@@ -200,10 +200,11 @@ class PrenotazioniContextState(BrowserView):
         interval = self.get_day_intervals(booking_date)[period]
         slots_by_gate = self.get_slots_in_day_period_by_gate(booking_date,
                                                              period)
-        availability = {gate: interval for gate in self.get_gates()}
-        for gate in slots_by_gate:
+        gates = self.get_gates()
+        availability = {}
+        for gate in gates:
             gate_slots = slots_by_gate.get(gate, [])
-            availability[gate] = availability[gate] - gate_slots
+            availability[gate] = interval - gate_slots
         return availability
 
     def get_tipology_duration(self, tipology):
@@ -227,6 +228,7 @@ class PrenotazioniContextState(BrowserView):
         duration = self.get_tipology_duration(tipology)
 
         hm_now = datetime.now().strftime('%H:%m')
+
         for slots in availability.itervalues():
             for slot in slots:
                 if (len(slot) >= duration and
@@ -235,6 +237,7 @@ class PrenotazioniContextState(BrowserView):
                         good_slots.append(slot)
         if not good_slots:
             return
+        good_slots.sort(key=lambda x: x.lower_value)
         return good_slots[0]
 
     def gates_stats_in_day(self, booking_date, only_free=False):

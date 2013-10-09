@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 from DateTime import DateTime
-from pyinter.interval import Interval, closed
+from pyinter.interval import Interval
 from zope.component import Interface
 from zope.interface.declarations import implements
-from pyinter.interval_set import IntervalSet
 
 
 class ISlot(Interface):
