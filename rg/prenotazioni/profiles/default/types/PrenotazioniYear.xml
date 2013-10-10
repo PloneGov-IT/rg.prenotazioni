@@ -16,9 +16,9 @@
     <element value="PrenotazioneWeek"/>
   </property>
   <property name="allow_discussion">False</property>
-  <property name="default_view">prenotazioni_week_view</property>
+  <property name="default_view">goto-prenotazioni</property>
   <property name="view_methods">
-    <element value="prenotazioni_week_view" />
+    <element value="goto-prenotazioni" />
   </property>
   <alias from="(Default)" to="(dynamic view)" />
   <alias from="edit" to="atct_edit" />

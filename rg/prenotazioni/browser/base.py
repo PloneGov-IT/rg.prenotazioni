@@ -2,6 +2,8 @@
 from Products.Five.browser import BrowserView
 from plone.memoize.view import memoize
 from rg.prenotazioni.adapters.conflict import IConflictManager
+from rg.prenotazioni.interfaces.prenotazionifolder import IPrenotazioniFolder
+from zExceptions import NotFound
 
 
 class BaseView(BrowserView):
@@ -26,3 +28,23 @@ class BaseView(BrowserView):
         Return the conflict manager for this context
         '''
         return IConflictManager(self.context)
+
+
+class RedirectToPrenotazioniFolderView(BrowserView):
+    ''' A view that redirects to the parent Prenotazioni Folder (if found)
+    '''
+    def get_target_url(self):
+        ''' Get's the prenotazioni folder
+        '''
+        for parent in self.context.aq_inner.aq_chain:
+            if IPrenotazioniFolder.providedBy(parent):
+                return parent.absolute_url()
+        return ''
+
+    def __call__(self):
+        ''' Redirect to prenotazioni or raise not found
+        '''
+        target_url = self.get_target_url()
+        if not target_url:
+            raise NotFound("Can't find a PrenotazioniFolder container")
+        return self.request.response.redirect(target_url)

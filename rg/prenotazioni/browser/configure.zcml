@@ -46,14 +46,6 @@
 
   <browser:page
     for="..interfaces.IPrenotazioniFolder"
-    name="prenotazionifolder_view"
-    class=".prenotazionifolder.PrenotazioniFolderView"
-    template="prenotazionifolder.pt"
-    permission="zope2.View"
-  />
-
-  <browser:page
-    for="..interfaces.IPrenotazioniFolder"
     name="prenotazioni_week_view"
     class=".week.View"
     template="week.pt"
@@ -100,6 +92,13 @@
     name="vacation-booking-show"
     class=".vacations.VacationBookingShow"
     permission="cmf.ModifyPortalContent"
+  />
+
+  <browser:page
+    for="*"
+    name="goto-prenotazioni"
+    class=".base.RedirectToPrenotazioniFolderView"
+    permission="zope2.View"
   />
 
   <!-- Do not add Prenotazione through content menu -->

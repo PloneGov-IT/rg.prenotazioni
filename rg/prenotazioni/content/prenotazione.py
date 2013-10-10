@@ -3,9 +3,7 @@ from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content import base, schemata
 from Products.Archetypes import atapi
 from Products.Archetypes.ExtensibleMetadata import _zone
-from Products.Archetypes.utils import DisplayList
 from Products.CMFCore import permissions
-from Products.CMFCore.utils import getToolByName
 from rg.prenotazioni import prenotazioniMessageFactory as _
 from rg.prenotazioni.config import PROJECTNAME
 from rg.prenotazioni.event import booking_created
