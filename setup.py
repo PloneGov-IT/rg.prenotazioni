@@ -19,7 +19,6 @@ setup(name='rg.prenotazioni',
       classifiers=[
           'Development Status :: 3 - Alpha',
           'Framework :: Plone',
-          'Framework :: Plone :: 3.3',
           'Framework :: Plone :: 4.0',
           'Framework :: Plone :: 4.1',
           'Framework :: Plone :: 4.2',
