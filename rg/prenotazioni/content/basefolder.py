@@ -10,6 +10,7 @@ BaseFolderSchema
 
 
 class BaseNoNavFolder(BaseFolder):
+
     ''' Like base folder, but it is excluded from navigation
     '''
     exclude_from_nav = True

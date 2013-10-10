@@ -9,6 +9,7 @@ PrenotazioniDaySchema = BaseFolderSchema.copy()
 
 
 class PrenotazioniDay(BaseNoNavFolder):
+
     """Prenotazioni day folder"""
     implements(IPrenotazioniDay)
 

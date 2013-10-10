@@ -9,6 +9,7 @@ from zope.interface.declarations import implements
 
 
 class IBooker(Interface):
+
     '''
     Interface for a booker
     '''

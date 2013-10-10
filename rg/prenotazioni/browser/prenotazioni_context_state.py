@@ -49,6 +49,7 @@ def hm2seconds(hm):
 
 
 class PrenotazioniContextState(BrowserView):
+
     '''
     This is a view to for checking prenotazioni context state
     '''
@@ -117,7 +118,8 @@ class PrenotazioniContextState(BrowserView):
 
         :param booking_date: a DateTime object
         '''
-        brains = self.conflict_manager.unrestricted_prenotazioni(Date=booking_date)
+        brains = self.conflict_manager.unrestricted_prenotazioni(
+            Date=booking_date)
         return set([x._unrestrictedGetObject().getGate() for x in brains])
 
     def get_free_gates_in_slot(self, booking_date):

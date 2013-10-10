@@ -14,12 +14,12 @@ from zope.interface import implements
 
 
 OVERBOOKED_MESSAGE = _('overbook_message',
-                      default=u"Siamo spiacenti, "
-                              u"è già stato preso un appuntamento "
-                              u"nella stessa fascia oraria, "
-                              u"premere il pulsante "
-                              u"ANNULLA per effettuare una nuova richiesta di "
-                              u"prenotazione")
+                       default=u"Siamo spiacenti, "
+                       u"è già stato preso un appuntamento "
+                       u"nella stessa fascia oraria, "
+                       u"premere il pulsante "
+                       u"ANNULLA per effettuare una nuova richiesta di "
+                       u"prenotazione")
 
 
 PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
@@ -134,6 +134,7 @@ PrenotazioneSchema['excludeFromNav'].schemata = 'default'
 
 
 class Prenotazione(base.ATCTContent):
+
     """Description of the Example Type"""
     implements(IPrenotazione)
 

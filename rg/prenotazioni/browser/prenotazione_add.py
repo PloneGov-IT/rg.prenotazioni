@@ -78,6 +78,7 @@ def check_is_future_date(value):
 
 
 class IAddForm(Interface):
+
     """
     Interface for creating a prenotazione
     """
@@ -134,6 +135,7 @@ class IAddForm(Interface):
 
 
 class AddForm(PageForm):
+
     """
     """
     implements(IAddForm)

@@ -3,7 +3,7 @@ from datetime import date
 from five.formlib.formbase import PageForm
 from plone.memoize.view import memoize
 from rg.prenotazioni import (prenotazioniMessageFactory as _,
-    prenotazioniLogger as logger, time2timedelta)
+                             prenotazioniLogger as logger, time2timedelta)
 from zope.formlib.form import FormFields, action
 from zope.interface import Interface
 from zope.interface.declarations import implements
@@ -95,6 +95,7 @@ class IVacationBooking(Interface):
 
 
 class VacationBooking(PageForm):
+
     '''
     This is a view that allows to book a gate for a certain period
     '''
@@ -215,9 +216,11 @@ class VacationBooking(PageForm):
 
 
 class VacationBookingShow(BrowserView):
+
     '''
     Should this functionality be published?
     '''
+
     def __call__(self):
         ''' Return True for the time being
         '''

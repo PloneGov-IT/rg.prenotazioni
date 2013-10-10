@@ -7,6 +7,7 @@ from urllib import urlencode
 
 
 class PrenotazionePrint(BrowserView):
+
     '''
     This is a view to proxy autorizzazione
     '''

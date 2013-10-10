@@ -9,6 +9,7 @@ PrenotazioniYearSchema = BaseFolderSchema.copy()
 
 
 class PrenotazioniYear(BaseNoNavFolder):
+
     """Prenotazioni year folder"""
     implements(IPrenotazioniYear)
 

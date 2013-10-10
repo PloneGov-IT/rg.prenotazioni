@@ -3,10 +3,12 @@ from zope.interface import implements
 
 
 class IMovedPrenotazione(IObjectEvent):
+
     """Marker interface for prenotazione that is moved"""
 
 
 class MovedPrenotazione(ObjectEvent):
+
     """Event fired when a prenotazione that is moved"""
     implements(IMovedPrenotazione)
 

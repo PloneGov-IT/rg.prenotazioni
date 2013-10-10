@@ -9,6 +9,7 @@ from rg.prenotazioni.browser.prenotazioni_context_state import hm2DT
 
 
 class View(BaseView):
+
     ''' Display appointments this week
     '''
     add_view = 'creaPrenotazione'
@@ -73,7 +74,11 @@ class View(BaseView):
         if self.conflict_manager.is_vacation_day(day):
             return False
         da_data = self.context.getDaData().strftime('%Y/%m/%d').split('/')
-        a_data = self.context.getAData() and self.context.getAData().strftime('%Y/%m/%d').split('/')
+        a_data = self.context.getAData(
+        ) and self.context.getAData(
+        ).strftime(
+            '%Y/%m/%d').split(
+            '/')
         date_dadata = date(int(da_data[0]), int(da_data[1]), int(da_data[2]))
         date_adata = None
         if a_data:
@@ -86,6 +91,30 @@ class View(BaseView):
 
         return True
 
+    @property
+    @memoize
+    def base_booking_url(self):
+        ''' Return the base booking url (no parameters) for this context
+        '''
+        return ('%s/%s' % (self.context.absolute_url(), self.add_view))
+
+    def construct_booking_url(self, tipologia, day, first_slot):
+        ''' Construct the booking url for a slot and tipologia
+
+        :return: a dict like this {'text': 'Tipologia name (hh:mm)',
+                                   'href': 'http://......'}
+        '''
+        tipologia_name = tipologia['name']
+        if isinstance(tipologia_name, unicode):
+            tipologia_name = tipologia_name.encode('utf8')
+        booking_date = str(hm2DT(day, first_slot.start().replace(':', '')))
+        options = {'form.booking_date': booking_date,
+                   'form.tipology': tipologia_name,
+                   }
+        return {'text': '%s (%s)' % (tipologia_name, first_slot.start()),
+                'href': ('%s?%s' % (self.base_booking_url, urlencode(options)))
+        }
+
     def get_booking_urls(self, day, period):
         ''' Returns, if possible, the booking URL
         '''
@@ -94,24 +123,16 @@ class View(BaseView):
             return []
         if not self.prenotazioni.get_day_intervals(day)[period]:
             return []
-        base_url = ('%s/%s' % (self.context.absolute_url(),
-                               self.add_view))
-        urls = []
 
+        urls = []
         for tipologia in self.context.getTipologia():
             first_slot = self.prenotazioni.get_first_slot(tipologia,
                                                           day,
                                                           period)
             if first_slot:
-                booking_date = str(hm2DT(day,
-                                         first_slot.start().replace(':', '')))
-                options = {'form.booking_date': booking_date,
-                           'form.tipology': tipologia['name'],
-                           }
-                urls.append({'text': '%s (%s)' % (tipologia['name'],
-                                                  first_slot.start()),
-                             'href': ('%s?%s' % (base_url, urlencode(options)))
-                             })
+                urls.append(self.construct_booking_url(tipologia,
+                                                       day,
+                                                       first_slot))
         return urls
 
     def __call__(self):

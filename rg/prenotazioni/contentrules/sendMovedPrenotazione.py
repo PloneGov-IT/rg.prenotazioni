@@ -14,6 +14,7 @@ from rg.prenotazioni import prenotazioniMessageFactory as _
 
 
 class IMovedPrenotazioneAction(Interface):
+
     """Definition of the configuration available for a mail action
     """
 
@@ -21,27 +22,28 @@ class IMovedPrenotazioneAction(Interface):
         title=_(u"Subject"),
         description=_(u"Subject of the message"),
         required=True
-        )
+    )
 
     source = schema.TextLine(
         title=_(u"Sender email"),
         description=_('source_help',
                       default=u"The email address that sends the email. If no email is "
                               u"provided here, it will use the address from portal."),
-         required=False
-         )
+        required=False
+    )
 
     message = schema.Text(
         title=_(u"Message"),
         description=_('message_help',
-            default=u"Type in here the message that you want to mail. Some "
-                    u"defined content can be replaced: ${title} will be replaced with booking title (user fullname). ${date} will be replaced with booking new date. ${url} will be replaced by the booking url. ${portal} will be replaced by the title "
-                    u"of the portal."),
+                      default=u"Type in here the message that you want to mail. Some "
+                      u"defined content can be replaced: ${title} will be replaced with booking title (user fullname). ${date} will be replaced with booking new date. ${url} will be replaced by the booking url. ${portal} will be replaced by the title "
+                      u"of the portal."),
         required=True
-        )
+    )
 
 
 class MovedPrenotazioneAction(SimpleItem):
+
     """
     The implementation of the action defined before
     """
@@ -59,6 +61,7 @@ class MovedPrenotazioneAction(SimpleItem):
 
 
 class MailActionExecutor(object):
+
     """
     The executor for this action.
     """
@@ -101,7 +104,9 @@ class MailActionExecutor(object):
         obj = self.event.object
         dest = obj.getEmail()
         message = self.element.message
-        message = message.replace("${date}", plone_view.toLocalizedTime(obj.getData_prenotazione()))
+        message = message.replace(
+            "${date}",
+            plone_view.toLocalizedTime(obj.getData_prenotazione()))
         message = message.replace("${url}", obj.absolute_url())
         message = message.replace("${title}", self.check_uni(obj.Title()))
         message = message.replace("${portal}", self.check_uni(portal.Title()))
@@ -114,23 +119,25 @@ class MailActionExecutor(object):
         try:
             # sending mail in Plone 4
             mailhost.send(message, mto=dest, mfrom=source,
-                    subject=subject, charset=email_charset)
+                          subject=subject, charset=email_charset)
         except:
-            #sending mail in Plone 3
+            # sending mail in Plone 3
             mailhost.secureSend(message, dest, source,
-                    subject=subject, subtype='plain',
-                    charset=email_charset, debug=False)
+                                subject=subject, subtype='plain',
+                                charset=email_charset, debug=False)
 
         return True
 
 
 class MovedPrenotazioneAddForm(AddForm):
+
     """
     An add form for the mail action
     """
     form_fields = form.FormFields(IMovedPrenotazioneAction)
     label = _(u"Add moved booking Mail Action")
-    description = _(u"A mail action that sends email notify when a booking is moved in an other slot.")
+    description = _(
+        u"A mail action that sends email notify when a booking is moved in an other slot.")
     form_name = _(u"Configure element")
 
     def create(self, data):
@@ -140,10 +147,12 @@ class MovedPrenotazioneAddForm(AddForm):
 
 
 class MovedPrenotazioneEditForm(EditForm):
+
     """
     An edit form for the mail action
     """
     form_fields = form.FormFields(IMovedPrenotazioneAction)
     label = _(u"Edit moved booking Mail Action")
-    description = _(u"A mail action that sends email notify when a booking is moved in an other slot.")
+    description = _(
+        u"A mail action that sends email notify when a booking is moved in an other slot.")
     form_name = _(u"Configure element")

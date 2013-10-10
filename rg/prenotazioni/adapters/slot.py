@@ -6,22 +6,26 @@ from zope.interface.declarations import implements
 
 
 class ISlot(Interface):
+
     '''
     Interface for a Slot object
     '''
 
 
 class LowerEndpoint(int):
+
     ''' Lower Endpoint
     '''
 
 
 class UpperEndpoint(int):
+
     ''' Upper Endpoint
     '''
 
 
 class BaseSlot(Interval):
+
     ''' Overrides and simplifies pyinter.Interval
     '''
     implements(ISlot)
@@ -69,7 +73,7 @@ class BaseSlot(Interval):
         ''' Check if this should be True
         '''
         if (isinstance(self._lower_value, int) and
-            isinstance(self._upper_value, int)):
+                isinstance(self._upper_value, int)):
             return 1
         else:
             return 0

@@ -22,18 +22,18 @@ PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
 
     atapi.TextField(
         'descriptionAgenda',
-         required=False,
-         searchable=True,
-         storage=atapi.AnnotationStorage(migrate=True),
-         validators=('isTidyHtmlWithCleanup',),
-         default_output_type='text/x-html-safe',
-         widget=atapi.RichWidget(
-                   description=("Inserire il testo di presentazione "
-                                "dell'agenda corrente"),
-                   label=_(u'Descrizione Agenda', default=u''),
-                   rows=10,
-                   allow_file_upload=zconf.ATDocument.allow_document_upload),
-   ),
+        required=False,
+        searchable=True,
+        storage=atapi.AnnotationStorage(migrate=True),
+        validators=('isTidyHtmlWithCleanup',),
+        default_output_type='text/x-html-safe',
+        widget=atapi.RichWidget(
+            description=("Inserire il testo di presentazione "
+                         "dell'agenda corrente"),
+            label=_(u'Descrizione Agenda', default=u''),
+            rows=10,
+            allow_file_upload=zconf.ATDocument.allow_document_upload),
+    ),
 
     atapi.DateTimeField(
         'daData',
@@ -73,8 +73,8 @@ PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
             columns={
                 "giorno": FixedColumn("Giorno"),
                 "inizio_m": SelectColumn("Ora inizio mattina",
-                                          vocabulary="vocOreInizio",
-                                          default=""),
+                                         vocabulary="vocOreInizio",
+                                         default=""),
                 "end_m": SelectColumn("Ora fine mattina",
                                       vocabulary="vocOreInizio",
                                       default=""),
@@ -129,8 +129,8 @@ PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
             columns={
                 "typology": Column(_(u"Typology name"), default=""),
                 "duration": SelectColumn(_(u"Duration value"),
-                                          vocabulary="vocDurataIncontro",
-                                          default=""),
+                                         vocabulary="vocDurataIncontro",
+                                         default=""),
             }
         ),
         required=True,
@@ -161,7 +161,7 @@ PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
                                   u'account for slot allocation. '
                                   u'Each line should match a corresponding '
                                   u'line in the "Gates" field'
-                         ),
+                          ),
         ),
         required=False,
         default=[],
@@ -173,7 +173,7 @@ PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
         widget=atapi.StringWidget(
             label=_(u'Email del responsabile'),
             description=_(u"Inserisci l'indirizzo email del responsabile "
-                           "delle prenotazioni"),
+                          "delle prenotazioni"),
             validator=('isEmail',),
             size=50),
     ),
@@ -207,6 +207,7 @@ PrenotazioniFolderSchema['excludeFromNav'].schemata = 'default'
 
 
 class PrenotazioniFolder(BaseFolder):
+
     """Description of the Example Type"""
     implements(IPrenotazioniFolder)
 

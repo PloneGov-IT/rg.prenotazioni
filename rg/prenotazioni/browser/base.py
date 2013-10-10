@@ -5,6 +5,7 @@ from rg.prenotazioni.adapters.conflict import IConflictManager
 
 
 class BaseView(BrowserView):
+
     ''' base view for rg.prenotazioni
 
     Give some handy cached methods
@@ -24,4 +25,4 @@ class BaseView(BrowserView):
         '''
         Return the conflict manager for this context
         '''
-        return  IConflictManager(self.context)
+        return IConflictManager(self.context)

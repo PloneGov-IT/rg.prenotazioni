@@ -19,6 +19,7 @@ from rg.prenotazioni.browser import week
 
 
 class PrenotazioniFolderView(week.View):
+
     """Default view of a PrenotazioniFolder
     """
 
@@ -59,10 +60,10 @@ class PrenotazioniFolderView(week.View):
         pc = getToolByName(self.context, 'portal_catalog', None)
         giorno = DateTime(day.strftime('%Y/%m/%d') + ' ' + orario + ':00')
         prenotazioni = pc.unrestrictedSearchResults(
-                           portal_type='Prenotazione',
-                           Date=giorno,
-                           path='/'.join(self.context.getPhysicalPath()
-                       )
+            portal_type='Prenotazione',
+            Date=giorno,
+            path='/'.join(self.context.getPhysicalPath()
+                          )
         )
         return prenotazioni
 
@@ -104,8 +105,9 @@ class PrenotazioniFolderView(week.View):
 
     def canEditPrenotazione(self, prenotazione, member):
         try:
-            if prenotazione and member.has_permission(permissions.ModifyPortalContent,
-                                                      prenotazione.getObject()):
+            if prenotazione and member.has_permission(
+                permissions.ModifyPortalContent,
+                    prenotazione.getObject()):
                 return True
         except Unauthorized:
             pass
@@ -144,8 +146,10 @@ class PrenotazioniFolderView(week.View):
             p = int(day['num_p'])
         except:
             span = self.context.getDurata()
-            mdiff = (int(day.get('end_m', '0')) - int(day.get('inizio_m', '0')))
-            pdiff = (int(day.get('end_p', '0')) - int(day.get('inizio_p', '0')))
+            mdiff = (int(day.get('end_m', '0'))
+                     - int(day.get('inizio_m', '0')))
+            pdiff = (int(day.get('end_p', '0'))
+                     - int(day.get('inizio_p', '0')))
             m = mdiff / span
             p = pdiff / span
         return ([x for x in range(0, m)], [x for x in range(0, p)])
@@ -164,6 +168,7 @@ class PrenotazioniFolderView(week.View):
 
 
 class MovePrenotazione(BaseView):
+
     """
     View to move a prenotazione (save data in session)
     """
@@ -173,17 +178,19 @@ class MovePrenotazione(BaseView):
         '''
         Return the conflict manager for this context
         '''
-        return  IConflictManager(self.context)
+        return IConflictManager(self.context)
 
     def __call__(self, *args):
         uid = self.request.get('UID', '')
         self.request.SESSION.set('UID', uid)
         pu = getToolByName(self.context, 'plone_utils')
-        pu.addPortalMessage(_(u"Seleziona la data nella quale spostare l'appuntamento"))
+        pu.addPortalMessage(
+            _(u"Seleziona la data nella quale spostare l'appuntamento"))
         self.request.RESPONSE.redirect(self.context.absolute_url())
 
 
 class SavePrenotazione(BrowserView):
+
     """
     View to fix a prenotazione in another date
     """
@@ -193,7 +200,7 @@ class SavePrenotazione(BrowserView):
         '''
         Return the conflict manager for this context
         '''
-        return  IConflictManager(self.context)
+        return IConflictManager(self.context)
 
     def move(self):
         '''
@@ -240,9 +247,11 @@ class SavePrenotazione(BrowserView):
 
 
 class CancelSpostamento(BrowserView):
+
     """
     View to cancel the prenotazione move (deletes data in session)
     """
+
     def __call__(self, *args):
         self.request.SESSION.set('UID', '')
         self.request.RESPONSE.redirect(self.context.absolute_url())

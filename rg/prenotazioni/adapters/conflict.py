@@ -7,6 +7,7 @@ from zope.interface.declarations import implements
 
 
 class IConflictManager(Interface):
+
     '''
     Interface for a booker
     '''
@@ -85,8 +86,6 @@ class ConflictManager(object):
 
         :param date: a datetime object
         '''
-
-
 
     def has_free_slots(self, date):
         '''

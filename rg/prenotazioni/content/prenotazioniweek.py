@@ -10,6 +10,7 @@ PrenotazioniWeekSchema = BaseFolderSchema.copy()
 
 
 class PrenotazioniWeek(BaseNoNavFolder):
+
     """Prenotazioni week folder"""
     implements(IPrenotazioniWeek)
 
