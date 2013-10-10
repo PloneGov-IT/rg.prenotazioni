@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from Products.CMFCore.utils import getToolByName
 from datetime import date, timedelta
+from plone import api
 from plone.memoize.view import memoize
 from rg.prenotazioni.browser.base import BaseView
 from rg.prenotazioni.browser.prenotazioni_context_state import hm2DT
 from urllib import urlencode
-from plone.api.content import get_view
 
 
 class View(BaseView):
@@ -26,7 +26,7 @@ class View(BaseView):
     def localized_time(self):
         ''' Facade for context/@@plone/toLocalizedTime
         '''
-        return get_view('plone', self.context, self.request).toLocalizedTime
+        return api.content.get_view('plone', self.context, self.request).toLocalizedTime
 
     def DT2time(self, value):
         '''
@@ -34,6 +34,26 @@ class View(BaseView):
         :param value: a DateTime object
         '''
         return self.localized_time(value, time_only=True)
+
+    @property
+    @memoize
+    def user_can_manage(self):
+        ''' States if the authenticated user can manage this context
+        '''
+        if api.user.is_anonymous():
+            return False
+        permissions = api.user.get_permissions(obj=self.context)
+        return permissions.get('Modify portal content', False)
+
+    @property
+    @memoize
+    def periods(self):
+        ''' Return the periods
+        '''
+        if self.user_can_manage:
+            return ('morning', 'afternoon', 'stormynight')
+        else:
+            return ('morning', 'afternoon')
 
     @property
     @memoize

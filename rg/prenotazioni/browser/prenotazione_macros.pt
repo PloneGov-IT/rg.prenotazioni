@@ -22,7 +22,8 @@
           tal:attributes="class python:day==view.actual_date and 'day selected' or 'day'">
         <ul class="plain period" 
             tal:define="slots python:view.prenotazioni.get_slots_in_day_period(day, period)">
-          <li tal:condition="interval">
+          <li class="interval"
+            tal:condition="python:interval and period!='stormynight'">
             From <tal:from replace="interval/start" />
             to <tal:from replace="interval/stop" />
           </li>
@@ -30,25 +31,22 @@
             <div tal:define="booking nocall:slot/context"
                  tal:attributes="class python:view.prenotazioni.get_state(booking)">
               <h3>
-                <a href="" 
-                   tal:attributes="href booking/absolute_url"
-                   tal:content="booking/Title">
+                <a href=""
+                   tal:omit-tag="not:view/user_can_manage"
+                   tal:attributes="href booking/absolute_url">
+                    <tal:busy condition="not:view/user_can_manage">Busy</tal:busy>
+                    <tal:from replace="python:view.DT2time(booking.getData_prenotazione())" />
+                    &mdash;
+                    <tal:to replace="python:view.DT2time(booking.getData_scadenza())" />
                 </a>
               </h3>
-              <p tal:content="booking/getGate">Gate</p>
-              <p tal:content="booking/getTipologia_prenotazione">Tipology</p>
-              <p>
-                <span tal:content="python:view.DT2time(booking.getData_prenotazione())" />
-                &mdash;
-                <span tal:content="python:view.DT2time(booking.getData_scadenza())" />
-              </p>
             </div>
           </li>
         </ul>
       </td>
     </tal:days>
   </tr>
-  <tr>
+  <tr tal:condition="python:period!='stormynight'">
     <td></td>
     <tal:days repeat="day view/actual_week_days">
       <td tal:define="booking_urls python:view.get_booking_urls(day, period);">

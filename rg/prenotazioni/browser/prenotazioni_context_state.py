@@ -157,6 +157,7 @@ class PrenotazioniContextState(BrowserView):
         return {'morning': BaseSlot(inizio_m, end_m),
                 'afternoon': BaseSlot(inizio_p, end_p),
                 'day': BaseSlot(day_start, day_end),
+                'stormynight': BaseSlot(0, 86400),
                 }
 
     @property
@@ -193,8 +194,9 @@ class PrenotazioniContextState(BrowserView):
         :param booking_date: a date as a datetime or a string
         '''
         day_folder = self.booker.get_container({'booking_date': booking_date})
-        query = {'portal_type': self.booker.portal_type}
-        bookings = day_folder.listFolderContents(query)
+        allowed_portal_type = self.booker.portal_type
+        bookings = [item[1] for item in day_folder.items()
+                    if item[1].portal_type == allowed_portal_type]
         bookings.sort(key=lambda x: x.getData_prenotazione())
         return bookings
 
@@ -217,8 +219,18 @@ class PrenotazioniContextState(BrowserView):
         :param period: a string
         '''
         interval = self.get_day_intervals(booking_date)[period]
+        if period == 'stormynight':
+            allowed_review_states = ['refused']
+        else:
+            allowed_review_states = ['pending', 'published']
+        # all slots
         slots = self.get_slots_in_day_folder(booking_date)
-        return [slot for slot in slots if slot in interval]
+        # the ones in the interval
+        slots = [slot for slot in slots if slot in interval]
+        # the one with the allowed review_state
+        slots = [slot for slot in slots
+                 if self.get_state(slot.context) in allowed_review_states]
+        return slots
 
     @memoize
     def get_slots_in_day_period_by_gate(self, booking_date, period='day'):

@@ -89,8 +89,34 @@ td.selected {
   margin-right: 1em;
 }
 
+/** Week view styles **/
+table#week {
+  margin: auto;
+  width: 100%;
+}
+
+table#week th {
+  width: 12.5%;
+}
+
+table#week td {
+  text-align: center;
+}
+
+#week td h3 {
+  font-size: 1em;
+  background-color: #870000;
+  color:white;
+  width:100%;
+}
+
+#week td h3 > a {
+  width: 100%;
+  display: block;
+}
+
 #week .refused h3 > a {
-  background-color: #ff0000;
+  background-color: #870000;
   color:white;
 }
 
@@ -99,8 +125,18 @@ td.selected {
   color:white;
 }
 
-#week .confirmed h3 > a{
+#week .published h3 > a{
   background-color: #436976;
   color:white;
 }
 
+#content #week ul {
+  list-style-type: none;
+}
+
+#content #week ul li {
+  margin:0;
+}
+#content #week ul li.interval {
+  font-weight: bold;
+}
