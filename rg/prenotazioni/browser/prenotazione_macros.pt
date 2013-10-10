@@ -27,15 +27,21 @@
             to <tal:from replace="interval/stop" />
           </li>
           <li tal:repeat="slot slots">
-            <div tal:define="booking nocall:slot/context">
+            <div tal:define="booking nocall:slot/context"
+                 class="booking">
               <h3>
                 <a href="" 
                    tal:attributes="href booking/absolute_url"
                    tal:content="booking/Title">
                 </a>
               </h3>
-              <p tal:content="booking/getData_prenotazione"></p>
-              <p tal:content="booking/getData_scadenza"></p>
+              <p tal:content="booking/getGate">Gate</p>
+              <p tal:content="booking/getTipologia_prenotazione">Tipology</p>
+              <p>
+                <span tal:content="python:view.DT2time(booking.getData_prenotazione())" />
+                &mdash;
+                <span tal:content="python:view.DT2time(booking.getData_scadenza())" />
+              </p>
             </div>
           </li>
         </ul>

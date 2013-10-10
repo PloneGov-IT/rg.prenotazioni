@@ -45,7 +45,7 @@ def hm2seconds(hm):
     if not hm:
         return None
     h, m = hm2handm(hm)
-    return h * 3600 + m * 60
+    return int(h) * 3600 + int(m) * 60
 
 
 class PrenotazioniContextState(BrowserView):
@@ -151,6 +151,32 @@ class PrenotazioniContextState(BrowserView):
                 'afternoon': BaseSlot(inizio_p, end_p),
                 'day': BaseSlot(day_start, day_end),
                 }
+
+    @property
+    @memoize
+    def weektable_boundaries(self):
+        ''' Return the boundaries to draw the week table
+
+        return a dict_like {'morning': slot1,
+                            'afternoon': slot2}
+        '''
+        week_table = self.context.getSettimana_tipo()
+        boundaries = {}
+        for key in ('inizio_m', 'inizio_p'):
+            boundaries[key] = min(day_table[key]
+                                  for day_table in week_table
+                                  if day_table[key])
+        for key in ('end_m', 'end_p'):
+            boundaries[key] = max(day_table[key]
+                                  for day_table in week_table
+                                  if day_table[key])
+        for key, value in boundaries.iteritems():
+            boundaries[key] = hm2seconds(value)
+        return {'morning': BaseSlot(boundaries['inizio_m'],
+                                    boundaries['end_m'],),
+                'afternoon': BaseSlot(boundaries['inizio_p'],
+                                      boundaries['end_p'],),
+        }
 
     @memoize
     def get_bookings_in_day_folder(self, booking_date):

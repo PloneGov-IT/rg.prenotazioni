@@ -24,7 +24,6 @@ i18n:domain="rg.prenotazioni">
                     <span metal:use-macro="python:here.widget('title', mode='view')" />
                 </h1>
                 <div tal:replace="structure provider:plone.belowcontenttitle" />
-                
                 <tal:move condition="not:anonymous"
                           define="moving request/SESSION/UID|nothing;
                                   parent_url parent/absolute_url">
@@ -37,9 +36,7 @@ i18n:domain="rg.prenotazioni">
                            tal:attributes="href string:${parent_url}/annullaSpostamento">Annulla Spostamento</a>
                     </div>
                 </tal:move>
-                
                 <div tal:replace="structure provider:plone.abovecontentbody" />
-                
                 <div class="field" tal:condition="here/Title">
                     <strong i18n:translate="fullname">Fullname:</strong>
                     <span tal:replace="here/Title" />

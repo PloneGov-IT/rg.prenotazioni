@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from Products.CMFCore.utils import getToolByName
-from Products.Archetypes.utils import OrderedDict
 from datetime import date, timedelta
 from plone.memoize.view import memoize
 from rg.prenotazioni.browser.base import BaseView
-from urllib import urlencode
 from rg.prenotazioni.browser.prenotazioni_context_state import hm2DT
+from urllib import urlencode
+from plone.api.content import get_view
 
 
 class View(BaseView):
@@ -20,6 +20,20 @@ class View(BaseView):
         ''' The translation_service tool
         '''
         return getToolByName(self.context, 'translation_service')
+
+    @property
+    @memoize
+    def localized_time(self):
+        ''' Facade for context/@@plone/toLocalizedTime
+        '''
+        return get_view('plone', self.context, self.request).toLocalizedTime
+
+    def DT2time(self, value):
+        '''
+        Converts a DateTime in to a localized time
+        :param value: a DateTime object
+        '''
+        return self.localized_time(value, time_only=True)
 
     @property
     @memoize
