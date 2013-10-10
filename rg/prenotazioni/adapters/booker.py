@@ -6,6 +6,7 @@ from random import choice
 from rg.prenotazioni.config import MIN_IN_DAY
 from zope.component import Interface
 from zope.interface.declarations import implements
+from rg.prenotazioni.adapters.slot import BaseSlot
 
 
 class IBooker(Interface):
@@ -51,12 +52,19 @@ class Booker(object):
         Find which gate is les busy the day of the booking
         '''
         pcs = self.context.restrictedTraverse('@@prenotazioni_context_state')
-        counter = pcs.gates_stats_in_day(data_prenotazione, only_free=True)
-        if not counter:
-            return ''
-        min_times = min(counter.keys())
+
+        availability = (pcs
+                        .get_gates_availability_in_day_period(data_prenotazione
+                                                                .asdatetime()))
+        # Create a dictionary where keys is the time the gate is free, and
+        # value is a list of gates
+        free_time_map = {}
+        for gate, free_slots in availability.iteritems():
+            free_time = sum(map(BaseSlot.__len__, free_slots))
+            free_time_map.setdefault(free_time, []).append(gate)
         # Get a random choice among the less busy one
-        return choice(counter[min_times])
+        max_free_time = max(free_time_map.keys())
+        return choice(free_time_map[max_free_time])
 
     def get_available_gate(self, data_prenotazione):
         '''

@@ -139,10 +139,17 @@ class PrenotazioniContextState(BrowserView):
         weekday = day.weekday()
         week_table = self.context.getSettimana_tipo()
         day_table = week_table[weekday]
-        return {'morning': BaseSlot(hm2DT(day, day_table['inizio_m']),
-                                    hm2DT(day, day_table['end_m'])),
-                'afternoon': BaseSlot(hm2DT(day, day_table['inizio_p']),
-                                      hm2DT(day, day_table['end_p']))
+        # Convert hours to DateTime
+        inizio_m = hm2DT(day, day_table['inizio_m'])
+        end_m = hm2DT(day, day_table['end_m'])
+        inizio_p = hm2DT(day, day_table['inizio_p'])
+        end_p = hm2DT(day, day_table['end_p'])
+        # Get's the daily schedule
+        day_start = inizio_m or inizio_p
+        day_end = end_p or end_m
+        return {'morning': BaseSlot(inizio_m, end_m),
+                'afternoon': BaseSlot(inizio_p, end_p),
+                'day': BaseSlot(day_start, day_end),
                 }
 
     @memoize
@@ -241,32 +248,6 @@ class PrenotazioniContextState(BrowserView):
             return
         good_slots.sort(key=lambda x: x.lower_value)
         return good_slots[0]
-
-    def gates_stats_in_day(self, booking_date, only_free=False):
-        '''
-        Get's the stats about occupation for today
-
-        This is a dictionary that maps the number of times a gate was busy
-        today with a list of gates, e.g.:
-        counter = {0: ['Gate X']
-                   2: ['Gate 1', 'Gate 2']}
-
-        :param booking_date: a DateTime object
-        '''
-        start = booking_date.strftime('%Y/%m/%d 00:00')
-        stop = booking_date.strftime('%Y/%m/%d 23:59')
-        booked_gates = [x._unrestrictedGetObject().getGate()
-                        for x
-                        in (self.conflict_manager
-                            .search_bookings_in_day(start, stop))]
-        stats = {}
-        if only_free:
-            gates = self.get_free_gates_in_slot(booking_date)
-        else:
-            gates = self.get_gates()
-        for gate in gates:
-            stats.setdefault(booked_gates.count(gate), []).append(gate)
-        return stats
 
     def __call__(self):
         ''' Return itself
