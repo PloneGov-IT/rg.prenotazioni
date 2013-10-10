@@ -2,6 +2,7 @@
 from DateTime import DateTime
 from Products.Five.browser import BrowserView
 from datetime import date, datetime
+from plone import api
 from plone.memoize.view import memoize
 from rg.prenotazioni.adapters.booker import IBooker
 from rg.prenotazioni.adapters.conflict import IConflictManager
@@ -77,6 +78,12 @@ class PrenotazioniContextState(BrowserView):
         Return the conflict manager for this context
         '''
         return IConflictManager(self.context)
+
+    @memoize
+    def get_state(self, context):
+        ''' Facade to the api get_state method
+        '''
+        return api.content.get_state(context)
 
     @property
     @memoize

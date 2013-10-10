@@ -28,7 +28,7 @@
           </li>
           <li tal:repeat="slot slots">
             <div tal:define="booking nocall:slot/context"
-                 class="booking">
+                 tal:attributes="class python:view.prenotazioni.get_state(booking)">
               <h3>
                 <a href="" 
                    tal:attributes="href booking/absolute_url"

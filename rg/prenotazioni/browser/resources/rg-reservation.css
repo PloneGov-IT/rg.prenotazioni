@@ -88,3 +88,19 @@ td.selected {
 .template-prenotazione_print ul.actions li {
   margin-right: 1em;
 }
+
+#week .refused h3 > a {
+  background-color: #ff0000;
+  color:white;
+}
+
+#week .pending h3 > a {
+  background-color: #ffa500;
+  color:white;
+}
+
+#week .confirmed h3 > a{
+  background-color: #436976;
+  color:white;
+}
+
