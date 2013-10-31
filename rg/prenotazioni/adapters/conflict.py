@@ -25,6 +25,14 @@ class ConflictManager(object):
         '''
         self.context = context
 
+    def is_vacation_day(self, date):
+        '''
+        Check if today is a vacation day
+        '''
+        date_it = date.strftime('%d/%m/%Y')
+        festivi = self.context.getFestivi()
+        return date_it in festivi
+
     @property
     @memoize
     def prenotazioni(self):
