@@ -56,6 +56,9 @@ class PrenotazioniContextState(BrowserView):
     This is a view to for checking prenotazioni context state
     '''
     active_review_state = ['published', 'pending']
+    day_type = 'PrenotazioniDay'
+    week_type = 'PrenotazioniWeek'
+    year_type = 'PrenotazioniYear'
 
     @property
     @memoize

@@ -20,9 +20,6 @@ class IBooker(Interface):
 class Booker(object):
     implements(IBooker)
     portal_type = 'Prenotazione'
-    day_type = 'PrenotazioniDay'
-    week_type = 'PrenotazioniWeek'
-    year_type = 'PrenotazioniYear'
 
     def __init__(self, context):
         '''
