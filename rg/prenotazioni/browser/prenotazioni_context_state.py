@@ -7,6 +7,7 @@ from plone.memoize.view import memoize
 from rg.prenotazioni.adapters.booker import IBooker
 from rg.prenotazioni.adapters.conflict import IConflictManager
 from rg.prenotazioni.adapters.slot import ISlot, BaseSlot
+from rg.prenotazioni import get_or_create_obj
 
 
 def hm2handm(hm):
@@ -186,6 +187,20 @@ class PrenotazioniContextState(BrowserView):
                                       boundaries['end_p'],),
         }
 
+    def get_container(self, booking_date):
+        ''' Return the container for bookings in this date
+        '''
+        booking_date = booking_date
+        if isinstance(booking_date, basestring):
+            booking_date = DateTime(booking_date)
+        year_id = booking_date.strftime('%Y')
+        year = get_or_create_obj(self.context, year_id, self.year_type)
+        week_id = booking_date.strftime('%W')
+        week = get_or_create_obj(year, week_id, self.week_type)
+        day_id = booking_date.strftime('%u')
+        day = get_or_create_obj(week, day_id, self.day_type)
+        return day
+
     @memoize
     def get_bookings_in_day_folder(self, booking_date):
         '''
@@ -193,7 +208,7 @@ class PrenotazioniContextState(BrowserView):
 
         :param booking_date: a date as a datetime or a string
         '''
-        day_folder = self.booker.get_container({'booking_date': booking_date})
+        day_folder = self.get_container(booking_date)
         allowed_portal_type = self.booker.portal_type
         bookings = [item[1] for item in day_folder.items()
                     if item[1].portal_type == allowed_portal_type]
@@ -264,7 +279,13 @@ class PrenotazioniContextState(BrowserView):
     def get_tipology_duration(self, tipology):
         ''' Return the seconds for this tipology
         '''
-        return int(tipology['duration']) * 60
+        if isinstance(tipology, dict):
+            return int(tipology['duration']) * 60
+        tipologie = self.context.getTipologia()
+        for t in tipologie:
+            if t['name'] == tipology:
+                return t['duration']
+        return 1
 
     def get_first_slot(self, tipology, booking_date, period='day'):
         '''
@@ -293,6 +314,21 @@ class PrenotazioniContextState(BrowserView):
             return
         good_slots.sort(key=lambda x: x.lower_value)
         return good_slots[0]
+
+    def get_less_used_gates(self, booking_date):
+        '''
+        Find which gate is les busy the day of the booking
+        '''
+        availability = self.get_gates_availability_in_day_period(booking_date)
+        # Create a dictionary where keys is the time the gate is free, and
+        # value is a list of gates
+        free_time_map = {}
+        for gate, free_slots in availability.iteritems():
+            free_time = sum(map(BaseSlot.__len__, free_slots))
+            free_time_map.setdefault(free_time, []).append(gate)
+        # Get a random choice among the less busy one
+        max_free_time = max(free_time_map.keys())
+        return free_time_map[max_free_time]
 
     def __call__(self):
         ''' Return itself

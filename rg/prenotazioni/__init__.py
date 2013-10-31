@@ -6,6 +6,7 @@ from Products.CMFCore import utils
 from datetime import datetime, timedelta
 from logging import getLogger
 from os import environ
+from plone import api
 from rg.prenotazioni import config
 from zope.i18nmessageid import MessageFactory
 import pytz
@@ -42,6 +43,22 @@ def time2timedelta(value):
     return timedelta(hours=hours, minutes=minutes)
 
 
+def get_or_create_obj(folder, key, portal_type):
+    '''
+    Get the object with id key from folder
+    If it does not exist create an object with the given key and portal_type
+
+    :param folder: a Plone folderish object
+    :param key: the key of the child object
+    :param portal_type: the portal_type of the child object
+    '''
+    if key in folder:
+        return folder[key]
+    return api.content.create(type=portal_type,
+                              title=key,
+                              container=folder)
+
+
 def initialize(context):
     """Initializer called when used as a Zope 2 product.
 
@@ -58,11 +75,10 @@ def initialize(context):
     # during ZCML processing, but we do it here again to be explicit. Of
     # course, even if we import the module several times, it is only run
     # once.
-
     content_types, constructors, ftis = atapi.process_types(
         atapi.listTypes(config.PROJECTNAME),
         config.PROJECTNAME)
-
+    ftis  # pyflakes
     # Now initialize all these content types. The initialization process takes
     # care of registering low-level Zope 2 factories, including the relevant
     # add-permission. These are listed in config.py. We use different

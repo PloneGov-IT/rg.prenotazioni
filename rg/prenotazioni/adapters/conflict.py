@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
 from plone.memoize.instance import memoize
 from zope.component import Interface
@@ -73,38 +72,12 @@ class ConflictManager(object):
                          'range': 'min:max'}
         return self.unrestricted_prenotazioni(**query)
 
-    def is_vacation_day(self, date):
-        '''
-        Check if today is a vacation day
-        '''
-        date_it = date.strftime('%d/%m/%Y')
-        festivi = self.context.getFestivi()
-        return date_it in festivi
-
-    def find_first_slot(self, date, period):
-        ''' Find the first slot available
-
-        :param date: a datetime object
-        '''
-
-    def has_free_slots(self, date):
-        '''
-        Calculate free slots
-        '''
-        date = DateTime(date)
-        if self.is_vacation_day(date):
-            return False
-        query = {'Date': date,
-                 'review_state': self.active_review_state}
-        concurrent_prenotazioni = self.unrestricted_prenotazioni(**query)
-        busy_slots = len(concurrent_prenotazioni)
-        limit = self.get_limit()
-        return limit - busy_slots > 0
-
     def conflicts(self, data):
         '''
         Check if we already have a conflictual booking
         '''
-        if not data.get('booking_date'):
-            return False
+        booking_date = data.get('booking_date')
+        availability = (self.prenotazioni
+                        .get_gates_availability_in_day_period(booking_date))
+
         return not self.has_free_slots(data['booking_date'])

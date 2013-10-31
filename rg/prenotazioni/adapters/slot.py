@@ -83,6 +83,7 @@ class BaseSlot(Interval):
         '''
         if isinstance(value, Interval):
             value = [value]
+
         # We filter not overlapping intervals
         good_intervals = [x for x in value if x.overlaps(self)]
         points = []
@@ -94,7 +95,7 @@ class BaseSlot(Interval):
         intervals = []
         for x in points:
             if isinstance(x, LowerEndpoint) and x > start:
-                    points.append(BaseSlot(start, x))
+                    intervals.append(BaseSlot(start, x))
                     # we raise the bar waiting for another stop
                     start = self.upper_value
             elif isinstance(x, UpperEndpoint):
