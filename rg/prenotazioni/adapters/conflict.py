@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
 from plone.memoize.instance import memoize
 from zope.component import Interface
@@ -32,6 +33,20 @@ class ConflictManager(object):
         date_it = date.strftime('%d/%m/%Y')
         festivi = self.context.getFestivi()
         return date_it in festivi
+
+    def has_free_slots(self, date):
+        '''
+        Calculate free slots
+        '''
+        date = DateTime(date)
+        if self.is_vacation_day(date):
+            return False
+        query = {'Date': date,
+                 'review_state': self.active_review_state}
+        concurrent_prenotazioni = self.unrestricted_prenotazioni(**query)
+        busy_slots = len(concurrent_prenotazioni)
+        limit = self.get_limit()
+        return limit - busy_slots > 0
 
     @property
     @memoize
