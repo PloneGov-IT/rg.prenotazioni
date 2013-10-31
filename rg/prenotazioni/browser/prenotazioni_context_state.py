@@ -193,7 +193,6 @@ class PrenotazioniContextState(BrowserView):
     def get_container(self, booking_date):
         ''' Return the container for bookings in this date
         '''
-        booking_date = booking_date
         if isinstance(booking_date, basestring):
             booking_date = DateTime(booking_date)
         year_id = booking_date.strftime('%Y')
