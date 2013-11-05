@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
+from datetime import timedelta
 from plone.memoize.instance import memoize
+from rg.prenotazioni.adapters.slot import BaseSlot
 from zope.component import Interface
 from zope.interface.declarations import implements
 
@@ -16,7 +17,7 @@ class IConflictManager(Interface):
 class ConflictManager(object):
     implements(IConflictManager)
     portal_type = 'Prenotazione'
-    # We consider only this state as active. I.e.: prenotazioni rejected are
+    # We consider only those state as active. I.e.: prenotazioni rejected are
     # not counted!
     active_review_state = ['published', 'pending']
 
@@ -33,20 +34,6 @@ class ConflictManager(object):
         date_it = date.strftime('%d/%m/%Y')
         festivi = self.context.getFestivi()
         return date_it in festivi
-
-    def has_free_slots(self, date):
-        '''
-        Calculate free slots
-        '''
-        date = DateTime(date)
-        if self.is_vacation_day(date):
-            return False
-        query = {'Date': date,
-                 'review_state': self.active_review_state}
-        concurrent_prenotazioni = self.unrestricted_prenotazioni(**query)
-        busy_slots = len(concurrent_prenotazioni)
-        limit = self.get_limit()
-        return limit - busy_slots > 0
 
     @property
     @memoize
@@ -95,12 +82,26 @@ class ConflictManager(object):
                          'range': 'min:max'}
         return self.unrestricted_prenotazioni(**query)
 
+    def get_choosen_slot(self, data):
+        ''' Get's the slot requested by the user
+        '''
+        tipology = data.get('tipology', '')
+        tipology_duration = self.prenotazioni.get_tipology_duration(tipology)
+        start = data.get('booking_date', '')
+        end = start + timedelta(seconds=tipology_duration * 60)
+        slot = BaseSlot(start, end)
+        return slot
+
     def conflicts(self, data):
         '''
         Check if we already have a conflictual booking
         '''
-        booking_date = data.get('booking_date')
+        booking_date = data.get('booking_date', '')
+        slot = self.get_choosen_slot(data)
         availability = (self.prenotazioni
                         .get_gates_availability_in_day_period(booking_date))
-
-        return not self.has_free_slots(data['booking_date'])
+        for gate_slots in availability.itervalues():
+            for gate_slot in gate_slots:
+                if slot in gate_slot:
+                    return False
+        return True

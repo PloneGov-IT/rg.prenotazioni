@@ -105,7 +105,7 @@ class PrenotazioniContextState(BrowserView):
         '''
         Get's the gates, available and unavailable
         '''
-        return self.context.getGates()
+        return self.context.getGates() or ['']
 
     @memoize
     def get_unavailable_gates(self):
@@ -281,12 +281,14 @@ class PrenotazioniContextState(BrowserView):
     def get_tipology_duration(self, tipology):
         ''' Return the seconds for this tipology
         '''
+        if isinstance(tipology, unicode):
+            tipology = tipology.encode('utf8')
         if isinstance(tipology, dict):
             return int(tipology['duration']) * 60
         tipologie = self.context.getTipologia()
         for t in tipologie:
             if t['name'] == tipology:
-                return t['duration']
+                return int(t['duration'])
         return 1
 
     def get_first_slot(self, tipology, booking_date, period='day'):

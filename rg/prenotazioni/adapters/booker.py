@@ -41,7 +41,8 @@ class Booker(object):
                            .get_free_gates_in_slot(data_prenotazione))
         if len(available_gates) == 1:
             return available_gates.pop()
-        return choice(self.prenotazioni.get_less_used_gates())
+        return choice(self.prenotazioni
+                      .get_less_used_gates(data_prenotazione.asdatetime()))
 
     def _create(self, data, force_gate=''):
         ''' Create a Booking object

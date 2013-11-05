@@ -6,6 +6,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
 from datetime import datetime, timedelta
 from five.formlib.formbase import PageForm
+from plone import api
 from plone.app.form.validators import null_validator
 from plone.memoize.view import memoize
 from quintagroup.formlib.captcha import Captcha, CaptchaWidget
@@ -19,7 +20,6 @@ from zope.formlib.interfaces import WidgetInputError
 from zope.interface import Interface
 from zope.interface.declarations import implements
 from zope.schema import Choice, Datetime, TextLine, Text, ValidationError
-from zope.schema.interfaces import IVocabularyFactory
 import re
 
 
@@ -246,3 +246,17 @@ class AddForm(PageForm):
         '''
         target = self.back_to_booking_url
         return self.request.response.redirect(target)
+
+    def __call__(self):
+        ''' Redirects to the context if no data is found in the request
+        '''
+        if self.request.get('form.booking_date', ''):
+            return super(AddForm, self).__call__()
+
+        # we should always have a booking date
+        msg = _('plesa_pick_a_date',
+                "Please select a time slot")
+        api.portal.show_message(message=msg,
+                                request=self.request,
+                                type='error')
+        return self.request.response.redirect(self.back_to_booking_url)
