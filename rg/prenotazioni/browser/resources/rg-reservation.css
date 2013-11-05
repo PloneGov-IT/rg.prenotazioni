@@ -140,3 +140,10 @@ table#week td {
 #content #week ul li.interval {
   font-weight: bold;
 }
+
+/* hide calendar entries */
+dl.portlet ul.navTree li a.contenttype-prenotazioniyear,
+dl.portlet ul.navTree li a.contenttype-prenotazioniweek,
+dl.portlet ul.navTree li a.contenttype-prenotazioniday {
+  display:none;
+}

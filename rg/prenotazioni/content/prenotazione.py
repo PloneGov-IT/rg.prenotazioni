@@ -143,6 +143,7 @@ class Prenotazione(base.ATCTContent):
 
     title = atapi.ATFieldProperty('title')
     description = atapi.ATFieldProperty('description')
+    exclude_from_nav = True
 
     def getPrenotazioniFolder(self):
         """Ritorna l'oggetto prenotazioni folder"""
