@@ -2,18 +2,15 @@
 from DateTime import DateTime
 from Products.CMFPlone.FactoryTool import _createObjectByType
 from plone import api
+from plone.memoize.instance import memoize
 from random import choice
 from rg.prenotazioni.config import MIN_IN_DAY
 from zope.component import Interface
 from zope.interface.declarations import implements
-from rg.prenotazioni.adapters.slot import BaseSlot
-from plone.memoize.instance import memoize
 
 
 class IBooker(Interface):
-
-    '''
-    Interface for a booker
+    ''' Interface for a booker
     '''
 
 
