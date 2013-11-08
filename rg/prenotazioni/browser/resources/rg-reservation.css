@@ -109,12 +109,11 @@ table#week td {
   width:100%;
 }
 
-/*
-#week td h3 > a {
-  width: 100%;
-  display: block;
+#content #week td div.gate {
+  float: left;
+  vertical-align:middle;
+  background-color: #75ad0a;
 }
-*/
 
 #week .slot > .refused {
   background-color: #870000;
@@ -125,23 +124,18 @@ table#week td {
   color:white;
 }
 
+#week .slot > .published {
+  background-color: #436976;
+  color:white;
+}
+
 #week .slot li {
   list-style-type:none;
   display:inline;
 }
 
-#week .published h3 > a{
-  background-color: #436976;
-  color:white;
-}
-
 #content #week td div.interval {
   font-weight: bold;
-}
-#content #week td div.gate {
-  float: left;
-  vertical-align:middle;
-  background-color: #75ad0a;
 }
 
 /* hide calendar entries */
