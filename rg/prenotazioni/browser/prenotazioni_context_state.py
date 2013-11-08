@@ -247,7 +247,11 @@ class PrenotazioniContextState(BrowserView):
         # the one with the allowed review_state
         slots = [slot for slot in slots
                  if self.get_state(slot.context) in allowed_review_states]
-        return slots
+        # fix some css_styles
+        slots_width = (100 / len(self.get_available_gates()))
+        css_styles = ["width:%d%%" % slots_width]
+        [setattr(slot, 'extra_css_styles', css_styles) for slot in slots]
+        return sorted(slots)
 
     @memoize
     def get_slots_in_day_period_by_gate(self, booking_date, period='day'):

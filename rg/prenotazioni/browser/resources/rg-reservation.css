@@ -101,6 +101,7 @@ table#week th {
 
 table#week td {
   text-align: center;
+  vertical-align:top;
 }
 
 #week td h3 {
@@ -115,9 +116,16 @@ table#week td {
   display: block;
 }
 
+#week .refused {
+  background-color: #870000;
+}
 #week .refused h3 > a {
   background-color: #870000;
   color:white;
+}
+
+#week .pending {
+  background-color: #ffa500;
 }
 
 #week .pending h3 > a {
@@ -130,15 +138,13 @@ table#week td {
   color:white;
 }
 
-#content #week ul {
-  list-style-type: none;
+#content #week td div.interval {
+  font-weight: bold;
 }
 
-#content #week ul li {
-  margin:0;
-}
-#content #week ul li.interval {
-  font-weight: bold;
+#content #week td div.slot > div {
+  float: left;
+  vertical-align:middle;
 }
 
 /* hide calendar entries */

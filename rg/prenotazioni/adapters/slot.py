@@ -33,6 +33,7 @@ class BaseSlot(Interval):
     _upper = Interval.CLOSED
     context = None
     gate = ''
+    extra_css_styles = []
 
     @staticmethod
     def time2seconds(value):
@@ -121,6 +122,16 @@ class BaseSlot(Interval):
         ''' Return the starting time
         '''
         return self.value_hr(self._upper_value)
+
+    def css_styles(self):
+        ''' the css styles for this slot
+        '''
+        styles = []
+        if self._upper_value and self._lower_value:
+            height = (self._upper_value - self._lower_value) / 60 * 1.9
+            styles.append("height:%dpx" % height)
+        styles.extend(self.extra_css_styles)
+        return ';'.join(styles)
 
 
 class Slot(BaseSlot):
