@@ -54,9 +54,10 @@ def get_or_create_obj(folder, key, portal_type):
     '''
     if key in folder:
         return folder[key]
-    return api.content.create(type=portal_type,
-                              title=key,
-                              container=folder)
+    with api.env.adopt_user(folder.getOwner().getId()):
+        return api.content.create(type=portal_type,
+                                  title=key,
+                                  container=folder)
 
 
 def initialize(context):
