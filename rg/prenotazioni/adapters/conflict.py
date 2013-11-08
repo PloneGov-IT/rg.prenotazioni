@@ -99,7 +99,7 @@ class ConflictManager(object):
         booking_date = data.get('booking_date', '')
         slot = self.get_choosen_slot(data)
         availability = (self.prenotazioni
-                        .get_gates_availability_in_day_period(booking_date))
+                        .get_free_slots(booking_date))
         for gate_slots in availability.itervalues():
             for gate_slot in gate_slots:
                 if slot in gate_slot:

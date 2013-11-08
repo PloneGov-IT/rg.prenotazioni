@@ -23,49 +23,45 @@
                           style interval/css_styles|nothing"
           >
         <div class="plain period"
-            tal:define="slots python:view.prenotazioni.get_busy_slots_in_period(day, period)">
-          <div class="interval"
-            tal:condition="python:interval and period!='stormynight'">
-            From <tal:from replace="interval/start" />
-            to <tal:from replace="interval/stop" />
-          </div>
-          <div class="slot" tal:repeat="slot slots">
-            <div tal:define="booking nocall:slot/context"
-                 tal:attributes="class python:view.prenotazioni.get_state(booking);
-                                 style slot/css_styles">
-              <h3>
-                <a href=""
-                   tal:omit-tag="not:view/user_can_manage"
-                   tal:attributes="href booking/absolute_url">
-                    <tal:from replace="python:view.DT2time(booking.getData_prenotazione())" />
-                    &mdash;
-                    <tal:to replace="python:view.DT2time(booking.getData_scadenza())" />
-                </a>
-              </h3>
+            tal:define="slots python:view.prenotazioni.get_freebusy_slots(day, period);
+                        booking_urls python:view.get_booking_urls(day, period);">
+          <div class="interval" tal:condition="python:interval and period!='stormynight'"
+               tal:define="gates python:sorted(slots.keys());
+                           gate_ccs_width python:int(100/len(gates))">
+            <tal:from replace="interval/start" /> &mdash <tal:from replace="interval/stop" />
+            <div class="gate" tal:repeat="gate python:sorted(slots.keys())"
+                 tal:attributes="style string:width:${gate_ccs_width}%"
+              >
+              <div class="slot" tal:repeat="slot python:slots[gate]">
+                <div tal:define="booking nocall:slot/context"
+                     tal:attributes="class python:view.prenotazioni.get_state(booking);
+                                     style slot/css_styles">
+                  <h3 tal:condition="nocall:booking">
+                    <a href=""
+                       tal:omit-tag="not:view/user_can_manage"
+                       tal:attributes="href booking/absolute_url">
+                        <tal:from replace="python:view.DT2time(booking.getData_prenotazione())" />
+                        &mdash;
+                        <tal:to replace="python:view.DT2time(booking.getData_scadenza())" />
+                    </a>
+                  </h3>
+                  <tal:booking_urls tal:condition="not:nocall:booking">
+                    <ul tal:condition="booking_urls">
+                      <li tal:repeat="booking_url booking_urls">
+                          <a rel="nofollow"
+                             tal:attributes="href booking_url/href;
+                                             title booking_url/text">+</a>
+                      </li>
+                    </ul>
+                  </tal:booking_urls>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </td>
     </tal:days>
   </tr>
-  <tr tal:condition="python:period!='stormynight'">
-    <td></td>
-    <tal:days repeat="day view/actual_week_days">
-      <td tal:define="booking_urls python:view.get_booking_urls(day, period);">
-        <ul tal:condition="booking_urls">
-          <li tal:repeat="booking_url booking_urls">
-            <a rel="nofollow"
-               tal:attributes="href booking_url/href">
-               <tal:i18n i18n:translate="suggest_booking_for">
-                 Book the first available slot for
-               </tal:i18n>
-               <tal:name replace="booking_url/text" />
-            </a>
-          </li>
-        </ul>
-      </td>
-      </tal:days>
-   </tr>
 </metal:macro>
 
 <!-- A slot for booking -->

@@ -87,6 +87,8 @@ class PrenotazioniContextState(BrowserView):
     def get_state(self, context):
         ''' Facade to the api get_state method
         '''
+        if not context:
+            return
         return api.content.get_state(context)
 
     @property
@@ -231,9 +233,10 @@ class PrenotazioniContextState(BrowserView):
     @memoize
     def get_busy_slots_in_period(self, booking_date, period='day'):
         '''
-        The Slots objects for today
+        The busy slots objects for today: this filters the slots by review
+        state
 
-        :param booking_date: a date as a datetime or a string
+        :param booking_date: a datetime object
         :param period: a string
         '''
         interval = self.get_day_intervals(booking_date)[period]
@@ -248,17 +251,15 @@ class PrenotazioniContextState(BrowserView):
         # the one with the allowed review_state
         slots = [slot for slot in slots
                  if self.get_state(slot.context) in allowed_review_states]
-        # fix some css_styles
-        slots_width = (100 / len(self.get_available_gates()))
-        css_styles = ["width:%d%%" % slots_width]
-        [setattr(slot, 'extra_css_styles', css_styles) for slot in slots]
         return sorted(slots)
 
     @memoize
-    def get_busy_slots_in_period_by_gate(self, booking_date, period='day'):
+    def get_busy_slots(self, booking_date, period='day'):
         ''' This will return the busy slots divided by gate:
 
-        return a dictionary like:
+        :param booking_date: a datetime object
+        :param period: a string
+        :return: a dictionary like:
         {'gate1': [slot1],
          'gate2': [slot2, slot3],
         }
@@ -270,18 +271,43 @@ class PrenotazioniContextState(BrowserView):
         return slots_by_gate
 
     @memoize
-    def get_gates_availability_in_day_period(self, booking_date, period='day'):
-        ''' Return the gates availability
+    def get_free_slots(self, booking_date, period='day'):
+        ''' This will return the free slots divided by gate
+
+        :param booking_date: a datetime object
+        :param period: a string
+        :return: a dictionary like:
+        {'gate1': [slot1],
+         'gate2': [slot2, slot3],
+        }
         '''
         interval = self.get_day_intervals(booking_date)[period]
-        slots_by_gate = self.get_busy_slots_in_period_by_gate(booking_date,
-                                                             period)
+        slots_by_gate = self.get_busy_slots(booking_date, period)
         gates = self.get_gates()
         availability = {}
         for gate in gates:
-            gate_slots = slots_by_gate.get(gate, [])
-            availability[gate] = interval - gate_slots
+            if interval:
+                gate_slots = slots_by_gate.get(gate, [])
+                availability[gate] = interval - gate_slots
+            else:
+                availability[gate] = []
         return availability
+
+    def get_freebusy_slots(self, booking_date, period='day'):
+        ''' This will return all the slots (free and busy) divided by gate
+
+        :param booking_date: a datetime object
+        :param period: a string
+        :return: a dictionary like:
+        {'gate1': [slot1],
+         'gate2': [slot2, slot3],
+        }
+        '''
+        free = self.get_free_slots(booking_date, period)
+        busy = self.get_busy_slots(booking_date, period)
+        keys = set(free.keys() + busy.keys())
+        return {key: sorted(free.get(key, []) + busy.get(key, []))
+                for key in keys}
 
     def get_tipology_duration(self, tipology):
         ''' Return the seconds for this tipology
@@ -306,7 +332,7 @@ class PrenotazioniContextState(BrowserView):
         '''
         if booking_date < self.today:
             return
-        availability = self.get_gates_availability_in_day_period(booking_date,
+        availability = self.get_free_slots(booking_date,
                                                                  period)
         good_slots = []
         duration = self.get_tipology_duration(tipology)
@@ -328,7 +354,7 @@ class PrenotazioniContextState(BrowserView):
         '''
         Find which gate is les busy the day of the booking
         '''
-        availability = self.get_gates_availability_in_day_period(booking_date)
+        availability = self.get_free_slots(booking_date)
         # Create a dictionary where keys is the time the gate is free, and
         # value is a list of gates
         free_time_map = {}
