@@ -10,7 +10,7 @@ def test_suite():
 
         # Demonstrate the main content types
         ztc.ZopeDocFileSuite(
-            'README.txt', package='rg.prenotazioni',
+            'README.rst', package='rg.prenotazioni',
             test_class=base.FunctionalTestCase,
             optionflags=doctest.REPORT_ONLY_FIRST_FAILURE |
             doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS),

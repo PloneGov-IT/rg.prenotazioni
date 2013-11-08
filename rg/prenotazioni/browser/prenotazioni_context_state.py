@@ -229,7 +229,7 @@ class PrenotazioniContextState(BrowserView):
         return map(ISlot, bookings)
 
     @memoize
-    def get_slots_in_day_period(self, booking_date, period='day'):
+    def get_busy_slots_in_period(self, booking_date, period='day'):
         '''
         The Slots objects for today
 
@@ -255,7 +255,7 @@ class PrenotazioniContextState(BrowserView):
         return sorted(slots)
 
     @memoize
-    def get_slots_in_day_period_by_gate(self, booking_date, period='day'):
+    def get_busy_slots_in_period_by_gate(self, booking_date, period='day'):
         ''' This will return the busy slots divided by gate:
 
         return a dictionary like:
@@ -264,7 +264,7 @@ class PrenotazioniContextState(BrowserView):
         }
         '''
         slots_by_gate = {}
-        slots = self.get_slots_in_day_period(booking_date, period)
+        slots = self.get_busy_slots_in_period(booking_date, period)
         for slot in slots:
             slots_by_gate.setdefault(slot.gate, []).append(slot)
         return slots_by_gate
@@ -274,7 +274,7 @@ class PrenotazioniContextState(BrowserView):
         ''' Return the gates availability
         '''
         interval = self.get_day_intervals(booking_date)[period]
-        slots_by_gate = self.get_slots_in_day_period_by_gate(booking_date,
+        slots_by_gate = self.get_busy_slots_in_period_by_gate(booking_date,
                                                              period)
         gates = self.get_gates()
         availability = {}

@@ -23,7 +23,7 @@
                           style interval/css_styles|nothing"
           >
         <div class="plain period"
-            tal:define="slots python:view.prenotazioni.get_slots_in_day_period(day, period)">
+            tal:define="slots python:view.prenotazioni.get_busy_slots_in_period(day, period)">
           <div class="interval"
             tal:condition="python:interval and period!='stormynight'">
             From <tal:from replace="interval/start" />
