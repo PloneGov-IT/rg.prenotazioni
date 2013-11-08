@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  i18n_domain="rg.prenotazioni">
+
+  <include package="plone.app.layout" />
+
+  <browser:viewlet
+    name="rg.prenotazioni.nofollow"
+    view="rg.prenotazioni.browser.interfaces.IDontFollowMe"
+    manager="plone.app.layout.viewlets.interfaces.IHtmlHead"
+    template="nofollow.pt"
+    permission="zope.Public"
+  />
+
+</configure
+>

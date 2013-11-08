@@ -7,7 +7,6 @@ from zExceptions import NotFound
 
 
 class BaseView(BrowserView):
-
     ''' base view for rg.prenotazioni
 
     Give some handy cached methods

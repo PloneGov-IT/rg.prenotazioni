@@ -4,14 +4,17 @@ from datetime import date, timedelta
 from plone import api
 from plone.memoize.view import memoize
 from rg.prenotazioni.browser.base import BaseView
+from rg.prenotazioni.browser.interfaces import IDontFollowMe
 from rg.prenotazioni.browser.prenotazioni_context_state import hm2DT
 from urllib import urlencode
+from zope.interface.declarations import implements
 
 
 class View(BaseView):
-
     ''' Display appointments this week
     '''
+    implements(IDontFollowMe)
+
     add_view = 'creaPrenotazione'
 
     @property
