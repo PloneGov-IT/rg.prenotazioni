@@ -14,7 +14,6 @@ def hm2handm(hm):
     ''' This is a utility function that will return the hour and date of day
     to the value passed in the string hm
 
-    :param day: a datetime date
     :param hm: a string in the format "%H%m"
     '''
     if (not hm) or (not isinstance(hm, basestring)) or (len(hm) != 4):
@@ -41,7 +40,6 @@ def hm2seconds(hm):
     ''' This is a utility function that will return
     to the value passed in the string hm
 
-    :param day: a datetime date
     :param hm: a string in the format "%H%m"
     '''
     if not hm:
@@ -238,6 +236,8 @@ class PrenotazioniContextState(BrowserView):
 
         :param booking_date: a datetime object
         :param period: a string
+        :return: al list of slots
+        [slot1, slot2, slot3]
         '''
         interval = self.get_day_intervals(booking_date)[period]
         if period == 'stormynight':

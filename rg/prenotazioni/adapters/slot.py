@@ -125,10 +125,13 @@ class BaseSlot(Interval):
 
     def css_styles(self):
         ''' the css styles for this slot
+
+        The height of the interval in pixel is equal
+        to the interval length in minnutes
         '''
         styles = []
         if self._upper_value and self._lower_value:
-            height = (self._upper_value - self._lower_value) / 60 * 1.9
+            height = len(self) / 60 * 1.9
             styles.append("height:%dpx" % height)
         styles.extend(self.extra_css_styles)
         return ';'.join(styles)
