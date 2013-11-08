@@ -206,7 +206,7 @@ class PrenotazioniContextState(BrowserView):
     @memoize
     def get_bookings_in_day_folder(self, booking_date):
         '''
-        The Prenotazione objects for today
+        The Prenotazione objects for today, unfiltered but sorted by dates
 
         :param booking_date: a date as a datetime or a string
         '''
@@ -214,11 +214,12 @@ class PrenotazioniContextState(BrowserView):
         allowed_portal_type = self.booker.portal_type
         bookings = [item[1] for item in day_folder.items()
                     if item[1].portal_type == allowed_portal_type]
-        bookings.sort(key=lambda x: x.getData_prenotazione())
+        bookings.sort(key=lambda x: (x.getData_prenotazione(),
+                                     x.getData_scadenza()))
         return bookings
 
     @memoize
-    def get_slots_in_day_folder(self, booking_date):
+    def get_existing_slots_in_day_folder(self, booking_date):
         '''
         The Prenotazione objects for today
 
@@ -241,7 +242,7 @@ class PrenotazioniContextState(BrowserView):
         else:
             allowed_review_states = ['pending', 'published']
         # all slots
-        slots = self.get_slots_in_day_folder(booking_date)
+        slots = self.get_existing_slots_in_day_folder(booking_date)
         # the ones in the interval
         slots = [slot for slot in slots if slot in interval]
         # the one with the allowed review_state
