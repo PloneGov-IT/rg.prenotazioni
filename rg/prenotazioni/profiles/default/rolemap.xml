@@ -7,6 +7,21 @@
       <role name="Contributor" />
       <role name="Site Administrator" />
     </permission>
+    <permission name="rg.prenotazioni: Add PrenotazioniYear" acquire="False">
+      <role name="Manager" />
+      <role name="Contributor" />
+      <role name="Site Administrator" />
+    </permission>
+    <permission name="rg.prenotazioni: Add PrenotazioniWeek" acquire="False">
+      <role name="Manager" />
+      <role name="Contributor" />
+      <role name="Site Administrator" />
+    </permission>
+    <permission name="rg.prenotazioni: Add PrenotazioniDay" acquire="False">
+      <role name="Manager" />
+      <role name="Contributor" />
+      <role name="Site Administrator" />
+    </permission>
     <permission name="rg.prenotazioni: Add Prenotazione" acquire="False">
       <role name="Manager" />
       <role name="Contributor" />

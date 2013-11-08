@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from Products.CMFCore.utils import getToolByName
+from plone import api
 from rg.prenotazioni import prenotazioniLogger as logger
 from rg.prenotazioni.adapters.booker import IBooker
 from rg.prenotazioni.adapters.conflict import IConflictManager
@@ -15,7 +15,11 @@ ANNOTATION_ROOT = 'Archetypes.storage.AnnotationStorage-'
 def upgrade_types(context):
     ''' Upgrade portal_types to read the new PrenotazioniWeek type
     '''
-    portal_setup = getToolByName(context, 'portal_setup')
+    portal_setup = api.portal.get_tool('portal_setup')
+    portal_setup.runImportStepFromProfile(PROFILE_ID, 'factorytool')
+    logger.info('factorytool.xml updated for %s' % PROFILE_ID)
+    portal_setup.runImportStepFromProfile(PROFILE_ID, 'rolemap')
+    logger.info('rolemap.xml updated for %s' % PROFILE_ID)
     portal_setup.runImportStepFromProfile(PROFILE_ID, 'typeinfo')
     logger.info('types.xml updated for %s' % PROFILE_ID)
 
@@ -23,7 +27,7 @@ def upgrade_types(context):
 def fix_container(context):
     ''' Fix the container for Prenotazione object
     '''
-    catalog = getToolByName(context, 'portal_catalog')
+    catalog = api.portal.get_tool('portal_catalog')
     brains = catalog(portal_type="PrenotazioniFolder")
     for brain in brains:
         obj = brain.getObject()
@@ -76,7 +80,7 @@ def get_merge_time(day, span):
 def upgrade_week_values(context):
     ''' Upgrade values of "settimana_tipo" in prenotazioni_folder content type
     '''
-    catalog = getToolByName(context, 'portal_catalog')
+    catalog = api.portal.get_tool('portal_catalog')
     brains = catalog(portal_type="PrenotazioniFolder")
     for brain in brains:
         obj = brain.getObject()
@@ -94,7 +98,7 @@ def set_expiration_date(context):
     date for each reservation
     '''
 
-    catalog = getToolByName(context, 'portal_catalog')
+    catalog = api.portal.get_tool('portal_catalog')
     brains = catalog(portal_type="PrenotazioniFolder")
     for brain in brains:
         obj = brain.getObject()
@@ -122,7 +126,7 @@ def upgrade_tipologia(context):
             value = {'name': value, 'duration': str(duration)}
         return value
 
-    catalog = getToolByName(context, 'portal_catalog')
+    catalog = api.portal.get_tool('portal_catalog')
     brains = catalog(portal_type="PrenotazioniFolder")
     for brain in brains:
         obj = brain.getObject()
@@ -139,6 +143,6 @@ def upgrade_version(context):
     '''
     Just set the version for this step
     '''
-    qi = getToolByName(context, 'portal_quickinstaller')
+    qi = api.portal.get_tool('portal_quickinstaller')
     p = qi.get(PROJECTNAME)
     setattr(p, 'installedversion', VERSION)
