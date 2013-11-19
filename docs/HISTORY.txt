@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.1.1-dev unreleased
+2.1.1 unreleased
 ====================
 - Fix. allow anonymous user to create a booking [nicolasenno]
 
