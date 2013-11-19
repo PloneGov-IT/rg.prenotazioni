@@ -35,6 +35,14 @@
     template="prenotazione.pt"
     permission="zope2.View"
   />
+  
+  <browser:page
+    for="..interfaces.IPrenotazione"
+    name="prenotazione_move"
+    class=".prenotazione_move.MoveForm"
+    template="prenotazione_move.pt"
+    permission="zope2.View"
+  />
 
   <browser:page
     for="..interfaces.IPrenotazioniFolder"
@@ -58,6 +66,7 @@
     class=".prenotazione_add.AddForm"
     permission="zope2.View"
   />
+  
 
   <browser:page
     for="..interfaces.IPrenotazioniFolder"

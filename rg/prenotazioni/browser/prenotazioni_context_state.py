@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 from DateTime import DateTime
 from Products.Five.browser import BrowserView
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from plone import api
 from plone.memoize.view import memoize
+from rg.prenotazioni import get_or_create_obj
 from rg.prenotazioni.adapters.booker import IBooker
 from rg.prenotazioni.adapters.conflict import IConflictManager
 from rg.prenotazioni.adapters.slot import ISlot, BaseSlot
-from rg.prenotazioni import get_or_create_obj
 
 
 def hm2handm(hm):
@@ -321,6 +321,12 @@ class PrenotazioniContextState(BrowserView):
             if t['name'] == tipology:
                 return int(t['duration'])
         return 1
+
+    def get_end_date(self, start_date, tipology):
+        ''' Compute end_date of a slot according to booking date and tipology
+        '''
+        minutes = self.get_tipology_duration(tipology)
+        return start_date + timedelta(minutes=minutes)
 
     def get_first_slot(self, tipology, booking_date, period='day'):
         '''

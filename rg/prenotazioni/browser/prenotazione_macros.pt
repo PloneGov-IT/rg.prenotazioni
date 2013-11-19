@@ -36,7 +36,7 @@
                 <div tal:define="booking nocall:slot/context"
                      tal:attributes="class python:view.prenotazioni.get_state(booking);
                                      style slot/css_styles">
-                  <h3 tal:condition="nocall:booking">
+                  <div tal:condition="nocall:booking">
                     <a href=""
                        tal:omit-tag="not:view/user_can_manage"
                        tal:attributes="href booking/absolute_url">
@@ -44,7 +44,12 @@
                         &mdash;
                         <tal:to replace="python:view.DT2time(booking.getData_scadenza())" />
                     </a>
-                  </h3>
+                    <tal:sposta tal:condition="view/user_can_manage">
+                        <!-- cambia data -->
+                        <a href="" class="modificaPrenotazione" title="Cambia data"
+                            tal:attributes="href string:${booking/absolute_url}/prenotazione_move">sposta</a>
+                    </tal:sposta>
+                  </div>
                   <tal:booking_urls tal:condition="not:nocall:booking">
                     <ul tal:condition="booking_urls">
                       <li tal:repeat="booking_url booking_urls">

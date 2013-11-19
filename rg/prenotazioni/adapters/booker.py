@@ -85,7 +85,7 @@ class Booker(object):
             return self._create(data, force_gate)
 
     def fix_container(self, booking):
-        ''' Take a booking and move it to the right week
+        ''' Take a booking and move it to the right date
         '''
         booking_date = booking.getData_prenotazione().asdatetime()
         old_container = booking.aq_parent
