@@ -3,7 +3,7 @@ Changelog
 
 2.1.1 unreleased
 ====================
-- Fix. allow anonymous user to create a booking [nicolasenno]
+- Fix anonymous users are can now create a booking [nicolasenno]
 
 2.1.1 (2013-11-19)
 ==================
