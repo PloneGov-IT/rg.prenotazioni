@@ -5,8 +5,8 @@ Changelog
 ====================
 - Fix. allow anonymous user to create a booking [nicolasenno]
 
-2.1 (2013-09-12)
-================
+2.1.1 (2013-11-19)
+==================
 - Fix cancel action on new booking [nicolasenno]
 - Fix booking visualization issue on PM time [nicolasenno]
 - Fix check booking not available [nicolasenno]
