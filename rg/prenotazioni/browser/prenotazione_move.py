@@ -95,6 +95,8 @@ class MoveForm(PageForm):
         '''
         Checks if we can book those data
         '''
+        # We inject the tipology of this context
+        data['tipology'] = self.context.getTipologia_prenotazione()
         errors = super(MoveForm, self).validate(action, data)
         conflict_manager = self.prenotazioni_view.conflict_manager
         if conflict_manager.conflicts(data):
@@ -116,7 +118,6 @@ class MoveForm(PageForm):
                                                             tipology)
         self.context.setData_scadenza(data_scadenza)
         notify(MovedPrenotazione(self.context))
-        # self.context.reindexObject()
 
     @property
     @memoize
