@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.1.1-dev unreleased
+====================
+- Fix. allow anonymous user to create a booking [nicolasenno]
+
 2.1 (2013-09-12)
 ================
 - Fix cancel action on new booking [nicolasenno]

@@ -5,7 +5,7 @@ This module contains the tool of rg.prenotazioni
 import os
 from setuptools import setup, find_packages
 
-version = '2.1'
+version = '2.1.1-dev'
 
 tests_require = ['zope.testing']
 
