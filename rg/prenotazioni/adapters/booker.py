@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from DateTime import DateTime
 from Products.CMFPlone.FactoryTool import _createObjectByType
+from plone import api
 from random import choice
 from zope.component import Interface
 from zope.interface.declarations import implements
@@ -46,7 +47,7 @@ class Booker(object):
             return available_gates.pop()
         return self.check_less_used_gates(data_prenotazione)
 
-    def create(self, data, force_gate=''):
+    def _create(self, data, force_gate=''):
         '''
         Create a Booking object
         '''
@@ -69,3 +70,13 @@ class Booker(object):
             at_data['gate'] = force_gate
         obj.processForm(values=at_data)
         return obj
+
+    def create(self, data, force_gate=''):
+        '''
+        Create a Booking object
+
+        Like create but we disable security checks to allow creation
+        for anonymous users
+        '''
+        with api.env.adopt_roles(['Manager', 'Member']):
+            return self._create(data, force_gate)
