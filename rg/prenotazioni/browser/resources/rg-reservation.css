@@ -144,3 +144,13 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniweek,
 dl.portlet ul.navTree li a.contenttype-prenotazioniday {
   display:none;
 }
+
+#week .slot .links a {
+    height:4px;
+    display:block;
+    border-bottom: 1px solid #B1CFB6;
+}
+
+#week .slot .links a:link    {background-color:#008000;}
+#week .slot .links a:visited {background-color:#008000;}
+#week .slot .links a:hover   {background-color:#75AD0A;}

@@ -131,7 +131,7 @@ class BaseSlot(Interval):
         '''
         styles = []
         if self._upper_value and self._lower_value:
-            height = len(self) / 60 * 2.0
+            height = len(self) / 60 * 1.0
             styles.append("height:%dpx" % height)
         styles.extend(self.extra_css_styles)
         return ';'.join(styles)

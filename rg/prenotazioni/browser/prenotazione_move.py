@@ -66,11 +66,17 @@ class MoveForm(PageForm):
                                     self.request)
 
     @memoize
-    def slot_styles(self, booking):
+    def slot_styles(self, slot):
         '''
         Return a css to underline the moved slot
         '''
-        return ("%s") % self.prenotazioni_view.get_state(booking)
+        context = slot.context
+        if not context:
+            return 'links'
+        styles = [self.prenotazioni_view.get_state(context)]
+        if context == self.context:
+            styles.append("links")
+        return " ".join(styles)
 
     def exceedes_date_limit(self, data):
         '''
@@ -136,15 +142,20 @@ class MoveForm(PageForm):
         return ('%s?%s') % (self.prenotazioni_folder.absolute_url(), qs)
 
     @memoize
-    def move_to_slot_url(self, day, slot):
+    def move_to_slot_links(self, day, slot):
         '''
         Returns the url to move the booking in this slot
         '''
-        data = day.strftime("%Y-%m-%d")
-        ora = slot.start()
-        qs = urlencode({'form.actions.move': 1,
-                        'form.booking_date': ("%s %s" % (data, ora))})
-        return ('%s?%s') % (self.request.getURL(), qs)
+        date = day.strftime("%Y-%m-%d")
+        params = {'form.actions.move': 1}
+        times = [slot.value_hr(slot.lower_value + 300 * i) for i in range(len(slot) / 300)]
+        urls = []
+        base_url = self.request.getURL()
+        for t in times:
+            params['form.booking_date'] = " ".join((date, t))
+            qs = urlencode(params)
+            urls.append({'title': t, 'url': '?'.join((base_url, qs))})
+        return urls
 
     @action(_('action_move', u'Move'), name=u'move')
     def action_move(self, action, data):

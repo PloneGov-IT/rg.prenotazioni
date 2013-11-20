@@ -59,7 +59,7 @@
 
         <tal:sposta tal:condition="week_view/user_can_manage">                        
                 <a href="" class="modificaPrenotazione" title="Cambia data"
-                    tal:attributes="href string:${booking/absolute_url}/prenotazione_move">sposta</a>
+                    tal:attributes="href string:${booking/absolute_url}/prenotazione_move"><i class="icon-cut"></i></a>
         </tal:sposta>
       </div>
 
@@ -80,15 +80,15 @@
 <metal:macro metal:define-macro="onmove_slot" i18n:domain="rg.prenotazioni">
   <div class="slot" tal:repeat="slot python:slots[gate]">
     <div tal:define="booking nocall:slot/context"
-         tal:attributes="class python:view.slot_styles(booking);
-                         style slot/css_styles">
-
-         <tal:free_slot tal:condition="not:nocall:booking">
-             <tal:incolla tal:condition="week_view/user_can_manage">
-                    <a href="" class="modificaPrenotazione" title="Cambia data"
-                        tal:attributes="href python:view.move_to_slot_url(day, slot)">incolla</a>
-            </tal:incolla>
-         </tal:free_slot>
+                       tal:attributes="class python:view.slot_styles(slot);
+                                       style slot/css_styles">
+      <tal:free_slot tal:condition="not:nocall:booking">
+        <tal:urls repeat="link python:view.move_to_slot_links(day, slot)">
+          <a href="" title="Cambia data"
+             tal:attributes="href link/url;
+                             title link/title">&nbsp;</a>
+        </tal:urls> 
+      </tal:free_slot>
     </div>
   </div>
 </metal:macro>
