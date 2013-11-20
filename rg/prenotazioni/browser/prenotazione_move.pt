@@ -3,33 +3,22 @@
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       metal:use-macro="context/main_template/macros/master">
 
-    <metal:block fill-slot="content-description"
-                 tal:define="here nocall:view;
-                             prenotazioni_folder nocall:here/prenotazioni_folder;">
-        
-        <tal:show_description 
-                tal:condition="not:nocall:prenotazioni_folder">
-            
-            <div class="documentDescription-box clear-block">
-                <p class="documentDescription">
-                    <tal:block condition="here/Description">
-                        <metal:field use-macro="python:here.widget('description', mode='view')">Description</metal:field>
-                    </tal:block>
-                </p>
-            </div>
-            
-            <div class="documentDescription-box clear-block">
-                <span tal:replace="structure here/getDescriptionAgenda" />
-            </div>
-        </tal:show_description>
-
+    <metal:block fill-slot="content-description">
     </metal:block>
+
+    <tal:comment replace="nothing">
+        In order to make prenotazione_macros available for the context 
+        'prenotazioni_folder' and 'prenotazioni' we replaced the standard 
+        'view' with 'week_view'.
+        Every template which make use of prenotazione_macros has to define week_view
+    </tal:comment>
     
     <metal:block fill-slot="content-core"
-                 tal:define="here nocall:view;
-                             prenotazioni_folder nocall:here/prenotazioni_folder;
+                 tal:define="prenotazioni_folder nocall:view/prenotazioni_folder;
                              prenotazione_macros nocall:prenotazioni_folder/@@prenotazione_macros;
-                             view nocall:prenotazioni_folder/@@prenotazioni_week_view;">
+                             week_view nocall:prenotazioni_folder/@@prenotazioni_week_view;
+                             slot_macro nocall:prenotazione_macros/onmove_slot;
+                             here nocall:prenotazioni_folder;">
 
         <table id="week" class="pren">
           <caption >
@@ -38,17 +27,17 @@
           <thead>
               <tr>
                   <th scope="col">&nbsp;</th>
-                  <tal:days repeat="day view/actual_week_days">
+                  <tal:days repeat="day week_view/actual_week_days">
                       <th scope="col" tal:content="python:day.strftime('%d')">Lunedi</th>
                   </tal:days>
               </tr>
           </thead>
           <tbody>
-              <tal:periods repeat="period view/periods">
+              <tal:periods repeat="period week_view/periods">
                 <metal:macro metal:use-macro="prenotazione_macros/day_period" />
               </tal:periods>
           </tbody>
       </table>
     </metal:block>
-    
+
 </html>

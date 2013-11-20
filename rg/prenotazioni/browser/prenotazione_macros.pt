@@ -1,76 +1,40 @@
 <!-- The macro used to go navigate through the weeks -->
 <metal:macro metal:define-macro="week_navigator" i18n:domain="rg.prenotazioni">
   <a id="prevWeekLink" href="#"rel="nofollow"
-     tal:attributes="href string:${request/getURL}?data=${view/prev_week}"
-     >&larr; settimana precedente</a>
+     tal:attributes="href string:${request/getURL}?data=${week_view/prev_week}">
+     &larr; settimana precedente</a>
+  
   <strong><tal:month i18n:domain="plonelocales"
                      i18n:translate=""
-                     content="view/actual_translated_month" />
-          <tal:year content="view/actual_date/year" /></strong>
+                     content="week_view/actual_translated_month" />
+          <tal:year content="week_view/actual_date/year" /></strong>
+  
   <a id="nextWeekLink" href="#" rel="nofollow"
-     tal:attributes="href string:${request/getURL}?data=${view/next_week}"
-     >settimana successiva &rarr;</a>
+     tal:attributes="href string:${request/getURL}?data=${week_view/next_week}">
+     settimana successiva &rarr;</a>
 </metal:macro>
 
-<!-- The macro that renders a period of the the day (morning, afternoon) -->
-<metal:macro metal:define-macro="day_period" i18n:domain="rg.prenotazioni">
+<metal:macro metal:define-macro="day_period"
+    i18n:domain="rg.prenotazioni">
   <tr>
     <td tal:content="period"></td>
-    <tal:days repeat="day view/actual_week_days">
+    <tal:days repeat="day week_view/actual_week_days">
       <td class="day"
-          tal:define="interval python:view.prenotazioni.get_day_intervals(day)[period]"
-          tal:attributes="class python:day==view.actual_date and 'day selected' or 'day';
+          tal:define="interval python:week_view.prenotazioni.get_day_intervals(day)[period]"
+          tal:attributes="class python:day==week_view.actual_date and 'day selected' or 'day';
                           style interval/css_styles|nothing">
 
         <div class="plain period"
-            tal:define="slots python:view.prenotazioni.get_freebusy_slots(day, period);
-                        booking_urls python:view.get_booking_urls(day, period);">
+            tal:define="slots python:week_view.prenotazioni.get_freebusy_slots(day, period);
+                        booking_urls python:week_view.get_booking_urls(day, period);
+                        on_move nocall:week_view|nothing">
           <div class="interval" tal:condition="python:interval and period!='stormynight'"
                tal:define="gates python:sorted(slots.keys());
                            gate_ccs_width python:int(100/len(gates))">
             <tal:from replace="interval/start" /> &mdash <tal:from replace="interval/stop" />
             <div class="gate" tal:repeat="gate python:sorted(slots.keys())"
                  tal:attributes="style string:width:${gate_ccs_width}%">
-
-              <div class="slot" tal:repeat="slot python:slots[gate]">
-                <div tal:define="booking nocall:slot/context"
-                     tal:attributes="class python:view.prenotazioni.get_state(booking);
-                                     style slot/css_styles">
-                  <div tal:condition="nocall:booking">
-                    <a href=""
-                       tal:omit-tag="not:view/user_can_manage"
-                       tal:attributes="href booking/absolute_url">
-                        <tal:from replace="python:view.DT2time(booking.getData_prenotazione())" />
-                        &mdash;
-                        <tal:to replace="python:view.DT2time(booking.getData_scadenza())" />
-                    </a>
-
-                    <tal:sposta tal:condition="view/user_can_manage">
-                        <!-- cambia data -->
-                        <tal:incolla condition="nocall:prenotazioni_folder|python:True">
-                        <a href="" class="modificaPrenotazione" title="Cambia data"
-                            tal:attributes="href string:${booking/absolute_url}/prenotazione_move">incolla</a>
-                        </tal:incolla>
-                        
-                        <tal:sposta condition="not:nocall:prenotazioni_folder|python:False">
-                        <a href="" class="modificaPrenotazione" title="Cambia data"
-                            tal:attributes="href string:${booking/absolute_url}/prenotazione_move">sposta</a>
-                        </tal:sposta>
-                        
-                    </tal:sposta>
-                  </div>
-
-                  <tal:booking_urls tal:condition="not:nocall:booking">
-                    <ul tal:condition="booking_urls">
-                      <li tal:repeat="booking_url booking_urls">
-                          <a rel="nofollow"
-                             tal:attributes="href booking_url/href;
-                                             title booking_url/text">+</a>
-                      </li>
-                    </ul>
-                  </tal:booking_urls>
-                </div>
-              </div>
+                 <metal:macro metal:use-macro="slot_macro" />
             </div>
           </div>
         </div>
@@ -79,58 +43,52 @@
   </tr>
 </metal:macro>
 
+<metal:macro metal:define-macro="manager_slot" i18n:domain="rg.prenotazioni">
+  <div class="slot" tal:repeat="slot python:slots[gate]">
+    <div tal:define="booking nocall:slot/context"
+         tal:attributes="class python:week_view.prenotazioni.get_state(booking);
+                         style slot/css_styles">
+      <div tal:condition="nocall:booking">
+        <a href=""
+           tal:omit-tag="not:week_view/user_can_manage"
+           tal:attributes="href booking/absolute_url">
+            <tal:from replace="python:week_view.DT2time(booking.getData_prenotazione())" />
+            &mdash;
+            <tal:to replace="python:week_view.DT2time(booking.getData_scadenza())" />
+        </a>
 
-
-<!-- A slot for booking -->
-<!--
-<metal:macro metal:define-macro="booking_slots" i18n:domain="rg.prenotazioni">
-  <dl tal:define="data_ora python:day[1].strftime('%Y/%m/%d')+' '+orario+':00';
-                  has_free_slots python:view.conflict_manager.has_free_slots(data_ora);">
-
-    <metal:booking_slots metal:use-macro="prenotazione_macros/desc_term" />
-    <dd tal:condition="not:has_free_slots">
-        <span class="slotOccupato">Occupato</span>
-    </dd>
-  </dl>
-</metal:macro>
--->
-
-<!-- posso vedere tutte le prenotazioni in quanto ho permessi di edit-->
-<!--
-<metal:macro metal:define-macro="booking_slots_edit" i18n:domain="rg.prenotazioni">
-  <dl tal:define="data_ora python:day[1].strftime('%Y/%m/%d')+' '+orario+':00';
-                  has_free_slots python:view.conflict_manager.has_free_slots(data_ora);">
-
-    <metal:booking_slots metal:use-macro="prenotazione_macros/desc_term" />
-    <tal:repeat repeat="prenotazione prenotazioni">
-      <dd>
-        <tal:display condition="not:uid_spostamento">
-            <a href="" class="state-pending"
-                tal:attributes="href prenotazione/getURL;
-                class string:state-${prenotazione/review_state}"
-                tal:content="prenotazione/Title">Mario Rossi</a>
-            <a href="" class="modificaPrenotazione" title="Cambia data"
-                tal:attributes="href python:here_url+'/spostaPrenotazione?UID='+prenotazione.UID">sposta</a>
-        </tal:display>
-      </dd>
-    </tal:repeat>
-  </dl>
-</metal:macro>
--->
-
-<!--
-<metal:macro metal:define-macro="desc_term" i18n:domain="rg.prenotazioni">
-    <dt tal:define="show_add_button python:view.show_add_button(data_ora);">
-      <tal:orario content="orario">8:00</tal:orario>
-      <tal:has_space condition="has_free_slots">
-        <a href="" class="aggiungiPrenotazione" title="Richiedi prenotazione"
-            tal:condition="python:view.show_add_button(data_ora)"
-            tal:attributes="href python:here_url+'/creaPrenotazione?form.booking_date='+data_ora">+</a>
-        <tal:sposta condition="uid_spostamento">
-          <a href="" class="modificaPrenotazione" title="Sposta qui"
-          tal:attributes="href python:here_url+'/fissaPrenotazione?data_prenotazione='+data_ora">sposta qui</a>
+        <tal:sposta tal:condition="week_view/user_can_manage">                        
+                <a href="" class="modificaPrenotazione" title="Cambia data"
+                    tal:attributes="href string:${booking/absolute_url}/prenotazione_move">sposta</a>
         </tal:sposta>
-      </tal:has_space>
-    </dt>
+      </div>
+
+      <tal:booking_urls tal:condition="not:nocall:booking">
+        <ul tal:condition="booking_urls">
+          <li tal:repeat="booking_url booking_urls">
+              <a rel="nofollow"
+                 tal:attributes="href booking_url/href;
+                                 title booking_url/text">+</a>
+          </li>
+        </ul>
+      </tal:booking_urls>
+    </div>
+  </div>
 </metal:macro>
--->
+
+
+<metal:macro metal:define-macro="onmove_slot" i18n:domain="rg.prenotazioni">
+  <div class="slot" tal:repeat="slot python:slots[gate]">
+    <div tal:define="booking nocall:slot/context"
+         tal:attributes="class python:view.slot_styles(booking);
+                         style slot/css_styles">
+
+         <tal:free_slot tal:condition="not:nocall:booking">
+             <tal:incolla tal:condition="week_view/user_can_manage">
+                    <a href="" class="modificaPrenotazione" title="Cambia data"
+                        tal:attributes="href python:view.move_to_slot_url(day, slot)">incolla</a>
+            </tal:incolla>
+         </tal:free_slot>
+    </div>
+  </div>
+</metal:macro>

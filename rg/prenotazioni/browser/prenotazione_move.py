@@ -65,6 +65,13 @@ class MoveForm(PageForm):
                                     self.prenotazioni_folder,
                                     self.request)
 
+    @memoize
+    def slot_styles(self, booking):
+        '''
+        Return a css to underline the moved slot
+        '''
+        return ("%s") % self.prenotazioni_view.get_state(booking)
+
     def exceedes_date_limit(self, data):
         '''
         Check if we can book this slot or is it too much in the future.
@@ -115,8 +122,9 @@ class MoveForm(PageForm):
         data_scadenza = self.prenotazioni_view.get_end_date(booking_date,
                                                             tipology)
         self.context.setData_scadenza(data_scadenza)
+        self.context.reindexObject()
         notify(MovedPrenotazione(self.context))
-        # self.context.reindexObject()
+
 
     @property
     @memoize
@@ -127,6 +135,17 @@ class MoveForm(PageForm):
                                  .strftime('%d/%m/%Y'))})
         return ('%s?%s') % (self.prenotazioni_folder.absolute_url(), qs)
 
+    @memoize
+    def move_to_slot_url(self, day, slot):
+        '''
+        Returns the url to move the booking in this slot
+        '''
+        data = day.strftime("%Y-%m-%d")
+        ora = slot.start()
+        qs = urlencode({'form.actions.move': 1,
+                        'form.booking_date': ("%s %s" % (data, ora))})
+        return ('%s?%s') % (self.request.getURL(), qs)
+
     @action(_('action_move', u'Move'), name=u'move')
     def action_move(self, action, data):
         '''
@@ -136,9 +155,8 @@ class MoveForm(PageForm):
         msg = _('booking_moved')
         IStatusMessage(self.request).add(msg, 'info')
         booking_date = data['booking_date'].strftime('%d/%m/%Y')
-        qs = urlencode({'data': booking_date,
-                        'uid': self.context.UID()})
-        target = ('%s/@@prenotazione_print?%s'
+        qs = urlencode({'data': booking_date})
+        target = ('%s/prenotazioni_week_view?%s'
                   ) % (self.prenotazioni_folder.absolute_url(), qs)
         return self.request.response.redirect(target)
 

@@ -41,7 +41,7 @@
     name="prenotazione_move"
     class=".prenotazione_move.MoveForm"
     template="prenotazione_move.pt"
-    permission="zope2.View"
+    permission="cmf.ModifyPortalContent"
   />
 
   <browser:page

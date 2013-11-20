@@ -4,11 +4,7 @@
       metal:use-macro="context/main_template/macros/master">
 
     <metal:block fill-slot="content-description">
-        <div id="annullaspostaprenotazione"
-             tal:condition="view/prenotazioni/uid_move_booking">
-            <a title="Annulla Spostamento" href="annullaSpostamento"
-               tal:attributes="href string:${context/absolute_url}/annullaSpostamento">Annulla Spostamento</a>
-        </div>
+
         <div class="documentDescription-box clear-block">
             <p class="documentDescription">
                 <tal:block condition="here/Description">
@@ -16,13 +12,17 @@
                 </tal:block>
             </p>
         </div>
+
         <div class="documentDescription-box clear-block">
             <span tal:replace="structure here/getDescriptionAgenda" />
         </div>
     </metal:block>
+
     <metal:block fill-slot="content-core"
-                 tal:define="prenotazione_macros nocall:here/@@prenotazione_macros;
-                 ">
+                 tal:define="week_view nocall:view;
+                             prenotazione_macros nocall:here/@@prenotazione_macros;
+                             slot_macro nocall:prenotazione_macros/manager_slot;">
+
         <table id="week" class="pren">
           <caption>
             <metal:macro metal:use-macro="prenotazione_macros/week_navigator" />
