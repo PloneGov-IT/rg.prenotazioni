@@ -67,7 +67,7 @@
     permission="zope2.View"
   />
   
-
+  <!--
   <browser:page
     for="..interfaces.IPrenotazioniFolder"
     name="spostaPrenotazione"
@@ -88,6 +88,7 @@
     class=".prenotazionifolder.CancelSpostamento"
     permission="cmf.ModifyPortalContent"
   />
+  -->
 
   <browser:page
     for="..interfaces.IPrenotazioniFolder"

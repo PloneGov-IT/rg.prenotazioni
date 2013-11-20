@@ -20,8 +20,8 @@
       <td class="day"
           tal:define="interval python:view.prenotazioni.get_day_intervals(day)[period]"
           tal:attributes="class python:day==view.actual_date and 'day selected' or 'day';
-                          style interval/css_styles|nothing"
-          >
+                          style interval/css_styles|nothing">
+
         <div class="plain period"
             tal:define="slots python:view.prenotazioni.get_freebusy_slots(day, period);
                         booking_urls python:view.get_booking_urls(day, period);">
@@ -30,8 +30,8 @@
                            gate_ccs_width python:int(100/len(gates))">
             <tal:from replace="interval/start" /> &mdash <tal:from replace="interval/stop" />
             <div class="gate" tal:repeat="gate python:sorted(slots.keys())"
-                 tal:attributes="style string:width:${gate_ccs_width}%"
-              >
+                 tal:attributes="style string:width:${gate_ccs_width}%">
+
               <div class="slot" tal:repeat="slot python:slots[gate]">
                 <div tal:define="booking nocall:slot/context"
                      tal:attributes="class python:view.prenotazioni.get_state(booking);
@@ -44,12 +44,22 @@
                         &mdash;
                         <tal:to replace="python:view.DT2time(booking.getData_scadenza())" />
                     </a>
+
                     <tal:sposta tal:condition="view/user_can_manage">
                         <!-- cambia data -->
+                        <tal:incolla condition="nocall:prenotazioni_folder|python:True">
+                        <a href="" class="modificaPrenotazione" title="Cambia data"
+                            tal:attributes="href string:${booking/absolute_url}/prenotazione_move">incolla</a>
+                        </tal:incolla>
+                        
+                        <tal:sposta condition="not:nocall:prenotazioni_folder|python:False">
                         <a href="" class="modificaPrenotazione" title="Cambia data"
                             tal:attributes="href string:${booking/absolute_url}/prenotazione_move">sposta</a>
+                        </tal:sposta>
+                        
                     </tal:sposta>
                   </div>
+
                   <tal:booking_urls tal:condition="not:nocall:booking">
                     <ul tal:condition="booking_urls">
                       <li tal:repeat="booking_url booking_urls">
@@ -69,7 +79,10 @@
   </tr>
 </metal:macro>
 
+
+
 <!-- A slot for booking -->
+<!--
 <metal:macro metal:define-macro="booking_slots" i18n:domain="rg.prenotazioni">
   <dl tal:define="data_ora python:day[1].strftime('%Y/%m/%d')+' '+orario+':00';
                   has_free_slots python:view.conflict_manager.has_free_slots(data_ora);">
@@ -80,8 +93,10 @@
     </dd>
   </dl>
 </metal:macro>
+-->
 
 <!-- posso vedere tutte le prenotazioni in quanto ho permessi di edit-->
+<!--
 <metal:macro metal:define-macro="booking_slots_edit" i18n:domain="rg.prenotazioni">
   <dl tal:define="data_ora python:day[1].strftime('%Y/%m/%d')+' '+orario+':00';
                   has_free_slots python:view.conflict_manager.has_free_slots(data_ora);">
@@ -90,12 +105,10 @@
     <tal:repeat repeat="prenotazione prenotazioni">
       <dd>
         <tal:display condition="not:uid_spostamento">
-            <!-- esiste la prenotazione -->
             <a href="" class="state-pending"
                 tal:attributes="href prenotazione/getURL;
                 class string:state-${prenotazione/review_state}"
                 tal:content="prenotazione/Title">Mario Rossi</a>
-            <!-- cambia data -->
             <a href="" class="modificaPrenotazione" title="Cambia data"
                 tal:attributes="href python:here_url+'/spostaPrenotazione?UID='+prenotazione.UID">sposta</a>
         </tal:display>
@@ -103,7 +116,9 @@
     </tal:repeat>
   </dl>
 </metal:macro>
+-->
 
+<!--
 <metal:macro metal:define-macro="desc_term" i18n:domain="rg.prenotazioni">
     <dt tal:define="show_add_button python:view.show_add_button(data_ora);">
       <tal:orario content="orario">8:00</tal:orario>
@@ -118,3 +133,4 @@
       </tal:has_space>
     </dt>
 </metal:macro>
+-->

@@ -150,3 +150,10 @@ class MoveForm(PageForm):
         '''
         target = self.back_to_booking_url
         return self.request.response.redirect(target)
+
+    def __call__(self):
+        ''' Hide the portlets before serving the template
+        '''
+        self.request.set('disable_plone.leftcolumn', 1)
+        self.request.set('disable_plone.rightcolumn', 1)
+        return super(MoveForm, self).__call__()
