@@ -74,7 +74,7 @@
       <tal:comment condition="nothing">
         This is for free space
       </tal:comment>
-      <div class="links" condition="not:nocall:booking">
+      <div class="links" tal:condition="not:nocall:booking">
         <tal:urls repeat="link python:week_view.get_booking_urls(day, slot)">
           <a tal:attributes="href link/url;
                              title link/title">&nbsp;</a>

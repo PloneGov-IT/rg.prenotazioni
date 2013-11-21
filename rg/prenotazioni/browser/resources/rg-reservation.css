@@ -129,12 +129,7 @@ table#week td {
   color:white;
 }
 
-#week .slot li {
-  list-style-type:none;
-  display:inline;
-}
-
-#content #week td div.interval {
+#content #week td div.interval, #content #week td div.stormyinterval {
   font-weight: bold;
 }
 
