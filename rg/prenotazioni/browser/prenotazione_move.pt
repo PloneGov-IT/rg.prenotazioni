@@ -29,7 +29,12 @@
             &mdash;
             <span tal:content="python:week_view.localized_time(context.getData_scadenza(), True)" />
           </div>
-          <h3 i18n:translate="">Please move this booking into a new available slot (green area).</h3>
+          <h3 i18n:translate="">
+              Please move this booking into a new available slot (green area)
+              or <a tal:define="new_date python:request.get('data', '')"
+                    tal:attributes="href string:${prenotazioni_folder/absolute_url}?data=${new_date}"
+                    >go back to the calendar</a>.
+          </h3>
 
         </div>
         <table id="week" class="pren">
