@@ -3,6 +3,7 @@
   <version>3000</version>
   <dependencies>
     <dependency>profile-Products.DataGridField:default</dependency>
+    <dependency>profile-collective.fontawesome:default</dependency>
     <dependency>profile-quintagroup.captcha.core:default</dependency>
   </dependencies>
 </metadata>
