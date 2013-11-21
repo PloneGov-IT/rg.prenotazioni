@@ -66,29 +66,6 @@
     class=".prenotazione_add.AddForm"
     permission="zope2.View"
   />
-  
-  <!--
-  <browser:page
-    for="..interfaces.IPrenotazioniFolder"
-    name="spostaPrenotazione"
-    class=".prenotazionifolder.MovePrenotazione"
-    permission="cmf.ModifyPortalContent"
-  />
-
-  <browser:page
-    for="..interfaces.IPrenotazioniFolder"
-    name="fissaPrenotazione"
-    class=".prenotazionifolder.SavePrenotazione"
-    permission="cmf.ModifyPortalContent"
-  />
-
-  <browser:page
-    for="..interfaces.IPrenotazioniFolder"
-    name="annullaSpostamento"
-    class=".prenotazionifolder.CancelSpostamento"
-    permission="cmf.ModifyPortalContent"
-  />
-  -->
 
   <browser:page
     for="..interfaces.IPrenotazioniFolder"
