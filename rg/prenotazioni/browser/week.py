@@ -15,7 +15,7 @@ class View(BaseView):
     '''
     implements(IDontFollowMe)
 
-    add_view = 'creaPrenotazione'
+    add_view = 'prenotazione_add'
 
     @property
     @memoize
