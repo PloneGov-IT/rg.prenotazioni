@@ -338,8 +338,7 @@ class PrenotazioniContextState(BrowserView):
         '''
         if booking_date < self.today:
             return
-        availability = self.get_free_slots(booking_date,
-                                                                 period)
+        availability = self.get_free_slots(booking_date, period)
         good_slots = []
         duration = self.get_tipology_duration(tipology)
 
