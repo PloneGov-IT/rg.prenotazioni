@@ -36,6 +36,11 @@
                  <metal:macro metal:use-macro="slot_macro" />
             </div>
           </div>
+          <div class="stormyinterval" tal:condition="python:period=='stormynight'">
+            <tal:gates tal:repeat="gate python:sorted(slots.keys())">
+              <metal:macro metal:use-macro="prenotazione_macros/stormy_slot" />
+            </tal:gates>
+          </div>
         </div>
       </td>
     </tal:days>
@@ -74,6 +79,27 @@
           <a tal:attributes="href link/url;
                              title link/title">&nbsp;</a>
         </tal:urls>
+      </div>
+    </div>
+  </div>
+</metal:macro>
+
+<!-- This is the html for a slot in the stormynight period -->
+<metal:macro metal:define-macro="stormy_slot" i18n:domain="rg.prenotazioni">
+  <div class="slot" tal:repeat="slot python:slots[gate]">
+    <div tal:define="booking nocall:slot/context" class="links">
+      <div tal:condition="nocall:booking">
+        <a href=""
+           tal:omit-tag="not:week_view/user_can_manage"
+           tal:attributes="href booking/absolute_url">
+            <tal:from replace="python:week_view.DT2time(booking.getData_prenotazione())" />
+            &mdash;
+            <tal:to replace="python:week_view.DT2time(booking.getData_scadenza())" />
+        </a>
+        <tal:sposta tal:condition="week_view/user_can_manage">
+                <a href="" class="modificaPrenotazione" title="Cambia data"
+                    tal:attributes="href string:${booking/absolute_url}/prenotazione_move"><i class="icon-cut"></i></a>
+        </tal:sposta>
       </div>
     </div>
   </div>
