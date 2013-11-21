@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from logging import getLogger
 from os import environ
 from plone import api
+from plone.api.exc import UserNotFoundError
 from rg.prenotazioni import config
 from zope.i18nmessageid import MessageFactory
 import pytz
@@ -54,10 +55,16 @@ def get_or_create_obj(folder, key, portal_type):
     '''
     if key in folder:
         return folder[key]
-    with api.env.adopt_user(folder.getOwner().getId()):
-        return api.content.create(type=portal_type,
-                                  title=key,
-                                  container=folder)
+    try:
+        with api.env.adopt_user(folder.getOwner().getId()):
+            return api.content.create(type=portal_type,
+                                      title=key,
+                                      container=folder)
+    except UserNotFoundError:
+        with api.env.adopt_roles(['Manager']):
+            return api.content.create(type=portal_type,
+                                      title=key,
+                                      container=folder)
 
 
 def initialize(context):
