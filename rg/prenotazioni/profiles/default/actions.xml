@@ -21,8 +21,23 @@
   </object>
 
   <!-- Prenotazione Move -->
+  <object name="prenotazioni_search" meta_type="CMF Action" i18n:domain="rg.prenotazioni">
+   <property name="title" i18n:translate="prenotazioni_search">Search</property>
+   <property name="description" i18n:translate=""></property>
+   <property name="url_expr">
+     string:${plone_context_state/canonical_object_url}/prenotazioni_search
+   </property>
+   <property name="icon_expr"></property>
+   <property name="available_expr">python:getattr(object, "portal_type", "")=='PrenotazioniFolder'</property>
+   <property name="permissions">
+    <element value="Modify portal content"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+
+  <!-- Prenotazione Move -->
   <object name="prenotazione_move" meta_type="CMF Action" i18n:domain="rg.prenotazioni">
-   <property name="title" i18n:translate="vacation_booking">Change date/time</property>
+   <property name="title" i18n:translate="prenotazione_move">Change date/time</property>
    <property name="description" i18n:translate=""></property>
    <property name="url_expr">
      string:${plone_context_state/canonical_object_url}/prenotazione_move

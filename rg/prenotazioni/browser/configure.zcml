@@ -69,6 +69,13 @@
 
   <browser:page
     for="..interfaces.IPrenotazioniFolder"
+    name="prenotazioni_search"
+    class=".prenotazioni_search.SearchForm"
+    permission="cmf.ModifyPortalContent"
+  />
+
+  <browser:page
+    for="..interfaces.IPrenotazioniFolder"
     name="vacation-booking"
     class=".vacations.VacationBooking"
     permission="cmf.ModifyPortalContent"

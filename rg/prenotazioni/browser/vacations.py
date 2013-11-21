@@ -133,6 +133,7 @@ class VacationBooking(PageForm):
         end_time = start_date.asdatetime() + data['end_time']
 
         pcs = self.context.restrictedTraverse('@@prenotazioni_context_state')
+        import pdb;pdb.set_trace()
         slots = pcs.get_slots_in_day(start_date)
         slots = slots['p'] + slots['m']
         slots = [slot for slot in slots if start_time < slot < end_time]
