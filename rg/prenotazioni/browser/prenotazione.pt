@@ -10,13 +10,13 @@ i18n:domain="rg.prenotazioni">
         <metal:main fill-slot="main">
             <tal:main-macro metal:define-macro="main"
             tal:define="context_state nocall:here/@@plone_context_state;
-            portal_state nocall:here/@@plone_portal_state;
-            here_url context_state/object_url;
-            parent context_state/parent;
-            member portal_state/member;
-            anonymous portal_state/anonymous;
-            putils here/plone_utils;
-            ">
+                        portal_state nocall:here/@@plone_portal_state;
+                        here_url context_state/object_url;
+                        parent context_state/parent;
+                        member portal_state/member;
+                        anonymous portal_state/anonymous;
+                        putils here/plone_utils;
+                        ">
 
                 <div tal:replace="structure provider:plone.abovecontenttitle" />
                 <h1 class="documentFirstHeading">
@@ -24,18 +24,6 @@ i18n:domain="rg.prenotazioni">
                     <span metal:use-macro="python:here.widget('title', mode='view')" />
                 </h1>
                 <div tal:replace="structure provider:plone.belowcontenttitle" />
-                <tal:move condition="not:anonymous"
-                          define="moving request/SESSION/UID|nothing;
-                                  parent_url parent/absolute_url">
-                    <div id="spostaprenotazione" tal:condition="not:moving">
-                        <a title="Sposta Prenotazione" href="spostaPrenotazione"
-                        tal:attributes="href string:${parent_url}/spostaPrenotazione?UID=${here/UID}">Sposta Prenotazione</a>
-                    </div>
-                    <div id="spostaprenotazione" tal:condition="moving">
-                        <a title="Annulla Spostamento" href="annullaSpostamento"
-                           tal:attributes="href string:${parent_url}/annullaSpostamento">Annulla Spostamento</a>
-                    </div>
-                </tal:move>
                 <div tal:replace="structure provider:plone.abovecontentbody" />
                 <div class="field" tal:condition="here/Title">
                     <strong i18n:translate="fullname">Fullname:</strong>
