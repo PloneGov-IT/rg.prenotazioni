@@ -11,7 +11,7 @@
   <property name="factory">addPrenotazioniWeek</property>
   <property name="immediate_view">atct_edit</property>
   <property name="global_allow">True</property>
-  <property name="filter_content_types">True</property>
+  <property name="filter_content_types">False</property>
   <property name="allowed_content_types">
     <element value="PrenotazioniDay"/>
   </property>
