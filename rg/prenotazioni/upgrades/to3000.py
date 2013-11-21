@@ -139,6 +139,15 @@ def upgrade_tipologia(context):
                 ' for %s' % PROFILE_ID)
 
 
+def update_actions(context):
+    '''
+    Run generic setup actions.xml
+    '''
+    setup = api.portal.get_tool('portal_setup')
+    setup.runImportStepFromProfile(PROFILE_ID, 'actions')
+    logger.info("actions.xml has been run")
+
+
 def upgrade_version(context):
     '''
     Just set the version for this step

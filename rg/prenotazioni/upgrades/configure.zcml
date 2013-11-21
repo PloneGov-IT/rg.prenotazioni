@@ -50,6 +50,11 @@
     />
 
     <genericsetup:upgradeStep
+      title="Update actions"
+      handler=".to3000.update_actions"
+    />
+
+    <genericsetup:upgradeStep
       title="Upgrade version"
       handler=".to3000.upgrade_version"
     />
