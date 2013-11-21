@@ -66,10 +66,10 @@ class View(BaseView):
         """ restituisce il nome del mese e l'anno della data in request
         """
         day = self.request.get('data', '')
-        if day:
+        try:
             day_list = day.split('/')
             data = date(int(day_list[2]), int(day_list[1]), int(day_list[0]))
-        else:
+        except (ValueError, IndexError):
             data = self.prenotazioni.today
         return data
 
