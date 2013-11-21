@@ -128,7 +128,7 @@ PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
                                   u"If you do not provide this field, "
                                   u"not type selection will be available"),
             columns={
-                "typology": Column(_(u"Typology name"),
+                "name": Column(_(u"Typology name"),
                                    required=True,
                                    default=""),
                 "duration": SelectColumn(_(u"Duration value"),
@@ -137,7 +137,7 @@ PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
                                          default=""),
             }
         ),
-        validators=('isDataGridFilled',),
+        validators=('isColumnFilled', 'isDataGridFilled', ),
         required=True,
     ),
 

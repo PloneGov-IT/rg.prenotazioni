@@ -29,7 +29,9 @@ class View(BaseView):
     def localized_time(self):
         ''' Facade for context/@@plone/toLocalizedTime
         '''
-        return api.content.get_view('plone', self.context, self.request).toLocalizedTime
+        return api.content.get_view('plone',
+                                    self.context,
+                                    self.request).toLocalizedTime
 
     def DT2time(self, value):
         '''
@@ -135,41 +137,24 @@ class View(BaseView):
         '''
         return ('%s/%s' % (self.context.absolute_url(), self.add_view))
 
-    def construct_booking_url(self, tipologia, day, first_slot):
-        ''' Construct the booking url for a slot and tipologia
-
-        :return: a dict like this {'text': 'Tipologia name (hh:mm)',
-                                   'href': 'http://......'}
-        '''
-        tipologia_name = tipologia['name']
-        if isinstance(tipologia_name, unicode):
-            tipologia_name = tipologia_name.encode('utf8')
-        booking_date = str(hm2DT(day, first_slot.start().replace(':', '')))
-        options = {'form.booking_date': booking_date,
-                   'form.tipology': tipologia_name,
-                   }
-        return {'text': '%s (%s)' % (tipologia_name, first_slot.start()),
-                'href': ('%s?%s' % (self.base_booking_url, urlencode(options)))
-        }
-
-    def get_booking_urls(self, day, period):
-        ''' Returns, if possible, the booking URL
+    def get_booking_urls(self, day, slot):
+        ''' Returns, if possible, the booking urls
         '''
         # we have some conditions to check
         if not self.isValidDay(day):
             return []
-        if not self.prenotazioni.get_day_intervals(day)[period]:
-            return []
-
+        date = day.strftime("%Y-%m-%d")
+        params = {}
+        times = [slot.value_hr(slot.lower_value + 300 * i)
+                 for i in range(len(slot) / 300)]
         urls = []
-        for tipologia in self.context.getTipologia():
-            first_slot = self.prenotazioni.get_first_slot(tipologia,
-                                                          day,
-                                                          period)
-            if first_slot:
-                urls.append(self.construct_booking_url(tipologia,
-                                                       day,
-                                                       first_slot))
+        base_url = self.base_booking_url
+        for t in times:
+            params['form.booking_date'] = " ".join((date, t))
+            qs = urlencode(params)
+            urls.append({'title': t,
+                         'url': '?'.join((base_url, qs))})
+
         return urls
 
     def __call__(self):

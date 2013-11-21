@@ -123,7 +123,7 @@ def upgrade_tipologia(context):
         ''' Check is this value should be migrated
         '''
         if isinstance(value, basestring):
-            value = {'name': value, 'duration': str(duration)}
+            value = {'name': value or 'default', 'duration': str(duration)}
         return value
 
     catalog = api.portal.get_tool('portal_catalog')
@@ -133,7 +133,7 @@ def upgrade_tipologia(context):
         duration = getAnnotaionValue(obj, 'durata')
         items = [new_style_tipologie(item, duration)
                  for item
-                 in getAnnotaionValue(obj, 'tipologia', [''])]
+                 in getAnnotaionValue(obj, 'tipologia', ['default'])]
         obj.setTipologia(items)
     logger.info('Updated "tipologia" in prenotazioni_folder '
                 ' for %s' % PROFILE_ID)

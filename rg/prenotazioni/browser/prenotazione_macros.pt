@@ -26,7 +26,6 @@
 
         <div class="plain period"
             tal:define="slots python:week_view.prenotazioni.get_freebusy_slots(day, period);
-                        booking_urls python:week_view.get_booking_urls(day, period);
                         on_move nocall:week_view|nothing">
           <div class="interval" tal:condition="python:interval and period!='stormynight'"
                tal:define="gates python:sorted(slots.keys());
@@ -43,11 +42,16 @@
   </tr>
 </metal:macro>
 
+<!-- This is the html for a slot when we are in the week view and
+     we can edit the prenotazione folder -->
 <metal:macro metal:define-macro="manager_slot" i18n:domain="rg.prenotazioni">
   <div class="slot" tal:repeat="slot python:slots[gate]">
     <div tal:define="booking nocall:slot/context"
          tal:attributes="class python:week_view.prenotazioni.get_state(booking);
                          style slot/css_styles">
+      <tal:comment condition="nothing">
+        This is for the allocated space
+      </tal:comment>
       <div tal:condition="nocall:booking">
         <a href=""
            tal:omit-tag="not:week_view/user_can_manage"
@@ -56,32 +60,30 @@
             &mdash;
             <tal:to replace="python:week_view.DT2time(booking.getData_scadenza())" />
         </a>
-
-        <tal:sposta tal:condition="week_view/user_can_manage">                        
+        <tal:sposta tal:condition="week_view/user_can_manage">
                 <a href="" class="modificaPrenotazione" title="Cambia data"
                     tal:attributes="href string:${booking/absolute_url}/prenotazione_move"><i class="icon-cut"></i></a>
         </tal:sposta>
       </div>
 
-      <tal:booking_urls tal:condition="not:nocall:booking">
-        <ul tal:condition="booking_urls">
-          <li tal:repeat="booking_url booking_urls">
-              <a rel="nofollow"
-                 tal:attributes="href booking_url/href;
-                                 title booking_url/text">+</a>
-          </li>
-        </ul>
-      </tal:booking_urls>
+      <tal:comment condition="nothing">
+        This is for free space
+      </tal:comment>
+      <div class="links" condition="not:nocall:booking">
+        <tal:urls repeat="link python:week_view.get_booking_urls(day, slot)">
+          <a tal:attributes="href link/url;
+                             title link/title">&nbsp;</a>
+        </tal:urls>
+      </div>
     </div>
   </div>
 </metal:macro>
 
-
+<!-- This is the html for a slot when we are in the prenotazioni_move view -->
 <metal:macro metal:define-macro="onmove_slot" i18n:domain="rg.prenotazioni">
   <div class="slot" tal:repeat="slot python:slots[gate]">
-    <div tal:define="booking nocall:slot/context"
-                       tal:attributes="class python:view.slot_styles(slot);
-                                       style slot/css_styles">
+    <div tal:define="booking nocall:slot/context" class="links"
+         tal:attributes="style python:view.slot_styles(slot)">
       <tal:free_slot tal:condition="not:nocall:booking">
         <tal:urls repeat="link python:view.move_to_slot_links(day, slot)">
           <a href="" title="Cambia data"
