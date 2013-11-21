@@ -107,8 +107,9 @@ PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
         widget=atapi.IntegerWidget(
             label=_(u'Max days in the future'),
             description=_('futureDays',
-                          default=u"Limit booking in the future to an amount of days in the future starting from "
-                                  u"the current day.\n"
+                          default=u"Limit booking in the future to an amount "
+                                  u"of days in the future starting from "
+                                  u"the current day. \n"
                                   u"Keep 0 to give no limits."),
         ),
     ),
@@ -127,12 +128,16 @@ PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
                                   u"If you do not provide this field, "
                                   u"not type selection will be available"),
             columns={
-                "typology": Column(_(u"Typology name"), default=""),
+                "typology": Column(_(u"Typology name"),
+                                   required=True,
+                                   default=""),
                 "duration": SelectColumn(_(u"Duration value"),
                                          vocabulary="vocDurataIncontro",
+                                         required=True,
                                          default=""),
             }
         ),
+        validators=('isDataGridFilled',),
         required=True,
     ),
 
@@ -174,8 +179,8 @@ PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
             label=_(u'Email del responsabile'),
             description=_(u"Inserisci l'indirizzo email del responsabile "
                           "delle prenotazioni"),
-            validator=('isEmail',),
             size=50),
+        validators=('isEmail',),
     ),
 
 ))
