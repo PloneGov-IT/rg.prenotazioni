@@ -21,7 +21,14 @@
     <metal:block fill-slot="content-core"
                  tal:define="week_view nocall:view;
                              prenotazione_macros nocall:here/@@prenotazione_macros;
-                             slot_macro nocall:prenotazione_macros/manager_slot;">
+                             slot_macro python:week_view.user_can_manage and prenotazione_macros['manager_slot'] or prenotazione_macros['anonymous_slot'];">
+
+        <div>
+          <h3 i18n:translate="">
+              Please select a booking slot clicking on the green area.
+          </h3>
+
+        </div>
 
         <table id="week" class="pren">
           <caption>

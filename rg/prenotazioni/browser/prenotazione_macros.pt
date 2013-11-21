@@ -30,7 +30,8 @@
           <div class="interval" tal:condition="python:interval and period!='stormynight'"
                tal:define="gates python:sorted(slots.keys());
                            gate_ccs_width python:int(100/len(gates))">
-            <tal:from replace="interval/start" /> &mdash <tal:from replace="interval/stop" />
+            <div><tal:from replace="interval/start" /> &mdash <tal:from replace="interval/stop" /></div>
+
             <div class="gate" tal:repeat="gate python:sorted(slots.keys())"
                  tal:attributes="style string:width:${gate_ccs_width}%">
                  <metal:macro metal:use-macro="slot_macro" />
@@ -113,6 +114,25 @@
                              title link/title">&nbsp;</a>
         </tal:urls> 
       </tal:free_slot>
+    </div>
+  </div>
+</metal:macro>
+
+<!-- This is the html for a slot if the user is anonymous -->
+<metal:macro metal:define-macro="anonymous_slot" i18n:domain="rg.prenotazioni">
+  <div class="slot" tal:repeat="slot python:slots[gate]">
+    <div tal:define="booking nocall:slot/context"
+         tal:attributes="class python:week_view.prenotazioni.get_state(booking);
+                         style slot/css_styles">
+      <tal:comment condition="nothing">
+        This is for free space
+      </tal:comment>
+      <div class="links" tal:condition="not:nocall:booking">
+        <tal:urls repeat="link python:week_view.get_booking_urls(day, slot)">
+          <a tal:attributes="href link/url;
+                             title link/title">&nbsp;</a>
+        </tal:urls>
+      </div>
     </div>
   </div>
 </metal:macro>
