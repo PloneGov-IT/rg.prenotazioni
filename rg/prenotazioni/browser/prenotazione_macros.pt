@@ -65,9 +65,9 @@
             &mdash;
             <tal:to replace="python:week_view.DT2time(booking.getData_scadenza())" />
         </a>
-        <tal:sposta tal:condition="week_view/user_can_manage">
-                <a href="" class="modificaPrenotazione" title="Cambia data"
-                    tal:attributes="href string:${booking/absolute_url}/prenotazione_move"><i class="icon-cut"></i></a>
+        <tal:sposta>
+          <a href="" class="modificaPrenotazione" title="Cambia data"
+             tal:attributes="href string:${booking/absolute_url}/prenotazione_move"><i class="icon-cut"></i></a>
         </tal:sposta>
       </div>
 
@@ -87,20 +87,16 @@
 <!-- This is the html for a slot in the stormynight period -->
 <metal:macro metal:define-macro="stormy_slot" i18n:domain="rg.prenotazioni">
   <div class="slot" tal:repeat="slot python:slots[gate]">
-    <div tal:define="booking nocall:slot/context" class="links">
-      <div tal:condition="nocall:booking">
-        <a href=""
-           tal:omit-tag="not:week_view/user_can_manage"
-           tal:attributes="href booking/absolute_url">
-            <tal:from replace="python:week_view.DT2time(booking.getData_prenotazione())" />
-            &mdash;
-            <tal:to replace="python:week_view.DT2time(booking.getData_scadenza())" />
-        </a>
-        <tal:sposta tal:condition="week_view/user_can_manage">
-                <a href="" class="modificaPrenotazione" title="Cambia data"
-                    tal:attributes="href string:${booking/absolute_url}/prenotazione_move"><i class="icon-cut"></i></a>
-        </tal:sposta>
-      </div>
+    <div tal:condition="nocall:slot/context"
+         tal:define="booking nocall:slot/context"
+         tal:attributes="class python:week_view.prenotazioni.get_state(booking);">
+      <a href=""
+        tal:omit-tag="not:week_view/user_can_manage"
+        tal:attributes="href booking/absolute_url">
+        <tal:from replace="python:week_view.DT2time(booking.getData_prenotazione())" />
+        &mdash;
+        <tal:to replace="python:week_view.DT2time(booking.getData_scadenza())" />
+    </a>
     </div>
   </div>
 </metal:macro>
