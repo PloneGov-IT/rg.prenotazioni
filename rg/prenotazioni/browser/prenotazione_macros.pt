@@ -60,12 +60,7 @@
       </tal:comment>
       <div tal:condition="nocall:booking">
         <a href=""
-           tal:omit-tag="not:week_view/user_can_manage"
-           tal:attributes="href booking/absolute_url">
-            <tal:from replace="python:week_view.DT2time(booking.getData_prenotazione())" />
-            &mdash;
-            <tal:to replace="python:week_view.DT2time(booking.getData_scadenza())" />
-        </a>
+           tal:attributes="href booking/absolute_url"><i class="icon-search"></i></a>
         <tal:sposta>
           <a href="" class="modificaPrenotazione" title="Cambia data"
              tal:attributes="href string:${booking/absolute_url}/prenotazione_move"><i class="icon-cut"></i></a>
