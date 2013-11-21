@@ -118,6 +118,8 @@ class MoveForm(PageForm):
         if self.exceedes_date_limit(data):
             msg = _(u'Sorry, you can not book this slot for now.')
             self.set_invariant_error(errors, ['booking_date'], msg)
+        for error in errors:
+            api.portal.show_message(error.errors, self.request, type="error")
         return errors
 
     def do_move(self, data):
