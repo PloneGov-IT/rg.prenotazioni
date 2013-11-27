@@ -39,7 +39,6 @@ i18n:domain="plone">
                         id="zc.page.browser_form">
 
                             <metal:block define-macro="header">
-
                                 <tal:block replace="nothing">
                                     <div class="form-status"
                                     tal:define="status view/status"
