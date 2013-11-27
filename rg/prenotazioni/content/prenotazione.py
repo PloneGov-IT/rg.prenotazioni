@@ -102,10 +102,13 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
 PrenotazioneSchema['title'].storage = atapi.AnnotationStorage()
 PrenotazioneSchema['title'].widget.label = _(u"Nome e Cognome")
 PrenotazioneSchema['title'].widget.description = _(u"")
+PrenotazioneSchema['title'].searchable = True
+
 PrenotazioneSchema['description'].storage = atapi.AnnotationStorage()
 PrenotazioneSchema['description'].isMetadata = False
 PrenotazioneSchema['description'].widget.label = _(u"Oggetto")
 PrenotazioneSchema['description'].widget.description = _(u"")
+PrenotazioneSchema['description'].searchable = True
 
 PrenotazioneSchema['location'].widget.modes = []
 PrenotazioneSchema['location'].schemata = 'default'

@@ -16,6 +16,12 @@
         <div class="documentDescription-box clear-block">
             <span tal:replace="structure here/getDescriptionAgenda" />
         </div>
+
+        <div class="">
+            <a href="" class="" title="Ricerca"
+             tal:attributes="href string:${here/absolute_url}/prenotazioni_search">Ricerca</a>
+        </div>
+
     </metal:block>
 
     <metal:block fill-slot="content-core"
@@ -27,7 +33,6 @@
           <h3 i18n:translate="">
               Please select a booking slot clicking on the green area.
           </h3>
-
         </div>
 
         <table id="week" class="pren">

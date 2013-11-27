@@ -23,5 +23,8 @@
       factory=".slot.Slot"
   />
 
+  <!--adapter 
+      name="SearchableText"
+      factory=".indexers.prenotazione_index" /-->
 
 </configure>

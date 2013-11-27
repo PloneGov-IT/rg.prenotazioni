@@ -24,11 +24,12 @@ i18n:domain="plone">
                         </dl>
                     </tal:status>
                     <h1  class="documentFirstHeading"
-                    i18n:translate=""
-                    tal:condition="view/label"
-                    tal:content="view/label"
-                    metal:define-slot="heading"
-                    >Do something</h1>
+                        i18n:translate=""
+                        tal:condition="view/label"
+                        tal:content="view/label"
+                        metal:define-slot="heading">
+                        Do something
+                    </h1>
                     <div class="documentDescription" tal:content="view/description|nothing">Description</div>
                     <div id="content-core">
                         <form action="." metal:define-macro="master"
@@ -154,7 +155,9 @@ i18n:domain="plone">
                         tal:condition="extra_script"
                         tal:content="structure extra_script" />
                     </div>
-
+                    <div tal:condition="view/brains|nothing">
+                        <div tal:content="view/brains" />
+                    </div>
                 </metal:override>
             </metal:form>
 

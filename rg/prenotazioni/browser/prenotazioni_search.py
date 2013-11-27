@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
+from DateTime import DateTime
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from five.formlib.formbase import PageForm
 from plone.app.form.validators import null_validator
 from plone.memoize.view import memoize
 from rg.prenotazioni import prenotazioniMessageFactory as _
+from rg.prenotazioni.adapters.conflict import IConflictManager
 from zope.formlib.form import FormFields, action
 from zope.interface import Interface
 from zope.interface.declarations import implements
@@ -30,7 +32,6 @@ class ISearchForm(Interface):
 
 
 class SearchForm(PageForm):
-
     """
     """
     implements(ISearchForm)
@@ -47,11 +48,26 @@ class SearchForm(PageForm):
         ff = FormFields(ISearchForm)
         return ff
 
+    @property
+    @memoize
+    def conflict_manager(self):
+        '''
+        Return the conflict manager for this context
+        '''
+        return IConflictManager(self.context)
+
     @action(_('action_search', u'Search'), name=u'search')
     def action_search(self, action, data):
         '''
-        Book this resource
+        Seaarch for name
         '''
+        text = data['text']
+        start = DateTime(data['start'])
+        end = DateTime(data['end'])
+        date = {'query': [start, end],
+                         'range': 'min:max'}
+        self.brains = self.conflict_manager.unrestricted_prenotazioni(SearchableText=text,
+                                                                      Date=date)
 
     @action(_(u"action_cancel", default=u"Cancel"),
             validator=null_validator, name=u'cancel')
