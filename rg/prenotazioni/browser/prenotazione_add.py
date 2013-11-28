@@ -149,7 +149,7 @@ class AddForm(PageForm):
         '''
         Check if user is anonymous
         '''
-        return self.conte
+        return self.context
 
     @property
     @memoize

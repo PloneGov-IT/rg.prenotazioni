@@ -3,7 +3,7 @@ xmlns:metal="http://xml.zope.org/namespaces/metal"
 xmlns:tal="http://xml.zope.org/namespaces/tal"
 xmlns:i18n="http://xml.zope.org/namespaces/i18n"
 metal:use-macro="context/main_template/macros/master"
-i18n:domain="plone">
+i18n:domain="rg.prenotazioni">
     <head></head>
     <body>
         <metal:main fill-slot="main">
@@ -156,24 +156,46 @@ i18n:domain="plone">
                         tal:content="structure extra_script" />
                     </div>
 
-                    <div tal:condition="view/brains|nothing">
-                      <tal:list define="brains view/brains;">
-                        <tal:block tal:repeat="item brains">
-                          <div class="search-item"
-                                 tal:define="item python:item.getObject();
-                                             item_url item/absolute_url;
-                                             item_name item/Title;">
-                            <a href="#"
-                              tal:content="string:${item_name}"
-                              tal:attributes="href item_url">
-                            </a>
+                    <div class="search-result-wrapper"
+                      tal:condition="view/brains|nothing"
+                      tal:define="bookings view/brains;
+                                  len python:len(bookings) or 0;
+                                  icon_url string:${portal_url}/++resource++rg.prenotazioni.resources/calendar-icon.png;">
 
-                          </div>
-                        </tal:block>
-                      </tal:list>
-                    </div>
+                       <div>
+                           <h2 i18n:translate="search_result_message">Search result</h2>
+                       </div>
+                       <strong tal:content="string:${len}">1234</strong>
+                       <span i18n:translate="result_number">
+                             items matching your search terms.</span>
 
-                </metal:override>
+                      <tal:has_bookings condition="bookings"
+                        define="Batch python:modules['Products.CMFPlone'].Batch;
+                                   b_size python:15;
+                                   b_start python:0;
+                                   b_start request/b_start | b_start;
+                                   batch_base_url string:${here/absolute_url}/visore-aziende;
+                                   batch python:Batch(bookings, b_size, int(b_start));">
+
+                          <tal:list  define="brains batch;">
+                            <tal:block tal:repeat="item brains">
+                              <div class="result-item"
+                                  tal:define="obj nocall:python:item.getObject()">
+                                <img src=""
+                                  tal:attributes="src icon_url"/>
+
+                                <a href="#"
+                                  tal:content="item/Title"
+                                  tal:attributes="href item/getURL">
+                                </a>
+
+                              </div>
+                            </tal:block>
+                          </tal:list>
+                      <div metal:use-macro="here/batch_macros/macros/navigation" />
+                    </tal:has_bookings>
+                   </div>
+            </metal:override>
             </metal:form>
 
         </metal:main>

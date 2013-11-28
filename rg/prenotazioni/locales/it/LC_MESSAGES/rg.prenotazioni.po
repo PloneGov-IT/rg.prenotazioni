@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2013-11-28 09:54+0000\n"
+"POT-Creation-Date: 2013-11-28 16:15+0000\n"
 "PO-Revision-Date: 2013-07-16 17:01+0200\n"
 "Last-Translator: Alessandro Pisa <alessandro.pisa@redturtle.it>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -16,6 +16,10 @@ msgstr ""
 "Domain: rg.prenotazioni\n"
 "Language: en_US\n"
 "X-Generator: Lokalize 1.5\n"
+
+#: ./browser/prenotazioni_search.py:41
+msgid " format (YYYY-MM-DD)"
+msgstr "formato (AAAA-MM-GG)"
 
 #: ./profiles/default/types/PrenotazioniFolder.xml
 msgid "A folder that will contain booking"
@@ -61,7 +65,7 @@ msgstr ""
 msgid "Booking Year Folder"
 msgstr ""
 
-#: ./content/prenotazione.py:64
+#: ./content/prenotazione.py:65
 msgid "Booking date"
 msgstr "Data prenotazione"
 
@@ -72,7 +76,7 @@ msgstr "Prenotazione di"
 msgid "Booking product for Plone"
 msgstr "Prodotto di prenotazioni per Plone"
 
-#: ./content/prenotazione.py:73
+#: ./content/prenotazione.py:74
 msgid "Company"
 msgstr "Azienda"
 
@@ -116,11 +120,15 @@ msgstr "Email del responsabile"
 msgid "Email report to prenotazione owner"
 msgstr "Report email al creatore della prenotazione"
 
-#: ./content/prenotazione.py:92
+#: ./browser/prenotazioni_search.pt:17
+msgid "Error"
+msgstr "Errore"
+
+#: ./content/prenotazione.py:93
 msgid "Expiration date booking"
 msgstr "Data scandenza prenotazione"
 
-#: ./content/prenotazione.py:83
+#: ./content/prenotazione.py:84
 msgid "Gate"
 msgstr "Sportello"
 
@@ -145,6 +153,10 @@ msgstr "Indicare i giorni festivi (una per riga) nel formato gg/mm/aaaa"
 msgid "Indicare la composizione della settimana tipo"
 msgstr "Indicare la composizione della settimana tipo"
 
+#: ./browser/prenotazioni_search.pt:22
+msgid "Info"
+msgstr "Info"
+
 #: ./profiles/default/types/Prenotazione.xml
 msgid "Informations about a single booking"
 msgstr "Informazioni relativa ad una singola prenotazione"
@@ -153,7 +165,7 @@ msgstr "Informazioni relativa ad una singola prenotazione"
 msgid "Inserisci l'indirizzo email del responsabile delle prenotazioni"
 msgstr "Inserisci l'indirizzo email del responsabile delle prenotazioni"
 
-#: ./content/prenotazione.py:74
+#: ./content/prenotazione.py:75
 msgid "Inserisci la denominazione dell'azienda del richiedente"
 msgstr "Inserisci la denominazione dell'azienda del richiedente"
 
@@ -173,11 +185,11 @@ msgstr "Numero di cellulare"
 msgid "Mobile number"
 msgstr "Numero di cellulare"
 
-#: ./content/prenotazione.py:103
+#: ./content/prenotazione.py:104
 msgid "Nome e Cognome"
 msgstr "Nome e Cognome"
 
-#: ./content/prenotazione.py:109
+#: ./content/prenotazione.py:110
 msgid "Oggetto"
 msgstr "Oggetto"
 
@@ -230,7 +242,7 @@ msgstr "Ci dispiace, ma questo intervallo di tempo non è più disponibile"
 msgid "Sorry, you can not book this slot for now."
 msgstr "Ci dispiace, ma questo intervallo di tempo non è al momento disponibile"
 
-#: ./content/prenotazione.py:84
+#: ./content/prenotazione.py:85
 msgid "Sportello a cui presentarsi"
 msgstr "Sportello a cui presentarsi"
 
@@ -268,7 +280,7 @@ msgstr "Prenota"
 #. Default: "Cancel"
 #: ./browser/prenotazione_add.py:241
 #: ./browser/prenotazione_move.py:176
-#: ./browser/prenotazioni_search.py:72
+#: ./browser/prenotazioni_search.py:120
 msgid "action_cancel"
 msgstr "Cancella"
 
@@ -278,7 +290,7 @@ msgid "action_move"
 msgstr ""
 
 #. Default: "Search"
-#: ./browser/prenotazioni_search.py:59
+#: ./browser/prenotazioni_search.py:104
 msgid "action_search"
 msgstr ""
 
@@ -349,6 +361,11 @@ msgstr "La data deve essere nel formato AAAA/MM/GG"
 msgid "invalid_email_address"
 msgstr "Indirizzo email non valido"
 
+#. Default: "Invalid start or end date"
+#: ./browser/prenotazioni_search.py:18
+msgid "invalid_end:search_date"
+msgstr "Data di ricerca non valilda"
+
 #. Default: "Invalid phone number"
 #: ./browser/prenotazione_add.py:30
 msgid "invalid_phone_number"
@@ -385,10 +402,11 @@ msgstr "Inserisci il codice che leggi nell'immagine."
 msgid "label_email"
 msgstr "Email"
 
-#. Default: "End"
-#: ./browser/prenotazioni_search.py:29
+#. Default: "End date"
+#: ./browser/prenotazioni_search.py:46
+#, fuzzy
 msgid "label_end"
-msgstr ""
+msgstr "Data fine (AAA-MM-GG)"
 
 #. Default: "End time"
 #: ./browser/vacations.py:90
@@ -415,10 +433,11 @@ msgstr "Numero di cellulare"
 msgid "label_phone"
 msgstr "Numero di telefono"
 
-#. Default: "Start"
-#: ./browser/prenotazioni_search.py:25
+#. Default: "Start date "
+#: ./browser/prenotazioni_search.py:40
+#, fuzzy
 msgid "label_start"
-msgstr ""
+msgstr "Data inizio (AAAA-MM-GG)"
 
 #. Default: "Start date"
 #: ./browser/vacations.py:78
@@ -435,10 +454,10 @@ msgstr "Ora inizio"
 msgid "label_subject"
 msgstr "Oggetto"
 
-#. Default: "Text"
-#: ./browser/prenotazioni_search.py:21
+#. Default: "Text to search"
+#: ./browser/prenotazioni_search.py:36
 msgid "label_text"
-msgstr ""
+msgstr "Testo da ricercare"
 
 #. Default: "Tipology"
 #: ./browser/prenotazione_add.py:113
@@ -473,7 +492,7 @@ msgstr "Siamo spiacenti, è già stato preso un appuntamento nella stessa fascia
 #. Default: "Please select a time slot"
 #: ./browser/prenotazione_add.py:257
 msgid "please_pick_a_date"
-msgstr ""
+msgstr "Selezionare una data"
 
 #. Default: "Change date/time"
 #: ./profiles/default/actions.xml
@@ -484,6 +503,16 @@ msgstr ""
 #: ./profiles/default/actions.xml
 msgid "prenotazioni_search"
 msgstr "Ricerca"
+
+#. Default: "items matching your search terms."
+#: ./browser/prenotazioni_search.pt:169
+msgid "result_number"
+msgstr "elementi trovati"
+
+#. Default: "Search result"
+#: ./browser/prenotazioni_search.pt:166
+msgid "search_result_message"
+msgstr "Risultato della ricerca"
 
 #. Default: "This gate has some booking schedule in this time period."
 #: ./browser/vacations.py:195
@@ -504,6 +533,11 @@ msgstr "Oggetto"
 #: ./content/prenotazionifolder.py:126
 msgid "tipologia_help"
 msgstr "Inserisci qui i tipi di prenotazione (uno per riga).Se non compilerai questo campo, nessuna selezione del tipo sarà disponibile."
+
+#. Default: "Required"
+#: ./browser/prenotazioni_search.pt:77
+msgid "title_required"
+msgstr ""
 
 #. Default: "Add a gate here (one per line) if, for some reason, it is not be available.The specified gate will not be taken in to account for slot allocation. Each line should match a corresponding line in the \"Gates\" field"
 #: ./content/prenotazionifolder.py:161

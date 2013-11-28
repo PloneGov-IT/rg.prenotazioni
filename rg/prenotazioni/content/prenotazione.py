@@ -59,6 +59,7 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
     ),
     atapi.DateTimeField(
         'data_prenotazione',
+        searchable=True,
         storage=atapi.AnnotationStorage(),
         widget=atapi.StringWidget(
             label=_(u'Booking date'),
