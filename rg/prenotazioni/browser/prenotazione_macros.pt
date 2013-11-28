@@ -63,7 +63,8 @@
            tal:attributes="href booking/absolute_url"><i class="icon-search"></i></a>
         <tal:sposta>
           <a href="" class="modificaPrenotazione" title="Cambia data"
-             tal:attributes="href string:${booking/absolute_url}/prenotazione_move"><i class="icon-cut"></i></a>
+             tal:define="data python:day.strftime('%d/%m/%Y')"
+             tal:attributes="href string:${booking/absolute_url}/prenotazione_move?data=${data}"><i class="icon-cut"></i></a>
         </tal:sposta>
       </div>
 

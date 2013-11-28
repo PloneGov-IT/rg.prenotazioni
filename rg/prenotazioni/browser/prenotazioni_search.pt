@@ -155,9 +155,24 @@ i18n:domain="plone">
                         tal:condition="extra_script"
                         tal:content="structure extra_script" />
                     </div>
+
                     <div tal:condition="view/brains|nothing">
-                        <div tal:content="view/brains" />
+                      <tal:list define="brains view/brains;">
+                        <tal:block tal:repeat="item brains">
+                          <div class="search-item"
+                                 tal:define="item python:item.getObject();
+                                             item_url item/absolute_url;
+                                             item_name item/Title;">
+                            <a href="#"
+                              tal:content="string:${item_name}"
+                              tal:attributes="href item_url">
+                            </a>
+
+                          </div>
+                        </tal:block>
+                      </tal:list>
                     </div>
+
                 </metal:override>
             </metal:form>
 

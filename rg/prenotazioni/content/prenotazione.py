@@ -34,8 +34,8 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         'telefono',
         storage=atapi.AnnotationStorage(),
         widget=atapi.StringWidget(
-            label=_(u"Telefono"),
-            description=_(u"Numero di telefono fisso"),
+            label=_(u"Phone"),
+            description=_(u"Phone number"),
         ),
         required=False,
     ),
@@ -44,7 +44,7 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         storage=atapi.AnnotationStorage(),
         widget=atapi.StringWidget(
             label=_(u"Mobile"),
-            description=_(u"Numero di cellulare"),
+            description=_(u"Mobile number"),
         ),
         required=False,
     ),
@@ -53,7 +53,7 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         storage=atapi.AnnotationStorage(),
         vocabulary_factory='rg.prenotazioni.tipologies',
         widget=atapi.SelectionWidget(
-            label=_(u"Tipologia della prenotazione"),
+            label=_(u"booking tipology"),
         ),
         required=False,
     ),
@@ -61,7 +61,7 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         'data_prenotazione',
         storage=atapi.AnnotationStorage(),
         widget=atapi.StringWidget(
-            label=_(u'Data prenotazione'),
+            label=_(u'Booking date'),
             visible={'edit': 'hidden', 'view': 'visible'},
         ),
         required=True,
@@ -70,7 +70,7 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         'azienda',
         storage=atapi.AnnotationStorage(),
         widget=atapi.StringWidget(
-            label=_(u"Azienda"),
+            label=_(u"Company"),
             description=_(u"Inserisci la denominazione dell'azienda "
                           u"del richiedente"),
         ),
@@ -80,7 +80,7 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         'gate',
         storage=atapi.AnnotationStorage(),
         widget=atapi.StringWidget(
-            label=_(u"Sportello"),
+            label=_(u"Gate"),
             description=_(u"Sportello a cui presentarsi"),
         ),
         required=False,
@@ -89,7 +89,7 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         'data_scadenza',
         storage=atapi.AnnotationStorage(),
         widget=atapi.StringWidget(
-            label=_(u'Data scadenza prenotazione'),
+            label=_(u'Expiration date booking'),
             visible={'edit': 'hidden', 'view': 'visible'},
         ),
         required=True,

@@ -254,7 +254,7 @@ class AddForm(PageForm):
             return super(AddForm, self).__call__()
 
         # we should always have a booking date
-        msg = _('plesa_pick_a_date',
+        msg = _('please_pick_a_date',
                 "Please select a time slot")
         api.portal.show_message(message=msg,
                                 request=self.request,

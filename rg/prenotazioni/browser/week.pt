@@ -1,7 +1,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
-      metal:use-macro="context/main_template/macros/master">
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="rg.prenotazioni"
+      >
 
     <metal:block fill-slot="content-description">
 
@@ -17,11 +19,6 @@
             <span tal:replace="structure here/getDescriptionAgenda" />
         </div>
 
-        <div class="">
-            <a href="" class="" title="Ricerca"
-             tal:attributes="href string:${here/absolute_url}/prenotazioni_search">Ricerca</a>
-        </div>
-
     </metal:block>
 
     <metal:block fill-slot="content-core"
@@ -30,7 +27,7 @@
                              slot_macro python:week_view.user_can_manage and prenotazione_macros['manager_slot'] or prenotazione_macros['anonymous_slot'];">
 
         <div>
-          <h3 i18n:translate="">
+          <h3 i18n:translate="book_it">
               Please select a booking slot clicking on the green area.
           </h3>
         </div>
