@@ -19,6 +19,35 @@
             <span tal:replace="structure here/getDescriptionAgenda" />
         </div>
 
+        <div tal:define="tipology_durations view/prenotazioni/tipology_durations;
+                         keys python:sorted(tipology_durations.keys())">
+          <p i18n:translate="agenda_types">List of available reservetion type for the current agenda</p>
+          <table class="tipology-table">
+            <tr>
+              <th i18n:translate="tipology_name">Name</th>
+              <th i18n:translate="tipology_value">Value</th>
+            </tr>
+            <tal:repeat repeat="key keys">
+              <tr>
+                <td><span tal:replace="key" /></td>
+                <td><span tal:replace="python:tipology_durations[key]" /></td>
+              </tr>
+            </tal:repeat>
+          </table>
+        </div>
+        <fieldset id="legend">
+          <legend i18n:translate="legend">Legend</legend>
+          <p>
+            Short description of available action for the booking board</p>
+          <ul id="legend-items">
+              <li i18n:translate="slot_busy_">Time slot busy<div class="busy">&nbsp;</div></li>
+              <li i18n:translate="slot_free">Slot slot free<div class="free">&nbsp;</div></li>
+              <li i18n:translate="slot_not_available">Slot not available<div class="not-available">&nbsp;</div></li>
+          </ul>
+          <p class="legend-note" i18n:translate="legend_note">
+            <strong>Note</strong>: The minimun value of a single slot is 5 minutes.
+            Make a reservation when the time needed exceed the time available on the board is not permitted</p>
+        </fieldset>
     </metal:block>
 
     <metal:block fill-slot="content-core"
@@ -27,9 +56,9 @@
                              slot_macro python:week_view.user_can_manage and prenotazione_macros['manager_slot'] or prenotazione_macros['anonymous_slot'];">
 
         <div>
-          <h3 i18n:translate="book_it">
+          <p i18n:translate="book_it">
               Please select a booking slot clicking on the green area.
-          </h3>
+          </p>
         </div>
 
         <table id="week" class="pren">

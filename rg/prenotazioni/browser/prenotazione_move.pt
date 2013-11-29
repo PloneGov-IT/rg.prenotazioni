@@ -24,7 +24,7 @@
 
         <div tal:condition="context/getData_prenotazione">
           <div class="field" tal:condition="context/getData_prenotazione">
-            <strong i18n:translate="">Reservation date:</strong>
+            <strong i18n:translate="reservation_date">Reservation date:</strong>
             <span tal:replace="python:week_view.localized_time(context.getData_prenotazione(), True)" />
             &mdash;
             <span tal:content="python:week_view.localized_time(context.getData_scadenza(), True)" />

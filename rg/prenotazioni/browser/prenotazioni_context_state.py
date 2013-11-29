@@ -309,6 +309,20 @@ class PrenotazioniContextState(BrowserView):
         return {key: sorted(free.get(key, []) + busy.get(key, []))
                 for key in keys}
 
+    @property
+    @memoize
+    def tipology_durations(self):
+        ''' The durations of all known tipologies
+
+        @return a dict like this:
+        {'tipology1': 10,
+         'tipology2': 20,
+         ...
+        }
+        '''
+        return {x['name']:int(x['duration'])
+                for x in self.context.getTipologia()}
+
     def get_tipology_duration(self, tipology):
         ''' Return the seconds for this tipology
         '''
@@ -316,11 +330,7 @@ class PrenotazioniContextState(BrowserView):
             tipology = tipology.encode('utf8')
         if isinstance(tipology, dict):
             return int(tipology['duration']) * 60
-        tipologie = self.context.getTipologia()
-        for t in tipologie:
-            if t['name'] == tipology:
-                return int(t['duration'])
-        return 1
+        return self.tipology_durations.get(tipology, 1)
 
     def get_end_date(self, start_date, tipology):
         ''' Compute end_date of a slot according to booking date and tipology

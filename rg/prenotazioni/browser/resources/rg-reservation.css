@@ -149,6 +149,7 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
 #week .slot .links a:link    {background-color:#008000;}
 #week .slot .links a:visited {background-color:#008000;}
 #week .slot .links a:hover   {background-color:#75AD0A;}
+#week .slot .links > .previous   {background-color:rgba(168, 195, 175, 0.5);}
 
 #content .search-result-wrapper {
     padding-top : 20px;
@@ -159,3 +160,28 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
 #content .search-result-wrapper .result-item > a {
     padding-left : 5px;
 }
+
+/** gestione legenda utente **/
+#legend { padding : 0px}
+#legend legend {
+    padding : 0px;
+    font-weight: bold;
+    font-size: 100%;
+}
+#legend ul {list-style-type: none;}
+#legend-items li div {
+    display: block;
+    float: left;
+    width: 15px;
+    height: 15px;
+    margin-right: 5px
+}
+#legend-items li > .busy { background: #ffa500; }
+#legend-items li > .free { background: #008000; }
+#legend-items li > .not-available { background: #75ad0a; }
+
+#content table.tipology-table {border: 1px solid #ccc;}
+#content table.tipology-table th {background-color: #ddd; padding: 3px 10px;;}
+#content table.tipology-table td {padding: 2px 10px 0px 10px;}
+
+#legend .legend-note {margin-top: 10px;}

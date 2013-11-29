@@ -110,6 +110,12 @@
                              title link/title">&nbsp;</a>
         </tal:urls> 
       </tal:free_slot>
+      <tal:busy_slot tal:condition="nocall:booking">
+        <div tal:attributes="class string:previous;
+                             style slot/css_styles">
+          <span i18n:translate="current_position">current position</span>
+        </div>
+      </tal:busy_slot>
     </div>
   </div>
 </metal:macro>
