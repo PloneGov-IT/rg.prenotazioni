@@ -4,6 +4,7 @@ Changelog
 3.0 (unreleased)
 ================
 
+- Added legend to prenotazione_folder [nicolasenno]
 - Fix redirect in prenotazioni_move [nicolasenno]
 - Fix some i18n translations [nicolasenno] 
 - Added search pagination [nicolasenno]

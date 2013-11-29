@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-11-28 16:15+0000\n"
+"POT-Creation-Date: 2013-11-29 16:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -209,10 +209,6 @@ msgstr ""
 msgid "Reno Galliera Booking"
 msgstr ""
 
-#: ./browser/prenotazione_move.pt:27
-msgid "Reservation date:"
-msgstr ""
-
 #: ./browser/prenotazione.pt:41
 msgid "Reservation date: da"
 msgstr ""
@@ -291,8 +287,13 @@ msgstr ""
 msgid "action_search"
 msgstr ""
 
+#. Default: "List of available reservetion type for the current agenda"
+#: ./browser/week.pt:24
+msgid "agenda_types"
+msgstr ""
+
 #. Default: "Please select a booking slot clicking on the green area."
-#: ./browser/week.pt:30
+#: ./browser/week.pt:59
 msgid "book_it"
 msgstr ""
 
@@ -307,6 +308,11 @@ msgstr ""
 
 #: ./browser/prenotazione_move.py:168
 msgid "booking_moved"
+msgstr ""
+
+#. Default: "current position"
+#: ./browser/prenotazione_macros.pt:116
+msgid "current_position"
 msgstr ""
 
 #. Default: "If you work for an agency please specify its name"
@@ -458,6 +464,16 @@ msgstr ""
 msgid "label_title"
 msgstr ""
 
+#. Default: "Legend"
+#: ./browser/week.pt:39
+msgid "legend"
+msgstr ""
+
+#. Default: "<strong>Note</strong>: The minimun value of a single slot is 5 minutes. Make a reservation when the time needed exceed the time available on the board is not permitted"
+#: ./browser/week.pt:47
+msgid "legend_note"
+msgstr ""
+
 #. Default: "Type in here the message that you want to mail. Some defined content can be replaced: ${title} will be replaced with booking title (user fullname). ${date} will be replaced with booking new date. ${url} will be replaced by the booking url. ${portal} will be replaced by the title of the portal."
 #: ./contentrules/sendMovedPrenotazione.py:37
 msgid "message_help"
@@ -493,6 +509,11 @@ msgstr ""
 msgid "prenotazioni_search"
 msgstr ""
 
+#. Default: "Reservation date:"
+#: ./browser/prenotazione_move.pt:27
+msgid "reservation_date"
+msgstr ""
+
 #. Default: "items matching your search terms."
 #: ./browser/prenotazioni_search.pt:169
 msgid "result_number"
@@ -503,9 +524,24 @@ msgstr ""
 msgid "search_result_message"
 msgstr ""
 
+#. Default: "Time slot busy<div class=\"busy\">&nbsp;</div>"
+#: ./browser/week.pt:43
+msgid "slot_busy_"
+msgstr ""
+
 #. Default: "This gate has some booking schedule in this time period."
 #: ./browser/vacations.py:195
 msgid "slot_conflict_error"
+msgstr ""
+
+#. Default: "Slot slot free<div class=\"free\">&nbsp;</div>"
+#: ./browser/week.pt:44
+msgid "slot_free"
+msgstr ""
+
+#. Default: "Slot not available<div class=\"not-available\">&nbsp;</div>"
+#: ./browser/week.pt:45
+msgid "slot_not_available"
 msgstr ""
 
 #. Default: "The email address that sends the email. If no email is provided here, it will use the address from portal."
@@ -521,6 +557,16 @@ msgstr ""
 #. Default: "Put booking types there (one per line).\nIf you do not provide this field, not type selection will be available"
 #: ./content/prenotazionifolder.py:126
 msgid "tipologia_help"
+msgstr ""
+
+#. Default: "Name"
+#: ./browser/week.pt:27
+msgid "tipology_name"
+msgstr ""
+
+#. Default: "Value"
+#: ./browser/week.pt:28
+msgid "tipology_value"
 msgstr ""
 
 #. Default: "Required"
