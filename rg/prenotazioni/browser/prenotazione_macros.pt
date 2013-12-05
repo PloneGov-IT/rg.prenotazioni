@@ -3,12 +3,12 @@
   <a id="prevWeekLink" href="#"rel="nofollow"
      tal:attributes="href string:${request/getURL}?data=${week_view/prev_week}">
      &larr; settimana precedente</a>
-  
+
   <strong><tal:month i18n:domain="plonelocales"
                      i18n:translate=""
                      content="week_view/actual_translated_month" />
           <tal:year content="week_view/actual_date/year" /></strong>
-  
+
   <a id="nextWeekLink" href="#" rel="nofollow"
      tal:attributes="href string:${request/getURL}?data=${week_view/next_week}">
      settimana successiva &rarr;</a>
@@ -17,12 +17,10 @@
 <metal:macro metal:define-macro="day_period"
     i18n:domain="rg.prenotazioni">
   <tr>
-    <td tal:content="period"></td>
     <tal:days repeat="day week_view/actual_week_days">
       <td class="day"
           tal:define="interval python:week_view.prenotazioni.get_day_intervals(day)[period]"
-          tal:attributes="class python:day==week_view.actual_date and 'day selected' or 'day';
-                          style interval/css_styles|nothing">
+          tal:attributes="class python:day==week_view.actual_date and 'day selected' or 'day';">
 
         <div class="plain period"
             tal:define="slots python:week_view.prenotazioni.get_freebusy_slots(day, period);
@@ -30,11 +28,27 @@
           <div class="interval" tal:condition="python:interval and period!='stormynight'"
                tal:define="gates python:sorted(slots.keys());
                            gate_ccs_width python:int(100/len(gates))">
-            <div><tal:from replace="interval/start" /> &mdash <tal:from replace="interval/stop" /></div>
-
-            <div class="gate" tal:repeat="gate python:sorted(slots.keys())"
-                 tal:attributes="style string:width:${gate_ccs_width}%">
-                 <metal:macro metal:use-macro="slot_macro" />
+            <div class="fromto">
+              <tal:from replace="interval/start" /> &mdash <tal:from replace="interval/stop" />
+            </div>
+            <div class="gateswrapper">
+              <div class="gates" tal:attributes="style interval/css_styles|nothing">
+                <div class="hours" style="top:0"
+                     tal:attributes="style interval/css_styles|nothing"
+                     tal:define="hour_style python:'top:-%spx' % (float(interval._lower_value)/60)"
+                  >
+                  <div tal:repeat="hour python:range(24)"
+                       class="hour"
+                       tal:attributes="style hour_style"
+                       >
+                    <div tal:content="python:str(hour).zfill(2)" />
+                  </div>
+                </div>
+                <div class="gate" tal:repeat="gate python:sorted(slots.keys())"
+                     tal:attributes="style string:width:${gate_ccs_width}%">
+                  <metal:macro metal:use-macro="slot_macro" />
+                </div>
+              </div>
             </div>
           </div>
           <div class="stormyinterval" tal:condition="python:period=='stormynight'">
@@ -67,14 +81,14 @@
              tal:attributes="href string:${booking/absolute_url}/prenotazione_move?data=${data}"><i class="icon-cut"></i></a>
         </tal:sposta>
       </div>
-
       <tal:comment condition="nothing">
         This is for free space
       </tal:comment>
       <div class="links" tal:condition="not:nocall:booking">
         <tal:urls repeat="link python:week_view.get_booking_urls(day, slot)">
           <a tal:attributes="href link/url;
-                             title link/title">&nbsp;</a>
+                             title link/title;
+                             class link/class">&nbsp;</a>
         </tal:urls>
       </div>
     </div>

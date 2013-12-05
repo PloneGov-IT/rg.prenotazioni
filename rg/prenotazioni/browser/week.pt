@@ -67,7 +67,6 @@
           </caption>
           <thead>
               <tr>
-                  <th scope="col">&nbsp;</th>
                   <tal:days repeat="day view/actual_week_days">
                       <th scope="col" tal:content="python:day.strftime('%d')">Lunedi</th>
                   </tal:days>

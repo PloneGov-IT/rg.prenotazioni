@@ -153,7 +153,9 @@ class View(BaseView):
             params['form.booking_date'] = " ".join((date, t))
             qs = urlencode(params)
             urls.append({'title': t,
-                         'url': '?'.join((base_url, qs))})
+                         'url': '?'.join((base_url, qs)),
+                         'class': t.endswith(':00') and 'oclock' or None
+                         })
 
         return urls
 
