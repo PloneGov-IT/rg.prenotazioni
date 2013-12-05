@@ -117,17 +117,16 @@
   <div class="slot" tal:repeat="slot python:slots[gate]">
     <div tal:define="booking nocall:slot/context" class="links"
          tal:attributes="style python:view.slot_styles(slot)">
-      <tal:free_slot tal:condition="not:nocall:booking">
+      <tal:free_slot tal:condition="python:not booking or booking==context">
         <tal:urls repeat="link python:view.move_to_slot_links(day, slot)">
           <a href="" title="Cambia data"
              tal:attributes="href link/url;
                              title link/title">&nbsp;</a>
         </tal:urls> 
       </tal:free_slot>
-      <tal:busy_slot tal:condition="nocall:booking">
+      <tal:busy_slot tal:condition="python:booking and booking!=context">
         <div tal:attributes="class string:previous;
                              style slot/css_styles">
-          <span i18n:translate="current_position">current position</span>
         </div>
       </tal:busy_slot>
     </div>
@@ -146,7 +145,8 @@
       <div class="links" tal:condition="not:nocall:booking">
         <tal:urls repeat="link python:week_view.get_booking_urls(day, slot)">
           <a tal:attributes="href link/url;
-                             title link/title">&nbsp;</a>
+                             title link/title;
+                             class link/class">&nbsp;</a>
         </tal:urls>
       </div>
     </div>
