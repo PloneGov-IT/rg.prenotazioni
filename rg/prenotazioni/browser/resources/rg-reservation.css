@@ -1,76 +1,8 @@
 /*
  * RG Prenotazioni Styles
  */
-.template-prenotazionifolder_view table#week {
-  width: 100%;
-}
-
-.template-prenotazionifolder_view table#week td.day {
-  vertical-align:top;
-  border: 1px solid #ddd;
-  border-collapse: collapse;
-}
-
 td.selected {
   background-color: #fefefe;
-}
-
-.pren {
-  border-collapse: collapse;
-  border-spacing: 0;
-  min-width: 50%;
-}
-
-.pren caption {
-  padding-bottom: 0.3em;
-  margin-bottom: 0.5em;
-  border: 1px solid #DDDDDD;
-}
-
-.pren th {
-  text-align: center;
-  font-weight: bold;
-  border: 1px solid #ddd;
-}
-
-.pren .period td {
-  border: none;
-}
-
-.pren tr.odd {
-  background: none repeat scroll 0 0 #EEEEEE;
-}
-
-.pren .period {
-  width: 100%;
-}
-
-.pren tr.odd td {
-  background: none repeat scroll 0 0 #EEEEEE;
-  line-height: 2em;
-}
-
-#content .pren .slot a,
-#content .pren .slot a:link,
-#content .pren .slot a:visited,
-#content .pren caption a,
-#content .pren caption a:link
-#content .pren caption a:visited
-#content .pren a.aggiungiPrenotazione,
-#content .pren a.aggiungiPrenotazione:link,
-#content .pren a.aggiungiPrenotazione:visited {
-  text-decoration: none;
-  border-bottom: none;
-}
-
-.pren caption strong {
-  margin: 0.2em 1em;
-}
-
-#content .pren .slot a.modificaPrenotazione,
-#content .pren .slot a.modificaPrenotazione:visited,
-#content .pren .slot a.modificaPrenotazione:link {
-  font-size: 90%;
 }
 
 .template-prenotazione_print table.listing {
@@ -93,9 +25,33 @@ td.selected {
 table#week {
   margin: auto;
   width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  min-width: 50%;
+}
+
+#week caption {
+  padding-bottom: 0.3em;
+  margin-bottom: 0.5em;
+  border: 1px solid #DDDDDD;
+}
+
+#week caption a {
+  padding-bottom: 0.3em;
+  margin-bottom: 0.5em;
+  text-decoration: none;
+  border-bottom: none;
+}
+
+#content #week caption a:link,
+#content #week caption a:visited {
+  border-bottom: none;
 }
 
 table#week th {
+  text-align: center;
+  font-weight: bold;
+  border: 1px solid #ddd;
   width: 12.5%;
 }
 
@@ -165,6 +121,10 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
 #week .slot {
   border: 1px solid #75ad0a;
   border-width:0 1px 0 0;
+}
+#week .slot a{
+  text-decoration: none;
+  border-bottom: none;
 }
 
 #week .slot > .refused {
