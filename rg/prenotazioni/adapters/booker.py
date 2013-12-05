@@ -29,7 +29,7 @@ class Booker(object):
     def prenotazioni(self):
         ''' The prenotazioni context state view
         '''
-        return self.context.restrictedTraverse('@@prenotazioni_context_state')
+        return self.context.unrestrictedTraverse('@@prenotazioni_context_state')
 
     def get_available_gate(self, data_prenotazione):
         '''
