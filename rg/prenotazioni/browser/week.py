@@ -5,7 +5,6 @@ from plone import api
 from plone.memoize.view import memoize
 from rg.prenotazioni.browser.base import BaseView
 from rg.prenotazioni.browser.interfaces import IDontFollowMe
-from rg.prenotazioni.browser.prenotazioni_context_state import hm2DT
 from urllib import urlencode
 from zope.interface.declarations import implements
 
@@ -145,10 +144,9 @@ class View(BaseView):
             return []
         date = day.strftime("%Y-%m-%d")
         params = {}
-        times = [slot.value_hr(slot.lower_value + 300 * i)
-                 for i in range(len(slot) / 300)]
-        urls = []
+        times = slot.get_values_hr_every(300)
         base_url = self.base_booking_url
+        urls = []
         for t in times:
             params['form.booking_date'] = " ".join((date, t))
             qs = urlencode(params)
