@@ -21,7 +21,7 @@
 
         <div tal:define="tipology_durations view/prenotazioni/tipology_durations;
                          keys python:sorted(tipology_durations.keys())">
-          <p i18n:translate="agenda_types">List of available reservetion type for the current agenda</p>
+          <p i18n:translate="agenda_types">List of available reservation type for the current agenda</p>
           <table class="tipology-table">
             <tr>
               <th i18n:translate="tipology_name">Name</th>
