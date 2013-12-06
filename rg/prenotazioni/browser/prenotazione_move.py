@@ -150,7 +150,7 @@ class MoveForm(PageForm):
         '''
         date = day.strftime("%Y-%m-%d")
         params = {'form.actions.move': 1}
-        times = [slot.value_hr(slot.lower_value + 300 * i) for i in range(len(slot) / 300)]
+        times = slot.get_values_hr_every(300)
         urls = []
         base_url = self.request.getURL()
         for t in times:
