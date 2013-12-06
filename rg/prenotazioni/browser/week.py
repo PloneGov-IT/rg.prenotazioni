@@ -5,7 +5,6 @@ from plone import api
 from plone.memoize.view import memoize
 from rg.prenotazioni.browser.base import BaseView
 from rg.prenotazioni.browser.interfaces import IDontFollowMe
-from urllib import urlencode
 from zope.interface.declarations import implements
 
 
@@ -13,8 +12,6 @@ class View(BaseView):
     ''' Display appointments this week
     '''
     implements(IDontFollowMe)
-
-    add_view = 'prenotazione_add'
 
     @property
     @memoize
@@ -69,7 +66,7 @@ class View(BaseView):
             day_list = day.split('/')
             data = date(int(day_list[2]), int(day_list[1]), int(day_list[0]))
         except (ValueError, IndexError):
-            data = self.prenotazioni.today
+            data = self.prenotazioni.conflict_manager.today
         return data
 
     @property
@@ -102,60 +99,6 @@ class View(BaseView):
         """ The actual date + 7 days
         """
         return (self.actual_date + timedelta(days=7)).strftime('%d/%m/%Y')
-
-    @memoize
-    def isValidDay(self, day):
-        """ restituisce true se il giorno è valido
-        """
-        if day <= self.prenotazioni.today:
-            return False
-        if self.conflict_manager.is_vacation_day(day):
-            return False
-        da_data = self.context.getDaData().strftime('%Y/%m/%d').split('/')
-        a_data = self.context.getAData(
-        ) and self.context.getAData(
-        ).strftime(
-            '%Y/%m/%d').split(
-            '/')
-        date_dadata = date(int(da_data[0]), int(da_data[1]), int(da_data[2]))
-        date_adata = None
-        if a_data:
-            date_adata = date(int(a_data[0]), int(a_data[1]), int(a_data[2]))
-
-        if day < date_dadata:
-            return False
-        if date_adata and day > date_adata:
-            return False
-
-        return True
-
-    @property
-    @memoize
-    def base_booking_url(self):
-        ''' Return the base booking url (no parameters) for this context
-        '''
-        return ('%s/%s' % (self.context.absolute_url(), self.add_view))
-
-    def get_booking_urls(self, day, slot):
-        ''' Returns, if possible, the booking urls
-        '''
-        # we have some conditions to check
-        if not self.isValidDay(day):
-            return []
-        date = day.strftime("%Y-%m-%d")
-        params = {}
-        times = slot.get_values_hr_every(300)
-        base_url = self.base_booking_url
-        urls = []
-        for t in times:
-            params['form.booking_date'] = " ".join((date, t))
-            qs = urlencode(params)
-            urls.append({'title': t,
-                         'url': '?'.join((base_url, qs)),
-                         'class': t.endswith(':00') and 'oclock' or None
-                         })
-
-        return urls
 
     def __call__(self):
         ''' Hide the portlets before serving the template

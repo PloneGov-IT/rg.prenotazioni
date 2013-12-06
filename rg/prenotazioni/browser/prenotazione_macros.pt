@@ -85,7 +85,7 @@
         This is for free space
       </tal:comment>
       <div class="links" tal:condition="not:nocall:booking">
-        <tal:urls repeat="link python:week_view.get_booking_urls(day, slot)">
+        <tal:urls repeat="link python:week_view.prenotazioni.get_booking_urls(day, slot)">
           <a tal:attributes="href link/url;
                              title link/title;
                              class link/class">&nbsp;</a>
@@ -143,7 +143,7 @@
         This is for free space
       </tal:comment>
       <div class="links" tal:condition="not:nocall:booking">
-        <tal:urls repeat="link python:week_view.get_booking_urls(day, slot)">
+        <tal:urls repeat="link python:week_view.prenotazioni.get_booking_urls(day, slot)">
           <a tal:attributes="href link/url;
                              title link/title;
                              class link/class">&nbsp;</a>

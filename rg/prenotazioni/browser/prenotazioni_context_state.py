@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 from DateTime import DateTime
 from Products.Five.browser import BrowserView
-from datetime import date, datetime, timedelta
+from datetime import datetime, timedelta
 from plone import api
 from plone.memoize.view import memoize
 from rg.prenotazioni import get_or_create_obj
 from rg.prenotazioni.adapters.booker import IBooker
 from rg.prenotazioni.adapters.conflict import IConflictManager
 from rg.prenotazioni.adapters.slot import ISlot, BaseSlot
+from urllib import urlencode
 
 
 def hm2handm(hm):
@@ -30,7 +31,7 @@ def hm2DT(day, hm):
     '''
     if not hm:
         return None
-    date = day.strftime('%Y/%m/%d')
+    date = day.strftime("%Y/%m/%d")
     h, m = hm2handm(hm)
     tzone = DateTime().timezone()
     return DateTime('%s %s:%s %s' % (date, h, m, tzone))
@@ -54,16 +55,10 @@ class PrenotazioniContextState(BrowserView):
     This is a view to for checking prenotazioni context state
     '''
     active_review_state = ['published', 'pending']
+    add_view = 'prenotazione_add'
     day_type = 'PrenotazioniDay'
     week_type = 'PrenotazioniWeek'
     year_type = 'PrenotazioniYear'
-
-    @property
-    @memoize
-    def today(self):
-        ''' Cache for today date
-        '''
-        return date.today()
 
     @property
     @memoize
@@ -88,6 +83,33 @@ class PrenotazioniContextState(BrowserView):
         if not context:
             return
         return api.content.get_state(context)
+
+    @property
+    @memoize
+    def base_booking_url(self):
+        ''' Return the base booking url (no parameters) for this context
+        '''
+        return ('%s/%s' % (self.context.absolute_url(), self.add_view))
+
+    def get_booking_urls(self, day, slot):
+        ''' Returns, if possible, the booking urls
+        '''
+        # we have some conditions to check
+        if not self.conflict_manager.is_valid_day(day):
+            return []
+        date = day.strftime("%Y-%m-%d")
+        params = {}
+        times = slot.get_values_hr_every(300)
+        base_url = self.base_booking_url
+        urls = []
+        for t in times:
+            params['form.booking_date'] = " ".join((date, t))
+            qs = urlencode(params)
+            urls.append({'title': t,
+                         'url': '?'.join((base_url, qs)),
+                         'class': t.endswith(':00') and 'oclock' or None
+                         })
+        return urls
 
     @property
     @memoize
@@ -188,7 +210,7 @@ class PrenotazioniContextState(BrowserView):
                                     boundaries['end_m'],),
                 'afternoon': BaseSlot(boundaries['inizio_p'],
                                       boundaries['end_p'],),
-        }
+                }
 
     def get_container(self, booking_date):
         ''' Return the container for bookings in this date
@@ -320,7 +342,7 @@ class PrenotazioniContextState(BrowserView):
          ...
         }
         '''
-        return {x['name']:int(x['duration'])
+        return {x['name']: int(x['duration'])
                 for x in self.context.getTipologia()}
 
     def get_tipology_duration(self, tipology):
@@ -346,7 +368,7 @@ class PrenotazioniContextState(BrowserView):
         :param booking_date: a date as a datetime or a string
         :param period: a DateTime object
         '''
-        if booking_date < self.today:
+        if booking_date < self.conflict_manager.today:
             return
         availability = self.get_free_slots(booking_date, period)
         good_slots = []
@@ -357,7 +379,7 @@ class PrenotazioniContextState(BrowserView):
         for slots in availability.itervalues():
             for slot in slots:
                 if (len(slot) >= duration and
-                    (booking_date > self.today
+                    (booking_date > self.conflict_manager.today
                      or slot.start() >= hm_now)):
                         good_slots.append(slot)
         if not good_slots:

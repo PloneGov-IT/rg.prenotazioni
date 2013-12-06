@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from Products.CMFCore.utils import getToolByName
-from datetime import timedelta
+from datetime import date, timedelta
 from plone.memoize.instance import memoize
 from rg.prenotazioni.adapters.slot import BaseSlot
 from zope.component import Interface
@@ -8,7 +8,6 @@ from zope.interface.declarations import implements
 
 
 class IConflictManager(Interface):
-
     '''
     Interface for a booker
     '''
@@ -27,6 +26,35 @@ class ConflictManager(object):
         '''
         self.context = context
 
+    @property
+    @memoize
+    def today(self):
+        ''' Cache for today date
+        '''
+        return date.today()
+
+    @property
+    @memoize
+    def first_valid_day(self):
+        ''' The first day when you can book stuff
+
+        ;return; a datetime.date object
+        '''
+        return self.context.getDaData().asdatetime().date()
+
+    @property
+    @memoize
+    def last_valid_day(self):
+        ''' The last day (if set) when you can book stuff
+
+        ;return; a datetime.date object or None
+        '''
+        adata = self.context.getAData()
+        if not adata:
+            return
+        return adata.asdatetime().date()
+
+    @memoize
     def is_vacation_day(self, date):
         '''
         Check if today is a vacation day
@@ -34,6 +62,20 @@ class ConflictManager(object):
         date_it = date.strftime('%d/%m/%Y')
         festivi = self.context.getFestivi()
         return date_it in festivi
+
+    @memoize
+    def is_valid_day(self, day):
+        """ restituisce true se il giorno è valido
+        """
+        if day <= self.today:
+            return False
+        if self.is_vacation_day(day):
+            return False
+        if day < self.first_valid_day:
+            return False
+        if self.last_valid_day and day > self.last_valid_day:
+            return False
+        return True
 
     @property
     @memoize
