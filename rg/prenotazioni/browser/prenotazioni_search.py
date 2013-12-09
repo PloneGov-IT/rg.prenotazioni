@@ -55,9 +55,8 @@ class SearchForm(PageForm):
     """
     implements(ISearchForm)
     template = ViewPageTemplateFile('prenotazioni_search.pt')
-
-    hidden_fields = []
     prefix = ''
+    brains = []
 
     @property
     @memoize
@@ -75,6 +74,24 @@ class SearchForm(PageForm):
         Return the conflict manager for this context
         '''
         return IConflictManager(self.context)
+
+    def get_brains(self, data):
+        '''
+        The brains for my search
+        '''
+        if not self.request.form.get('actions.search'):
+            return []
+        text = data['text']
+        start = DateTime(data['start'])
+        end = DateTime(data['end'])
+        date = {'query': [start, end], 'range': 'min:max'}
+        query = {'SearchableText': text,
+                 'Date': date,
+                 'sort_on': 'Date',
+                 'sort_order': 'reverse',
+                 'path': '/'.join(self.context.getPhysicalPath())
+                 }
+        return self.conflict_manager.unrestricted_prenotazioni(**query)
 
     def validate(self, action, data):
         '''
@@ -104,22 +121,15 @@ class SearchForm(PageForm):
     @action(_('action_search', u'Search'), name=u'search')
     def action_search(self, action, data):
         '''
-        Seaarch for name
+        Search in prenotazioni SearchableText
         '''
-        text = data['text']
-        start = DateTime(data['start'])
-        end = DateTime(data['end'])
-        date = {'query': [start, end],
-                         'range': 'min:max'}
-        self.brains = self.conflict_manager.unrestricted_prenotazioni(SearchableText=text,
-                                                                      Date=date,
-                                                                      sort_on='Date',
-                                                                      sort_order='reverse'
-                                                                      )
+        self.brains = self.get_brains(data)
 
     @action(_(u"action_cancel", default=u"Cancel"),
             validator=null_validator, name=u'cancel')
     def action_cancel(self, action, data):
         '''
-        Cancel
+        Cancel and go back to the week view
         '''
+        target = self.context.absolute_url()
+        return self.request.response.redirect(target)
