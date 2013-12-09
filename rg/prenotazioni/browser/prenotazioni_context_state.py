@@ -377,12 +377,6 @@ class PrenotazioniContextState(BrowserView):
             return int(tipology['duration']) * 60
         return self.tipology_durations.get(tipology, 1)
 
-    def get_end_date(self, start_date, tipology):
-        ''' Compute end_date of a slot according to booking date and tipology
-        '''
-        minutes = self.get_tipology_duration(tipology)
-        return start_date + timedelta(minutes=minutes)
-
     def get_first_slot(self, tipology, booking_date, period='day'):
         '''
         The Prenotazione objects for today

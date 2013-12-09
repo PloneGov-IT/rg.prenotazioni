@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from DateTime import DateTime
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
 from datetime import datetime, timedelta
@@ -125,11 +126,10 @@ class MoveForm(PageForm):
         '''
         Move a Booking!
         '''
-        booking_date = data['booking_date']
+        booking_date = DateTime(data['booking_date'])
+        duration = self.context.getDuration()
+        data_scadenza = booking_date + duration
         self.context.setData_prenotazione(booking_date)
-        tipology = self.context.getTipologia_prenotazione()
-        data_scadenza = self.prenotazioni_view.get_end_date(booking_date,
-                                                            tipology)
         self.context.setData_scadenza(data_scadenza)
         notify(MovedPrenotazione(self.context))
 
