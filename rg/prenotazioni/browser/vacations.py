@@ -143,6 +143,8 @@ class VacationBooking(PageForm):
         return a datetime instance
         '''
         start_date = data['start_date']
+        if isinstance(start_date, basestring):
+            start_date = DateTime(start_date)
         if asdatetime:
             start_date = start_date.asdatetime()
         return start_date
@@ -191,7 +193,8 @@ class VacationBooking(PageForm):
             self.widgets[field].error = msg
 
     def has_slot_conflicts(self, data):
-        ''' We want the operator to handle conflicts
+        ''' We want the operator to handle conflicts:
+        no other booking can be created if we already have stuff
         '''
         start_date = self.get_start_date(data)
         busy_slots = self.prenotazioni.get_busy_slots(start_date)
@@ -206,18 +209,36 @@ class VacationBooking(PageForm):
                 return True
         return False
 
-    def validate(self, action, data):
+    def is_valid_day(self, data):
+        ''' Check if the day is valid
         '''
-        Checks if we can book those data
+        start_date = self.get_start_date(data).date()
+        return self.prenotazioni.conflict_manager.is_valid_day(start_date)
+
+    def validate_invariants(self, data, errors):
+        ''' Validate invariants errors
         '''
-        errors = super(VacationBooking, self).validate(action, data)
         parsed_data = self.get_parsed_data(data)
         if self.has_slot_conflicts(parsed_data):
             msg = _('slot_conflict_error',
                     u'This gate has some booking schedule in this time '
                     u'period.')
-            fields_to_notify = ['start_date', 'start_time', 'end_time']
-            self.set_invariant_error(errors, fields_to_notify, msg)
+        elif not self.is_valid_day(data):
+            msg = _('day_error',
+                    u'This day is not valid.')
+        else:
+            msg = ''
+        if not msg:
+            return
+        fields_to_notify = ['start_date', 'start_time', 'end_time']
+        self.set_invariant_error(errors, fields_to_notify, msg)
+
+    def validate(self, action, data):
+        '''
+        Checks if we can book those data
+        '''
+        errors = super(VacationBooking, self).validate(action, data)
+        self.validate_invariants(data, errors)
         return errors
 
     def do_book(self, data):
@@ -226,7 +247,6 @@ class VacationBooking(PageForm):
         '''
         booker = IBooker(self.context.aq_inner)
         slots = self.get_slots(data)
-
         for slot in slots:
             start_date = data['start_date']
             booking_date = start_date + (float(slot.lower_value) / 86400)
@@ -255,7 +275,7 @@ class VacationBooking(PageForm):
         '''
         parsed_data = self.get_parsed_data(data)
         self.do_book(parsed_data)
-        qs = {'data': self.get_start_date().strftime('%d/%m/%Y')}
+        qs = {'data': self.get_start_date(data).strftime('%d/%m/%Y')}
         target = '%s?%s' % (self.context.absolute_url(), urlencode(qs))
         return self.request.response.redirect(target)
 

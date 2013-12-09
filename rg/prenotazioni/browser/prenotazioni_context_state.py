@@ -262,6 +262,18 @@ class PrenotazioniContextState(BrowserView):
         bookings = self.get_bookings_in_day_folder(booking_date)
         return map(ISlot, bookings)
 
+    def get_busy_slots_in_stormynight(self, booking_date):
+        """ This will show the slots that will not show elsewhere
+        """
+        morning_slots = self.get_busy_slots_in_period(booking_date,
+                                                      'morning')
+        afternoon_slots = self.get_busy_slots_in_period(booking_date,
+                                                        'afternoon')
+        all_slots = self.get_existing_slots_in_day_folder(booking_date)
+        return sorted([slot for slot in all_slots
+                       if not (slot in morning_slots
+                               or slot in afternoon_slots)])
+
     @memoize
     def get_busy_slots_in_period(self, booking_date, period='day'):
         '''
@@ -273,11 +285,10 @@ class PrenotazioniContextState(BrowserView):
         :return: al list of slots
         [slot1, slot2, slot3]
         '''
-        interval = self.get_day_intervals(booking_date)[period]
         if period == 'stormynight':
-            allowed_review_states = ['refused']
-        else:
-            allowed_review_states = ['pending', 'published']
+            return self.get_busy_slots_in_stormynight(booking_date)
+        interval = self.get_day_intervals(booking_date)[period]
+        allowed_review_states = ['pending', 'published']
         # all slots
         slots = self.get_existing_slots_in_day_folder(booking_date)
         # the ones in the interval
