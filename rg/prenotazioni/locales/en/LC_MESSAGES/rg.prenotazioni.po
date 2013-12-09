@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2013-11-29 16:42+0000\n"
+"POT-Creation-Date: 2013-12-09 16:01+0000\n"
 "PO-Revision-Date: 2013-06-07 14:31+0200\n"
 "Last-Translator: Alessandro Pisa <alessandro.pisa@redturtle.it>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -141,7 +141,6 @@ msgid "Giorni festivi"
 msgstr "Vacation days"
 
 #: ./browser/prenotazione_add.pt:88
-#: ./browser/prenotazioni_search.pt:88
 msgid "Go back to the booking folder."
 msgstr ""
 
@@ -269,44 +268,49 @@ msgstr ""
 
 #. Default: "Book"
 #: ./browser/prenotazione_add.py:226
-#: ./browser/vacations.py:202
+#: ./browser/vacations.py:271
 msgid "action_book"
 msgstr ""
 
 #. Default: "Cancel"
 #: ./browser/prenotazione_add.py:241
 #: ./browser/prenotazione_move.py:176
-#: ./browser/prenotazioni_search.py:120
+#: ./browser/prenotazioni_search.py:128
 msgid "action_cancel"
 msgstr "Cancel"
 
 #. Default: "Move"
-#: ./browser/prenotazione_move.py:162
+#: ./browser/prenotazione_move.py:161
 msgid "action_move"
 msgstr ""
 
 #. Default: "Search"
-#: ./browser/prenotazioni_search.py:104
+#: ./browser/prenotazioni_search.py:121
 msgid "action_search"
 msgstr ""
 
-#. Default: "List of available reservetion type for the current agenda"
-#: ./browser/week.pt:24
-msgid "agenda_types"
+#. Default: "Please select a booking slot clicking on the green area."
+#: ./browser/week.pt:81
+msgid "book_it"
 msgstr ""
 
-#. Default: "Please select a booking slot clicking on the green area."
-#: ./browser/week.pt:59
-msgid "book_it"
+#. Default: "Bookable time"
+#: ./browser/week.pt:44
+msgid "bookable_time"
 msgstr ""
 
 #: ./content/prenotazione.py:56
 msgid "booking tipology"
 msgstr ""
 
+#. Default: "Booking confirmed"
+#: ./browser/week.pt:54
+msgid "booking_confirmed"
+msgstr ""
+
 #. Default: "Booking created"
 #: ./browser/prenotazione_add.py:232
-#: ./browser/vacations.py:161
+#: ./browser/vacations.py:268
 msgid "booking_created"
 msgstr ""
 
@@ -314,9 +318,19 @@ msgstr ""
 msgid "booking_moved"
 msgstr ""
 
-#. Default: "current position"
-#: ./browser/prenotazione_macros.pt:116
-msgid "current_position"
+#. Default: "Booking pending"
+#: ./browser/week.pt:56
+msgid "booking_pending"
+msgstr ""
+
+#. Default: "Booking refused"
+#: ./browser/week.pt:58
+msgid "booking_refused"
+msgstr ""
+
+#. Default: "This day is not valid."
+#: ./browser/vacations.py:227
+msgid "day_error"
 msgstr ""
 
 #. Default: "If you work for an agency please specify its name"
@@ -325,12 +339,12 @@ msgid "description_agency"
 msgstr ""
 
 #. Default: "The gate that will be unavailable"
-#: ./browser/vacations.py:72
+#: ./browser/vacations.py:74
 msgid "description_gate"
 msgstr ""
 
 #. Default: "This text will appear in the calendar cells"
-#: ./browser/vacations.py:66
+#: ./browser/vacations.py:68
 msgid "description_title"
 msgstr ""
 
@@ -354,8 +368,13 @@ msgstr ""
 msgid "gates_label"
 msgstr ""
 
+#. Default: "List of available reservation type for the current agenda"
+#: ./browser/week.pt:24
+msgid "help_tipologies"
+msgstr ""
+
 #. Default: "Date should be in the format YYYY/mm/dd"
-#: ./browser/vacations.py:20
+#: ./browser/vacations.py:22
 msgid "invalid_date"
 msgstr ""
 
@@ -375,7 +394,7 @@ msgid "invalid_phone_number"
 msgstr ""
 
 #. Default: "Date should be in the format HH:MM"
-#: ./browser/vacations.py:24
+#: ./browser/vacations.py:26
 msgid "invalid_time"
 msgstr ""
 
@@ -411,7 +430,7 @@ msgid "label_end"
 msgstr ""
 
 #. Default: "End time"
-#: ./browser/vacations.py:90
+#: ./browser/vacations.py:92
 msgid "label_end_time"
 msgstr ""
 
@@ -421,7 +440,7 @@ msgid "label_fullname"
 msgstr ""
 
 #. Default: "Gate"
-#: ./browser/vacations.py:71
+#: ./browser/vacations.py:73
 msgid "label_gate"
 msgstr ""
 
@@ -441,12 +460,12 @@ msgid "label_start"
 msgstr ""
 
 #. Default: "Start date"
-#: ./browser/vacations.py:78
+#: ./browser/vacations.py:80
 msgid "label_start_date"
 msgstr ""
 
 #. Default: "Start time"
-#: ./browser/vacations.py:84
+#: ./browser/vacations.py:86
 msgid "label_start_time"
 msgstr ""
 
@@ -460,13 +479,18 @@ msgstr ""
 msgid "label_text"
 msgstr ""
 
+#. Default: "Reservation types"
+#: ./browser/week.pt:23
+msgid "label_tipologies"
+msgstr ""
+
 #. Default: "Tipology"
 #: ./browser/prenotazione_add.py:113
 msgid "label_tipology"
 msgstr ""
 
 #. Default: "Title"
-#: ./browser/vacations.py:65
+#: ./browser/vacations.py:67
 msgid "label_title"
 msgstr ""
 
@@ -475,8 +499,13 @@ msgstr ""
 msgid "legend"
 msgstr ""
 
-#. Default: "<strong>Note</strong>: The minimun value of a single slot is 5 minutes. Make a reservation when the time needed exceed the time available on the board is not permitted"
-#: ./browser/week.pt:47
+#. Default: "Short description of available action for the booking board"
+#: ./browser/week.pt:40
+msgid "legend-description"
+msgstr ""
+
+#. Default: "The minimum value of a single slot is 5 minutes. You cannot book a reservation when the needed time exceeds the available time."
+#: ./browser/week.pt:67
 msgid "legend_note"
 msgstr ""
 
@@ -488,6 +517,11 @@ msgstr ""
 #. Default: "go back to the calendar"
 #: ./browser/prenotazione_move.pt:38
 msgid "move_back_message"
+msgstr ""
+
+#. Default: "Move booking"
+#: ./browser/week.pt:63
+msgid "move_booking"
 msgstr ""
 
 #. Default: "Please move this booking into a new available slot (green area) or"
@@ -521,33 +555,18 @@ msgid "reservation_date"
 msgstr ""
 
 #. Default: "items matching your search terms."
-#: ./browser/prenotazioni_search.pt:169
+#: ./browser/prenotazioni_search.pt:142
 msgid "result_number"
 msgstr ""
 
 #. Default: "Search result"
-#: ./browser/prenotazioni_search.pt:166
+#: ./browser/prenotazioni_search.pt:139
 msgid "search_result_message"
 msgstr ""
 
-#. Default: "Time slot busy<div class=\"busy\">&nbsp;</div>"
-#: ./browser/week.pt:43
-msgid "slot_busy_"
-msgstr ""
-
 #. Default: "This gate has some booking schedule in this time period."
-#: ./browser/vacations.py:195
+#: ./browser/vacations.py:223
 msgid "slot_conflict_error"
-msgstr ""
-
-#. Default: "Slot slot free<div class=\"free\">&nbsp;</div>"
-#: ./browser/week.pt:44
-msgid "slot_free"
-msgstr ""
-
-#. Default: "Slot not available<div class=\"not-available\">&nbsp;</div>"
-#: ./browser/week.pt:45
-msgid "slot_not_available"
 msgstr ""
 
 #. Default: "The email address that sends the email. If no email is provided here, it will use the address from portal."
@@ -576,7 +595,7 @@ msgid "tipology_value"
 msgstr ""
 
 #. Default: "Required"
-#: ./browser/prenotazioni_search.pt:77
+#: ./browser/prenotazioni_search.pt:81
 msgid "title_required"
 msgstr ""
 
@@ -590,8 +609,18 @@ msgstr ""
 msgid "unavailable_gates_label"
 msgstr ""
 
+#. Default: "Unbookable time"
+#: ./browser/week.pt:46
+msgid "unbookable_time"
+msgstr ""
+
 #. Default: "Vacation booking"
 #: ./profiles/default/actions.xml
 msgid "vacation_booking"
+msgstr ""
+
+#. Default: "View booking"
+#: ./browser/week.pt:61
+msgid "view_booking"
 msgstr ""
 
