@@ -176,6 +176,16 @@ class Prenotazione(base.ATCTContent):
         if data_prenotazione:
             return data_prenotazione.toZone(zone).ISO()
 
+    def getDuration(self):
+        ''' Return current duration
+        '''
+        start = self.getData_prenotazione()
+        end = self.getData_scadenza()
+        if start and end:
+            return end - start
+        else:
+            return 1
+
     def _postCopy(self, container, op=0):
         '''
         Customizing the method from CopySupport.py
