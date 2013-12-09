@@ -7,7 +7,6 @@ from plone import api
 from plone.app.form.validators import null_validator
 from plone.memoize.view import memoize
 from rg.prenotazioni import prenotazioniMessageFactory as _, tznow
-from rg.prenotazioni.adapters.conflict import IConflictManager
 from rg.prenotazioni.prenotazione_event import MovedPrenotazione
 from urllib import urlencode
 from zope.event import notify
@@ -112,7 +111,7 @@ class MoveForm(PageForm):
         data['tipology'] = self.context.getTipologia_prenotazione()
         errors = super(MoveForm, self).validate(action, data)
         conflict_manager = self.prenotazioni_view.conflict_manager
-        if conflict_manager.conflicts(data):
+        if conflict_manager.conflicts(data, exclude=None):
             msg = _(u'Sorry, this slot is not available anymore.')
             self.set_invariant_error(errors, ['booking_date'], msg)
         if self.exceedes_date_limit(data):
@@ -165,6 +164,7 @@ class MoveForm(PageForm):
         Book this resource
         '''
         obj = self.do_move(data)
+        obj  # pyflakes
         msg = _('booking_moved')
         IStatusMessage(self.request).add(msg, 'info')
         booking_date = data['booking_date'].strftime('%d/%m/%Y')

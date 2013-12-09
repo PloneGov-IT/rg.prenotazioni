@@ -54,9 +54,9 @@ class Booker(object):
         # map form data to AT fields
         data_prenotazione = DateTime(booking_date)
         tipology = data.get('tipology', '')
-        data_scadenza = (data_prenotazione
-                         + float(self.prenotazioni
-                                 .get_tipology_duration(tipology)) / MIN_IN_DAY)
+        duration_min = (float(self.prenotazioni.get_tipology_duration(tipology)
+                              ) / MIN_IN_DAY)
+        data_scadenza = (data_prenotazione + duration_min)
         at_data = {'title': data['fullname'],
                    'description': data['subject'] or '',
                    'azienda': data['agency'] or '',

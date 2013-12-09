@@ -134,9 +134,16 @@ class ConflictManager(object):
         slot = BaseSlot(start, end)
         return slot
 
-    def conflicts(self, data):
+    def conflicts(self, data, exclude=None):
         '''
         Check if we already have a conflictual booking
+
+        :param exclude: exclude a time slot (useful when we want to move
+                        something).
+                        Exclude should be a dict in the form
+                        {'gate1' : [slot11, slot12, ...],
+                         'gate2' : [slot21, slot22, ...],
+                        }
         '''
         booking_date = data.get('booking_date', '')
         slot = self.get_choosen_slot(data)
