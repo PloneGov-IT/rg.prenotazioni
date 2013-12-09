@@ -91,6 +91,18 @@ class PrenotazioniContextState(BrowserView):
         '''
         return ('%s/%s' % (self.context.absolute_url(), self.add_view))
 
+    def get_all_booking_urls(self, day):
+        '''
+        '''
+        slots_by_gate = self.get_free_slots(day)
+        urls = {}
+        for gate in slots_by_gate:
+            slots = slots_by_gate[gate]
+            for slot in slots:
+                slot_urls = self.get_booking_urls(day, slot)
+                urls.setdefault(gate, []).extend(slot_urls)
+        return urls
+
     def get_booking_urls(self, day, slot):
         ''' Returns, if possible, the booking urls
         '''
