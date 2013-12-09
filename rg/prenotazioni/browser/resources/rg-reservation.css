@@ -72,9 +72,10 @@ table#week td {
 }
 #week .fromto {
   background-color:#ddd;
+  box-shadow: 0 0 5px #5C5C5C;
 }
 #week .gateswrapper {
-  border:1px solid #ddd;
+  border-bottom:1px solid #ddd;
 }
 #week .gates {
   margin-left:34px;
@@ -93,7 +94,7 @@ table#week td {
 #week .gates > .hours > .hour {
   height: 59px;
   font-size: 20px;
-  color: #ddd;
+  color: #57574E;
   text-align: center;
   margin-left: 1px;
   border: 1px solid #ddd;
@@ -103,7 +104,7 @@ table#week td {
 
 #week .gates > .hours > .hour > div {
   position:absolute;
-  top:20px;
+  top:18px;
   width:100%;
 }
 
@@ -117,7 +118,9 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniweek,
 dl.portlet ul.navTree li a.contenttype-prenotazioniday {
   display:none;
 }
-
+#content-core #week {
+    font-size: 100%;
+}
 #week .slot {
   border: 1px solid #75ad0a;
   border-width:0 1px 0 0;
@@ -132,18 +135,21 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
   color:white;
 }
 #week .slot > .pending {
+  line-height: 0;
   background-color: #ffa500;
-  color:white;
+  font-size: 9px;
 }
 
 #week .slot > .published {
-  background-color: #436976;
-  color:white;
+  line-height: 0;
+  font-size: 9px;
+  background-color: #6DA7BB;
 }
 
 #week .slot .links a {
     height:5px;
     display:block;
+    box-shadow: inset 0px -1px #33744D;
 }
 
 #week .slot .links a.oclock {
@@ -155,7 +161,30 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
 #week .slot .links a:link    {background-color:#008000;}
 #week .slot .links a:visited {background-color:#008000;}
 #week .slot .links a:hover   {background-color:#75AD0A;}
-#week .slot .links > .previous   {background-color:rgba(168, 195, 175, 0.5);}
+#week .slot .links > .previous {background-color:rgba(168, 195, 175, 0.5);}
+
+
+#week .slot .pending {
+    box-shadow: inset 0px -1px #E78B36;
+}
+
+#week .slot .published {
+    box-shadow: inset 0px -1px #528CA2;
+}
+
+#week .slot .pending [class^="icon-"] {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#week .slot .published [class^="icon-"] {
+    color: black;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#week .slot .pending a:hover {background-color: rgb(236, 123, 0)}
+#week .slot .published a:hover {background-color: #9AC2DD;}
 
 #content .search-result-wrapper {
     padding-top : 20px;

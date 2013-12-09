@@ -41,7 +41,7 @@
             Short description of available action for the booking board</p>
           <ul id="legend-items">
               <li i18n:translate="slot_busy_">Time slot busy<div class="busy">&nbsp;</div></li>
-              <li i18n:translate="slot_free">Slot slot free<div class="free">&nbsp;</div></li>
+              <li i18n:translate="slot_free">Slot free<div class="free">&nbsp;</div></li>
               <li i18n:translate="slot_not_available">Slot not available<div class="not-available">&nbsp;</div></li>
           </ul>
           <p class="legend-note" i18n:translate="legend_note">
