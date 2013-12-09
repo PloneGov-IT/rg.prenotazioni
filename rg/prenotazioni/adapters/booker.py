@@ -44,8 +44,13 @@ class Booker(object):
         return choice(self.prenotazioni
                       .get_less_used_gates(data_prenotazione.asdatetime()))
 
-    def _create(self, data, force_gate=''):
+    def _create(self, data, duration=-1, force_gate=''):
         ''' Create a Booking object
+
+        :param duration: used to force a duration. If it is negative it will be
+                         calculated using the tipology
+        :param force_gate: by default gates are assigned randomly except if you
+                           pass this parameter.
         '''
         booking_date = data['booking_date']
         container = self.prenotazioni.get_container(booking_date)
@@ -54,9 +59,11 @@ class Booker(object):
         # map form data to AT fields
         data_prenotazione = DateTime(booking_date)
         tipology = data.get('tipology', '')
-        duration_min = (float(self.prenotazioni.get_tipology_duration(tipology)
-                              ) / MIN_IN_DAY)
-        data_scadenza = (data_prenotazione + duration_min)
+        if duration < 0:
+            # if we pass a negative duration it will be recalculated
+            duration = self.prenotazioni.get_tipology_duration(tipology)
+            duration = (float(duration) / MIN_IN_DAY)
+        data_scadenza = (data_prenotazione + duration)
         at_data = {'title': data['fullname'],
                    'description': data['subject'] or '',
                    'azienda': data['agency'] or '',
@@ -74,7 +81,7 @@ class Booker(object):
         obj.processForm(values=at_data)
         return obj
 
-    def create(self, data, force_gate=''):
+    def create(self, data, duration=-1, force_gate=''):
         '''
         Create a Booking object
 
@@ -82,7 +89,7 @@ class Booker(object):
         for anonymous users
         '''
         with api.env.adopt_roles(['Manager', 'Member']):
-            return self._create(data, force_gate)
+            return self._create(data, duration=duration, force_gate=force_gate)
 
     def fix_container(self, booking):
         ''' Take a booking and move it to the right date

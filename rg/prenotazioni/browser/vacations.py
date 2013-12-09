@@ -1,19 +1,21 @@
 # -*- coding: utf-8 -*-
+from DateTime import DateTime
+from Products.Five.browser import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
 from datetime import date
 from five.formlib.formbase import PageForm
+from plone import api
 from plone.memoize.view import memoize
 from rg.prenotazioni import (prenotazioniMessageFactory as _,
                              prenotazioniLogger as logger, time2timedelta)
+from rg.prenotazioni.adapters.booker import IBooker
+from rg.prenotazioni.adapters.slot import BaseSlot
+from urllib import urlencode
 from zope.formlib.form import FormFields, action
+from zope.formlib.interfaces import WidgetInputError
 from zope.interface import Interface
 from zope.interface.declarations import implements
 from zope.schema import Choice, TextLine, ValidationError
-from Products.Five.browser import BrowserView
-from DateTime import DateTime
-from rg.prenotazioni.adapters.booker import IBooker
-from Products.statusmessages.interfaces import IStatusMessage
-from zope.formlib.interfaces import WidgetInputError
-from rg.prenotazioni.adapters.conflict import IConflictManager
 
 
 class InvalidDate(ValidationError):
@@ -113,6 +115,16 @@ class VacationBooking(PageForm):
 
     @property
     @memoize
+    def prenotazioni(self):
+        '''
+        The prenotazioni_context_state view in the context
+        '''
+        return api.content.get_view('prenotazioni_context_state',
+                                    self.context,
+                                    self.request)
+
+    @property
+    @memoize
     def form_fields(self):
         '''
         The fields for this form
@@ -124,41 +136,48 @@ class VacationBooking(PageForm):
             ff = ff.omit('gate')
         return ff
 
+    def get_start_date(self, data, asdatetime=True):
+        ''' The start date we passed in the request
+
+        By the default returns a Datetime, if asdatetime is set to True it will
+        return a datetime instance
+        '''
+        start_date = data['start_date']
+        if asdatetime:
+            start_date = start_date.asdatetime()
+        return start_date
+
+    def get_start_time(self, data):
+        ''' The requested start time
+
+        :returns: a datetime
+        '''
+        return self.get_start_date(data) + data['start_time']
+
+    def get_end_time(self, data):
+        ''' The requested end time
+
+        :returns: a datetime
+        '''
+        return self.get_start_date(data) + data['end_time']
+
+    def get_vacation_slot(self, data):
+        ''' The requested vacation slot
+        '''
+        start_time = self.get_start_time(data)
+        end_time = self.get_end_time(data)
+        return BaseSlot(start_time, end_time)
+
     def get_slots(self, data):
         '''
         Get the slots we want to book!
         '''
-        start_date = data['start_date']
-        start_time = start_date.asdatetime() + data['start_time']
-        end_time = start_date.asdatetime() + data['end_time']
-
-        pcs = self.context.restrictedTraverse('@@prenotazioni_context_state')
-        slots = pcs.get_slots_in_day(start_date)
-        slots = slots['p'] + slots['m']
-        slots = [slot for slot in slots if start_time < slot < end_time]
+        start_date = self.get_start_date(data)
+        vacation_slot = self.get_vacation_slot(data)
+        free_slots = self.prenotazioni.get_free_slots(start_date)
+        gate_free_slots = free_slots[data['gate']]
+        slots = [vacation_slot.intersect(slot) for slot in gate_free_slots]
         return slots
-
-    def do_book(self, data):
-        '''
-        Execute the multiple booking
-        '''
-        booker = IBooker(self.context.aq_inner)
-        slots = self.get_slots(data)
-
-        for slot in slots:
-            slot_data = {'fullname': data['title'],
-                         'subject': u'',
-                         'agency': u'',
-                         'booking_date': slot,
-                         'telefono': u'',
-                         'mobile': u'',
-                         'email': u'',
-                         'tipologia_prenotazione': u'',
-                         }
-            booker.create(slot_data, force_gate=data.get('gate'))
-
-        msg = _('booking_created')
-        IStatusMessage(self.request).add(msg, 'info')
 
     def set_invariant_error(self, errors, fields, msg):
         '''
@@ -174,15 +193,18 @@ class VacationBooking(PageForm):
     def has_slot_conflicts(self, data):
         ''' We want the operator to handle conflicts
         '''
-        conflict_manager = IConflictManager(self.context.aq_inner)
-        slots = self.get_slots(data)
-        query = {'Date': [DateTime(slot) for slot in slots],
-                 'review_state': conflict_manager.active_review_state}
-        brains = conflict_manager.unrestricted_prenotazioni(**query)
-        for brain in brains:
-            obj = brain.getObject()
-            if obj.getGate() == data['gate']:
+        start_date = self.get_start_date(data)
+        busy_slots = self.prenotazioni.get_busy_slots(start_date)
+        if not busy_slots:
+            return False
+        gate_busy_slots = busy_slots.get(data['gate'], [])
+        if not gate_busy_slots:
+            return False
+        vacation_slot = self.get_vacation_slot(data)
+        for slot in gate_busy_slots:
+            if vacation_slot.intersect(slot):
                 return True
+        return False
 
     def validate(self, action, data):
         '''
@@ -198,6 +220,34 @@ class VacationBooking(PageForm):
             self.set_invariant_error(errors, fields_to_notify, msg)
         return errors
 
+    def do_book(self, data):
+        '''
+        Execute the multiple booking
+        '''
+        booker = IBooker(self.context.aq_inner)
+        slots = self.get_slots(data)
+
+        for slot in slots:
+            start_date = data['start_date']
+            booking_date = start_date + (float(slot.lower_value) / 86400)
+            slot.__class__ = BaseSlot
+            duration = float(len(slot)) / 86400
+            slot_data = {'fullname': data['title'],
+                         'subject': u'',
+                         'agency': u'',
+                         'booking_date': booking_date,
+                         'telefono': u'',
+                         'mobile': u'',
+                         'email': u'',
+                         'tipologia_prenotazione': u'',
+                         }
+            booker.create(slot_data,
+                          duration=duration,
+                          force_gate=data.get('gate'))
+
+        msg = _('booking_created')
+        IStatusMessage(self.request).add(msg, 'info')
+
     @action(_('action_book', u'Book'), name=u'book')
     def action_book(self, action, data):
         '''
@@ -205,6 +255,9 @@ class VacationBooking(PageForm):
         '''
         parsed_data = self.get_parsed_data(data)
         self.do_book(parsed_data)
+        qs = {'data': self.get_start_date().strftime('%d/%m/%Y')}
+        target = '%s?%s' % (self.context.absolute_url(), urlencode(qs))
+        return self.request.response.redirect(target)
 
     @action(_('action_cancel', u'Cancel'), name=u'cancel')
     def action_cancel(self, action, data):

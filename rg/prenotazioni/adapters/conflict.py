@@ -64,8 +64,20 @@ class ConflictManager(object):
         return date_it in festivi
 
     @memoize
+    def is_configured_day(self, day):
+        """ Returns True if the day has been configured
+        """
+        weekday = day.weekday()
+        week_table = self.context.getSettimana_tipo()
+        day_table = week_table[weekday]
+        return any((day_table['inizio_m'],
+                    day_table['end_m'],
+                    day_table['inizio_p'],
+                    day_table['end_p'],))
+
+    @memoize
     def is_valid_day(self, day):
-        """ restituisce true se il giorno è valido
+        """ Returns True if the day is valid
         """
         if day <= self.today:
             return False
@@ -75,7 +87,7 @@ class ConflictManager(object):
             return False
         if self.last_valid_day and day > self.last_valid_day:
             return False
-        return True
+        return self.is_configured_day(day)
 
     @property
     @memoize
