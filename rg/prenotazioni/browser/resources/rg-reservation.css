@@ -127,10 +127,18 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
   border-bottom: none;
 }
 
+#week .slot > .unbookable {
+  background-color: #ffa500;
+}
 #week .slot > .refused {
   background-color: #870000;
   color:white;
 }
+#week .slot > .refused a,
+#week .slot > .published a {
+  color:white;
+}
+
 #week .slot > .pending {
   background-color: #ffa500;
   color:white;
@@ -182,9 +190,14 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
     height: 15px;
     margin-right: 5px
 }
-#legend-items li > .busy { background: #ffa500; }
-#legend-items li > .free { background: #008000; }
-#legend-items li > .not-available { background: #75ad0a; }
+
+.legend li > .bookable { background: #008000; }
+.legend-user li > .unbookable { background: #ffa500; }
+.legend-manager li > .unbookable { background: #75ad0a; }
+
+.legend-manager li > .pending { background: #ffa500; }
+.legend-manager li > .confirmed { background: #436976; }
+.legend-manager li > .refused { background: #870000; }
 
 #content table.tipology-table {border: 1px solid #ccc;}
 #content table.tipology-table th {background-color: #ddd; padding: 3px 10px;;}

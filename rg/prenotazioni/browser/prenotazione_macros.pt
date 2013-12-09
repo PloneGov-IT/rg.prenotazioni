@@ -137,8 +137,8 @@
 <metal:macro metal:define-macro="anonymous_slot" i18n:domain="rg.prenotazioni">
   <div class="slot" tal:repeat="slot python:slots[gate]">
     <div tal:define="booking nocall:slot/context"
-         tal:attributes="class python:week_view.prenotazioni.get_state(booking);
-                         style slot/css_styles">
+         class="unbookable"
+         tal:attributes="style slot/css_styles">
       <tal:comment condition="nothing">
         This is for free space
       </tal:comment>
