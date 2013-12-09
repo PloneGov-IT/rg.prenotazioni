@@ -37,7 +37,7 @@
         </div>
         <fieldset id="legend">
           <legend i18n:translate="legend">Legend</legend>
-          <p i18n:translate="legend-description">
+          <p i18n:translate="legend_description">
             Short description of available action for the booking board
           </p>
           <ul id="legend-items" class="legend legend-user" tal:condition="python:not view.user_can_manage">

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-12-09 16:20+0000\n"
+"POT-Creation-Date: 2013-12-09 17:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -324,6 +324,11 @@ msgstr ""
 msgid "booking_refused"
 msgstr ""
 
+#. Default: "Bookings not in agenda"
+#: ./browser/prenotazione_macros.pt:55
+msgid "bookings_not_in_agenda"
+msgstr ""
+
 #. Default: "This day is not valid."
 #: ./browser/vacations.py:227
 msgid "day_error"
@@ -495,7 +500,7 @@ msgstr ""
 
 #. Default: "Short description of available action for the booking board"
 #: ./browser/week.pt:40
-msgid "legend-description"
+msgid "legend_description"
 msgstr ""
 
 #. Default: "The minimum value of a single slot is 5 minutes. You cannot book a reservation when the needed time exceeds the available time."

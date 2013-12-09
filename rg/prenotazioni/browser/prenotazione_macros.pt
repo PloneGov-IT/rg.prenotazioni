@@ -52,6 +52,9 @@
             </div>
           </div>
           <div class="stormyinterval" tal:condition="python:period=='stormynight'">
+            <div class="fromto" tal:condition="python:week_view.prenotazioni.get_busy_slots_in_period(day, period)"
+                 i18n:translate="bookings_not_in_agenda"
+            >Bookings not in agenda</div>
             <tal:gates tal:repeat="gate python:sorted(slots.keys())">
               <metal:macro metal:use-macro="prenotazione_macros/stormy_slot" />
             </tal:gates>
