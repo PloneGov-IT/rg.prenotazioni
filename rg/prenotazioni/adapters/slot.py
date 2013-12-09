@@ -5,6 +5,14 @@ from zope.component import Interface
 from zope.interface.declarations import implements
 
 
+def slots_to_points(slots):
+    ''' Return a list of point starting from the slots
+    '''
+    points = []
+    [points.extend([x.lower_value, x.upper_value]) for x in slots]
+    return sorted(points)
+
+
 class ISlot(Interface):
 
     '''
@@ -87,10 +95,7 @@ class BaseSlot(Interval):
 
         # We filter not overlapping intervals
         good_intervals = [x for x in value if x.overlaps(self)]
-        points = []
-        [points.extend([x.lower_value, x.upper_value])
-         for x in good_intervals]
-        points.sort()
+        points = slots_to_points(good_intervals)
 
         start = self.lower_value
         intervals = []
