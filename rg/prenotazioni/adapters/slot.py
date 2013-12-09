@@ -141,7 +141,7 @@ class BaseSlot(Interval):
         styles.extend(self.extra_css_styles)
         return ';'.join(styles)
 
-    def get_values_hr_every(self, width):
+    def get_values_hr_every(self, width, slot_min_size=0):
         ''' This partitions this slot if pieces of length width and
         return the human readable value of the starts
 
@@ -149,11 +149,19 @@ class BaseSlot(Interval):
 
         calling this with width 300 will return
         ["00:00", "00:05", "00:10"]
+
+        If slot_min_size is passed it will not return values whose distance
+        from slot upper value is lower than this
         '''
         number_of_parts = len(self) / width
-        values = [(self.lower_value + width * i)
-                  for i in range(number_of_parts)]
-        return map(self.value_hr, values)
+        values = set([])
+        start = self.lower_value
+        end = self.upper_value
+        for i in range(number_of_parts):
+            value = start + width * i
+            if (end - value) >= slot_min_size:
+                values.add(value)
+        return map(self.value_hr, sorted(values))
 
 
 class Slot(BaseSlot):

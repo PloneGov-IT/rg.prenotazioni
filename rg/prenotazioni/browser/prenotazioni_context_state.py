@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from DateTime import DateTime
 from Products.Five.browser import BrowserView
-from datetime import datetime, timedelta
+from datetime import datetime
 from plone import api
 from plone.memoize.view import memoize
 from rg.prenotazioni import get_or_create_obj
@@ -91,19 +91,20 @@ class PrenotazioniContextState(BrowserView):
         '''
         return ('%s/%s' % (self.context.absolute_url(), self.add_view))
 
-    def get_all_booking_urls(self, day):
-        '''
+    def get_all_booking_urls(self, day, slot_min_size=0):
+        ''' Get all the booking urls.
         '''
         slots_by_gate = self.get_free_slots(day)
         urls = {}
         for gate in slots_by_gate:
             slots = slots_by_gate[gate]
             for slot in slots:
-                slot_urls = self.get_booking_urls(day, slot)
+                slot_urls = self.get_booking_urls(day, slot,
+                                                  slot_min_size=slot_min_size)
                 urls.setdefault(gate, []).extend(slot_urls)
         return urls
 
-    def get_booking_urls(self, day, slot):
+    def get_booking_urls(self, day, slot, slot_min_size=0):
         ''' Returns, if possible, the booking urls
         '''
         # we have some conditions to check
@@ -111,7 +112,7 @@ class PrenotazioniContextState(BrowserView):
             return []
         date = day.strftime("%Y-%m-%d")
         params = {}
-        times = slot.get_values_hr_every(300)
+        times = slot.get_values_hr_every(300, slot_min_size=slot_min_size)
         base_url = self.base_booking_url
         urls = []
         for t in times:
