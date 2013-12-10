@@ -149,7 +149,20 @@ class AddForm(PageForm):
         '''
         Check if user is anonymous
         '''
-        return self.context
+        return api.content.get_view('plone_portal_state',
+                                    self.context,
+                                    self.request).anonymous()
+
+    @property
+    @memoize
+    def prenotazioni(self):
+        ''' Returns the prenotazioni_context_state view.
+
+        Everyone should know about this!
+        '''
+        return api.content.get_view('prenotazioni_context_state',
+                                    self.context,
+                                    self.request)
 
     @property
     @memoize
@@ -158,7 +171,7 @@ class AddForm(PageForm):
         The fields for this form
         '''
         ff = FormFields(IAddForm)
-        if not self.context.restrictedTraverse('plone_portal_state/anonymous')():
+        if not self.is_anonymous:
             ff = ff.omit('captcha')
         else:
             ff['captcha'].custom_widget = CaptchaWidget

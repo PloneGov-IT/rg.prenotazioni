@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from Products.Five.browser import BrowserView
+from plone import api
 from plone.memoize.view import memoize
 from rg.prenotazioni.adapters.conflict import IConflictManager
 from rg.prenotazioni.interfaces.prenotazionifolder import IPrenotazioniFolder
@@ -18,7 +19,9 @@ class BaseView(BrowserView):
 
         Everyone should know about this!
         '''
-        return self.context.restrictedTraverse('@@prenotazioni_context_state')
+        return api.content.get_view('prenotazioni_context_state',
+                                    self.context,
+                                    self.request)
 
     @property
     @memoize

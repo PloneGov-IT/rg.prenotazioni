@@ -91,7 +91,10 @@ class PrenotazioniContextState(BrowserView):
         '''
         return {key: value
                 for key, value in self.request.form.iteritems()
-                if key.startswith('form.')}
+                if (value
+                    and key.startswith('form.')
+                    and not key.startswith('form.action'))
+                }
 
     @property
     @memoize
