@@ -148,6 +148,15 @@ def update_actions(context):
     logger.info("actions.xml has been run")
 
 
+def upgrade_propertiestool(context):
+    '''
+    Run generic setup propertiestool.xml
+    '''
+    setup = api.portal.get_tool('portal_setup')
+    setup.runImportStepFromProfile(PROFILE_ID, 'propertiestool')
+    logger.info("propertiestool.xml has been run")
+
+
 def upgrade_version(context):
     '''
     Just set the version for this step

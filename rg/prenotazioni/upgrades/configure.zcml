@@ -55,6 +55,11 @@
     />
 
     <genericsetup:upgradeStep
+      title="Upgrade propertiestool"
+      handler=".to3000.upgrade_propertiestool"
+    />
+
+    <genericsetup:upgradeStep
       title="Upgrade version"
       handler=".to3000.upgrade_version"
     />
