@@ -5,6 +5,7 @@ from plone import api
 from plone.memoize.view import memoize
 from rg.prenotazioni.browser.base import BaseView
 from rg.prenotazioni.browser.interfaces import IDontFollowMe
+from urllib import urlencode
 from zope.interface.declarations import implements
 
 
@@ -99,6 +100,24 @@ class View(BaseView):
         """ The actual date + 7 days
         """
         return (self.actual_date + timedelta(days=7)).strftime('%d/%m/%Y')
+
+    @property
+    @memoize
+    def prev_week_url(self):
+        """ The link to the previous week
+        """
+        qs = {'data': self.prev_week}
+        qs.update(self.prenotazioni.remembered_params)
+        return "%s?%s" % (self.request.getURL(), urlencode(qs))
+
+    @property
+    @memoize
+    def next_week_url(self):
+        """ The link to the next week
+        """
+        qs = {'data': self.next_week}
+        qs.update(self.prenotazioni.remembered_params)
+        return "%s?%s" % (self.request.getURL(), urlencode(qs))
 
     def __call__(self):
         ''' Hide the portlets before serving the template

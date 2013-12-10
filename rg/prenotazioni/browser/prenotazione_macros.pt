@@ -1,7 +1,7 @@
 <!-- The macro used to go navigate through the weeks -->
 <metal:macro metal:define-macro="week_navigator" i18n:domain="rg.prenotazioni">
-  <a id="prevWeekLink" href="#"rel="nofollow"
-     tal:attributes="href string:${request/getURL}?data=${week_view/prev_week}">
+  <a id="prevWeekLink" href="#" rel="nofollow"
+     tal:attributes="href week_view/prev_week_url">
      &larr; settimana precedente</a>
 
   <strong><tal:month i18n:domain="plonelocales"
@@ -10,7 +10,7 @@
           <tal:year content="week_view/actual_date/year" /></strong>
 
   <a id="nextWeekLink" href="#" rel="nofollow"
-     tal:attributes="href string:${request/getURL}?data=${week_view/next_week}">
+     tal:attributes="href week_view/next_week_url">
      settimana successiva &rarr;</a>
 </metal:macro>
 

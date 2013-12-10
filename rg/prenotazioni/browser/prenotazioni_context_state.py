@@ -86,6 +86,15 @@ class PrenotazioniContextState(BrowserView):
 
     @property
     @memoize
+    def remembered_params(self):
+        ''' We want to remember some parameters
+        '''
+        return {key: value
+                for key, value in self.request.form.iteritems()
+                if key.startswith('form.')}
+
+    @property
+    @memoize
     def base_booking_url(self):
         ''' Return the base booking url (no parameters) for this context
         '''
@@ -117,6 +126,7 @@ class PrenotazioniContextState(BrowserView):
         urls = []
         for t in times:
             params['form.booking_date'] = " ".join((date, t))
+            params.update(self.remembered_params)
             qs = urlencode(params)
             urls.append({'title': t,
                          'url': '?'.join((base_url, qs)),
