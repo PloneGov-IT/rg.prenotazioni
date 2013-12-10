@@ -2,27 +2,10 @@
 <object name="portal_properties" meta_type="Plone Properties Tool">
  <object name="site_properties" meta_type="Plone Property Sheet">
   <property name="types_not_searched" type="lines" purge="False">
-    <element value="ATBooleanCriterion"/>
-    <element value="ATCurrentAuthorCriterion"/>
-    <element value="ATDateCriteria"/>
-    <element value="ATDateRangeCriterion"/>
-    <element value="ATListCriterion"/>
-    <element value="ATPathCriterion"/>
-    <element value="ATPortalTypeCriterion"/>
-    <element value="ATReferenceCriterion"/>
-    <element value="ATRelativePathCriterion"/>
-    <element value="ATSelectionCriterion"/>
-    <element value="ATSimpleIntCriterion"/>
-    <element value="ATSimpleStringCriterion"/>
-    <element value="ATSortCriterion"/>
-    <element value="Discussion Item"/>
-    <element value="Image"/>
-    <element value="Plone Site"/>
     <element value="Prenotazione"/>
     <element value="PrenotazioniDay"/>
     <element value="PrenotazioniWeek"/>
     <element value="PrenotazioniYear"/>
-    <element value="TempFolder"/>
   </property>
  </object>
  <object name="navtree_properties">
