@@ -146,6 +146,29 @@ class ConflictManager(object):
         slot = BaseSlot(start, end)
         return slot
 
+    def extend_availability(self, slots, gate_slots):
+        ''' We add slots to the gate_slots list and we make unions
+        when they overlap.
+        '''
+        for i in range(len(gate_slots)):
+            for slot in slots:
+                if gate_slots[i].overlaps(slot):
+                    interval = gate_slots[i].union(slot)
+                    gate_slots[i] = BaseSlot(interval.lower_value,
+                                             interval._upper_value)
+
+        return gate_slots + slots
+
+    def add_exclude(self, exclude, availability):
+        ''' Extends the availability list adding the slot we are moving
+        '''
+        for key in exclude.iterkeys():
+            if availability.get(key, None):
+                availability[key] = self.extend_availability(exclude[key],
+                                                             availability[key])
+
+        return availability
+
     def conflicts(self, data, exclude=None):
         '''
         Check if we already have a conflictual booking
@@ -161,6 +184,10 @@ class ConflictManager(object):
         slot = self.get_choosen_slot(data)
         availability = (self.prenotazioni
                         .get_free_slots(booking_date))
+
+        if exclude:
+            availability = self.add_exclude(exclude, availability)
+
         for gate_slots in availability.itervalues():
             for gate_slot in gate_slots:
                 if slot in gate_slot:
