@@ -251,14 +251,14 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
 
 #week .slot .pending [class^="icon-"] {
     color: black;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 #week .slot .published [class^="icon-"] {
     color: black;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 #week .slot .pending a:hover {background-color: rgb(236, 123, 0)}

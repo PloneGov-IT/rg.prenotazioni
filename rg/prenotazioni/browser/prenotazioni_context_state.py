@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from DateTime import DateTime
 from Products.Five.browser import BrowserView
-from datetime import datetime
+from datetime import datetime, timedelta
 from plone import api
 from plone.memoize.view import memoize
-from rg.prenotazioni import get_or_create_obj
+from rg.prenotazioni import get_or_create_obj, prenotazioniMessageFactory as _, \
+    tznow
 from rg.prenotazioni.adapters.booker import IBooker
 from rg.prenotazioni.adapters.conflict import IConflictManager
 from rg.prenotazioni.adapters.slot import ISlot, BaseSlot
@@ -119,6 +120,9 @@ class PrenotazioniContextState(BrowserView):
         # we have some conditions to check
         if not self.conflict_manager.is_valid_day(day):
             return []
+        if self.maximum_bookable_date:
+            if day > self.maximum_bookable_date.date():
+                return []
         date = day.strftime("%Y-%m-%d")
         params = {}
         times = slot.get_values_hr_every(300, slot_min_size=slot_min_size)
@@ -234,6 +238,20 @@ class PrenotazioniContextState(BrowserView):
                 'afternoon': BaseSlot(boundaries['inizio_p'],
                                       boundaries['end_p'],),
                 }
+
+
+    @property
+    @memoize
+    def maximum_bookable_date(self):
+        ''' Return the maximum bookable date
+
+        return a datetime or None
+        '''
+        future_days = self.context.getFutureDays()
+        if not future_days:
+            return
+        date_limit = tznow() + timedelta(future_days)
+        return date_limit
 
     def get_container(self, booking_date):
         ''' Return the container for bookings in this date

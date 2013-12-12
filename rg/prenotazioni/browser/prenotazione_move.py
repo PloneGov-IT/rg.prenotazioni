@@ -155,7 +155,8 @@ class MoveForm(PageForm):
         Returns the url to move the booking in this slot
         '''
         date = day.strftime("%Y-%m-%d")
-        params = {'form.actions.move': 1}
+        params = {'form.actions.move': 1,
+                  'data': self.request.form.get('data', '')}
         times = slot.get_values_hr_every(300)
         urls = []
         base_url = self.request.getURL()
