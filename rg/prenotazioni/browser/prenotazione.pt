@@ -60,8 +60,17 @@ i18n:domain="rg.prenotazioni">
                     <strong i18n:translate="">Gates:</strong>
                     <span tal:content="here/getGate">Gate no. 1</span>
                 </div>
+                <div class="field">
+                  <a href=""
+                     tal:attributes="href view/back_url">
+                    <img width="16" height="16"
+                         src="++resource++rg.prenotazioni.resources/calendar-add.png"
+                         tal:attributes="src string:${portal_url}/++resource++rg.prenotazioni.resources/calendar-add.png"
+                         >
+                    <tal:i18n i18n:translate="move_back_message">Go back to the booking folder.</tal:i18n>
+                  </a>
+                </div>
                 <div tal:replace="structure provider:plone.belowcontentbody" />
-
             </tal:main-macro>
         </metal:main>
 
