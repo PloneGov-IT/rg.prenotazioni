@@ -292,7 +292,7 @@ msgstr "Sposta"
 #. Default: "Search"
 #: ./browser/prenotazioni_search.py:121
 msgid "action_search"
-msgstr "Ceerca"
+msgstr "Cerca"
 
 #. Default: "Please select a booking slot clicking on the green area."
 #: ./browser/week.pt:81
