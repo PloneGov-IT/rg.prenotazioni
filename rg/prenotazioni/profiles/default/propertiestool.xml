@@ -3,6 +3,9 @@
  <object name="site_properties" meta_type="Plone Property Sheet">
   <property name="types_not_searched" type="lines" purge="False">
     <element value="Prenotazione"/>
+    <element value="PrenotazioniDay"/>
+    <element value="PrenotazioniWeek"/>
+    <element value="PrenotazioniYear"/>
   </property>
  </object>
  <object name="navtree_properties">

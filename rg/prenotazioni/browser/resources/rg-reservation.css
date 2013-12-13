@@ -93,10 +93,10 @@ table#week td {
 #week .gates > .hours > .hour {
   height: 59px;
   font-size: 20px;
-  color: #ddd;
   text-align: center;
   margin-left: 1px;
   border: 1px solid #ddd;
+  color: #57574E;
   border-bottom-width:0;
   position:relative;
 }
@@ -203,4 +203,63 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
 #content table.tipology-table th {background-color: #ddd; padding: 3px 10px;;}
 #content table.tipology-table td {padding: 2px 10px 0px 10px;}
 
+
+#week .fromto {
+    background-color:#ddd;
+    box-shadow: 0 0 5px #5C5C5C;
+}
+
+#week .gateswrapper {
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #FFFFFF;
+    border-top: 1px solid #FFFFFF;
+}
+
+#content-core #week {
+    font-size: 100%;
+}
+
+#week .slot > .published {
+    line-height: 0;
+    font-size: 9px;
+    background-color: #6DA7BB;
+}
+
+#week .slot > .pending {
+  line-height: 0;
+  font-size: 9px;
+  background-color: #ffa500;
+}
+
+
+#week .slot .links a {
+    height:5px;
+    display:block;
+    box-shadow: inset 0px -1px #33744D;
+}
+
 #legend .legend-note {margin-top: 10px;}
+
+#week .slot .pending {
+    box-shadow: inset 0px -1px #E78B36;
+}
+
+#week .slot .published {
+    box-shadow: inset 0px -1px #528CA2;
+}
+
+#week .slot .pending [class^="icon-"] {
+    color: black;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+#week .slot .published [class^="icon-"] {
+    color: black;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+#week .slot .pending a:hover {background-color: rgb(236, 123, 0)}
+#week .slot .published a:hover {background-color: #9AC2DD;}

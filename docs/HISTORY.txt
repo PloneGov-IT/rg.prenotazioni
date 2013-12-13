@@ -4,6 +4,8 @@ Changelog
 3.0 (unreleased)
 ================
 
+- Fix redirect after exception message in prenotazioni_move [nicolasenno]
+- Fix check conflicts on prenotazione_move [nicolasenno]
 - Added legend to prenotazione_folder [nicolasenno]
 - Fix redirect in prenotazioni_move [nicolasenno]
 - Fix some i18n translations [nicolasenno] 

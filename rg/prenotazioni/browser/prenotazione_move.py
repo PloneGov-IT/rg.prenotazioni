@@ -112,7 +112,14 @@ class MoveForm(PageForm):
         data['tipology'] = self.context.getTipologia_prenotazione()
         errors = super(MoveForm, self).validate(action, data)
         conflict_manager = self.prenotazioni_view.conflict_manager
-        if conflict_manager.conflicts(data, exclude=None):
+        current_data = self.context.getData_prenotazione()
+        current = {'booking_date': current_data.asdatetime(),
+                   'tipology': data['tipology']}
+        current_slot = conflict_manager.get_choosen_slot(current)
+        current_gate = self.context.getGate()
+        exclude = {current_gate : [current_slot]}
+
+        if conflict_manager.conflicts(data, exclude=exclude):
             msg = _(u'Sorry, this slot is not available anymore.')
             self.set_invariant_error(errors, ['booking_date'], msg)
         if self.exceedes_date_limit(data):
@@ -148,7 +155,8 @@ class MoveForm(PageForm):
         Returns the url to move the booking in this slot
         '''
         date = day.strftime("%Y-%m-%d")
-        params = {'form.actions.move': 1}
+        params = {'form.actions.move': 1,
+                  'data': self.request.form.get('data', '')}
         times = slot.get_values_hr_every(300)
         urls = []
         base_url = self.request.getURL()
