@@ -6,6 +6,8 @@ from rg.prenotazioni.adapters.booker import IBooker
 
 
 def booking_created(context, event):
+    ''' On create event we perform a workflow status change
+    '''
     try:
         factory_tool = getToolByName(context, 'portal_factory')
         if not factory_tool.isTemporary(context) and not context._at_creation_flag:

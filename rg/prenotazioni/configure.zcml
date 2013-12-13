@@ -18,7 +18,7 @@
   <include package=".viewlets" />
   <include package=".vocs" />
 
-  <subscriber for=".interfaces.IPrenotazione zope.lifecycleevent.IObjectModifiedEvent"
+  <subscriber for=".interfaces.IPrenotazione zope.lifecycleevent.IObjectCreatedEvent"
               handler=".event.booking_created" />
 
   <subscriber for=".prenotazione_event.IMovedPrenotazione"

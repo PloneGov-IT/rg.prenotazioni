@@ -195,7 +195,8 @@ class Prenotazione(base.ATCTContent):
 
         The original method does nothing
         '''
-        booking_created(self, None)
+        if op == 0:
+            booking_created(self, None)
         return super(Prenotazione, self)._postCopy(container, op)
 
 atapi.registerType(Prenotazione, PROJECTNAME)

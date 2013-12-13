@@ -122,6 +122,8 @@ def upgrade_tipologia(context):
     def new_style_tipologie(value, duration):
         ''' Check is this value should be migrated
         '''
+        if isinstance(value, unicode):
+            value = value.encode('utf8')
         if isinstance(value, basestring):
             value = {'name': value or 'default', 'duration': str(duration)}
         return value
