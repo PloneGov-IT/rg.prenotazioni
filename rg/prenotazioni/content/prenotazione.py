@@ -6,7 +6,6 @@ from Products.Archetypes.ExtensibleMetadata import _zone
 from Products.CMFCore import permissions
 from rg.prenotazioni import prenotazioniMessageFactory as _
 from rg.prenotazioni.config import PROJECTNAME
-from rg.prenotazioni.event import booking_created
 from rg.prenotazioni.interfaces import IPrenotazione, IPrenotazioniFolder
 from zope.interface import implements
 
@@ -185,18 +184,5 @@ class Prenotazione(base.ATCTContent):
             return end - start
         else:
             return 1
-
-    def _postCopy(self, container, op=0):
-        '''
-        Customizing the method from CopySupport.py
-
-        Called after the copy is finished to fire the automatic transition.
-        The op var is 0 for a copy, 1 for a move.
-
-        The original method does nothing
-        '''
-        if op == 0:
-            booking_created(self, None)
-        return super(Prenotazione, self)._postCopy(container, op)
 
 atapi.registerType(Prenotazione, PROJECTNAME)

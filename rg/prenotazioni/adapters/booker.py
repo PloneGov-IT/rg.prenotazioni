@@ -79,6 +79,7 @@ class Booker(object):
         else:
             at_data['gate'] = force_gate
         obj.processForm(values=at_data)
+        api.content.transition(obj, 'submit')
         return obj
 
     def create(self, data, duration=-1, force_gate=''):
