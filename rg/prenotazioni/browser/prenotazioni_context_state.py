@@ -90,12 +90,16 @@ class PrenotazioniContextState(BrowserView):
     def remembered_params(self):
         ''' We want to remember some parameters
         '''
-        return {key: value
-                for key, value in self.request.form.iteritems()
-                if (value
-                    and key.startswith('form.')
-                    and not key.startswith('form.action'))
-                }
+        params = {key: value
+                  for key, value in self.request.form.iteritems()
+                  if (value
+                      and key.startswith('form.')
+                      and not key.startswith('form.action'))
+                  }
+        for key, value in params.iteritems():
+            if isinstance(value, unicode):
+                params[key] = value.encode('utf8')
+        return params
 
     @property
     @memoize
