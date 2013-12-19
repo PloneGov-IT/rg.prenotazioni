@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Main product initializer
 """
+from AccessControl import Unauthorized
 from Products.Archetypes import atapi
 from Products.CMFCore import utils
 from datetime import datetime, timedelta
@@ -55,17 +56,17 @@ def get_or_create_obj(folder, key, portal_type):
     '''
     if key in folder:
         return folder[key]
+
     try:
         with api.env.adopt_user(folder.getOwner().getId()):
             return api.content.create(type=portal_type,
                                       title=key,
                                       container=folder)
-    except UserNotFoundError:
+    except (UserNotFoundError, Unauthorized):
         with api.env.adopt_roles(['Manager']):
             return api.content.create(type=portal_type,
                                       title=key,
                                       container=folder)
-
 
 def initialize(context):
     """Initializer called when used as a Zope 2 product.
