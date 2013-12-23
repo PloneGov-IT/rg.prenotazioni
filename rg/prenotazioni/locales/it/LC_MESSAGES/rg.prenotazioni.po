@@ -594,7 +594,7 @@ msgstr "Oggetto"
 #. Default: "You cannot book any typology at this time"
 #: ./browser/prenotazione_add.py:397
 msgid "time_slot_to_short"
-msgstr "Non puoi selezionare nessuna tipologia di prenotazione nell'ora selezionata"
+msgstr "Tempo insufficiente per qualsiasi tipologia di prenotazione"
 
 #. Default: "Put booking types there (one per line).\nIf you do not provide this field, not type selection will be available"
 #: ./content/prenotazionifolder.py:126
