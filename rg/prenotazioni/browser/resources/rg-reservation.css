@@ -5,6 +5,11 @@ td.selected {
   background-color: #fefefe;
 }
 
+
+.template-prenotazione_add .field input[type="text"] {
+  width: 100%;
+}
+
 .template-prenotazione_print table.listing {
   border-top: 1px solid #ddd;
 }
