@@ -176,6 +176,7 @@ def TipologyWidget(field, request):
             ''' Get tipology bookability
             '''
             keys = sorted(self.tipologies_bookability['bookable'])
+            keys = [key.decode('utf8') for key in keys]
             voc = self.context.vocabulary
             return [voc.getTerm(key) for key in keys if key in voc]
 
@@ -185,6 +186,7 @@ def TipologyWidget(field, request):
             ''' Get tipology bookability
             '''
             keys = sorted(self.tipologies_bookability['unbookable'])
+            keys = [key.decode('utf8') for key in keys]
             voc = self.context.vocabulary
             return [voc.getTerm(key) for key in keys if key in voc]
 

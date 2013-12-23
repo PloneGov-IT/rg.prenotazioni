@@ -267,9 +267,9 @@ class PrenotazioniContextState(BrowserView):
         '''
         if isinstance(booking_date, basestring):
             booking_date = DateTime(booking_date)
-        if not create:
-            import pdb;pdb.set_trace()
-            self.context.unrestrictedTraverse('%Y/%W/%u', None)
+        if not create_missing:
+            relative_path = booking_date.strftime('%Y/%W/%u')
+            return self.context.unrestrictedTraverse(relative_path, None)
         year_id = booking_date.strftime('%Y')
         year = get_or_create_obj(self.context, year_id, self.year_type)
         week_id = booking_date.strftime('%W')
