@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2013-12-23 15:37+0000\n"
-"PO-Revision-Date: 2013-12-23 16:38+0100\n"
+"POT-Creation-Date: 2013-12-23 16:21+0000\n"
+"PO-Revision-Date: 2013-12-23 17:22+0100\n"
 "Last-Translator: Alessandro Pisa <alessandro.pisa@redturtle.it>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -228,12 +228,17 @@ msgid "Settimana Tipo"
 msgstr "Settimana Tipo"
 
 #: ./browser/prenotazione_add.py:320
-#: ./browser/prenotazione_move.py:123
 msgid "Sorry, this slot is not available anymore."
 msgstr "Ci dispiace, ma questo intervallo di tempo non è più disponibile"
 
+#: ./browser/prenotazione_move.py:123
+msgid "Sorry, this slot is not available or does not fit your booking."
+msgstr ""
+"Ci dispiace questo intervallo di tempo non è disponibilo o non è adatto alla "
+"tua prenotazione."
+
 #: ./browser/prenotazione_add.py:323
-#: ./browser/prenotazione_move.py:126
+#: ./browser/prenotazione_move.py:127
 msgid "Sorry, you can not book this slot for now."
 msgstr ""
 "Ci dispiace, ma questo intervallo di tempo non è al momento disponibile"
@@ -268,20 +273,20 @@ msgid "aData_help"
 msgstr "Lascia vuoto, e questa Cartella Prenotazioni non avrà scadenza"
 
 #. Default: "Book"
-#: ./browser/prenotazione_add.py:346
-#: ./browser/vacations.py:271
+#: ./browser/prenotazione_add.py:347
+#: ./browser/vacations.py:272
 msgid "action_book"
 msgstr "Prenota"
 
 #. Default: "Cancel"
-#: ./browser/prenotazione_add.py:361
-#: ./browser/prenotazione_move.py:184
+#: ./browser/prenotazione_add.py:362
+#: ./browser/prenotazione_move.py:185
 #: ./browser/prenotazioni_search.py:128
 msgid "action_cancel"
 msgstr "Cancella"
 
 #. Default: "Move"
-#: ./browser/prenotazione_move.py:169
+#: ./browser/prenotazione_move.py:170
 msgid "action_move"
 msgstr "Sposta"
 
@@ -312,12 +317,12 @@ msgid "booking_confirmed"
 msgstr "Prenotazione confermata"
 
 #. Default: "Booking created"
-#: ./browser/prenotazione_add.py:352
-#: ./browser/vacations.py:268
+#: ./browser/prenotazione_add.py:353
+#: ./browser/vacations.py:269
 msgid "booking_created"
 msgstr "Prenotazione creata"
 
-#: ./browser/prenotazione_move.py:176
+#: ./browser/prenotazione_move.py:177
 msgid "booking_moved"
 msgstr "Prenotazione spostata correttamente"
 
@@ -337,7 +342,7 @@ msgid "bookings_not_in_agenda"
 msgstr "Prenotazioni non in agenda"
 
 #. Default: "This day is not valid."
-#: ./browser/vacations.py:227
+#: ./browser/vacations.py:228
 msgid "day_error"
 msgstr "Questo giorno non è valido"
 
@@ -571,7 +576,7 @@ msgstr ""
 "prenotazione"
 
 #. Default: "Please select a time slot"
-#: ./browser/prenotazione_add.py:395
+#: ./browser/prenotazione_add.py:396
 msgid "please_pick_a_date"
 msgstr "Selezionare una data"
 
@@ -601,7 +606,7 @@ msgid "search_result_message"
 msgstr "Risultato della ricerca"
 
 #. Default: "This gate has some booking schedule in this time period."
-#: ./browser/vacations.py:223
+#: ./browser/vacations.py:224
 msgid "slot_conflict_error"
 msgstr "Questo sportello ha già appuntamenti schedulati in questo periodo."
 
@@ -618,7 +623,7 @@ msgid "subject"
 msgstr "Oggetto"
 
 #. Default: "You cannot book any typology at this time"
-#: ./browser/prenotazione_add.py:399
+#: ./browser/prenotazione_add.py:400
 msgid "time_slot_to_short"
 msgstr "Tempo insufficiente per qualsiasi tipologia di prenotazione"
 

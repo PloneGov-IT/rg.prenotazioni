@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2013-12-23 15:37+0000\n"
+"POT-Creation-Date: 2013-12-23 16:21+0000\n"
 "PO-Revision-Date: 2013-06-07 14:31+0200\n"
 "Last-Translator: Alessandro Pisa <alessandro.pisa@redturtle.it>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -224,12 +224,15 @@ msgid "Settimana Tipo"
 msgstr "Typical week"
 
 #: ./browser/prenotazione_add.py:320
-#: ./browser/prenotazione_move.py:123
 msgid "Sorry, this slot is not available anymore."
 msgstr ""
 
+#: ./browser/prenotazione_move.py:123
+msgid "Sorry, this slot is not available or does not fit your booking."
+msgstr ""
+
 #: ./browser/prenotazione_add.py:323
-#: ./browser/prenotazione_move.py:126
+#: ./browser/prenotazione_move.py:127
 msgid "Sorry, you can not book this slot for now."
 msgstr ""
 
@@ -263,20 +266,20 @@ msgid "aData_help"
 msgstr ""
 
 #. Default: "Book"
-#: ./browser/prenotazione_add.py:346
-#: ./browser/vacations.py:271
+#: ./browser/prenotazione_add.py:347
+#: ./browser/vacations.py:272
 msgid "action_book"
 msgstr ""
 
 #. Default: "Cancel"
-#: ./browser/prenotazione_add.py:361
-#: ./browser/prenotazione_move.py:184
+#: ./browser/prenotazione_add.py:362
+#: ./browser/prenotazione_move.py:185
 #: ./browser/prenotazioni_search.py:128
 msgid "action_cancel"
 msgstr "Cancel"
 
 #. Default: "Move"
-#: ./browser/prenotazione_move.py:169
+#: ./browser/prenotazione_move.py:170
 msgid "action_move"
 msgstr ""
 
@@ -305,12 +308,12 @@ msgid "booking_confirmed"
 msgstr ""
 
 #. Default: "Booking created"
-#: ./browser/prenotazione_add.py:352
-#: ./browser/vacations.py:268
+#: ./browser/prenotazione_add.py:353
+#: ./browser/vacations.py:269
 msgid "booking_created"
 msgstr ""
 
-#: ./browser/prenotazione_move.py:176
+#: ./browser/prenotazione_move.py:177
 msgid "booking_moved"
 msgstr ""
 
@@ -330,7 +333,7 @@ msgid "bookings_not_in_agenda"
 msgstr ""
 
 #. Default: "This day is not valid."
-#: ./browser/vacations.py:227
+#: ./browser/vacations.py:228
 msgid "day_error"
 msgstr ""
 
@@ -547,7 +550,7 @@ msgid "overbook_message"
 msgstr "We are sorry, another concurrent booking has been registered, press the cancel button to make a new book request."
 
 #. Default: "Please select a time slot"
-#: ./browser/prenotazione_add.py:395
+#: ./browser/prenotazione_add.py:396
 msgid "please_pick_a_date"
 msgstr ""
 
@@ -577,7 +580,7 @@ msgid "search_result_message"
 msgstr ""
 
 #. Default: "This gate has some booking schedule in this time period."
-#: ./browser/vacations.py:223
+#: ./browser/vacations.py:224
 msgid "slot_conflict_error"
 msgstr ""
 
@@ -592,7 +595,7 @@ msgid "subject"
 msgstr ""
 
 #. Default: "You cannot book any typology at this time"
-#: ./browser/prenotazione_add.py:399
+#: ./browser/prenotazione_add.py:400
 msgid "time_slot_to_short"
 msgstr ""
 
