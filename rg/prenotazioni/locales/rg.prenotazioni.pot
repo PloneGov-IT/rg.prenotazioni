@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-12-09 17:02+0000\n"
+"POT-Creation-Date: 2013-12-23 10:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,7 +62,7 @@ msgstr ""
 msgid "Booking Year Folder"
 msgstr ""
 
-#: ./content/prenotazione.py:65
+#: ./content/prenotazione.py:64
 msgid "Booking date"
 msgstr ""
 
@@ -73,7 +73,7 @@ msgstr ""
 msgid "Booking product for Plone"
 msgstr ""
 
-#: ./content/prenotazione.py:74
+#: ./content/prenotazione.py:73
 msgid "Company"
 msgstr ""
 
@@ -121,11 +121,11 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: ./content/prenotazione.py:93
+#: ./content/prenotazione.py:92
 msgid "Expiration date booking"
 msgstr ""
 
-#: ./content/prenotazione.py:84
+#: ./content/prenotazione.py:83
 msgid "Gate"
 msgstr ""
 
@@ -161,7 +161,7 @@ msgstr ""
 msgid "Inserisci l'indirizzo email del responsabile delle prenotazioni"
 msgstr ""
 
-#: ./content/prenotazione.py:75
+#: ./content/prenotazione.py:74
 msgid "Inserisci la denominazione dell'azienda del richiedente"
 msgstr ""
 
@@ -173,27 +173,27 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: ./content/prenotazione.py:46
+#: ./content/prenotazione.py:45
 msgid "Mobile"
 msgstr ""
 
-#: ./content/prenotazione.py:47
+#: ./content/prenotazione.py:46
 msgid "Mobile number"
 msgstr ""
 
-#: ./content/prenotazione.py:104
+#: ./content/prenotazione.py:103
 msgid "Nome e Cognome"
 msgstr ""
 
-#: ./content/prenotazione.py:110
+#: ./content/prenotazione.py:109
 msgid "Oggetto"
 msgstr ""
 
-#: ./content/prenotazione.py:37
+#: ./content/prenotazione.py:36
 msgid "Phone"
 msgstr ""
 
-#: ./content/prenotazione.py:38
+#: ./content/prenotazione.py:37
 msgid "Phone number"
 msgstr ""
 
@@ -224,17 +224,17 @@ msgstr ""
 msgid "Settimana Tipo"
 msgstr ""
 
-#: ./browser/prenotazione_add.py:200
-#: ./browser/prenotazione_move.py:116
+#: ./browser/prenotazione_add.py:244
+#: ./browser/prenotazione_move.py:123
 msgid "Sorry, this slot is not available anymore."
 msgstr ""
 
-#: ./browser/prenotazione_add.py:203
-#: ./browser/prenotazione_move.py:119
+#: ./browser/prenotazione_add.py:247
+#: ./browser/prenotazione_move.py:126
 msgid "Sorry, you can not book this slot for now."
 msgstr ""
 
-#: ./content/prenotazione.py:85
+#: ./content/prenotazione.py:84
 msgid "Sportello a cui presentarsi"
 msgstr ""
 
@@ -264,20 +264,20 @@ msgid "aData_help"
 msgstr ""
 
 #. Default: "Book"
-#: ./browser/prenotazione_add.py:226
+#: ./browser/prenotazione_add.py:270
 #: ./browser/vacations.py:271
 msgid "action_book"
 msgstr ""
 
 #. Default: "Cancel"
-#: ./browser/prenotazione_add.py:241
-#: ./browser/prenotazione_move.py:176
+#: ./browser/prenotazione_add.py:285
+#: ./browser/prenotazione_move.py:184
 #: ./browser/prenotazioni_search.py:128
 msgid "action_cancel"
 msgstr ""
 
 #. Default: "Move"
-#: ./browser/prenotazione_move.py:161
+#: ./browser/prenotazione_move.py:169
 msgid "action_move"
 msgstr ""
 
@@ -296,7 +296,7 @@ msgstr ""
 msgid "bookable_time"
 msgstr ""
 
-#: ./content/prenotazione.py:56
+#: ./content/prenotazione.py:55
 msgid "booking tipology"
 msgstr ""
 
@@ -305,12 +305,12 @@ msgstr ""
 msgid "booking_confirmed"
 msgstr ""
 
-#: ./browser/prenotazione_add.py:232
+#: ./browser/prenotazione_add.py:276
 #: ./browser/vacations.py:268
 msgid "booking_created"
 msgstr ""
 
-#: ./browser/prenotazione_move.py:168
+#: ./browser/prenotazione_move.py:176
 msgid "booking_moved"
 msgstr ""
 
@@ -367,6 +367,10 @@ msgstr ""
 #. Default: "Gates"
 #: ./content/prenotazionifolder.py:147
 msgid "gates_label"
+msgstr ""
+
+#: ./browser/prenotazione_add.py:175
+msgid "help_prenotazione_add"
 msgstr ""
 
 #. Default: "List of available reservation type for the current agenda"
@@ -453,6 +457,11 @@ msgstr ""
 msgid "label_phone"
 msgstr ""
 
+#. Default: "Selected date: ${date}"
+#: ./browser/prenotazione_add.py:165
+msgid "label_selected_date"
+msgstr ""
+
 #. Default: "Start date "
 #: ./browser/prenotazioni_search.py:40
 msgid "label_start"
@@ -513,7 +522,8 @@ msgstr ""
 msgid "message_help"
 msgstr ""
 
-#. Default: "go back to the calendar"
+#. Default: "Go back to the booking folder."
+#: ./browser/prenotazione.pt:70
 #: ./browser/prenotazione_move.pt:38
 msgid "move_back_message"
 msgstr ""
@@ -529,12 +539,12 @@ msgid "move_message"
 msgstr ""
 
 #. Default: "Siamo spiacenti, è già stato preso un appuntamento nella stessa fascia oraria, premere il pulsante ANNULLA per effettuare una nuova richiesta di prenotazione"
-#: ./content/prenotazione.py:14
+#: ./content/prenotazione.py:13
 msgid "overbook_message"
 msgstr ""
 
 #. Default: "Please select a time slot"
-#: ./browser/prenotazione_add.py:257
+#: ./browser/prenotazione_add.py:301
 msgid "please_pick_a_date"
 msgstr ""
 

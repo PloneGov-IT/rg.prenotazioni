@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2013-12-09 17:02+0000\n"
-"PO-Revision-Date: 2013-12-09 18:02+0100\n"
+"POT-Creation-Date: 2013-12-23 10:09+0000\n"
+"PO-Revision-Date: 2013-12-23 11:10+0100\n"
 "Last-Translator: Alessandro Pisa <alessandro.pisa@redturtle.it>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -69,7 +69,7 @@ msgstr "Cartella settimana prenotazioni"
 msgid "Booking Year Folder"
 msgstr "Cartella anno prenotazioni"
 
-#: ./content/prenotazione.py:65
+#: ./content/prenotazione.py:64
 msgid "Booking date"
 msgstr "Data prenotazione"
 
@@ -80,7 +80,7 @@ msgstr "Prenotazione di"
 msgid "Booking product for Plone"
 msgstr "Prodotto di prenotazioni per Plone"
 
-#: ./content/prenotazione.py:74
+#: ./content/prenotazione.py:73
 msgid "Company"
 msgstr "Azienda"
 
@@ -128,11 +128,11 @@ msgstr "Report email al creatore della prenotazione"
 msgid "Error"
 msgstr "Errore"
 
-#: ./content/prenotazione.py:93
+#: ./content/prenotazione.py:92
 msgid "Expiration date booking"
 msgstr "Data scandenza prenotazione"
 
-#: ./content/prenotazione.py:84
+#: ./content/prenotazione.py:83
 msgid "Gate"
 msgstr "Sportello"
 
@@ -168,7 +168,7 @@ msgstr "Informazioni relativa ad una singola prenotazione"
 msgid "Inserisci l'indirizzo email del responsabile delle prenotazioni"
 msgstr "Inserisci l'indirizzo email del responsabile delle prenotazioni"
 
-#: ./content/prenotazione.py:75
+#: ./content/prenotazione.py:74
 msgid "Inserisci la denominazione dell'azienda del richiedente"
 msgstr "Inserisci la denominazione dell'azienda del richiedente"
 
@@ -180,27 +180,27 @@ msgstr "Massimi giorni nel futuro"
 msgid "Message"
 msgstr "Messaggio"
 
-#: ./content/prenotazione.py:46
+#: ./content/prenotazione.py:45
 msgid "Mobile"
 msgstr "Numero di cellulare"
 
-#: ./content/prenotazione.py:47
+#: ./content/prenotazione.py:46
 msgid "Mobile number"
 msgstr "Numero di cellulare"
 
-#: ./content/prenotazione.py:104
+#: ./content/prenotazione.py:103
 msgid "Nome e Cognome"
 msgstr "Nome e Cognome"
 
-#: ./content/prenotazione.py:110
+#: ./content/prenotazione.py:109
 msgid "Oggetto"
 msgstr "Oggetto"
 
-#: ./content/prenotazione.py:37
+#: ./content/prenotazione.py:36
 msgid "Phone"
 msgstr "Telefono"
 
-#: ./content/prenotazione.py:38
+#: ./content/prenotazione.py:37
 msgid "Phone number"
 msgstr "Numero di telefono"
 
@@ -231,18 +231,18 @@ msgstr "Indirizzo mittente"
 msgid "Settimana Tipo"
 msgstr "Settimana Tipo"
 
-#: ./browser/prenotazione_add.py:200
-#: ./browser/prenotazione_move.py:116
+#: ./browser/prenotazione_add.py:244
+#: ./browser/prenotazione_move.py:123
 msgid "Sorry, this slot is not available anymore."
 msgstr "Ci dispiace, ma questo intervallo di tempo non è più disponibile"
 
-#: ./browser/prenotazione_add.py:203
-#: ./browser/prenotazione_move.py:119
+#: ./browser/prenotazione_add.py:247
+#: ./browser/prenotazione_move.py:126
 msgid "Sorry, you can not book this slot for now."
 msgstr ""
 "Ci dispiace, ma questo intervallo di tempo non è al momento disponibile"
 
-#: ./content/prenotazione.py:85
+#: ./content/prenotazione.py:84
 msgid "Sportello a cui presentarsi"
 msgstr "Sportello a cui presentarsi"
 
@@ -272,20 +272,20 @@ msgid "aData_help"
 msgstr "Lascia vuoto, e questa Cartella Prenotazioni non avrà scadenza"
 
 #. Default: "Book"
-#: ./browser/prenotazione_add.py:226
+#: ./browser/prenotazione_add.py:270
 #: ./browser/vacations.py:271
 msgid "action_book"
 msgstr "Prenota"
 
 #. Default: "Cancel"
-#: ./browser/prenotazione_add.py:241
-#: ./browser/prenotazione_move.py:176
+#: ./browser/prenotazione_add.py:285
+#: ./browser/prenotazione_move.py:184
 #: ./browser/prenotazioni_search.py:128
 msgid "action_cancel"
 msgstr "Cancella"
 
 #. Default: "Move"
-#: ./browser/prenotazione_move.py:161
+#: ./browser/prenotazione_move.py:169
 msgid "action_move"
 msgstr "Sposta"
 
@@ -306,7 +306,7 @@ msgstr ""
 msgid "bookable_time"
 msgstr "Tempo prenotabile "
 
-#: ./content/prenotazione.py:56
+#: ./content/prenotazione.py:55
 msgid "booking tipology"
 msgstr "Tipi di prenotazione"
 
@@ -316,12 +316,12 @@ msgid "booking_confirmed"
 msgstr "Prenotazione confermata"
 
 #. Default: "Booking created"
-#: ./browser/prenotazione_add.py:232
+#: ./browser/prenotazione_add.py:276
 #: ./browser/vacations.py:268
 msgid "booking_created"
 msgstr "Prenotazione creata"
 
-#: ./browser/prenotazione_move.py:168
+#: ./browser/prenotazione_move.py:176
 msgid "booking_moved"
 msgstr "Prenotazione spostata correttamente"
 
@@ -383,6 +383,10 @@ msgstr ""
 #: ./content/prenotazionifolder.py:147
 msgid "gates_label"
 msgstr "Sportelli preposti"
+
+#: ./browser/prenotazione_add.py:175
+msgid "help_prenotazione_add"
+msgstr ""
 
 #. Default: "List of available reservation type for the current agenda"
 #: ./browser/week.pt:24
@@ -470,6 +474,11 @@ msgstr "Numero di cellulare"
 msgid "label_phone"
 msgstr "Numero di telefono"
 
+#. Default: "Selected date: ${date}"
+#: ./browser/prenotazione_add.py:165
+msgid "label_selected_date"
+msgstr "Data selezionata: ${date}"
+
 #. Default: "Start date "
 #: ./browser/prenotazioni_search.py:40
 msgid "label_start"
@@ -538,10 +547,11 @@ msgstr ""
 "la data della prenotazione. \"${url}\" sarà sostituito  dall'url della "
 "prenotazione. ${portal} sarà sostituito  con il titolo del portale. "
 
-#. Default: "go back to the calendar"
+#. Default: "Go back to the booking folder."
+#: ./browser/prenotazione.pt:70
 #: ./browser/prenotazione_move.pt:38
 msgid "move_back_message"
-msgstr "ritorna al calendario"
+msgstr "Ritorna al calendario"
 
 #. Default: "Move booking"
 #: ./browser/week.pt:63
@@ -556,7 +566,7 @@ msgstr ""
 "verde oppure"
 
 #. Default: "Siamo spiacenti, è già stato preso un appuntamento nella stessa fascia oraria, premere il pulsante ANNULLA per effettuare una nuova richiesta di prenotazione"
-#: ./content/prenotazione.py:14
+#: ./content/prenotazione.py:13
 msgid "overbook_message"
 msgstr ""
 "Siamo spiacenti, è già stato preso un appuntamento nella stessa fascia "
@@ -564,7 +574,7 @@ msgstr ""
 "prenotazione"
 
 #. Default: "Please select a time slot"
-#: ./browser/prenotazione_add.py:257
+#: ./browser/prenotazione_add.py:301
 msgid "please_pick_a_date"
 msgstr "Selezionare una data"
 
