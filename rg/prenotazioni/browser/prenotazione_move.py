@@ -117,10 +117,11 @@ class MoveForm(PageForm):
                    'tipology': data['tipology']}
         current_slot = conflict_manager.get_choosen_slot(current)
         current_gate = self.context.getGate()
-        exclude = {current_gate : [current_slot]}
+        exclude = {current_gate: [current_slot]}
 
         if conflict_manager.conflicts(data, exclude=exclude):
-            msg = _(u'Sorry, this slot is not available anymore.')
+            msg = _(u'Sorry, this slot is not available or does not fit your '
+                    u'booking.')
             self.set_invariant_error(errors, ['booking_date'], msg)
         if self.exceedes_date_limit(data):
             msg = _(u'Sorry, you can not book this slot for now.')

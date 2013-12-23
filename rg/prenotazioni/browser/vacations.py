@@ -177,7 +177,8 @@ class VacationBooking(PageForm):
         start_date = self.get_start_date(data)
         vacation_slot = self.get_vacation_slot(data)
         free_slots = self.prenotazioni.get_free_slots(start_date)
-        gate_free_slots = free_slots[data['gate']]
+        gate = data.get('gate', '')
+        gate_free_slots = free_slots.get(gate, [])
         slots = [vacation_slot.intersect(slot) for slot in gate_free_slots]
         return slots
 
