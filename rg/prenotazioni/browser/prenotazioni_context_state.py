@@ -93,7 +93,10 @@ class PrenotazioniContextState(BrowserView):
                   for key, value in self.request.form.iteritems()
                   if (value
                       and key.startswith('form.')
-                      and not key.startswith('form.action'))
+                      and not key.startswith('form.action')
+                      and not key in ('form.booking_date',
+                                      )
+                      )
                   }
         for key, value in params.iteritems():
             if isinstance(value, unicode):
@@ -130,13 +133,12 @@ class PrenotazioniContextState(BrowserView):
             if day > self.maximum_bookable_date.date():
                 return []
         date = day.strftime("%Y-%m-%d")
-        params = {}
+        params = self.remembered_params.copy()
         times = slot.get_values_hr_every(300, slot_min_size=slot_min_size)
         base_url = self.base_booking_url
         urls = []
         for t in times:
             params['form.booking_date'] = " ".join((date, t))
-            params.update(self.remembered_params)
             qs = urlencode(params)
             urls.append({'title': t,
                          'url': '?'.join((base_url, qs)),
