@@ -160,7 +160,7 @@ class MoveForm(PageForm):
                   'data': self.request.form.get('data', '')}
         times = slot.get_values_hr_every(300)
         urls = []
-        base_url = self.request.getURL()
+        base_url = self.context.absolute_url()
         for t in times:
             params['form.booking_date'] = " ".join((date, t))
             qs = urlencode(params)
