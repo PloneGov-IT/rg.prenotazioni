@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-12-23 14:18+0000\n"
+"POT-Creation-Date: 2013-12-23 15:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -130,7 +130,7 @@ msgid "Gate"
 msgstr ""
 
 #: ./browser/prenotazione.pt:60
-msgid "Gates:"
+msgid "Gate:"
 msgstr ""
 
 #: ./content/prenotazionifolder.py:96
@@ -220,12 +220,12 @@ msgstr ""
 msgid "Settimana Tipo"
 msgstr ""
 
-#: ./browser/prenotazione_add.py:318
+#: ./browser/prenotazione_add.py:320
 #: ./browser/prenotazione_move.py:123
 msgid "Sorry, this slot is not available anymore."
 msgstr ""
 
-#: ./browser/prenotazione_add.py:321
+#: ./browser/prenotazione_add.py:323
 #: ./browser/prenotazione_move.py:126
 msgid "Sorry, you can not book this slot for now."
 msgstr ""
@@ -260,13 +260,13 @@ msgid "aData_help"
 msgstr ""
 
 #. Default: "Book"
-#: ./browser/prenotazione_add.py:344
+#: ./browser/prenotazione_add.py:346
 #: ./browser/vacations.py:271
 msgid "action_book"
 msgstr ""
 
 #. Default: "Cancel"
-#: ./browser/prenotazione_add.py:359
+#: ./browser/prenotazione_add.py:361
 #: ./browser/prenotazione_move.py:184
 #: ./browser/prenotazioni_search.py:128
 msgid "action_cancel"
@@ -301,7 +301,7 @@ msgstr ""
 msgid "booking_confirmed"
 msgstr ""
 
-#: ./browser/prenotazione_add.py:350
+#: ./browser/prenotazione_add.py:352
 #: ./browser/vacations.py:268
 msgid "booking_created"
 msgstr ""
@@ -365,7 +365,7 @@ msgstr ""
 msgid "gates_label"
 msgstr ""
 
-#: ./browser/prenotazione_add.py:237
+#: ./browser/prenotazione_add.py:239
 msgid "help_prenotazione_add"
 msgstr ""
 
@@ -454,7 +454,7 @@ msgid "label_phone"
 msgstr ""
 
 #. Default: "Selected date: ${date}"
-#: ./browser/prenotazione_add.py:227
+#: ./browser/prenotazione_add.py:229
 msgid "label_selected_date"
 msgstr ""
 
@@ -541,7 +541,7 @@ msgid "overbook_message"
 msgstr ""
 
 #. Default: "Please select a time slot"
-#: ./browser/prenotazione_add.py:393
+#: ./browser/prenotazione_add.py:395
 msgid "please_pick_a_date"
 msgstr ""
 
@@ -586,7 +586,7 @@ msgid "subject"
 msgstr ""
 
 #. Default: "You cannot book any typology at this time"
-#: ./browser/prenotazione_add.py:397
+#: ./browser/prenotazione_add.py:399
 msgid "time_slot_to_short"
 msgstr ""
 
@@ -606,17 +606,17 @@ msgid "tipology_value"
 msgstr ""
 
 #. Default: "You can select any of the following tipologies:"
-#: ./browser/tipology_radio_widget.pt:9
+#: ./browser/tipology_radio_widget.pt:7
 msgid "tipology_widget_select_available"
 msgstr ""
 
 #. Default: "You may want to select another time slot"
-#: ./browser/tipology_radio_widget.pt:38
+#: ./browser/tipology_radio_widget.pt:36
 msgid "tipology_widget_suggest_reselect"
 msgstr ""
 
 #. Default: "The following tipologies will not fit the time you selected:"
-#: ./browser/tipology_radio_widget.pt:29
+#: ./browser/tipology_radio_widget.pt:27
 msgid "tipology_widget_warn_unavailable"
 msgstr ""
 

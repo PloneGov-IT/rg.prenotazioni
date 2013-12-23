@@ -57,7 +57,7 @@ i18n:domain="rg.prenotazioni">
                     tal:content="here/getEmail" />
                 </div>
                 <div class="field" tal:condition="here/getGate">
-                    <strong i18n:translate="">Gates:</strong>
+                    <strong i18n:translate="">Gate:</strong>
                     <span tal:content="here/getGate">Gate no. 1</span>
                 </div>
                 <div class="field">
