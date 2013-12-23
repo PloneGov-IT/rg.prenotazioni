@@ -1,0 +1,38 @@
+<div class="tipology_widget" i18n:domain="rg.prenotazioni">
+  <div class="value">
+    <p class="formHelp" i18n:translate="tipology_widget_select_available">
+      You can select any of the following tipologies.
+    </p>
+    <tal:for repeat="item view/items">
+      <tal:line define="line_id python:'form.tipology.%s' % repeat['item'].index"
+                condition="python:item in view.bookable_items">
+        <label tal:attributes="for line_id">
+          <input class="radioType"
+                name="form.tipology"
+                type="radio"
+                value=""
+                tal:attributes="id line_id;value item/value"
+                >
+            <tal:content replace="item/title">Vocabulary title</tal:content>
+        </label>
+      </tal:line>
+    </tal:for>
+    <input name="form.tipology-empty-marker" type="hidden" value="1">
+  </div>
+  <div tal:condition="view/unbookable_items">
+    <p class="formHelp" i18n:translate="tipology_widget_warn_unavailable">
+      The following tipologies will not fit the time you selected.
+    </p>
+    <ul>
+      <li tal:repeat="item view/unbookable_items">
+        <tal:li replace="item/title">Vocabulary title</tal:li>
+      </li>
+    </ul>
+    <p class="formHelp">
+      <a tal:attributes="href view/prenotazione_add/back_to_booking_url"
+         i18n:translate="tipology_widget_suggest_reselect">
+        You may want to select another time slot
+      </a>
+    </p>
+  </div>
+</div>

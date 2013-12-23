@@ -137,7 +137,63 @@ class IAddForm(Interface):
 def TipologyWidget(field, request):
     ''' Custom radio widget
     '''
-    return RadioWidget(field, field.vocabulary, request)
+    class TipologyRadioWidget(RadioWidget):
+        ''' Override tipology RadioWidget
+        '''
+        template = ViewPageTemplateFile('tipology_radio_widget.pt')
+
+        @property
+        @memoize
+        def prenotazione_add(self):
+            ''' Returns the prenotazioni_context_state view.
+
+            Everyone should know about this!
+            '''
+            return api.content.get_view('prenotazione_add',
+                                        self.context.context.aq_inner,
+                                        self.request)
+
+        @property
+        @memoize
+        def tipologies_bookability(self):
+            ''' Get tipology bookability
+            '''
+            booking_date = self.prenotazione_add.booking_DateTime.asdatetime()
+            prenotazioni = self.prenotazione_add.prenotazioni
+            return prenotazioni.tipologies_bookability(booking_date)
+
+        @property
+        @memoize
+        def items(self):
+            ''' Get tipology bookability
+            '''
+            voc = self.context.vocabulary
+            return [term for term in voc]
+
+        @property
+        @memoize
+        def bookable_items(self):
+            ''' Get tipology bookability
+            '''
+            keys = sorted(self.tipologies_bookability['bookable'])
+            voc = self.context.vocabulary
+            return [voc.getTerm(key) for key in keys if key in voc]
+
+        @property
+        @memoize
+        def unbookable_items(self):
+            ''' Get tipology bookability
+            '''
+            keys = sorted(self.tipologies_bookability['unbookable'])
+            voc = self.context.vocabulary
+            return [voc.getTerm(key) for key in keys if key in voc]
+
+        def __call__(self):
+            """ Call our beautiful template
+            """
+            return self.template()
+
+    return TipologyRadioWidget(field, field.vocabulary, request)
 
 
 class AddForm(PageForm):
