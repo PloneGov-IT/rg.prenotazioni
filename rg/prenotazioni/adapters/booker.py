@@ -53,7 +53,8 @@ class Booker(object):
                            pass this parameter.
         '''
         booking_date = data['booking_date']
-        container = self.prenotazioni.get_container(booking_date)
+        container = self.prenotazioni.get_container(booking_date,
+                                                    create_missing=True)
         key = container.generateUniqueId(self.portal_type)
         obj = _createObjectByType(self.portal_type, container, key)
         # map form data to AT fields
@@ -97,7 +98,8 @@ class Booker(object):
         '''
         booking_date = booking.getData_prenotazione().asdatetime()
         old_container = booking.aq_parent
-        new_container = self.prenotazioni.get_container(booking_date)
+        new_container = self.prenotazioni.get_container(booking_date,
+                                                        create_missing=True)
         if old_container == new_container:
             return
         api.content.move(booking, new_container)

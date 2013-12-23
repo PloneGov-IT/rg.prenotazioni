@@ -258,11 +258,18 @@ class PrenotazioniContextState(BrowserView):
         date_limit = tznow() + timedelta(future_days)
         return date_limit
 
-    def get_container(self, booking_date):
+    def get_container(self, booking_date, create_missing=False):
         ''' Return the container for bookings in this date
+
+        :param booking_date: a date as a string, DateTime or datetime
+        :param create_missing: if set to True and the container is missing,
+                               create it
         '''
         if isinstance(booking_date, basestring):
             booking_date = DateTime(booking_date)
+        if not create:
+            import pdb;pdb.set_trace()
+            self.context.unrestrictedTraverse('%Y/%W/%u', None)
         year_id = booking_date.strftime('%Y')
         year = get_or_create_obj(self.context, year_id, self.year_type)
         week_id = booking_date.strftime('%W')
@@ -279,6 +286,8 @@ class PrenotazioniContextState(BrowserView):
         :param booking_date: a date as a datetime or a string
         '''
         day_folder = self.get_container(booking_date)
+        if not day_folder:
+            return []
         allowed_portal_type = self.booker.portal_type
         bookings = [item[1] for item in day_folder.items()
                     if item[1].portal_type == allowed_portal_type]
