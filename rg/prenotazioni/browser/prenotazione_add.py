@@ -145,6 +145,37 @@ class AddForm(PageForm):
 
     @property
     @memoize
+    def localized_time(self):
+        ''' Facade for context/@@plone/toLocalizedTime
+        '''
+        return api.content.get_view('plone',
+                                    self.context,
+                                    self.request).toLocalizedTime
+
+    @property
+    @memoize
+    def label(self):
+        '''
+        Check if user is anonymous
+        '''
+        booking_date = self.request.form.get('form.booking_date', '')
+        if not booking_date:
+            return ''
+        localized_date = self.localized_time(booking_date, long_format=True)
+        return _('label_selected_date',
+                 u"Selected date: ${date}",
+                 mapping={'date': localized_date})
+
+    @property
+    @memoize
+    def description(self):
+        '''
+        Check if user is anonymous
+        '''
+        return _('help_prenotazione_add', u"")
+
+    @property
+    @memoize
     def is_anonymous(self):
         '''
         Check if user is anonymous
