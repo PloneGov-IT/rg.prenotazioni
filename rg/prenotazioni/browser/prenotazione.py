@@ -49,9 +49,14 @@ class ResetDuration(PrenotazioneView):
     '''
     def reset_duration(self):
         ''' Reset the duration for this booking object
+
+        Tries to get the duration information from the request,
+        fallbacks to the tipology, and finally to 1 minute
         '''
         tipology = self.context.getTipologia_prenotazione()
-        duration = self.prenotazioni.get_tipology_duration(tipology)
+        duration = self.request.form.get('duration', 0)
+        if not duration:
+            duration = self.prenotazioni.get_tipology_duration(tipology)
         duration = (float(duration) / MIN_IN_DAY)
         self.context.setData_scadenza(self.booking_date + duration)
 
