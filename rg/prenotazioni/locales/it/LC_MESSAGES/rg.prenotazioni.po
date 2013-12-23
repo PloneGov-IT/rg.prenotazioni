@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2013-12-23 13:55+0000\n"
+"POT-Creation-Date: 2013-12-23 14:18+0000\n"
 "PO-Revision-Date: 2013-12-23 14:55+0100\n"
 "Last-Translator: Alessandro Pisa <alessandro.pisa@redturtle.it>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -612,19 +612,17 @@ msgid "tipology_value"
 msgstr "Durata"
 
 #. Default: "You can select any of the following tipologies:"
-#: ./browser/tipology_radio_widget.pt:3
-#, fuzzy
+#: ./browser/tipology_radio_widget.pt:9
 msgid "tipology_widget_select_available"
 msgstr "Puoi scegliere tra le seguenti tipologie:"
 
 #. Default: "You may want to select another time slot"
-#: ./browser/tipology_radio_widget.pt:32
+#: ./browser/tipology_radio_widget.pt:38
 msgid "tipology_widget_suggest_reselect"
 msgstr "Potresti voler selezionare un altro intervallo di tempo"
 
 #. Default: "The following tipologies will not fit the time you selected:"
-#: ./browser/tipology_radio_widget.pt:23
-#, fuzzy
+#: ./browser/tipology_radio_widget.pt:29
 msgid "tipology_widget_warn_unavailable"
 msgstr "Le seguenti tipologie non  si adattano all'intervallo di tempo selezionato:"
 

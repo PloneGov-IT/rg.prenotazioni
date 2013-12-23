@@ -1,9 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      i18n:domain="rg.prenotazioni"
-      tal:omit-tag="">
+      i18n:domain="rg.prenotazioni">
   <div class="tipology_widget">
     <div class="value">
       <p class="formHelp" i18n:translate="tipology_widget_select_available">

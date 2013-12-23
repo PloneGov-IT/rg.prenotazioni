@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-12-23 13:55+0000\n"
+"POT-Creation-Date: 2013-12-23 14:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -606,17 +606,17 @@ msgid "tipology_value"
 msgstr ""
 
 #. Default: "You can select any of the following tipologies:"
-#: ./browser/tipology_radio_widget.pt:3
+#: ./browser/tipology_radio_widget.pt:9
 msgid "tipology_widget_select_available"
 msgstr ""
 
 #. Default: "You may want to select another time slot"
-#: ./browser/tipology_radio_widget.pt:32
+#: ./browser/tipology_radio_widget.pt:38
 msgid "tipology_widget_suggest_reselect"
 msgstr ""
 
 #. Default: "The following tipologies will not fit the time you selected:"
-#: ./browser/tipology_radio_widget.pt:23
+#: ./browser/tipology_radio_widget.pt:29
 msgid "tipology_widget_warn_unavailable"
 msgstr ""
 
