@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from Products.Five.browser import BrowserView
+from plone import api
 from plone.memoize.view import memoize
 from rg.prenotazioni.config import MIN_IN_DAY
 from urllib import urlencode
@@ -14,6 +15,15 @@ class PrenotazioneView(BrowserView):
         ''' The parent prenotazioni folder
         '''
         return self.context.getPrenotazioniFolder()
+
+    @property
+    @memoize
+    def prenotazioni(self):
+        ''' The context state of the parent prenotazioni folder
+        '''
+        return api.content.get_view('prenotazioni_context_state',
+                                    self.prenotazioni_folder,
+                                    self.request)
 
     @property
     def booking_date(self):
