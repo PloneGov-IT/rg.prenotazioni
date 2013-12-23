@@ -336,11 +336,12 @@ class AddForm(PageForm):
     def back_to_booking_url(self):
         ''' This goes back to booking view.
         '''
-        target = self.context.absolute_url()
+        params = self.prenotazioni.remembered_params.copy()
         b_date = self.booking_DateTime
         if b_date:
-            qs = urlencode({'data': b_date.strftime('%d/%m/%Y')})
-            target = ('%s?%s') % (target, qs)
+            params['data'] = b_date.strftime('%d/%m/%Y')
+        qs = urlencode(params)
+        target = ('%s?%s') % (self.context.absolute_url(), qs)
         return target
 
     @action(_('action_book', u'Book'), name=u'book')
