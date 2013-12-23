@@ -108,7 +108,7 @@ class View(BaseView):
         """
         qs = {'data': self.prev_week}
         qs.update(self.prenotazioni.remembered_params)
-        return "%s?%s" % (self.request.absolute_url(), urlencode(qs))
+        return "%s?%s" % (self.context.absolute_url(), urlencode(qs))
 
     @property
     @memoize
