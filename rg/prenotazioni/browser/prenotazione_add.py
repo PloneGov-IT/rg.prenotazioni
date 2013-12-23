@@ -12,8 +12,8 @@ from plone.memoize.view import memoize
 from quintagroup.formlib.captcha import Captcha, CaptchaWidget
 from rg.prenotazioni import prenotazioniMessageFactory as _, tznow
 from rg.prenotazioni.adapters.booker import IBooker
-from rg.prenotazioni.adapters.conflict import IConflictManager
 from urllib import urlencode
+from zope.app.form.browser import RadioWidget
 from zope.component._api import getUtility
 from zope.formlib.form import FormFields, action
 from zope.formlib.interfaces import WidgetInputError
@@ -87,6 +87,12 @@ class IAddForm(Interface):
         default=None,
         constraint=check_is_future_date,
     )
+    tipology = Choice(
+        title=_('label_tipology', u'Tipology'),
+        required=True,
+        default=u'',
+        vocabulary='rg.prenotazioni.tipologies',
+    )
     fullname = TextLine(
         title=_('label_fullname', u'Fullname'),
         default=u'',
@@ -109,12 +115,6 @@ class IAddForm(Interface):
         default=u'',
         constraint=check_phone_number,
     )
-    tipology = Choice(
-        title=_('label_tipology', u'Tipology'),
-        required=True,
-        default=u'',
-        vocabulary='rg.prenotazioni.tipologies',
-    )
     subject = Text(
         title=_('label_subject', u'Subject'),
         default=u'',
@@ -134,14 +134,20 @@ class IAddForm(Interface):
     )
 
 
-class AddForm(PageForm):
+def TipologyWidget(field, request):
+    ''' Custom radio widget
+    '''
+    return RadioWidget(field, field.vocabulary, request)
 
+
+class AddForm(PageForm):
     """
     """
     implements(IAddForm)
     template = ViewPageTemplateFile('prenotazione_add.pt')
 
     hidden_fields = ["form.booking_date"]
+    render_form = False
 
     @property
     @memoize
@@ -158,7 +164,7 @@ class AddForm(PageForm):
         '''
         Check if user is anonymous
         '''
-        booking_date = self.request.form.get('form.booking_date', '')
+        booking_date = self.booking_DateTime
         if not booking_date:
             return ''
         localized_date = self.localized_time(booking_date, long_format=True)
@@ -173,6 +179,17 @@ class AddForm(PageForm):
         Check if user is anonymous
         '''
         return _('help_prenotazione_add', u"")
+
+    @property
+    @memoize
+    def booking_DateTime(self):
+        ''' Return the booking_date as passed in the request as a DateTime
+        object
+        '''
+        booking_date = self.request.form.get('form.booking_date', None)
+        if not booking_date:
+            return None
+        return DateTime(booking_date)
 
     @property
     @memoize
@@ -206,6 +223,7 @@ class AddForm(PageForm):
             ff = ff.omit('captcha')
         else:
             ff['captcha'].custom_widget = CaptchaWidget
+        ff['tipology'].custom_widget = TipologyWidget
         return ff
 
     def exceedes_date_limit(self, data):
@@ -239,7 +257,7 @@ class AddForm(PageForm):
         Checks if we can book those data
         '''
         errors = super(AddForm, self).validate(action, data)
-        conflict_manager = IConflictManager(self.context.aq_inner)
+        conflict_manager = self.prenotazioni.conflict_manager
         if conflict_manager.conflicts(data):
             msg = _(u'Sorry, this slot is not available anymore.')
             self.set_invariant_error(errors, ['booking_date'], msg)
@@ -260,12 +278,12 @@ class AddForm(PageForm):
     def back_to_booking_url(self):
         ''' This goes back to booking view.
         '''
-        try:
-            b_date = self.request.get('form.booking_date', '')
-            qs = urlencode({'data': DateTime(b_date).strftime('%d/%m/%Y')})
-            return ('%s?%s') % (self.context.absolute_url(), qs)
-        except:
-            return self.context.absolute_url()
+        target = self.context.absolute_url()
+        b_date = self.booking_DateTime
+        if b_date:
+            qs = urlencode({'data': b_date.strftime('%d/%m/%Y')})
+            target = ('%s?%s') % (target, qs)
+        return target
 
     @action(_('action_book', u'Book'), name=u'book')
     def action_book(self, action, data):
@@ -291,16 +309,36 @@ class AddForm(PageForm):
         target = self.back_to_booking_url
         return self.request.response.redirect(target)
 
+    def show_message(self, msg, msg_type):
+        ''' Facade for the show message api function
+        '''
+        show_message = api.portal.show_message
+        return show_message(msg, request=self.request, type=msg_type)
+
+    def redirect(self, target, msg="", msg_type="error"):
+        """ Redirects the user to the target, optionally with a portal message
+        """
+        if msg:
+            self.show_message(msg, msg_type)
+        return self.request.response.redirect(target)
+
+    def has_enough_time(self):
+        """ Check if we have enough time to book something
+        """
+        booking_date = self.booking_DateTime.asdatetime()
+        bookability = self.prenotazioni.tipologies_bookability(booking_date)
+        return bookability['bookable']
+
     def __call__(self):
         ''' Redirects to the context if no data is found in the request
         '''
-        if self.request.get('form.booking_date', ''):
-            return super(AddForm, self).__call__()
-
         # we should always have a booking date
-        msg = _('please_pick_a_date',
-                "Please select a time slot")
-        api.portal.show_message(message=msg,
-                                request=self.request,
-                                type='error')
-        return self.request.response.redirect(self.back_to_booking_url)
+        if not self.booking_DateTime:
+            msg = _('please_pick_a_date', "Please select a time slot")
+            return self.redirect(self.back_to_booking_url, msg)
+        # and if we have it, we should have enough time to do something
+        if not self.has_enough_time():
+            msg = _('time_slot_to_short',
+                    "You cannot book any typology at this time")
+            return self.redirect(self.back_to_booking_url, msg)
+        return super(AddForm, self).__call__()
