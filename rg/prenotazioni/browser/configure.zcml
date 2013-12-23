@@ -35,12 +35,19 @@
     template="prenotazione.pt"
     permission="zope2.View"
   />
-  
+
   <browser:page
     for="..interfaces.IPrenotazione"
     name="prenotazione_move"
     class=".prenotazione_move.MoveForm"
     template="prenotazione_move.pt"
+    permission="cmf.ModifyPortalContent"
+  />
+
+  <browser:page
+    for="..interfaces.IPrenotazione"
+    name="prenotazione_reset_duration"
+    class=".prenotazione.ResetDuration"
     permission="cmf.ModifyPortalContent"
   />
 
