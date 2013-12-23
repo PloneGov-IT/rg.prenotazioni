@@ -67,7 +67,7 @@ i18n:domain="rg.prenotazioni">
                          src="++resource++rg.prenotazioni.resources/calendar-add.png"
                          tal:attributes="src string:${portal_url}/++resource++rg.prenotazioni.resources/calendar-add.png"
                          >
-                    <tal:i18n i18n:translate="move_back_message">Go back to the booking folder.</tal:i18n>
+                    <tal:i18n i18n:translate="move_back_message">Go back to the calendar</tal:i18n>.
                   </a>
                 </div>
                 <div tal:replace="structure provider:plone.belowcontentbody" />

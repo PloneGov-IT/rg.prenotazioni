@@ -36,7 +36,7 @@
               <a tal:define="new_date python:request.get('data', '')"
                 tal:attributes="href string:${prenotazioni_folder/absolute_url}?data=${new_date}">
                   <span i18n:translate="move_back_message">
-                    go back to the calendar
+                    Go back to the calendar
                   </span>
               </a>.
           </h3>

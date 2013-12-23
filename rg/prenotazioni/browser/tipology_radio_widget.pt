@@ -1,7 +1,7 @@
 <div class="tipology_widget" i18n:domain="rg.prenotazioni">
   <div class="value">
     <p class="formHelp" i18n:translate="tipology_widget_select_available">
-      You can select any of the following tipologies.
+      You can select any of the following tipologies:
     </p>
     <tal:for repeat="item view/items">
       <tal:line define="line_id python:'form.tipology.%s' % repeat['item'].index"
@@ -21,7 +21,7 @@
   </div>
   <div tal:condition="view/unbookable_items">
     <p class="formHelp" i18n:translate="tipology_widget_warn_unavailable">
-      The following tipologies will not fit the time you selected.
+      The following tipologies will not fit the time you selected:
     </p>
     <ul>
       <li tal:repeat="item view/unbookable_items">

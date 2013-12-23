@@ -88,8 +88,8 @@ i18n:domain="plone">
                                                <a href=""
                                                     tal:attributes="href here/absolute_url"
                                                     i18n:domain="rg.prenotazioni"
-                                                    i18n:translate=""
-                                                    >Go back to the booking folder.</a>
+                                                    i18n:translate="move_back_message"
+                                                    >Go back to the calendar</a>.
                                              </div>
                                            </div>
                                         </tal:hidden>
