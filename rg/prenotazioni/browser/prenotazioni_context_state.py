@@ -4,8 +4,7 @@ from Products.Five.browser import BrowserView
 from datetime import datetime, timedelta
 from plone import api
 from plone.memoize.view import memoize
-from rg.prenotazioni import get_or_create_obj, prenotazioniMessageFactory as _, \
-    tznow
+from rg.prenotazioni import (get_or_create_obj, tznow)
 from rg.prenotazioni.adapters.booker import IBooker
 from rg.prenotazioni.adapters.conflict import IConflictManager
 from rg.prenotazioni.adapters.slot import ISlot, BaseSlot
@@ -67,7 +66,7 @@ class PrenotazioniContextState(BrowserView):
         '''
         Return the conflict manager for this context
         '''
-        return IBooker(self.context)
+        return IBooker(self.context.aq_inner)
 
     @property
     @memoize
@@ -75,7 +74,7 @@ class PrenotazioniContextState(BrowserView):
         '''
         Return the conflict manager for this context
         '''
-        return IConflictManager(self.context)
+        return IConflictManager(self.context.aq_inner)
 
     @memoize
     def get_state(self, context):
@@ -246,7 +245,6 @@ class PrenotazioniContextState(BrowserView):
                                       boundaries['end_p'],),
                 }
 
-
     @property
     @memoize
     def maximum_bookable_date(self):
@@ -412,6 +410,28 @@ class PrenotazioniContextState(BrowserView):
         if isinstance(tipology, dict):
             return int(tipology['duration']) * 60
         return self.tipology_durations.get(tipology, 1)
+
+    @memoize
+    def tipologies_bookability(self, booking_date):
+        '''
+        :param  booking_date: a datetime object
+
+        Return a dictionary like this:
+        {'bookable': ['tipology 00', 'tipology 01', ...],
+         'unbookable': ['tipology 10', 'tipology 10', ...],
+        }
+
+        Bookability is calculated from the booking_date and the available slots
+        '''
+        data = {'booking_date': booking_date}
+        bookability = {'bookable': [], 'unbookable': []}
+        for tipology in self.tipology_durations:
+            data['tipology'] = tipology
+            if self.conflict_manager.conflicts(data):
+                bookability['unbookable'].append(tipology)
+            else:
+                bookability['bookable'].append(tipology)
+        return bookability
 
     def get_first_slot(self, tipology, booking_date, period='day'):
         '''
