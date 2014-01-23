@@ -33,4 +33,12 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+  <genericsetup:registerProfile
+      name="contentrules"
+      title="Reno Galliera Booking Content Rules"
+      directory="profiles/contentrules"
+      description="Booking product for Plone: default content rules"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
 </configure>
