@@ -26,6 +26,15 @@
               <tal:from replace="interval/start" /> &mdash <tal:from replace="interval/stop" />
             </div>
             <div class="gateswrapper">
+              <div class="gates">
+                <div class="gate" tal:repeat="gate python:sorted(slots.keys())"
+                     tal:attributes="style string:width:${gate_ccs_width}%">
+                  <span tal:content="python:gate or '&nbsp;'"></span>
+                </div>
+              </div>
+            </div>
+            <div class="visualClear"></div>
+            <div class="gateswrapper">
               <div class="gates" tal:attributes="style interval/css_styles|nothing">
                 <metal:macro use-macro="prenotazione_macros/hours_column" />
                 <div class="gate" tal:repeat="gate python:sorted(slots.keys())"
