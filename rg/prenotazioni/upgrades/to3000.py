@@ -159,6 +159,15 @@ def upgrade_propertiestool(context):
     logger.info("propertiestool.xml has been run")
 
 
+def update_jsregistry(context):
+    '''
+    Run generic setup actions.xml
+    '''
+    setup = api.portal.get_tool('portal_setup')
+    setup.runImportStepFromProfile(PROFILE_ID, 'jsregistry')
+    logger.info("jsregistry.xml has been run")
+
+
 def upgrade_version(context):
     '''
     Just set the version for this step
