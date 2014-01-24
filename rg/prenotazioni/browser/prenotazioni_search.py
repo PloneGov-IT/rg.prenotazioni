@@ -83,7 +83,7 @@ class SearchForm(PageForm):
             return []
         text = data['text']
         start = DateTime(data['start'])
-        end = DateTime(data['end'])
+        end = DateTime(data['end']) + 1  # following day midnight
         date = {'query': [start, end], 'range': 'min:max'}
         query = {'SearchableText': text,
                  'Date': date,
