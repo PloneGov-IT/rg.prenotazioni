@@ -201,7 +201,7 @@ class VacationBooking(PageForm):
         busy_slots = self.prenotazioni.get_busy_slots(start_date)
         if not busy_slots:
             return False
-        gate_busy_slots = busy_slots.get(data['gate'], [])
+        gate_busy_slots = busy_slots.get(data.get('gate', ''), [])
         if not gate_busy_slots:
             return False
         vacation_slot = self.get_vacation_slot(data)
