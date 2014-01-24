@@ -62,6 +62,14 @@ class PrenotazioniContextState(BrowserView):
 
     @property
     @memoize
+    def is_anonymous(self):
+        '''
+        Return the conflict manager for this context
+        '''
+        return api.user.is_anonymous()
+
+    @property
+    @memoize
     def booker(self):
         '''
         Return the conflict manager for this context
@@ -110,19 +118,6 @@ class PrenotazioniContextState(BrowserView):
         '''
         return ('%s/%s' % (self.context.absolute_url(), self.add_view))
 
-    def get_all_booking_urls(self, day, slot_min_size=0):
-        ''' Get all the booking urls.
-        '''
-        slots_by_gate = self.get_free_slots(day)
-        urls = {}
-        for gate in slots_by_gate:
-            slots = slots_by_gate[gate]
-            for slot in slots:
-                slot_urls = self.get_booking_urls(day, slot,
-                                                  slot_min_size=slot_min_size)
-                urls.setdefault(gate, []).extend(slot_urls)
-        return urls
-
     def get_booking_urls(self, day, slot, slot_min_size=0):
         ''' Returns, if possible, the booking urls
         '''
@@ -145,6 +140,41 @@ class PrenotazioniContextState(BrowserView):
                          'class': t.endswith(':00') and 'oclock' or None
                          })
         return urls
+
+    def get_all_booking_urls_by_gate(self, day, slot_min_size=0):
+        ''' Get all the booking urls divided by gate
+        '''
+        slots_by_gate = self.get_free_slots(day)
+        urls = {}
+        for gate in slots_by_gate:
+            slots = slots_by_gate[gate]
+            for slot in slots:
+                slot_urls = self.get_booking_urls(day, slot,
+                                                  slot_min_size=slot_min_size)
+                urls.setdefault(gate, []).extend(slot_urls)
+        return urls
+
+    def get_all_booking_urls(self, day, slot_min_size=0):
+        ''' Get all the booking urls
+
+        Not divided by gate
+        '''
+        urls_by_gate = self.get_all_booking_urls_by_gate(day, slot_min_size)
+        urls = {}
+        for gate in urls_by_gate:
+            for url in urls_by_gate[gate]:
+                urls[url['title']] = url
+        return sorted(urls.itervalues(), key=lambda x: x['title'])
+
+    def get_anonymous_booking_url(self, day, slot, slot_min_size=0):
+        ''' Returns, the the booking url for an anonymous user
+        '''
+        all_booking_urls = self.get_all_booking_urls(day, slot_min_size)
+        slot_start = slot.start()
+        slot_stop = slot.stop()
+        for booking_url in all_booking_urls:
+            if slot_start <= booking_url['title'] <= slot_stop:
+                return booking_url
 
     @property
     @memoize
@@ -398,6 +428,29 @@ class PrenotazioniContextState(BrowserView):
         keys = set(free.keys() + busy.keys())
         return {key: sorted(free.get(key, []) + busy.get(key, []))
                 for key in keys}
+
+    def get_anonymous_slots(self, booking_date, period='day'):
+        ''' This will return all the slots under the fake name
+        anonymous_gate
+
+        :param booking_date: a datetime object
+        :param period: a string
+        :return: a dictionary like:
+        {'anonymous_gate': [slot2, slot3],
+        }
+        '''
+        interval = self.get_day_intervals(booking_date)[period]
+        slots_by_gate = {'anonymous_gate': []}
+        if not interval or len(interval) == 0:
+            return slots_by_gate
+        start = interval.lower_value
+        stop = interval.upper_value
+        hours = {3600 * i for i in range(24) if start <= i * 3600 <= stop}
+        hours = sorted(hours.union({start, stop}))
+        slots_number = len(hours) - 1
+        slots = [BaseSlot(hours[i], hours[i + 1]) for i in range(slots_number)]
+        slots_by_gate['anonymous_gate'] = slots
+        return slots_by_gate
 
     @property
     @memoize

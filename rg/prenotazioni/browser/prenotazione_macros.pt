@@ -14,14 +14,8 @@
      settimana successiva &rarr;</a>
 </metal:macro>
 
-<metal:macro metal:define-macro="day_period"
-    i18n:domain="rg.prenotazioni">
-  <tr>
-    <tal:days repeat="day week_view/actual_week_days">
-      <td class="day"
-          tal:define="interval python:week_view.prenotazioni.get_day_intervals(day)[period]"
-          tal:attributes="class python:day==week_view.actual_date and 'day selected' or 'day';">
-
+<!-- Displays the bookability of a day period for managers -->
+<metal:macro metal:define-macro="manager_day_period" i18n:domain="rg.prenotazioni">
         <div class="plain period"
             tal:define="slots python:week_view.prenotazioni.get_freebusy_slots(day, period);
                         on_move nocall:week_view|nothing">
@@ -33,17 +27,7 @@
             </div>
             <div class="gateswrapper">
               <div class="gates" tal:attributes="style interval/css_styles|nothing">
-                <div class="hours" style="top:0"
-                     tal:attributes="style interval/css_styles|nothing"
-                     tal:define="hour_style python:'top:-%spx' % (float(interval._lower_value)/60)"
-                  >
-                  <div tal:repeat="hour python:range(24)"
-                       class="hour"
-                       tal:attributes="style hour_style"
-                       >
-                    <div tal:content="python:str(hour).zfill(2)" />
-                  </div>
-                </div>
+                <metal:macro use-macro="prenotazione_macros/hours_column" />
                 <div class="gate" tal:repeat="gate python:sorted(slots.keys())"
                      tal:attributes="style string:width:${gate_ccs_width}%">
                   <metal:macro metal:use-macro="slot_macro" />
@@ -60,9 +44,34 @@
             </tal:gates>
           </div>
         </div>
-      </td>
-    </tal:days>
-  </tr>
+</metal:macro>
+
+<!-- Displays the bookability of a day period for users -->
+<metal:macro metal:define-macro="anonymous_day_period" i18n:domain="rg.prenotazioni">
+  <div class="plain period"
+      tal:condition="python:interval and period!='stormynight'"
+      tal:define="slots python:week_view.prenotazioni.get_anonymous_slots(day, period);">
+    <div class="interval" tal:condition="interval">
+      <div class="gateswrapper">
+        <div tal:attributes="style interval/css_styles|nothing">
+          <div class="gate" style="width:100%">
+            <metal:macro metal:use-macro="slot_macro" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</metal:macro>
+
+<!-- This is the macro to show the hours left of the day period -->
+<metal:macro metal:define-macro="hours_column" i18n:domain="rg.prenotazioni">
+  <div class="hours" style="top:0"
+        tal:attributes="style interval/css_styles|nothing"
+        tal:define="hour_style python:'top:-%spx' % (float(interval._lower_value)/60)">
+    <div tal:repeat="hour python:range(24)" class="hour" tal:attributes="style hour_style">
+      <div tal:content="python:str(hour).zfill(2)" />
+    </div>
+  </div>
 </metal:macro>
 
 <!-- This is the html for a slot when we are in the week view and
@@ -77,6 +86,7 @@
       </tal:comment>
       <div tal:condition="nocall:booking">
         <a href=""
+           class="popup"
            tal:attributes="href booking/absolute_url"><i class="icon-search"></i></a>
         <tal:sposta>
           <a href="" class="modificaPrenotazione" title="Cambia data"
@@ -138,18 +148,17 @@
 
 <!-- This is the html for a slot if the user is anonymous -->
 <metal:macro metal:define-macro="anonymous_slot" i18n:domain="rg.prenotazioni">
-  <div class="slot" tal:repeat="slot python:slots[gate]">
+  <div class="slot" tal:repeat="slot python:slots['anonymous_gate']">
     <div tal:define="booking nocall:slot/context;"
-         tal:attributes="style slot/css_styles">
-      <tal:comment condition="nothing">
-        This is for free space
-      </tal:comment>
-      <div class="links" tal:condition="not:nocall:booking">
-        <tal:urls repeat="link python:week_view.prenotazioni.get_booking_urls(day, slot)">
-          <a tal:attributes="href link/url;
-                             title link/title;
-                             class link/class">&nbsp;</a>
-        </tal:urls>
+         class="anonymous_slot">
+      <div tal:define="link python:week_view.prenotazioni.get_anonymous_booking_url(day, slot)">
+        <tal:start replace="slot/start" />
+        <tal:bookable condition="link">
+          <a href=""
+             tal:attributes="href link/url"
+             >+</a>
+        </tal:bookable>
+        <tal:unbookable condition="not:link">Busy</tal:unbookable>
       </div>
     </div>
   </div>
