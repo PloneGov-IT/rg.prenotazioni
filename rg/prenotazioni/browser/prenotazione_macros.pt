@@ -78,33 +78,28 @@
      we can edit the prenotazione folder -->
 <metal:macro metal:define-macro="manager_slot" i18n:domain="rg.prenotazioni">
   <div class="slot" tal:repeat="slot python:slots[gate]">
-    <div tal:define="booking nocall:slot/context"
-         tal:attributes="class python:week_view.prenotazioni.get_state(booking);
-                         style slot/css_styles">
-      <tal:comment condition="nothing">
-        This is for the allocated space
-      </tal:comment>
-      <div tal:condition="nocall:booking">
-        <a href=""
-           class="popup"
-           tal:attributes="href booking/absolute_url"><i class="icon-search"></i></a>
-        <tal:sposta>
-          <a href="" class="modificaPrenotazione" title="Cambia data"
-             tal:define="data python:day.strftime('%d/%m/%Y')"
-             tal:attributes="href string:${booking/absolute_url}/prenotazione_move?data=${data}"><i class="icon-cut"></i></a>
-        </tal:sposta>
+    <tal:define define="booking nocall:slot/context;
+                        real_booking python:bool(booking)">
+      <div tal:attributes="class python:week_view.prenotazioni.get_state(booking);
+                           style slot/css_styles">
+        <tal:is_real_booking tal:condition="real_booking" >
+          <a href=""
+            class="prenotazioni-popup"
+            tal:attributes="href booking/absolute_url">
+            <div><i class="icon-search"></i></div>
+          </a>
+        </tal:is_real_booking>
+        <tal:not_real_booking tal:condition="not:real_booking" >
+          <div class="links">
+            <tal:urls repeat="link python:week_view.prenotazioni.get_booking_urls(day, slot)">
+              <a tal:attributes="href link/url;
+                                title link/title;
+                                class link/class">&nbsp;</a>
+            </tal:urls>
+          </div>
+        </tal:not_real_booking>
       </div>
-      <tal:comment condition="nothing">
-        This is for free space
-      </tal:comment>
-      <div class="links" tal:condition="not:nocall:booking">
-        <tal:urls repeat="link python:week_view.prenotazioni.get_booking_urls(day, slot)">
-          <a tal:attributes="href link/url;
-                             title link/title;
-                             class link/class">&nbsp;</a>
-        </tal:urls>
-      </div>
-    </div>
+    </tal:define>
   </div>
 </metal:macro>
 
@@ -162,4 +157,73 @@
       </div>
     </div>
   </div>
+</metal:macro>
+
+<!-- This is the html the legend -->
+<metal:macro metal:define-macro="week-table" i18n:domain="rg.prenotazioni">
+  <table id="week" class="pren">
+    <caption>
+      <metal:macro metal:use-macro="prenotazione_macros/week_navigator" />
+    </caption>
+    <thead>
+        <tr>
+            <tal:days repeat="day week_view/actual_week_days">
+                <th scope="col" tal:content="python:day.strftime('%d')">Lunedi</th>
+            </tal:days>
+        </tr>
+    </thead>
+    <tbody>
+      <tal:periods repeat="period week_view/periods">
+        <tr>
+          <tal:days repeat="day week_view/actual_week_days">
+            <td class="day"
+                tal:define="interval python:week_view.prenotazioni.get_day_intervals(day)[period]"
+                tal:attributes="class python:day==week_view.actual_date and 'day selected' or 'day';">
+              <metal:macro metal:use-macro="day_period_macro" />
+            </td>
+          </tal:days>
+        </tr>
+      </tal:periods>
+    </tbody>
+      </table>
+</metal:macro>
+
+
+<!-- This is the html the legend -->
+<metal:macro metal:define-macro="week-legend" i18n:domain="rg.prenotazioni">
+  <fieldset id="legend">
+    <legend i18n:translate="legend">Legend</legend>
+    <p i18n:translate="legend_description">
+      Short description of available action for the booking board
+    </p>
+    <ul id="legend-items" class="legend legend-user" tal:condition="python:not view.user_can_manage">
+        <li><i18n:tag translate="bookable_time">Bookable time</i18n:tag>
+            <div class="bookable">&nbsp;</div></li>
+        <li><i18n:tag translate="unbookable_time">Unbookable time</i18n:tag>
+            <div class="unbookable">&nbsp;</div></li>
+    </ul>
+    <ul id="legend-items" class="legend legend-manager" tal:condition="python:view.user_can_manage">
+        <li><i18n:tag translate="bookable_time">Bookable time</i18n:tag>
+            <div class="bookable">&nbsp;</div></li>
+        <li><i18n:tag translate="unbookable_time">Unbookable time</i18n:tag>
+            <div class="unbookable">&nbsp;</div></li>
+        <li><i18n:tag translate="booking_confirmed">Booking confirmed</i18n:tag>
+            <div class="confirmed">&nbsp;</div></li>
+        <li><i18n:tag translate="booking_pending">Booking pending</i18n:tag>
+            <div class="pending">&nbsp;</div></li>
+        <li><i18n:tag translate="booking_refused">Booking refused</i18n:tag>
+            <div class="refused">&nbsp;</div></li>
+        <li><i class="icon-search"></i>
+            <i18n:tag translate="view_booking">View booking</i18n:tag></li>
+        <li><i class="icon-cut"></i>
+            <i18n:tag translate="move_booking">Move booking</i18n:tag></li>
+    </ul>
+    <p class="legend-note">
+      <strong>Note</strong>:
+      <i18n:tag translate="legend_note">
+          The minimum value of a single slot is 5 minutes.
+          You cannot book a reservation when the needed time exceeds the available time.
+      </i18n:tag>
+    </p>
+  </fieldset>
 </metal:macro>

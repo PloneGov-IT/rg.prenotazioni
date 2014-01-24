@@ -20,11 +20,12 @@
                              prenotazione_macros nocall:prenotazioni_folder/@@prenotazione_macros;
                              week_view nocall:prenotazioni_folder/@@prenotazioni_week_view;
                              slot_macro nocall:prenotazione_macros/onmove_slot;
+                             day_period_macro nocall:prenotazione_macros/manager_day_period;
                              here nocall:prenotazioni_folder;">
 
         <div tal:condition="context/getData_prenotazione">
           <div class="field" tal:condition="context/getData_prenotazione">
-            <strong i18n:translate="reservation_date">Reservation date:</strong>
+            <strong i18n:translate="reservation_date">Reservation date</strong>:
             <span tal:replace="python:week_view.localized_time(context.getData_prenotazione(), True)" />
             &mdash;
             <span tal:content="python:week_view.localized_time(context.getData_scadenza(), True)" />
@@ -42,23 +43,7 @@
           </h3>
 
         </div>
-        <table id="week" class="pren">
-          <caption >
-            <metal:macro metal:use-macro="prenotazione_macros/week_navigator" />
-          </caption>
-          <thead>
-              <tr>
-                  <tal:days repeat="day week_view/actual_week_days">
-                      <th scope="col" tal:content="python:day.strftime('%d')">Lunedi</th>
-                  </tal:days>
-              </tr>
-          </thead>
-          <tbody>
-              <tal:periods repeat="period week_view/periods">
-                <metal:macro metal:use-macro="prenotazione_macros/day_period" />
-              </tal:periods>
-          </tbody>
-      </table>
+        <metal:block use-macro="prenotazione_macros/week-table" />
     </metal:block>
 
 </html>

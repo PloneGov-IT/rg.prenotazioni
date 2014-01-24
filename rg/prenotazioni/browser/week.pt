@@ -49,68 +49,8 @@
           </p>
         </div>
 
-        <table id="week" class="pren">
-          <caption>
-            <metal:macro metal:use-macro="prenotazione_macros/week_navigator" />
-          </caption>
-          <thead>
-              <tr>
-                  <tal:days repeat="day view/actual_week_days">
-                      <th scope="col" tal:content="python:day.strftime('%d')">Lunedi</th>
-                  </tal:days>
-              </tr>
-          </thead>
-          <tbody>
-            <tal:periods repeat="period view/periods">
-              <tr>
-                <tal:days repeat="day week_view/actual_week_days">
-                  <td class="day"
-                      tal:define="interval python:week_view.prenotazioni.get_day_intervals(day)[period]"
-                      tal:attributes="class python:day==week_view.actual_date and 'day selected' or 'day';">
-                    <metal:macro metal:use-macro="day_period_macro" />
-                  </td>
-                </tal:days>
-              </tr>
-            </tal:periods>
-          </tbody>
-      </table>
-
-      <fieldset id="legend" tal:condition="not:view/prenotazioni/is_anonymous">
-        <legend i18n:translate="legend">Legend</legend>
-        <p i18n:translate="legend_description">
-          Short description of available action for the booking board
-        </p>
-        <ul id="legend-items" class="legend legend-user" tal:condition="python:not view.user_can_manage">
-            <li><i18n:tag translate="bookable_time">Bookable time</i18n:tag>
-                <div class="bookable">&nbsp;</div></li>
-            <li><i18n:tag translate="unbookable_time">Unbookable time</i18n:tag>
-                <div class="unbookable">&nbsp;</div></li>
-        </ul>
-        <ul id="legend-items" class="legend legend-manager" tal:condition="python:view.user_can_manage">
-            <li><i18n:tag translate="bookable_time">Bookable time</i18n:tag>
-                <div class="bookable">&nbsp;</div></li>
-            <li><i18n:tag translate="unbookable_time">Unbookable time</i18n:tag>
-                <div class="unbookable">&nbsp;</div></li>
-            <li><i18n:tag translate="booking_confirmed">Booking confirmed</i18n:tag>
-                <div class="confirmed">&nbsp;</div></li>
-            <li><i18n:tag translate="booking_pending">Booking pending</i18n:tag>
-                <div class="pending">&nbsp;</div></li>
-            <li><i18n:tag translate="booking_refused">Booking refused</i18n:tag>
-                <div class="refused">&nbsp;</div></li>
-            <li><i class="icon-search"></i>
-                <i18n:tag translate="view_booking">View booking</i18n:tag></li>
-            <li><i class="icon-cut"></i>
-                <i18n:tag translate="move_booking">Move booking</i18n:tag></li>
-        </ul>
-        <p class="legend-note">
-          <strong>Note</strong>:
-          <i18n:tag translate="legend_note">
-              The minimum value of a single slot is 5 minutes.
-              You cannot book a reservation when the needed time exceeds the available time.
-          </i18n:tag>
-        </p>
-      </fieldset>
-
+      <metal:block use-macro="prenotazione_macros/week-table" />
+      <metal:block use-macro="prenotazione_macros/week-legend" tal:condition="not:view/prenotazioni/is_anonymous" />
     </metal:block>
 
 </html>
