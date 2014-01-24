@@ -17,8 +17,7 @@
 <!-- Displays the bookability of a day period for managers -->
 <metal:macro metal:define-macro="manager_day_period" i18n:domain="rg.prenotazioni">
         <div class="plain period"
-            tal:define="slots python:week_view.prenotazioni.get_freebusy_slots(day, period);
-                        on_move nocall:week_view|nothing">
+            tal:define="slots python:week_view.prenotazioni.get_freebusy_slots(day, period);">
           <div class="interval" tal:condition="python:interval and period!='stormynight'"
                tal:define="gates python:sorted(slots.keys());
                            gate_ccs_width python:int(100/len(gates))">
