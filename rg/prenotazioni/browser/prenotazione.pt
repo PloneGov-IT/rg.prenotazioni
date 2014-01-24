@@ -16,15 +16,17 @@ i18n:domain="rg.prenotazioni">
                         member portal_state/member;
                         anonymous portal_state/anonymous;
                         putils here/plone_utils;
-                        ">
+                        not_ajax_load python:not request.get('ajax_load', '')">
 
                 <div tal:replace="structure provider:plone.abovecontenttitle" />
                 <h1 class="documentFirstHeading">
+                  <a tal:attributes="href context_state/canonical_object_url" tal:omit-tag="not_ajax_load">
                     <span i18n:translate="">Booking for</span>
                     <span metal:use-macro="python:here.widget('title', mode='view')" />
+                  </a>
                 </h1>
-                <div tal:replace="structure provider:plone.belowcontenttitle" />
-                <div tal:replace="structure provider:plone.abovecontentbody" />
+                <div tal:replace="structure provider:plone.belowcontenttitle" tal:condition="not_ajax_load" />
+                <div tal:replace="structure provider:plone.abovecontentbody" tal:condition="not_ajax_load" />
                 <div class="field" tal:condition="here/Title">
                     <strong i18n:translate="fullname">Fullname:</strong>
                     <span tal:replace="here/Title" />
@@ -38,9 +40,10 @@ i18n:domain="rg.prenotazioni">
                     <span tal:replace="here/getTipologia_prenotazione" />
                 </div>
                 <div class="field" tal:condition="here/getData_prenotazione">
-                    <strong i18n:translate="">Reservation date: da </strong>
+                    <strong i18n:translate="">Reservation date</strong>:
+                    <tal:span i18n:translate="">from</tal:span>
                     <span tal:replace="python:putils.toLocalizedTime(here.getData_prenotazione(), True)" />
-                    <strong i18n:translate=""> a </strong>
+                    <tal:span i18n:translate="">to</tal:span>
                     <span tal:content="python:putils.toLocalizedTime(here.getData_scadenza(), True)" />
                 </div>
                 <div class="field" tal:condition="here/getAzienda">
@@ -60,6 +63,25 @@ i18n:domain="rg.prenotazioni">
                     <strong i18n:translate="">Gate:</strong>
                     <span tal:content="here/getGate">Gate no. 1</span>
                 </div>
+                <hr />
+                <p>&nbsp;</p>
+                <div class="field" tal:condition="not:not_ajax_load">
+                  <a href=""
+                     tal:attributes="href context_state/canonical_object_url">
+                    <img width="16" height="16"
+                         src="++resource++rg.prenotazioni.resources/calendar-icon.png"
+                         tal:attributes="src string:${portal_url}/++resource++rg.prenotazioni.resources/calendar-icon.png"
+                         >
+                    <tal:i18n i18n:translate="view_booking">View this booking</tal:i18n>
+                  </a>
+                </div>
+                <div class="field">
+                  <a href=""
+                     tal:attributes="href view/move_url">
+                    <i style="color:#000;" class="icon-move"></i>
+                    <tal:i18n i18n:translate="move_booking">Move this booking</tal:i18n>
+                  </a>
+                </div>
                 <div class="field">
                   <a href=""
                      tal:attributes="href view/back_url">
@@ -67,10 +89,10 @@ i18n:domain="rg.prenotazioni">
                          src="++resource++rg.prenotazioni.resources/calendar-add.png"
                          tal:attributes="src string:${portal_url}/++resource++rg.prenotazioni.resources/calendar-add.png"
                          >
-                    <tal:i18n i18n:translate="move_back_message">Go back to the calendar</tal:i18n>.
+                    <tal:i18n i18n:translate="move_back_message">Go back to the calendar</tal:i18n>
                   </a>
                 </div>
-                <div tal:replace="structure provider:plone.belowcontentbody" />
+                <div tal:replace="structure provider:plone.belowcontentbody" tal:condition="not_ajax_load" />
             </tal:main-macro>
         </metal:main>
 

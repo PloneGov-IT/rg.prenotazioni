@@ -43,6 +43,18 @@ class PrenotazioneView(BrowserView):
             target = "%s?%s" % (target, urlencode(qs))
         return target
 
+    @property
+    @memoize
+    def move_url(self):
+        ''' move this booking visiting this url
+        '''
+        booking_date = self.booking_date
+        target = '/'.join((self.context.absolute_url(), 'prenotazione_move'))
+        if booking_date:
+            qs = {'data': booking_date.strftime('%d/%m/%Y')}
+            target = "%s?%s" % (target, urlencode(qs))
+        return target
+
 
 class ResetDuration(PrenotazioneView):
     ''' Reset data scadenza prenotazione: sometime is needed :p
