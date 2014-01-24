@@ -155,7 +155,7 @@ class ConflictManager(object):
                 if gate_slots[i].overlaps(slot):
                     interval = gate_slots[i].union(slot)
                     gate_slots[i] = BaseSlot(interval.lower_value,
-                                             interval._upper_value)
+                                             interval.upper_value)
 
         return gate_slots + slots
 
