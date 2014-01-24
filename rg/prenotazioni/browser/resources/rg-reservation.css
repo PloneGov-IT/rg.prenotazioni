@@ -258,6 +258,12 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
   background-color: #ffa500;
 }
 
+#week .slot > .pending > a > div{
+  border: 2px solid #E78B36;
+  display:table;
+  height:100%;
+  width:100%;
+}
 
 #week .slot .links a {
     height:5px;
