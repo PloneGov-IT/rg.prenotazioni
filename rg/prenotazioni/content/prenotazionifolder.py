@@ -53,7 +53,7 @@ PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
         widget=atapi.CalendarWidget(
             label=_(u'Data fine validità'),
             description=_("aData_help",
-                          default=u"Leave empty, and this Booking Folder will never expire"),
+                          default=u"Leave empty, and this Booking Folder will never expire"),  # noqa
             show_hm=False,
         ),
         required=False,
@@ -137,6 +137,7 @@ PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
                                          default=""),
             }
         ),
+        searchable=True,
         validators=('isColumnFilled', 'isDataGridFilled', ),
         required=True,
     ),
@@ -162,7 +163,7 @@ PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
                           default=u'Add a gate here (one per line) if, '
                                   u'for some reason, '
                                   u'it is not be available.'
-                                  u'The specified gate will not be taken in to '
+                                  u'The specified gate will not be taken in to '  # noqa
                                   u'account for slot allocation. '
                                   u'Each line should match a corresponding '
                                   u'line in the "Gates" field'
