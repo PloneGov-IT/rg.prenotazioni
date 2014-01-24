@@ -68,7 +68,7 @@ table#week th {
   text-align: center;
   font-weight: bold;
   border: 1px solid #ddd;
-  width: 12.5%;
+  width: auto;
 }
 
 table#week td {
@@ -163,6 +163,16 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
 #week .slot > .published {
   background-color: #436976;
   color:white;
+}
+
+#week .slot .anonymous_slot {
+  background-color:#ffffff;
+  text-align:left;
+  font-size:1.2em;
+  border: 1px solid #ddd;
+  color: #57574E;
+  min-height: 1em;
+  padding:0.5em;
 }
 
 #week .slot .links a {
