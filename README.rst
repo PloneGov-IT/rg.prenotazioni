@@ -5,7 +5,7 @@ A **booking product for Plone** which allows to reserve time slots throughout th
 Introduction
 ============
 
-This product introduces two new `content type`_ to your Plone site:
+This product introduces two new `content types`_ to your Plone site:
 
 .. _content type: http://developer.plone.org/content/types.html
 
@@ -17,9 +17,9 @@ Booking content
 
 **Booking** is a `content type` used to store information about reservation.
 
-| The product interface provides a way to add new booking elements,
-| by clicking on one of the plus signs available in the slots calendar
-| as shown below:
+The product interface provides a way to add new booking elements,
+by clicking on one of the plus signs available in the slots calendar
+as shown below:
 
 .. figure:: http://blog.redturtle.it/pypi-images/rg.prenotazioni/add-new-booking.png/image_preview
   :alt: The view of Booking Folder
@@ -30,8 +30,8 @@ Each booking element once created is storerd into its own **Booking Folder**.
 Booking Folder content
 ----------------------
 
-| **Booking Folder** is a folderish content type which store your **Booking** objects.
-| It is therefore possible to have more of an "agenda".
+**Booking Folder** is a folderish content type which store your **Booking** objects.
+It is therefore possible to have more of an "agenda".
 
 Using rg.prenotazioni
 =====================
@@ -40,8 +40,8 @@ Using rg.prenotazioni
 Creating a new booking folder content
 -------------------------------------
 
-| If the product is correctly installed the **booking folder** entry is available on the `add new` action menu.
-| Click on it to add a new booking folder content.
+If the product is correctly installed the **booking folder** entry is available on the `add new` action menu.
+Click on it to add a new booking folder content.
 
 .. figure:: http://blog.redturtle.it/pypi-images/rg.prenotazioni/add-folder-content-entry.png/image_preview
   :alt: The view of Booking Folder
@@ -54,17 +54,21 @@ Here below the edit page:
   :alt: The view of Booking Folder
 
 
-Since versrion **2.1** new functionalies has been added to the folder configuraion:
+Since version **2.1** new functionalities has been added to the folder
+configuration:
 
 - more then one gate can be handled
-- booking vacations supports also gateless bookings
+- booking vacations supports also bookings with no gate assigned
 
+Since version **3.0** the agenda has:
+- a new user interface
+- allows custom duration for booking types
 
 Creating a new booking content
 ------------------------------
 
-| Anonymous and authenticated users are allowed to add new booking content
-| by clicking on the plus signs on the default booking folder view.
+Anonymous and authenticated users are allowed to add new booking content
+by clicking on the plus signs on the default booking folder view.
 
 .. figure:: http://blog.redturtle.it/pypi-images/rg.prenotazioni/default-view.png/image_preview
   :alt: Link to create new entry
@@ -80,7 +84,7 @@ Here below a screenshot of the edit page:
 .. figure:: http://blog.redturtle.it/pypi-images/rg.prenotazioni/add-bomking-form.png/image_preview
   :alt: The view of Booking Folder
 
-Since versrion **2.1**:
+Since version **2.1**:
 - captcha has been added for anonymous users.
 - booking content can be added only from the view folder links.
 - booking can't be added in the past anymore.
@@ -91,8 +95,8 @@ Workflow
 
 The product comes with its own workflow "prenotazioni_workflow".
 
-| Since versione **2.1** a new states has been added.
-| Here below a list of all the states available:
+Since versione **2.1** a new states has been added.
+Here below a list of all the states available:
 
 **Private**: booking object initial state:
 
@@ -148,11 +152,15 @@ Add **rg.prenotazioni** to the egg section of your instance:
 Notes
 =====
 
-**rg.prenotazioni** has been tested only with Plone 3.3 and Plone 4.2.
+**rg.prenotazioni 3.x** has been tested with Plone 4.2 and Plone 4.3 and works with Python 2.7.
+
+**rg.prenotazioni 2.x** has been tested with Plone 4.2 and works with Python 2.6 and 2.7.
+
+**rg.prenotazioni 1.x** has been tested with Plone 3 and works with Python 2.4.
 
 .. Note::
-   Version 2.x of rg.prenotazioni is a deep rewrite of version 1.x and **we are not providing any
-   migration**... sorry!
+   Version 2.x of rg.prenotazioni is a deep rewrite of version 1.x
+   and **we are not providing any migration**... sorry!
 
 TODO
 ====
