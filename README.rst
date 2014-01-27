@@ -7,7 +7,7 @@ Introduction
 
 This product introduces two new `content types`_ to your Plone site:
 
-.. _content type: http://developer.plone.org/content/types.html
+.. _content types: http://developer.plone.org/content/types.html
 
 - `Booking`
 - `Booking Folder`
@@ -100,28 +100,28 @@ Here below a list of all the states available:
 
 **Private**: booking object initial state:
 
-* `submit` (Automatic transition to pending) 
+* `submit` (Automatic transition to pending)
 
-**Pending** 
+**Pending**
 
 Transaction available:
 
 * `publish` (to published)
 * `refuse` (to refused)
 
-**Published** 
+**Published**
 
 Transaction available:
- 
+
 * `refuse` (to refused)
 
-**Refused** 
+**Refused**
 
 Transaction available:
 
 * `restore` (to pending)
 
-Managers can confirm a Booking using workflow transitions. 
+Managers can confirm a Booking using workflow transitions.
 The workflow transition triggers an email to be sent to the booker (see below).
 
 
@@ -131,15 +131,15 @@ Content Rules (mail notifications)
 There are additional content rules that can be used to notify booking owner when his booking has been accepted
 or re-scheduled.
 
-Rules are automatically created and enabled. See the Rule control panel to change settings.
+Rules **are not automatically** as of version **3.x**. They are imported by a separate generic setup profile.
 
 There's also a rule that can warn the Booking Folder responsible when new booking are created, but you need to
-manually enable it on folders. 
+manually enable it on folders.
 
 
 Installation
 ============
- 
+
 Add **rg.prenotazioni** to the egg section of your instance:
 
 ::
@@ -166,7 +166,7 @@ TODO
 ====
 
 * i18n support is uncomplete
-* Switch use of session to cookies
+* Switch use of session to cookies (**done**)
 * Tests!
 
 Credits
@@ -174,14 +174,14 @@ Credits
 
 Developed with the support of:
 
-* `Unione Reno Galliera`__ 
+* `Unione Reno Galliera`__
 
   .. image:: http://blog.redturtle.it/pypi-images/rg.prenotazioni/logo-urg.jpg/image_mini
      :alt: Logo Unione Reno Galliera
 
 * `S. Anna Hospital, Ferrara`__
 
-  .. image:: http://www.ospfe.it/ospfe-logo.jpg 
+  .. image:: http://www.ospfe.it/ospfe-logo.jpg
      :alt: S. Anna Hospital - logo
 
 All of them supports the `PloneGov initiative`__.
