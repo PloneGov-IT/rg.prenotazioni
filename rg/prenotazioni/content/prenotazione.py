@@ -27,7 +27,7 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
             label="email",
             validator=('isEmail',),
         ),
-        required=True,
+        searchable=True,
     ),
     atapi.StringField(
         'telefono',
@@ -36,7 +36,7 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
             label=_(u"Phone"),
             description=_(u"Phone number"),
         ),
-        required=False,
+        searchable=True,
     ),
     atapi.StringField(
         'mobile',
@@ -45,7 +45,7 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
             label=_(u"Mobile"),
             description=_(u"Mobile number"),
         ),
-        required=False,
+        searchable=True,
     ),
     atapi.StringField(
         'tipologia_prenotazione',
@@ -54,11 +54,10 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         widget=atapi.SelectionWidget(
             label=_(u"booking tipology"),
         ),
-        required=False,
+        searchable=True,
     ),
     atapi.DateTimeField(
         'data_prenotazione',
-        searchable=True,
         storage=atapi.AnnotationStorage(),
         widget=atapi.StringWidget(
             label=_(u'Booking date'),
@@ -74,7 +73,7 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
             description=_(u"Inserisci la denominazione dell'azienda "
                           u"del richiedente"),
         ),
-        required=False,
+        searchable=True,
     ),
     atapi.StringField(
         'gate',
@@ -83,7 +82,6 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
             label=_(u"Gate"),
             description=_(u"Sportello a cui presentarsi"),
         ),
-        required=False,
     ),
     atapi.DateTimeField(
         'data_scadenza',
