@@ -134,10 +134,12 @@ class PrenotazioniContextState(BrowserView):
         urls = []
         for t in times:
             params['form.booking_date'] = " ".join((date, t))
+            booking_date = DateTime(params['form.booking_date']).asdatetime()
             qs = urlencode(params)
             urls.append({'title': t,
                          'url': '?'.join((base_url, qs)),
-                         'class': t.endswith(':00') and 'oclock' or None
+                         'class': t.endswith(':00') and 'oclock' or None,
+                         'booking_date': booking_date,
                          })
         return urls
 
@@ -173,8 +175,9 @@ class PrenotazioniContextState(BrowserView):
         slot_start = slot.start()
         slot_stop = slot.stop()
         for booking_url in all_booking_urls:
-            if slot_start <= booking_url['title'] <= slot_stop:
-                return booking_url
+            if slot_start <= booking_url['title'] < slot_stop:
+                if self.is_booking_date_bookable(booking_url['booking_date']):
+                    return booking_url
 
     @memoize
     def get_gates(self):
@@ -485,6 +488,15 @@ class PrenotazioniContextState(BrowserView):
             else:
                 bookability['bookable'].append(tipology)
         return bookability
+
+    @memoize
+    def is_booking_date_bookable(self, booking_date):
+        """ Check if we have enough time to book this date
+
+        :param booking_date: a date as a datetime
+        """
+        bookability = self.tipologies_bookability(booking_date)
+        return bool(bookability['bookable'])
 
     def get_first_slot(self, tipology, booking_date, period='day'):
         '''

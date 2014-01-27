@@ -385,8 +385,7 @@ class AddForm(PageForm):
         """ Check if we have enough time to book something
         """
         booking_date = self.booking_DateTime.asdatetime()
-        bookability = self.prenotazioni.tipologies_bookability(booking_date)
-        return bookability['bookable']
+        return self.prenotazioni.is_booking_date_bookable(booking_date)
 
     def __call__(self):
         ''' Redirects to the context if no data is found in the request
