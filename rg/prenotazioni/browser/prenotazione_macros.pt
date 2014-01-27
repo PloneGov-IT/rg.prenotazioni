@@ -161,7 +161,9 @@
              tal:attributes="href link/url"
              >+</a>
         </tal:bookable>
-        <tal:unbookable condition="not:link">Busy</tal:unbookable>
+        <tal:unbookable condition="not:link"
+                        i18n:translate="busy"
+                        >Busy</tal:unbookable>
       </div>
     </div>
   </div>

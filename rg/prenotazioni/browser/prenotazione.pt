@@ -72,14 +72,14 @@ i18n:domain="rg.prenotazioni">
                          src="++resource++rg.prenotazioni.resources/calendar-icon.png"
                          tal:attributes="src string:${portal_url}/++resource++rg.prenotazioni.resources/calendar-icon.png"
                          >
-                    <tal:i18n i18n:translate="view_booking">View this booking</tal:i18n>
+                    <tal:i18n i18n:translate="view_booking">View booking</tal:i18n>
                   </a>
                 </div>
                 <div class="field">
                   <a href=""
                      tal:attributes="href view/move_url">
                     <i style="color:#000;" class="icon-move"></i>
-                    <tal:i18n i18n:translate="move_booking">Move this booking</tal:i18n>
+                    <tal:i18n i18n:translate="move_booking">Move booking</tal:i18n>
                   </a>
                 </div>
                 <div class="field">
