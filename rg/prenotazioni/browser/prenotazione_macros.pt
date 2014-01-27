@@ -167,7 +167,7 @@
   </div>
 </metal:macro>
 
-<!-- This is the html the legend -->
+<!-- This is the week table macro -->
 <metal:macro metal:define-macro="week-table" i18n:domain="rg.prenotazioni">
   <table id="week" class="pren">
     <caption>

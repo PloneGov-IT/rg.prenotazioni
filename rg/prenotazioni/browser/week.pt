@@ -43,14 +43,16 @@
                              day_period_macro python:week_view.user_can_manage and prenotazione_macros['manager_day_period'] or  prenotazione_macros['anonymous_day_period'];
                              slot_macro python:week_view.user_can_manage and prenotazione_macros['manager_slot'] or prenotazione_macros['anonymous_slot'];">
 
-        <div>
+        <div tal:condition="not:view/prenotazioni/is_anonymous">
           <p i18n:translate="book_it">
               Please select a booking slot clicking on the green area.
           </p>
         </div>
 
       <metal:block use-macro="prenotazione_macros/week-table" />
-      <metal:block use-macro="prenotazione_macros/week-legend" tal:condition="not:view/prenotazioni/is_anonymous" />
+      <tal:legend condition="not:view/prenotazioni/is_anonymous">
+        <metal:block use-macro="prenotazione_macros/week-legend" />
+      </tal:legend>
     </metal:block>
 
 </html>

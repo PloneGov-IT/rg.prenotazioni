@@ -108,7 +108,7 @@ class View(BaseView):
         """
         qs = {'data': self.prev_week}
         qs.update(self.prenotazioni.remembered_params)
-        return "%s?%s" % (self.context.absolute_url(), urlencode(qs))
+        return "%s?%s" % (self.request.getURL(), urlencode(qs))
 
     @property
     @memoize
@@ -117,7 +117,7 @@ class View(BaseView):
         """
         qs = {'data': self.next_week}
         qs.update(self.prenotazioni.remembered_params)
-        return "%s?%s" % (self.context.absolute_url(), urlencode(qs))
+        return "%s?%s" % (self.request.getURL(), urlencode(qs))
 
     def __call__(self):
         ''' Hide the portlets before serving the template
