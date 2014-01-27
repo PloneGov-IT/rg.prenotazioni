@@ -176,17 +176,6 @@ class PrenotazioniContextState(BrowserView):
             if slot_start <= booking_url['title'] <= slot_stop:
                 return booking_url
 
-    @property
-    @memoize
-    def uid_move_booking(self):
-        '''
-        Get's the gates, available and unavailable
-        '''
-        uid = self.request.SESSION.get('UID', False)
-        if not uid:
-            return False
-        return self.conflict_manager.unrestricted_prenotazioni(UID=uid)
-
     @memoize
     def get_gates(self):
         '''
