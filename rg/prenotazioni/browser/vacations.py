@@ -10,7 +10,7 @@ from rg.prenotazioni import (prenotazioniMessageFactory as _,
                              prenotazioniLogger as logger, time2timedelta)
 from rg.prenotazioni.adapters.booker import IBooker
 from rg.prenotazioni.adapters.slot import BaseSlot
-from urllib import urlencode
+from rg.prenotazioni.utilities.urls import urlify
 from zope.formlib.form import FormFields, action
 from zope.formlib.interfaces import WidgetInputError
 from zope.interface import Interface
@@ -277,7 +277,7 @@ class VacationBooking(PageForm):
         parsed_data = self.get_parsed_data(data)
         self.do_book(parsed_data)
         qs = {'data': self.get_start_date(data).strftime('%d/%m/%Y')}
-        target = '%s?%s' % (self.context.absolute_url(), urlencode(qs))
+        target = urlify(self.context.absolute_url(), params=qs)
         return self.request.response.redirect(target)
 
     @action(_('action_cancel', u'Cancel'), name=u'cancel')

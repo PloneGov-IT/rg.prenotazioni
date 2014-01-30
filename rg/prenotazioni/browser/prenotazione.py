@@ -3,7 +3,7 @@ from Products.Five.browser import BrowserView
 from plone import api
 from plone.memoize.view import memoize
 from rg.prenotazioni.config import MIN_IN_DAY
-from urllib import urlencode
+from rg.prenotazioni.utilities.urls import urlify
 
 
 class PrenotazioneView(BrowserView):
@@ -40,7 +40,7 @@ class PrenotazioneView(BrowserView):
         target = self.prenotazioni_folder.absolute_url()
         if booking_date:
             qs = {'data': booking_date.strftime('%d/%m/%Y')}
-            target = "%s?%s" % (target, urlencode(qs))
+            target = urlify(target, params=qs)
         return target
 
     @property
@@ -52,7 +52,7 @@ class PrenotazioneView(BrowserView):
         target = '/'.join((self.context.absolute_url(), 'prenotazione_move'))
         if booking_date:
             qs = {'data': booking_date.strftime('%d/%m/%Y')}
-            target = "%s?%s" % (target, urlencode(qs))
+            target = urlify(target, params=qs)
         return target
 
 

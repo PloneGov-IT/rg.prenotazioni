@@ -12,7 +12,7 @@ from plone.memoize.view import memoize
 from quintagroup.formlib.captcha import Captcha, CaptchaWidget
 from rg.prenotazioni import prenotazioniMessageFactory as _, tznow
 from rg.prenotazioni.adapters.booker import IBooker
-from urllib import urlencode
+from rg.prenotazioni.utilities.urls import urlify
 from zope.app.form.browser import RadioWidget
 from zope.component._api import getUtility
 from zope.formlib.form import FormFields, action
@@ -340,8 +340,7 @@ class AddForm(PageForm):
         b_date = self.booking_DateTime
         if b_date:
             params['data'] = b_date.strftime('%d/%m/%Y')
-        qs = urlencode(params)
-        target = ('%s?%s') % (self.context.absolute_url(), qs)
+        target = urlify(self.context.absolute_url(), params=params)
         return target
 
     @action(_('action_book', u'Book'), name=u'book')
@@ -353,10 +352,11 @@ class AddForm(PageForm):
         msg = _('booking_created')
         IStatusMessage(self.request).add(msg, 'info')
         booking_date = data['booking_date'].strftime('%d/%m/%Y')
-        qs = urlencode({'data': booking_date,
-                        'uid': obj.UID()})
-        target = ('%s/@@prenotazione_print?%s'
-                  ) % (self.context.absolute_url(), qs)
+        params = {'data': booking_date,
+                  'uid': obj.UID()}
+        target = urlify(self.context.absolute_url(),
+                        paths=["@@prenotazione_print"],
+                        params=params)
         return self.request.response.redirect(target)
 
     @action(_(u"action_cancel", default=u"Cancel"),

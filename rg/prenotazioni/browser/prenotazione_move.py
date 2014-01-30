@@ -9,7 +9,7 @@ from plone.app.form.validators import null_validator
 from plone.memoize.view import memoize
 from rg.prenotazioni import prenotazioniMessageFactory as _, tznow
 from rg.prenotazioni.prenotazione_event import MovedPrenotazione
-from urllib import urlencode
+from rg.prenotazioni.utilities.urls import urlify
 from zope.event import notify
 from zope.formlib.form import FormFields, action
 from zope.formlib.interfaces import WidgetInputError
@@ -146,9 +146,9 @@ class MoveForm(PageForm):
     def back_to_booking_url(self):
         ''' This goes back to booking view.
         '''
-        qs = urlencode({'data': (self.context.getData_prenotazione()
-                                 .strftime('%d/%m/%Y'))})
-        return ('%s?%s') % (self.prenotazioni_folder.absolute_url(), qs)
+        qs = {'data': (self.context.getData_prenotazione()
+                       .strftime('%d/%m/%Y'))}
+        return urlify(self.prenotazioni_folder.absolute_url(), params=qs)
 
     @memoize
     def move_to_slot_links(self, day, slot):
@@ -164,8 +164,8 @@ class MoveForm(PageForm):
                              'prenotazione_move'))
         for t in times:
             params['form.booking_date'] = " ".join((date, t))
-            qs = urlencode(params)
-            urls.append({'title': t, 'url': '?'.join((base_url, qs))})
+            urls.append({'title': t,
+                         'url': urlify(base_url, params=params)})
         return urls
 
     @action(_('action_move', u'Move'), name=u'move')
@@ -178,9 +178,9 @@ class MoveForm(PageForm):
         msg = _('booking_moved')
         IStatusMessage(self.request).add(msg, 'info')
         booking_date = data['booking_date'].strftime('%d/%m/%Y')
-        qs = urlencode({'data': booking_date})
-        target = ('%s/prenotazioni_week_view?%s'
-                  ) % (self.prenotazioni_folder.absolute_url(), qs)
+        target = urlify(self.prenotazioni_folder.absolute_url(),
+                        paths=['prenotazioni_week_view'],
+                        params={'data': booking_date})
         return self.request.response.redirect(target)
 
     @action(_(u"action_cancel", default=u"Cancel"),

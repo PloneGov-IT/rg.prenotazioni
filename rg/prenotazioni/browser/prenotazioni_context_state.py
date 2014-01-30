@@ -8,7 +8,7 @@ from rg.prenotazioni import (get_or_create_obj, tznow)
 from rg.prenotazioni.adapters.booker import IBooker
 from rg.prenotazioni.adapters.conflict import IConflictManager
 from rg.prenotazioni.adapters.slot import ISlot, BaseSlot
-from urllib import urlencode
+from rg.prenotazioni.utilities.urls import urlify
 
 
 def hm2handm(hm):
@@ -135,9 +135,8 @@ class PrenotazioniContextState(BrowserView):
         for t in times:
             params['form.booking_date'] = " ".join((date, t))
             booking_date = DateTime(params['form.booking_date']).asdatetime()
-            qs = urlencode(params)
             urls.append({'title': t,
-                         'url': '?'.join((base_url, qs)),
+                         'url': urlify(base_url, params=params),
                          'class': t.endswith(':00') and 'oclock' or None,
                          'booking_date': booking_date,
                          })

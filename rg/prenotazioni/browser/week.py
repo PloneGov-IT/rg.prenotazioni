@@ -5,7 +5,7 @@ from plone import api
 from plone.memoize.view import memoize
 from rg.prenotazioni.browser.base import BaseView
 from rg.prenotazioni.browser.interfaces import IDontFollowMe
-from urllib import urlencode
+from rg.prenotazioni.utilities.urls import urlify
 from zope.interface.declarations import implements
 
 
@@ -108,7 +108,7 @@ class View(BaseView):
         """
         qs = {'data': self.prev_week}
         qs.update(self.prenotazioni.remembered_params)
-        return "%s?%s" % (self.request.getURL(), urlencode(qs))
+        return urlify(self.request.getURL(), params=qs)
 
     @property
     @memoize
@@ -117,7 +117,7 @@ class View(BaseView):
         """
         qs = {'data': self.next_week}
         qs.update(self.prenotazioni.remembered_params)
-        return "%s?%s" % (self.request.getURL(), urlencode(qs))
+        return urlify(self.request.getURL(), params=qs)
 
     def __call__(self):
         ''' Hide the portlets before serving the template

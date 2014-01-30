@@ -3,7 +3,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 from plone.memoize.view import memoize
-from urllib import urlencode
+from rg.prenotazioni.utilities.urls import urlify
 
 
 class PrenotazionePrint(BrowserView):
@@ -42,8 +42,7 @@ class PrenotazionePrint(BrowserView):
                 qs['data'] = data
             msg = "Not found"
             IStatusMessage(self.request).add(msg, 'warning')
-            target = '%s?%s' % (self.context.absolute_url(),
-                                urlencode(qs))
+            target = urlify(self.context.absolute_url(), params=qs)
             return self.request.response.redirect(target)
         else:
             return super(PrenotazionePrint, self).__call__()
