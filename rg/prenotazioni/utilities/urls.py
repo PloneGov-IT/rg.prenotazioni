@@ -20,7 +20,7 @@ def urlify(url='', paths=[], params={}):
     # we strip duplicate values in params
     for key in params:
         value = params[key]
-        if isinstance(params[key], (list, tuple)) and len():
+        if isinstance(params[key], (list, tuple)) and len(value):
             params[key] = value[0]
     # we cook everything together
     if url:
