@@ -55,6 +55,13 @@ class PrenotazioneView(BrowserView):
             target = urlify(target, params=qs)
         return target
 
+    @property
+    @memoize
+    def review_state(self):
+        ''' The review_state of this object
+        '''
+        return self.prenotazioni.get_state(self.context)
+
 
 class ResetDuration(PrenotazioneView):
     ''' Reset data scadenza prenotazione: sometime is needed :p

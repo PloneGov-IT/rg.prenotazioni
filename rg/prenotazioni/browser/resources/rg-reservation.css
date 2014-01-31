@@ -8,6 +8,16 @@
   float:right;
 }
 
+#plone-contentmenu-workflow .state-refused {
+  padding: 0 0.5em;
+  background-color: #870000;
+  border: 0.1em solid #870000;
+  color: white !important;
+  border-radius: 0.5em;
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+}
+
 td.selected {
   background-color: #fefefe;
 }
@@ -299,3 +309,10 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
 
 #week .slot .pending a:hover {background-color: rgb(236, 123, 0)}
 #week .slot .published a:hover {background-color: #9AC2DD;}
+
+dl.refused dd {
+  background-color: #EEBBBB;
+}
+dl.portalMessage.refused dt {
+  background-color: #870000;
+}

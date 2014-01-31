@@ -6,7 +6,6 @@ lang="en"
 metal:use-macro="here/main_template/macros/master"
 i18n:domain="rg.prenotazioni">
     <body>
-
         <metal:main fill-slot="main">
             <tal:main-macro metal:define-macro="main"
             tal:define="context_state nocall:here/@@plone_context_state;
@@ -17,7 +16,16 @@ i18n:domain="rg.prenotazioni">
                         anonymous portal_state/anonymous;
                         putils here/plone_utils;
                         not_ajax_load python:not request.get('ajax_load', '')">
-
+                <div class="refused-alert" tal:condition="python:view.review_state=='refused'">
+                  <dl class="portalMessage refused">
+                    <dt><i class="icon-warning-sign">&nbsp;</i></dt>
+                    <dd i18n:translate="refused-review-state-warning">
+                      The booking state is "refused".
+                      If you change it, the booking time may conflict
+                      with another one.
+                    </dd>
+                  </dl>
+                </div>
                 <div tal:replace="structure provider:plone.abovecontenttitle" />
                 <h1 class="documentFirstHeading">
                   <a tal:attributes="href context_state/canonical_object_url" tal:omit-tag="not_ajax_load">

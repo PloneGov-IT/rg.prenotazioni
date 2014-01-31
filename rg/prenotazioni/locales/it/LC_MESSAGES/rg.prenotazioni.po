@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2014-01-31 15:05+0000\n"
+"POT-Creation-Date: 2014-01-31 16:24+0000\n"
 "PO-Revision-Date: 2014-01-27 12:09+0100\n"
 "Last-Translator: Alessandro Pisa <alessandro.pisa@redturtle.it>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -69,7 +69,7 @@ msgstr "Cartella anno prenotazioni"
 msgid "Booking date"
 msgstr "Data prenotazione"
 
-#: ./browser/prenotazione.pt:24
+#: ./browser/prenotazione.pt:32
 msgid "Booking for"
 msgstr "Prenotazione di"
 
@@ -80,7 +80,7 @@ msgstr "Prodotto di prenotazioni per Plone"
 msgid "Company"
 msgstr "Azienda"
 
-#: ./browser/prenotazione.pt:50
+#: ./browser/prenotazione.pt:58
 msgid "Company:"
 msgstr "Azienda:"
 
@@ -104,7 +104,7 @@ msgstr "Descrizione Agenda"
 msgid "Duration value"
 msgstr "Durata"
 
-#: ./browser/prenotazione.pt:58
+#: ./browser/prenotazione.pt:66
 msgid "E-mail:"
 msgstr "E-mail:"
 
@@ -132,7 +132,7 @@ msgstr "Data scandenza prenotazione"
 msgid "Gate"
 msgstr "Sportello"
 
-#: ./browser/prenotazione.pt:63
+#: ./browser/prenotazione.pt:71
 msgid "Gate:"
 msgstr "Sportello:"
 
@@ -196,7 +196,7 @@ msgstr "Telefono"
 msgid "Phone number"
 msgstr "Numero di telefono"
 
-#: ./browser/prenotazione.pt:54
+#: ./browser/prenotazione.pt:62
 msgid "Phone number:"
 msgstr "Telefono:"
 
@@ -207,11 +207,11 @@ msgstr "Stampa"
 msgid "Reno Galliera Booking"
 msgstr "Reno Galliera Prenotazioni"
 
-#: ./browser/prenotazione.pt:43
+#: ./browser/prenotazione.pt:51
 msgid "Reservation date"
 msgstr "Data prenotazione"
 
-#: ./browser/prenotazione.pt:39
+#: ./browser/prenotazione.pt:47
 msgid "Reservation type:"
 msgstr "Tipologia:"
 
@@ -353,12 +353,12 @@ msgstr "Lo sportello che non sarà disponibile"
 msgid "description_title"
 msgstr "Questo testo apparirà nelle celle del calendario."
 
-#: ./browser/prenotazione.pt:44
+#: ./browser/prenotazione.pt:52
 msgid "from"
 msgstr "da"
 
 #. Default: "Fullname:"
-#: ./browser/prenotazione.pt:31
+#: ./browser/prenotazione.pt:39
 msgid "fullname"
 msgstr "Nome completo"
 
@@ -534,14 +534,14 @@ msgid "message_help"
 msgstr "Inserisci il messaggio che vuoi inviare per mail. E' possibile inserire alcuni marcatori che verranno sostituiti con dei valori presi dall'applicazione.\"${title}\" sarà sostituito con il titolo della prenotazione (il nome e cognome dell'utente). \"${date}\" sarà sostituito con la data della prenotazione. \"${url}\" sarà sostituito  dall'url della prenotazione. ${portal} sarà sostituito  con il titolo del portale. "
 
 #. Default: "Go back to the calendar"
-#: ./browser/prenotazione.pt:92
+#: ./browser/prenotazione.pt:100
 #: ./browser/prenotazione_add.pt:88
 #: ./browser/prenotazione_move.pt:39
 msgid "move_back_message"
 msgstr "Ritorna al calendario"
 
 #. Default: "Move booking"
-#: ./browser/prenotazione.pt:82
+#: ./browser/prenotazione.pt:90
 msgid "move_booking"
 msgstr "Sposta la prenotazione"
 
@@ -580,6 +580,11 @@ msgstr "Ricerca"
 msgid "previous-week"
 msgstr "Settimana precedente"
 
+#. Default: "The booking state is \"refused\". If you change it, the booking time may conflict with another one."
+#: ./browser/prenotazione.pt:22
+msgid "refused-review-state-warning"
+msgstr "Lo stato della prenotazione è \"rifiutato\". Se lo cambi, questa prenotazione potrebbe entrare in conflitto con un'altra."
+
 #. Default: "Reservation date"
 #: ./browser/prenotazione_move.pt:28
 msgid "reservation_date"
@@ -615,7 +620,7 @@ msgid "source_help"
 msgstr "Il mittente della mail. Se nessun indirizzo viene inserito verrà utilizzato l'indirizzo configurato nel portale."
 
 #. Default: "Subject:"
-#: ./browser/prenotazione.pt:35
+#: ./browser/prenotazione.pt:43
 msgid "subject"
 msgstr "Oggetto"
 
@@ -659,7 +664,7 @@ msgstr "Le seguenti tipologie non  si adattano all'intervallo di tempo seleziona
 msgid "title_required"
 msgstr "Obligatorio"
 
-#: ./browser/prenotazione.pt:46
+#: ./browser/prenotazione.pt:54
 msgid "to"
 msgstr "a"
 
@@ -684,7 +689,7 @@ msgid "vacation_booking"
 msgstr "Prenotazione vacanze"
 
 #. Default: "View booking"
-#: ./browser/prenotazione.pt:75
+#: ./browser/prenotazione.pt:83
 #: ./browser/prenotazione_macros.pt:264
 msgid "view_booking"
 msgstr "Vedi la prenotazione"

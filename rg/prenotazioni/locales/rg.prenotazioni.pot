@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-01-31 15:05+0000\n"
+"POT-Creation-Date: 2014-01-31 16:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,7 +66,7 @@ msgstr ""
 msgid "Booking date"
 msgstr ""
 
-#: ./browser/prenotazione.pt:24
+#: ./browser/prenotazione.pt:32
 msgid "Booking for"
 msgstr ""
 
@@ -77,7 +77,7 @@ msgstr ""
 msgid "Company"
 msgstr ""
 
-#: ./browser/prenotazione.pt:50
+#: ./browser/prenotazione.pt:58
 msgid "Company:"
 msgstr ""
 
@@ -101,7 +101,7 @@ msgstr ""
 msgid "Duration value"
 msgstr ""
 
-#: ./browser/prenotazione.pt:58
+#: ./browser/prenotazione.pt:66
 msgid "E-mail:"
 msgstr ""
 
@@ -129,7 +129,7 @@ msgstr ""
 msgid "Gate"
 msgstr ""
 
-#: ./browser/prenotazione.pt:63
+#: ./browser/prenotazione.pt:71
 msgid "Gate:"
 msgstr ""
 
@@ -193,7 +193,7 @@ msgstr ""
 msgid "Phone number"
 msgstr ""
 
-#: ./browser/prenotazione.pt:54
+#: ./browser/prenotazione.pt:62
 msgid "Phone number:"
 msgstr ""
 
@@ -204,11 +204,11 @@ msgstr ""
 msgid "Reno Galliera Booking"
 msgstr ""
 
-#: ./browser/prenotazione.pt:43
+#: ./browser/prenotazione.pt:51
 msgid "Reservation date"
 msgstr ""
 
-#: ./browser/prenotazione.pt:39
+#: ./browser/prenotazione.pt:47
 msgid "Reservation type:"
 msgstr ""
 
@@ -349,12 +349,12 @@ msgstr ""
 msgid "description_title"
 msgstr ""
 
-#: ./browser/prenotazione.pt:44
+#: ./browser/prenotazione.pt:52
 msgid "from"
 msgstr ""
 
 #. Default: "Fullname:"
-#: ./browser/prenotazione.pt:31
+#: ./browser/prenotazione.pt:39
 msgid "fullname"
 msgstr ""
 
@@ -528,14 +528,14 @@ msgid "message_help"
 msgstr ""
 
 #. Default: "Go back to the calendar"
-#: ./browser/prenotazione.pt:92
+#: ./browser/prenotazione.pt:100
 #: ./browser/prenotazione_add.pt:88
 #: ./browser/prenotazione_move.pt:39
 msgid "move_back_message"
 msgstr ""
 
 #. Default: "Move booking"
-#: ./browser/prenotazione.pt:82
+#: ./browser/prenotazione.pt:90
 msgid "move_booking"
 msgstr ""
 
@@ -574,6 +574,11 @@ msgstr ""
 msgid "previous-week"
 msgstr ""
 
+#. Default: "The booking state is \"refused\". If you change it, the booking time may conflict with another one."
+#: ./browser/prenotazione.pt:22
+msgid "refused-review-state-warning"
+msgstr ""
+
 #. Default: "Reservation date"
 #: ./browser/prenotazione_move.pt:28
 msgid "reservation_date"
@@ -609,7 +614,7 @@ msgid "source_help"
 msgstr ""
 
 #. Default: "Subject:"
-#: ./browser/prenotazione.pt:35
+#: ./browser/prenotazione.pt:43
 msgid "subject"
 msgstr ""
 
@@ -653,7 +658,7 @@ msgstr ""
 msgid "title_required"
 msgstr ""
 
-#: ./browser/prenotazione.pt:46
+#: ./browser/prenotazione.pt:54
 msgid "to"
 msgstr ""
 
@@ -678,7 +683,7 @@ msgid "vacation_booking"
 msgstr ""
 
 #. Default: "View booking"
-#: ./browser/prenotazione.pt:75
+#: ./browser/prenotazione.pt:83
 #: ./browser/prenotazione_macros.pt:264
 msgid "view_booking"
 msgstr ""
