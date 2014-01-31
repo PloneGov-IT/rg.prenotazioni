@@ -52,6 +52,7 @@
             </tal:gates>
           </div>
         </div>
+        <div class="visualClear"></div>
 </metal:macro>
 
 <!-- Displays the bookability of a day period for users -->
@@ -69,6 +70,7 @@
       </div>
     </div>
   </div>
+  <div class="visualClear"></div>
 </metal:macro>
 
 <!-- This is the macro to show the hours left of the day period -->
@@ -183,19 +185,20 @@
         </tr>
     </thead>
     <tbody>
-      <tal:periods repeat="period week_view/periods">
-        <tr>
-          <tal:days repeat="day week_view/actual_week_days">
+      <tr>
+        <tal:days repeat="day week_view/actual_week_days">
             <td class="day"
-                tal:define="interval python:week_view.prenotazioni.get_day_intervals(day)[period]"
                 tal:attributes="class python:day==week_view.actual_date and 'day selected' or 'day';">
-              <metal:macro metal:use-macro="day_period_macro" />
+                <tal:periods repeat="period week_view/periods">
+                  <tal:define define="interval python:week_view.prenotazioni.get_day_intervals(day)[period]">
+                    <metal:macro metal:use-macro="day_period_macro" />
+                  </tal:define>
+                </tal:periods>
             </td>
-          </tal:days>
-        </tr>
-      </tal:periods>
+        </tal:days>
+      </tr>
     </tbody>
-      </table>
+  </table>
 </metal:macro>
 
 <!-- This is the html the legend for -->
