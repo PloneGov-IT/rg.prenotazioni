@@ -53,20 +53,13 @@ table#week {
 }
 
 #week caption {
-  padding-bottom: 0.3em;
+  padding: 0.3em 1em;
   margin-bottom: 0.5em;
   border: 1px solid #DDDDDD;
 }
 
 #week caption a {
-  padding-bottom: 0.3em;
-  margin-bottom: 0.5em;
   text-decoration: none;
-  border-bottom: none;
-}
-
-#content #week caption a:link,
-#content #week caption a:visited {
   border-bottom: none;
 }
 
