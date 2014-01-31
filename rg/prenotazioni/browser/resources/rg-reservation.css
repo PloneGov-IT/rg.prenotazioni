@@ -83,13 +83,21 @@ table#week td {
 #content #week td div.gate {
   float: left;
   vertical-align:middle;
-  background-color: #75ad0a;
+  background-color: #fff;
+}
+#content #week td div.gate > a {
+  overflow: hidden;
+  display: block;
+  width:90%;
+  height:1.2em;
+  padding:0.3em 5%;
 }
 #week .fromto {
   background-color:#ddd;
 }
 #week .gateswrapper {
   border:1px solid #ddd;
+  margin-bottom: 1em;
 }
 #week .gates {
   margin-left:34px;
@@ -107,11 +115,9 @@ table#week td {
 
 #week .gates > .hours > .hour {
   height: 59px;
-  font-size: 20px;
   text-align: center;
   margin-left: 1px;
   border: 1px solid #ddd;
-  color: #57574E;
   border-bottom-width:0;
   position:relative;
 }
@@ -134,7 +140,7 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
 }
 
 #week .slot {
-  border: 1px solid #75ad0a;
+  border: 1px solid #fff;
   border-width:0 1px 0 0;
 }
 #week .slot a{
@@ -182,12 +188,12 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
 #week .slot .links a.oclock {
     height:4px;
     display:block;
-    border-top: 1px solid #75ad0a;
+    border-top: 1px solid #666;
 }
 
-#week .slot .links a:link    {background-color:#008000;}
-#week .slot .links a:visited {background-color:#008000;}
-#week .slot .links a:hover   {background-color:#75AD0A;}
+#week .slot .links a:link    {background-color:#ddd;}
+#week .slot .links a:visited {background-color:#ddd;}
+#week .slot .links a:hover   {background-color:#666;}
 #week .slot .links > .previous   {background-color:rgba(168, 195, 175, 0.5);}
 
 #content .search-result-wrapper {
@@ -224,9 +230,12 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
     margin-right: 5px
 }
 
-.legend li > .bookable { background: #008000; }
+.legend li > .bookable { background: #ddd; }
 .legend-user li > .unbookable { background: #ffa500; }
-.legend-manager li > .unbookable { background: #75ad0a; }
+.legend-manager li > .unbookable {
+  background: #fff;
+  border:1px solid #999;
+}
 
 .legend-manager li > .pending { background: #ffa500; }
 .legend-manager li > .confirmed { background: #436976; }
@@ -239,14 +248,6 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
 
 #week .fromto {
     background-color:#ddd;
-    box-shadow: 0 0 5px #5C5C5C;
-}
-
-#week .gateswrapper {
-    border-bottom: 1px solid #ddd;
-    border-left: 1px solid #FFFFFF;
-    border-right: 1px solid #FFFFFF;
-    border-top: 1px solid #FFFFFF;
 }
 
 #content-core #week {
@@ -275,7 +276,6 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
 #week .slot .links a {
     height:5px;
     display:block;
-    box-shadow: inset 0px -1px #33744D;
 }
 
 #legend .legend-note {margin-top: 10px;}
