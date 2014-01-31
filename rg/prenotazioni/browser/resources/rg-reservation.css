@@ -1,10 +1,16 @@
 /*
  * RG Prenotazioni Styles
  */
+.floatleft {
+  float:left;
+}
+.floatright {
+  float:right;
+}
+
 td.selected {
   background-color: #fefefe;
 }
-
 
 .template-prenotazione_add .field input[type="text"] {
   width: 100%;
