@@ -5,11 +5,16 @@ from rg.prenotazioni.adapters.booker import IBooker
 def reallocate_gate(obj):
     '''
     We have to reallocate the gate for this object
+
+    Skip this step if we have a form.gate parameter in the request
     '''
-    container = obj.object.getPrenotazioniFolder()
-    booking_date = obj.object.getData_prenotazione()
+    context = obj.object
+    if context.REQUEST.form.get('form.gate', '') and context.getGate():
+        return
+    container = context.getPrenotazioniFolder()
+    booking_date = context.getData_prenotazione()
     new_gate = IBooker(container).get_available_gate(booking_date)
-    obj.object.setGate(new_gate)
+    context.setGate(new_gate)
 
 
 def reallocate_container(obj):
