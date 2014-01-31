@@ -15,7 +15,7 @@ from zope.formlib.form import FormFields, action
 from zope.formlib.interfaces import WidgetInputError
 from zope.interface import Interface
 from zope.interface.declarations import implements
-from zope.schema import Datetime
+from zope.schema import Datetime, TextLine
 
 
 class IMoveForm(Interface):
@@ -26,6 +26,10 @@ class IMoveForm(Interface):
     booking_date = Datetime(
         title=_('label_booking_time', u'Booking time'),
         default=None,
+    )
+    gate = TextLine(
+        title=_('label_gate', u'Gate'),
+        default=u'',
     )
 
 
@@ -139,6 +143,7 @@ class MoveForm(PageForm):
         data_scadenza = booking_date + duration
         self.context.setData_prenotazione(booking_date)
         self.context.setData_scadenza(data_scadenza)
+        self.context.setGate(data['gate'])
         notify(MovedPrenotazione(self.context))
 
     @property
@@ -151,13 +156,14 @@ class MoveForm(PageForm):
         return urlify(self.prenotazioni_folder.absolute_url(), params=qs)
 
     @memoize
-    def move_to_slot_links(self, day, slot):
+    def move_to_slot_links(self, day, slot, gate):
         '''
         Returns the url to move the booking in this slot
         '''
         date = day.strftime("%Y-%m-%d")
         params = {'form.actions.move': 1,
-                  'data': self.request.form.get('data', '')}
+                  'data': self.request.form.get('data', ''),
+                  'form.gate': gate}
         times = slot.get_values_hr_every(300)
         urls = []
         base_url = "/".join((self.context.absolute_url(),

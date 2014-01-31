@@ -147,7 +147,7 @@
     <div tal:define="booking nocall:slot/context" class="links"
          tal:attributes="style python:view.slot_styles(slot)">
       <tal:free_slot tal:condition="python:not booking or booking==context">
-        <tal:urls repeat="link python:view.move_to_slot_links(day, slot)">
+        <tal:urls repeat="link python:view.move_to_slot_links(day, slot, gate)">
           <a href="" title="Cambia data"
              tal:attributes="href link/url;
                              title link/title">&nbsp;</a>
