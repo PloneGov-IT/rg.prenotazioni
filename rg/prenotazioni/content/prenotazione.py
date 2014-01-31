@@ -82,6 +82,7 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
             label=_(u"Gate"),
             description=_(u"Sportello a cui presentarsi"),
         ),
+        searchable=True,
     ),
     atapi.DateTimeField(
         'data_scadenza',
