@@ -12,7 +12,7 @@
 
     <a href="#" rel="nofollow"
        tal:attributes="href week_view/toggle_columns_url"
-       tal:condition="not:view/prenotazioni/is_anonymous">
+       tal:condition="not:week_view/prenotazioni/is_anonymous">
        Ridimensiona</a>
     <a class="floatright" href="#" rel="nofollow"
        tal:attributes="href week_view/next_week_url">
