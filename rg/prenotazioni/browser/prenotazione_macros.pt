@@ -3,7 +3,9 @@
   <div class="navigator">
     <a class="floatleft" href="#" rel="nofollow"
       tal:attributes="href week_view/prev_week_url">
-      <i class="icon-step-backward"></i> previous week</a>
+      <i class="icon-step-backward"></i>
+      <tal:i18n i18n:translate="previous-week">previous week</tal:i18n>
+    </a>
 
     <strong><tal:month i18n:domain="plonelocales"
                       i18n:translate=""
@@ -13,10 +15,11 @@
        tal:attributes="href week_view/toggle_columns_url"
        tal:condition="not:week_view/prenotazioni/is_anonymous"
        >
-       resize</a>
+      <tal:i18n i18n:translate="resize">resize</tal:i18n>
+    </a>
     <a class="floatright" href="#" rel="nofollow"
        tal:attributes="href week_view/next_week_url">
-       next week
+       <tal:i18n i18n:translate="next-week">next week</tal:i18n>
        <i class="icon-step-forward"></i></a>
  </div>
  <div class="visualClear"></div>
