@@ -119,6 +119,20 @@ class View(BaseView):
         qs.update(self.prenotazioni.remembered_params)
         return urlify(self.request.getURL(), params=qs)
 
+    @property
+    @memoize
+    def toggle_columns_url(self):
+        """ The link to enable/disable the columns
+        """
+        params = self.prenotazioni.remembered_params.copy()
+        if ('disable_plone.leftcolumn' in params or 'disable_plone.rightcolumn' in params):  # noqa
+            params.pop('disable_plone.leftcolumn', '')
+            params.pop('disable_plone.rightcolumn', '')
+        else:
+            params['disable_plone.leftcolumn'] = 1
+            params['disable_plone.rightcolumn'] = 1
+        return urlify(self.request.getURL(), params=params)
+
     def __call__(self):
         ''' Hide the portlets before serving the template
         '''

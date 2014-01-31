@@ -104,6 +104,8 @@ class PrenotazioniContextState(BrowserView):
                       and not key.startswith('form.action')
                       and not key in ('form.booking_date',
                                       )
+                      or key in ('disable_plone.leftcolumn',
+                                 'disable_plone.rightcolumn')
                       )
                   }
         for key, value in params.iteritems():

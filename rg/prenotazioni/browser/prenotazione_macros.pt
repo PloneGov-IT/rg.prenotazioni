@@ -1,17 +1,24 @@
 <!-- The macro used to go navigate through the weeks -->
 <metal:macro metal:define-macro="week_navigator" i18n:domain="rg.prenotazioni">
-  <a id="prevWeekLink" href="#" rel="nofollow"
-     tal:attributes="href week_view/prev_week_url">
-     &larr; settimana precedente</a>
+  <div class="navigator">
+    <a class="floatleft" href="#" rel="nofollow"
+      tal:attributes="href week_view/prev_week_url">
+      &larr; settimana precedente</a>
 
-  <strong><tal:month i18n:domain="plonelocales"
-                     i18n:translate=""
-                     content="week_view/actual_translated_month" />
-          <tal:year content="week_view/actual_date/year" /></strong>
+    <strong><tal:month i18n:domain="plonelocales"
+                      i18n:translate=""
+                      content="week_view/actual_translated_month" />
+            <tal:year content="week_view/actual_date/year" /></strong>
 
-  <a id="nextWeekLink" href="#" rel="nofollow"
-     tal:attributes="href week_view/next_week_url">
-     settimana successiva &rarr;</a>
+    <a href="#" rel="nofollow"
+       tal:attributes="href week_view/toggle_columns_url"
+       tal:condition="not:view/prenotazioni/is_anonymous">
+       Ridimensiona</a>
+    <a class="floatright" href="#" rel="nofollow"
+       tal:attributes="href week_view/next_week_url">
+       settimana successiva &rarr;</a>
+ </div>
+ <div class="visualClear"></div>
 </metal:macro>
 
 <!-- Displays the bookability of a day period for managers -->
