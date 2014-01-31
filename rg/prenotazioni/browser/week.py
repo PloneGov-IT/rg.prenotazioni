@@ -133,6 +133,20 @@ class View(BaseView):
             params['disable_plone.rightcolumn'] = 1
         return urlify(self.request.getURL(), params=params)
 
+    @memoize
+    def get_search_gate_url(self, gate, day):
+        ''' Search a a gate
+        '''
+        params = {
+            'text': gate,
+            'start': day,
+            'end': day,
+            'actions.search': 1
+        }
+        return urlify(self.context.absolute_url(),
+                      '@@prenotazioni_search',
+                      params=params)
+
     def __call__(self):
         ''' Hide the portlets before serving the template
         '''

@@ -35,7 +35,11 @@
               <div class="gates">
                 <div class="gate" tal:repeat="gate python:sorted(slots.keys())"
                      tal:attributes="style string:width:${gate_ccs_width}%">
-                  <span tal:content="python:gate or '&nbsp;'"></span>
+                  <a tal:content="python:gate or '&nbsp;'"
+                     tal:omit-tag="not:gate"
+                     tal:attributes="href python:week_view.get_search_gate_url(gate, day)">
+                     Gate
+                  </a>
                 </div>
               </div>
             </div>
