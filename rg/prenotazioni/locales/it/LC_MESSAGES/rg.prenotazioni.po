@@ -597,7 +597,7 @@ msgstr "elementi trovati"
 #. Default: "Search by gate"
 #: ./browser/prenotazione_macros.pt:266
 msgid "search-by-gate"
-msgstr ""
+msgstr "Ricerca per sportello"
 
 #. Default: "Search result"
 #: ./browser/prenotazioni_search.pt:137

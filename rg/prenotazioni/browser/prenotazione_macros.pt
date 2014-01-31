@@ -78,7 +78,7 @@
       tal:define="slots python:week_view.prenotazioni.get_anonymous_slots(day, period);">
     <div class="interval" tal:condition="interval">
       <div class="gateswrapper">
-        <div tal:attributes="style interval/css_styles|nothing">
+        <div>
           <div class="gate" style="width:100%">
             <metal:macro metal:use-macro="slot_macro" />
           </div>

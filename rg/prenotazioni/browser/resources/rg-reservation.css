@@ -177,11 +177,9 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
 #week .slot .anonymous_slot {
   background-color:#ffffff;
   text-align:left;
-  font-size:1.2em;
-  border: 1px solid #ddd;
-  color: #57574E;
   min-height: 1em;
   padding:0.5em;
+  border-bottom:1px solid #ddd;
 }
 
 #week .slot .links a {
@@ -192,7 +190,7 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
 #week .slot .links a.oclock {
     height:4px;
     display:block;
-    border-top: 1px solid #666;
+    border-top: 1px solid #eee;
 }
 
 #week .slot .links a:link    {background-color:#ddd;}
