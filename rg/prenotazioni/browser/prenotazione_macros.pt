@@ -3,20 +3,21 @@
   <div class="navigator">
     <a class="floatleft" href="#" rel="nofollow"
       tal:attributes="href week_view/prev_week_url">
-      &larr; settimana precedente</a>
+      <i class="icon-step-backward"></i> previous week</a>
 
     <strong><tal:month i18n:domain="plonelocales"
                       i18n:translate=""
                       content="week_view/actual_translated_month" />
             <tal:year content="week_view/actual_date/year" /></strong>
-
     <a href="#" rel="nofollow"
        tal:attributes="href week_view/toggle_columns_url"
-       tal:condition="not:week_view/prenotazioni/is_anonymous">
-       Ridimensiona</a>
+       tal:condition="not:week_view/prenotazioni/is_anonymous"
+       >
+       resize</a>
     <a class="floatright" href="#" rel="nofollow"
        tal:attributes="href week_view/next_week_url">
-       settimana successiva &rarr;</a>
+       next week
+       <i class="icon-step-forward"></i></a>
  </div>
  <div class="visualClear"></div>
 </metal:macro>
@@ -31,19 +32,20 @@
             <div class="fromto">
               <tal:from replace="interval/start" /> &mdash <tal:from replace="interval/stop" />
             </div>
-            <div class="gateswrapper">
+            <div class="gatesheader">
               <div class="gates">
                 <div class="gate" tal:repeat="gate python:sorted(slots.keys())"
                      tal:attributes="style string:width:${gate_ccs_width}%">
-                  <a tal:content="python:gate or '&nbsp;'"
+                  <a
                      tal:omit-tag="not:gate"
-                     tal:attributes="href python:week_view.get_search_gate_url(gate, day)">
-                     Gate
+                     tal:attributes="href python:week_view.get_search_gate_url(gate, day);
+                                     title gate;">
+                    <i class="icon-list-ul"></i>
                   </a>
                 </div>
               </div>
+              <div class="visualClear"></div>
             </div>
-            <div class="visualClear"></div>
             <div class="gateswrapper">
               <div class="gates" tal:attributes="style interval/css_styles|nothing">
                 <metal:macro use-macro="prenotazione_macros/hours_column" />
@@ -62,8 +64,8 @@
               <metal:macro metal:use-macro="prenotazione_macros/stormy_slot" />
             </tal:gates>
           </div>
+          <div class="visualClear"></div>
         </div>
-        <div class="visualClear"></div>
 </metal:macro>
 
 <!-- Displays the bookability of a day period for users -->
@@ -244,17 +246,11 @@
       <p i18n:translate="legend_description">
         Short description of available action for the booking board
       </p>
-      <ul class="legend legend-user" tal:condition="python:not view.user_can_manage">
-          <li><i18n:tag translate="bookable_time">Bookable time</i18n:tag>
-              <div class="bookable">&nbsp;</div></li>
-          <li><i18n:tag translate="unbookable_time">Unbookable time</i18n:tag>
-              <div class="unbookable">&nbsp;</div></li>
-      </ul>
-      <ul class="legend legend-manager" tal:condition="python:view.user_can_manage">
-          <li><i18n:tag translate="bookable_time">Bookable time</i18n:tag>
-              <div class="square bookable">&nbsp;</div></li>
+      <ul class="legend legend-manager">
           <li><i18n:tag translate="unbookable_time">Unbookable time</i18n:tag>
               <div class="square unbookable">&nbsp;</div></li>
+          <li><i18n:tag translate="bookable_time">Bookable time</i18n:tag>
+              <div class="square bookable">&nbsp;</div></li>
           <li><i18n:tag translate="booking_confirmed">Booking confirmed</i18n:tag>
               <div class="square confirmed">&nbsp;</div></li>
           <li><i18n:tag translate="booking_pending">Booking pending</i18n:tag>
@@ -263,6 +259,8 @@
               <div class="square refused">&nbsp;</div></li>
           <li><i class="icon-search"></i>
               <i18n:tag translate="view_booking">View booking</i18n:tag></li>
+          <li><i class="icon-list-ul"></i>
+              <i18n:tag translate="search-by-gate">Search by gate</i18n:tag></li>
       </ul>
       <p class="legend-note">
         <strong>Note</strong>:

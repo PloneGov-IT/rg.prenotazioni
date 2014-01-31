@@ -73,6 +73,7 @@ table#week th {
 table#week td {
   text-align: center;
   vertical-align:top;
+  border: 1px solid #ddd;
 }
 
 #week td h3 {
@@ -95,18 +96,21 @@ table#week td {
 #week .fromto {
   background-color:#ddd;
 }
+#week .gatesheader {
+  border-bottom:1px solid #ddd;
+}
 #week .gateswrapper {
-  border:1px solid #ddd;
+  border-bottom:1px solid #ddd;
   margin-bottom: 1em;
 }
 #week .gates {
-  margin-left:34px;
+  margin-left:32px;
   position:relative;
 }
 
 /* barra ora */
 #week .gates > .hours {
-  width:32px;
+  width:34px;
   float:left;
   position:absolute;
   left:-34px;
@@ -194,7 +198,7 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
 #week .slot .links a:link    {background-color:#ddd;}
 #week .slot .links a:visited {background-color:#ddd;}
 #week .slot .links a:hover   {background-color:#666;}
-#week .slot .links > .previous   {background-color:rgba(168, 195, 175, 0.5);}
+#week .slot .links > .previous   {background-color:#fff;}
 
 #content .search-result-wrapper {
     padding-top : 20px;
@@ -229,10 +233,13 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
     height: 15px;
     margin-right: 5px
 }
+.legend li > .bookable {
+  background: #ddd;
+}
 
-.legend li > .bookable { background: #ddd; }
-.legend-user li > .unbookable { background: #ffa500; }
-.legend-manager li > .unbookable {
+.week-legend div.square.unbookable {
+  width: 13px;
+  height: 13px;
   background: #fff;
   border:1px solid #999;
 }
@@ -279,14 +286,6 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
 }
 
 #legend .legend-note {margin-top: 10px;}
-
-#week .slot .pending {
-    box-shadow: inset 0px -1px #E78B36;
-}
-
-#week .slot .published {
-    box-shadow: inset 0px -1px #528CA2;
-}
 
 #week .slot .pending [class^="icon-"] {
     color: black;
