@@ -202,14 +202,22 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
 }
 
 /** gestione legenda utente **/
-#legend { padding : 0px}
-#legend legend {
+.week-legend {
+  float:left;
+  width:49%;
+  min-width:200px;
+  margin-top:1em;
+}
+.week-legend fieldset {padding : 0px;}
+.week-legend fieldset legend {
     padding : 0px;
     font-weight: bold;
     font-size: 100%;
 }
-#legend ul {list-style-type: none;}
-#legend-items li div {
+#content .week-legend fieldset ul.legend {
+  list-style-type: none;
+}
+.week-legend div.square {
     display: block;
     float: left;
     width: 15px;

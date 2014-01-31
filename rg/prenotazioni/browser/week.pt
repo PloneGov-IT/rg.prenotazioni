@@ -17,24 +17,6 @@
         <div class="documentDescription-box clear-block">
             <span tal:replace="structure here/getDescriptionAgenda" />
         </div>
-
-        <div tal:define="tipology_durations view/prenotazioni/tipology_durations;
-                         keys python:sorted(tipology_durations.keys())">
-          <h3 i18n:translate="label_tipologies">Reservation types</h3>
-          <p i18n:translate="help_tipologies">List of available reservation type for the current agenda</p>
-          <table class="tipology-table">
-            <tr>
-              <th i18n:translate="tipology_name">Name</th>
-              <th i18n:translate="tipology_value">Value</th>
-            </tr>
-            <tal:repeat repeat="key keys">
-              <tr>
-                <td><span tal:replace="key" /></td>
-                <td><span tal:replace="python:tipology_durations[key]" /></td>
-              </tr>
-            </tal:repeat>
-          </table>
-        </div>
     </metal:block>
 
     <metal:block fill-slot="content-core"
@@ -50,9 +32,13 @@
         </div>
 
       <metal:block use-macro="prenotazione_macros/week-table" />
-      <tal:legend condition="not:view/prenotazioni/is_anonymous">
-        <metal:block use-macro="prenotazione_macros/week-legend" />
-      </tal:legend>
+      <div>
+        <metal:block use-macro="prenotazione_macros/week-tipologies-legend" />
+        <tal:legend condition="not:view/prenotazioni/is_anonymous">
+          <metal:block use-macro="prenotazione_macros/week-colors-legend" />
+        </tal:legend>
+        <div class="visualClear"></div>
+      </div>
     </metal:block>
 
 </html>
