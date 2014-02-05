@@ -196,7 +196,8 @@
     <thead>
         <tr>
             <tal:days repeat="day week_view/actual_week_days">
-              <th scope="col" tal:condition="nocall:week_view">
+              <th scope="col"
+                  tal:condition="python:week_view.show_day_column(day)">
                 <tal:dayname
                   i18n:domain="plonelocales"
                   i18n:translate=""
@@ -210,6 +211,7 @@
       <tr>
         <tal:days repeat="day week_view/actual_week_days">
             <td class="day"
+                tal:condition="python:week_view.show_day_column(day)"
                 tal:attributes="class python:day==week_view.actual_date and 'day selected' or 'day';">
                 <tal:periods repeat="period week_view/periods">
                   <tal:define define="interval python:week_view.prenotazioni.get_day_intervals(day)[period]">

@@ -152,6 +152,14 @@ class View(BaseView):
                       '@@prenotazioni_search',
                       params=params)
 
+    @memoize
+    def show_day_column(self, day):
+        ''' Return True or False according to the fact that the column should
+        be shown
+        '''
+        periods = self.prenotazioni.get_day_intervals(day)
+        return bool(periods['day'])
+
     def __call__(self):
         ''' Hide the portlets before serving the template
         '''
