@@ -37,6 +37,11 @@ class View(BaseView):
         '''
         return self.localized_time(value, time_only=True)
 
+    def get_day_msgid(self, day):
+        ''' Translate the week day
+        '''
+        return self.translation_service.day_msgid(day.weekday())
+
     @property
     @memoize
     def user_can_manage(self):
