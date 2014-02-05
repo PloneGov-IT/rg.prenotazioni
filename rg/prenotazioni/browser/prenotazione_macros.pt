@@ -8,8 +8,8 @@
     </a>
 
     <strong><tal:month i18n:domain="plonelocales"
-                      i18n:translate=""
-                      content="week_view/actual_translated_month" />
+                       i18n:translate=""
+                       content="week_view/actual_translated_month" />
             <tal:year content="week_view/actual_date/year" /></strong>
     <a href="#" rel="nofollow"
        tal:attributes="href week_view/toggle_columns_url"
@@ -196,7 +196,13 @@
     <thead>
         <tr>
             <tal:days repeat="day week_view/actual_week_days">
-                <th scope="col" tal:content="python:day.strftime('%d')">Lunedi</th>
+              <th scope="col" tal:condition="nocall:week_view">
+                <tal:dayname
+                  i18n:domain="plonelocales"
+                  i18n:translate=""
+                  replace="python:week_view.get_day_msgid(day)"></tal:dayname>
+                <tal:daynumber tal:replace="python:day.strftime('%d')"></tal:daynumber>
+              </th>
             </tal:days>
         </tr>
     </thead>
