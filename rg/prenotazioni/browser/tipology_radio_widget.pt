@@ -12,6 +12,7 @@
           <tal:li replace="item/title">Vocabulary title</tal:li>
         </li>
       </ul>
+      <div class="visualClear"></div>
       <p class="formHelp">
         <a tal:attributes="href view/prenotazione_add/back_to_booking_url"
           i18n:translate="tipology_widget_suggest_reselect">

@@ -47,6 +47,13 @@ td.selected {
   background-color: #ffffe3;
 }
 
+#content .tipology_widget .unbookable ul li {
+  float:left;
+  width:50%;
+  min-width:200px;
+}
+
+
 .template-prenotazione_print table.listing {
   border-top: 1px solid #ddd;
 }
