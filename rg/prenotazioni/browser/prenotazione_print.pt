@@ -13,12 +13,18 @@ i18n:domain="rg.prenotazioni">
         disable_column_two python:request.set('disable_plone.rightcolumn',1);" />
     </head>
     <body>
-        <metal:content fill-slot="content" tal:define="prenotazione nocall:view/prenotazione;
-                                                       prenotazioni_folder prenotazione/getPrenotazioniFolder;
-                                                       toLocalizedTime nocall:context/@@plone/toLocalizedTime">
-            <h1>Conferma prenotazione per:
-                <tal:title content="prenotazioni_folder/Title" />
+
+        <metal:content fill-slot="main"
+                       tal:define="prenotazione nocall:view/prenotazione;
+                                   prenotazioni_folder prenotazione/getPrenotazioniFolder;
+                                   toLocalizedTime nocall:context/@@plone/toLocalizedTime"
+        >
+            <h1 class="documentFirstHeading" tal:content="view/label">
+              Booking request
             </h1>
+            <div class="documentDescription" tal:content="view/description">
+              Booking description
+            </div>
             <tal:description condition="prenotazione/Description">
                 <h2>Oggetto:</h2>
                 <p tal:content="prenotazione/Description">

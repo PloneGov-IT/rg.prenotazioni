@@ -4,6 +4,7 @@ from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 from plone.memoize.view import memoize
 from rg.prenotazioni.utilities.urls import urlify
+from rg.prenotazioni import prenotazioniMessageFactory as _
 
 
 class PrenotazionePrint(BrowserView):
@@ -12,6 +13,18 @@ class PrenotazionePrint(BrowserView):
     This is a view to proxy autorizzazione
     '''
     print_action = "javascript:this.print();"
+
+    description = _('confirm_booking_waiting_message',
+                    u'Your booking has to be confirmed by the administrators')
+
+    @property
+    @memoize
+    def label(self):
+        ''' The lable of this view
+        '''
+        return _('reservation_request',
+                 u'Booking request for: ${name}',
+                 mapping={'name': self.prenotazione.getPrenotazioniFolder().Title()})  # noqa
 
     @property
     @memoize

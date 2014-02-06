@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2014-02-06 10:54+0000\n"
-"PO-Revision-Date: 2014-01-27 12:09+0100\n"
+"POT-Creation-Date: 2014-02-06 11:58+0000\n"
+"PO-Revision-Date: 2014-02-06 12:57+0100\n"
 "Last-Translator: Alessandro Pisa <alessandro.pisa@redturtle.it>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -200,7 +200,7 @@ msgstr "Numero di telefono"
 msgid "Phone number:"
 msgstr "Telefono:"
 
-#: ./browser/prenotazione_print.pt:88
+#: ./browser/prenotazione_print.pt:94
 msgid "Print"
 msgstr "Stampa"
 
@@ -223,7 +223,7 @@ msgstr "Indirizzo mittente"
 msgid "Settimana Tipo"
 msgstr "Settimana Tipo"
 
-#: ./browser/prenotazione_add.py:324
+#: ./browser/prenotazione_add.py:323
 msgid "Sorry, this slot is not available anymore."
 msgstr "Ci dispiace, ma questo intervallo di tempo non è più disponibile"
 
@@ -231,7 +231,7 @@ msgstr "Ci dispiace, ma questo intervallo di tempo non è più disponibile"
 msgid "Sorry, this slot is not available or does not fit your booking."
 msgstr "Ci dispiace questo intervallo di tempo non è disponibile o non è adatto alla tua prenotazione."
 
-#: ./browser/prenotazione_add.py:327
+#: ./browser/prenotazione_add.py:326
 #: ./browser/prenotazione_move.py:131
 msgid "Sorry, you can not book this slot for now."
 msgstr "Ci dispiace, ma questo intervallo di tempo non è al momento disponibile"
@@ -262,13 +262,13 @@ msgid "aData_help"
 msgstr "Lascia vuoto, e questa Cartella Prenotazioni non avrà scadenza"
 
 #. Default: "Book"
-#: ./browser/prenotazione_add.py:350
+#: ./browser/prenotazione_add.py:349
 #: ./browser/vacations.py:272
 msgid "action_book"
 msgstr "Prenota"
 
 #. Default: "Cancel"
-#: ./browser/prenotazione_add.py:366
+#: ./browser/prenotazione_add.py:365
 #: ./browser/prenotazione_move.py:192
 #: ./browser/prenotazioni_search.py:128
 msgid "action_cancel"
@@ -304,7 +304,7 @@ msgid "booking_confirmed"
 msgstr "Prenotazione confermata"
 
 #. Default: "Booking created"
-#: ./browser/prenotazione_add.py:356
+#: ./browser/prenotazione_add.py:355
 #: ./browser/vacations.py:269
 msgid "booking_created"
 msgstr "Prenotazione creata"
@@ -332,6 +332,11 @@ msgstr "Prenotazioni non in agenda"
 #: ./browser/prenotazione_macros.pt:185
 msgid "busy"
 msgstr "Occupato"
+
+#. Default: "Your booking has to be confirmed by the administrators"
+#: ./browser/prenotazione_print.py:17
+msgid "confirm_booking_waiting_message"
+msgstr "La tua prenotazione deve essere confermata dagli amministratori"
 
 #. Default: "This day is not valid."
 #: ./browser/vacations.py:228
@@ -377,7 +382,7 @@ msgstr "Inserisci gli sportelli preposti (uno per riga). Se questo campo non è 
 msgid "gates_label"
 msgstr "Sportelli preposti"
 
-#: ./browser/prenotazione_add.py:241
+#: ./browser/prenotazione_add.py:240
 msgid "help_prenotazione_add"
 msgstr ""
 
@@ -469,7 +474,7 @@ msgid "label_phone"
 msgstr "Numero di telefono"
 
 #. Default: "Selected date: ${date} — Time slot: ${slot}"
-#: ./browser/prenotazione_add.py:230
+#: ./browser/prenotazione_add.py:229
 msgid "label_selected_date"
 msgstr "Data selezionata: ${date} — Fascia oraria: ${slot}"
 
@@ -561,7 +566,7 @@ msgid "overbook_message"
 msgstr "Siamo spiacenti, è già stato preso un appuntamento nella stessa fascia oraria, premere il pulsante ANNULLA per effettuare una nuova richiesta di prenotazione"
 
 #. Default: "Please select a time slot"
-#: ./browser/prenotazione_add.py:399
+#: ./browser/prenotazione_add.py:398
 msgid "please_pick_a_date"
 msgstr "Selezionare una data"
 
@@ -589,6 +594,12 @@ msgstr "Lo stato della prenotazione è \"rifiutato\". Se lo cambi, questa prenot
 #: ./browser/prenotazione_move.pt:28
 msgid "reservation_date"
 msgstr "Data prenotazione"
+
+#. Default: "Booking request for: ${name}"
+#: ./browser/prenotazione_print.py:25
+#, fuzzy
+msgid "reservation_request"
+msgstr "Richiesta prenotazione per: ${name}"
 
 #: ./browser/prenotazione_macros.pt:18
 msgid "resize"
@@ -625,7 +636,7 @@ msgid "subject"
 msgstr "Oggetto"
 
 #. Default: "You cannot book any typology at this time"
-#: ./browser/prenotazione_add.py:403
+#: ./browser/prenotazione_add.py:402
 msgid "time_slot_to_short"
 msgstr "Tempo insufficiente per qualsiasi tipologia di prenotazione"
 
@@ -645,12 +656,12 @@ msgid "tipology_value"
 msgstr "Durata"
 
 #. Default: "You can select any of the following tipologies:"
-#: ./browser/tipology_radio_widget.pt:23
+#: ./browser/tipology_radio_widget.pt:24
 msgid "tipology_widget_select_available"
 msgstr "Puoi scegliere tra le seguenti tipologie:"
 
 #. Default: "You may want to select another time slot"
-#: ./browser/tipology_radio_widget.pt:16
+#: ./browser/tipology_radio_widget.pt:17
 msgid "tipology_widget_suggest_reselect"
 msgstr "Selezionare un altro intervallo di tempo"
 
