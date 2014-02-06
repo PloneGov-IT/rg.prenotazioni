@@ -154,9 +154,10 @@ i18n:domain="rg.prenotazioni">
                                     <td>
                                       <img src="" tal:attributes="src icon_url"/>
                                       <a href="#"
-                                          tal:attributes="href item/getURL; class string:state-${item/review_state}"
-                                          tal:content="item/Title"
-                                          >Item title</a>
+                                         class=""
+                                         tal:attributes="href item/getURL; class string:prenotazioni-popup state-${item/review_state}"
+                                         tal:content="item/Title"
+                                         >Item title</a>
                                     </td>
                                     <td tal:content="python:view.prenotazioni_week_view.localized_time(item['Date'])"></td>
                                     <td tal:content="python:view.prenotazioni_week_view.localized_time(item['Date'], time_only=True)"></td>
