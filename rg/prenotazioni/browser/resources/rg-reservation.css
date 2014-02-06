@@ -31,10 +31,20 @@ td.selected {
 }
 #content .tipology_widget label {
   display:block;
+  float:left;
+  width:50%;
+  min-width:200px;
 }
 
 #content .tipology_widget div.value {
   margin-bottom:1em;
+}
+
+#content .tipology_widget .unbookable {
+  margin: 1em 0;
+  padding: 1em;
+  border: 1px solid #993;
+  background-color: #ffffe3;
 }
 
 .template-prenotazione_print table.listing {
