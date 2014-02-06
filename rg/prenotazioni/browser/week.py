@@ -157,6 +157,8 @@ class View(BaseView):
         ''' Return True or False according to the fact that the column should
         be shown
         '''
+        if self.user_can_manage:
+            return True
         periods = self.prenotazioni.get_day_intervals(day)
         return bool(periods['day'])
 
