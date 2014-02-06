@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2014-01-31 16:24+0000\n"
+"POT-Creation-Date: 2014-02-06 10:54+0000\n"
 "PO-Revision-Date: 2013-06-07 14:31+0200\n"
 "Last-Translator: Alessandro Pisa <alessandro.pisa@redturtle.it>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -223,7 +223,7 @@ msgstr ""
 msgid "Settimana Tipo"
 msgstr "Typical week"
 
-#: ./browser/prenotazione_add.py:320
+#: ./browser/prenotazione_add.py:324
 msgid "Sorry, this slot is not available anymore."
 msgstr ""
 
@@ -231,7 +231,7 @@ msgstr ""
 msgid "Sorry, this slot is not available or does not fit your booking."
 msgstr ""
 
-#: ./browser/prenotazione_add.py:323
+#: ./browser/prenotazione_add.py:327
 #: ./browser/prenotazione_move.py:131
 msgid "Sorry, you can not book this slot for now."
 msgstr ""
@@ -262,13 +262,13 @@ msgid "aData_help"
 msgstr ""
 
 #. Default: "Book"
-#: ./browser/prenotazione_add.py:346
+#: ./browser/prenotazione_add.py:350
 #: ./browser/vacations.py:272
 msgid "action_book"
 msgstr ""
 
 #. Default: "Cancel"
-#: ./browser/prenotazione_add.py:362
+#: ./browser/prenotazione_add.py:366
 #: ./browser/prenotazione_move.py:192
 #: ./browser/prenotazioni_search.py:128
 msgid "action_cancel"
@@ -290,7 +290,7 @@ msgid "book_it"
 msgstr ""
 
 #. Default: "Bookable time"
-#: ./browser/prenotazione_macros.pt:255
+#: ./browser/prenotazione_macros.pt:271
 msgid "bookable_time"
 msgstr ""
 
@@ -299,12 +299,12 @@ msgid "booking tipology"
 msgstr ""
 
 #. Default: "Booking confirmed"
-#: ./browser/prenotazione_macros.pt:257
+#: ./browser/prenotazione_macros.pt:273
 msgid "booking_confirmed"
 msgstr ""
 
 #. Default: "Booking created"
-#: ./browser/prenotazione_add.py:352
+#: ./browser/prenotazione_add.py:356
 #: ./browser/vacations.py:269
 msgid "booking_created"
 msgstr ""
@@ -314,12 +314,12 @@ msgid "booking_moved"
 msgstr ""
 
 #. Default: "Booking pending"
-#: ./browser/prenotazione_macros.pt:259
+#: ./browser/prenotazione_macros.pt:275
 msgid "booking_pending"
 msgstr ""
 
 #. Default: "Booking refused"
-#: ./browser/prenotazione_macros.pt:261
+#: ./browser/prenotazione_macros.pt:277
 msgid "booking_refused"
 msgstr ""
 
@@ -329,7 +329,7 @@ msgid "bookings_not_in_agenda"
 msgstr ""
 
 #. Default: "Busy"
-#: ./browser/prenotazione_macros.pt:182
+#: ./browser/prenotazione_macros.pt:185
 msgid "busy"
 msgstr ""
 
@@ -377,12 +377,12 @@ msgstr ""
 msgid "gates_label"
 msgstr ""
 
-#: ./browser/prenotazione_add.py:239
+#: ./browser/prenotazione_add.py:241
 msgid "help_prenotazione_add"
 msgstr ""
 
 #. Default: "List of available reservation type for the current agenda"
-#: ./browser/prenotazione_macros.pt:227
+#: ./browser/prenotazione_macros.pt:243
 msgid "help_tipologies"
 msgstr ""
 
@@ -468,8 +468,8 @@ msgstr ""
 msgid "label_phone"
 msgstr ""
 
-#. Default: "Selected date: ${date}"
-#: ./browser/prenotazione_add.py:229
+#. Default: "Selected date: ${date} — Time slot: ${slot}"
+#: ./browser/prenotazione_add.py:230
 msgid "label_selected_date"
 msgstr ""
 
@@ -499,7 +499,7 @@ msgid "label_text"
 msgstr ""
 
 #. Default: "Reservation types"
-#: ./browser/prenotazione_macros.pt:226
+#: ./browser/prenotazione_macros.pt:242
 msgid "label_tipologies"
 msgstr ""
 
@@ -514,17 +514,17 @@ msgid "label_title"
 msgstr ""
 
 #. Default: "Legend"
-#: ./browser/prenotazione_macros.pt:248
+#: ./browser/prenotazione_macros.pt:264
 msgid "legend"
 msgstr ""
 
 #. Default: "Short description of available action for the booking board"
-#: ./browser/prenotazione_macros.pt:249
+#: ./browser/prenotazione_macros.pt:265
 msgid "legend_description"
 msgstr ""
 
 #. Default: "The minimum value of a single slot is 5 minutes. You cannot book a reservation when the needed time exceeds the available time."
-#: ./browser/prenotazione_macros.pt:270
+#: ./browser/prenotazione_macros.pt:286
 msgid "legend_note"
 msgstr ""
 
@@ -561,7 +561,7 @@ msgid "overbook_message"
 msgstr "We are sorry, another concurrent booking has been registered, press the cancel button to make a new book request."
 
 #. Default: "Please select a time slot"
-#: ./browser/prenotazione_add.py:395
+#: ./browser/prenotazione_add.py:399
 msgid "please_pick_a_date"
 msgstr ""
 
@@ -600,7 +600,7 @@ msgid "result_number"
 msgstr ""
 
 #. Default: "Search by gate"
-#: ./browser/prenotazione_macros.pt:266
+#: ./browser/prenotazione_macros.pt:282
 msgid "search-by-gate"
 msgstr ""
 
@@ -625,7 +625,7 @@ msgid "subject"
 msgstr ""
 
 #. Default: "You cannot book any typology at this time"
-#: ./browser/prenotazione_add.py:399
+#: ./browser/prenotazione_add.py:403
 msgid "time_slot_to_short"
 msgstr ""
 
@@ -635,27 +635,27 @@ msgid "tipologia_help"
 msgstr ""
 
 #. Default: "Name"
-#: ./browser/prenotazione_macros.pt:230
+#: ./browser/prenotazione_macros.pt:246
 msgid "tipology_name"
 msgstr ""
 
 #. Default: "Value"
-#: ./browser/prenotazione_macros.pt:231
+#: ./browser/prenotazione_macros.pt:247
 msgid "tipology_value"
 msgstr ""
 
 #. Default: "You can select any of the following tipologies:"
-#: ./browser/tipology_radio_widget.pt:7
+#: ./browser/tipology_radio_widget.pt:23
 msgid "tipology_widget_select_available"
 msgstr ""
 
 #. Default: "You may want to select another time slot"
-#: ./browser/tipology_radio_widget.pt:36
+#: ./browser/tipology_radio_widget.pt:16
 msgid "tipology_widget_suggest_reselect"
 msgstr ""
 
 #. Default: "The following tipologies will not fit the time you selected:"
-#: ./browser/tipology_radio_widget.pt:27
+#: ./browser/tipology_radio_widget.pt:7
 msgid "tipology_widget_warn_unavailable"
 msgstr ""
 
@@ -679,7 +679,7 @@ msgid "unavailable_gates_label"
 msgstr ""
 
 #. Default: "Unbookable time"
-#: ./browser/prenotazione_macros.pt:253
+#: ./browser/prenotazione_macros.pt:269
 msgid "unbookable_time"
 msgstr ""
 
@@ -690,7 +690,7 @@ msgstr ""
 
 #. Default: "View booking"
 #: ./browser/prenotazione.pt:83
-#: ./browser/prenotazione_macros.pt:264
+#: ./browser/prenotazione_macros.pt:280
 msgid "view_booking"
 msgstr ""
 
