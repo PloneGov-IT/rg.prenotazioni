@@ -111,7 +111,8 @@
         <tal:is_real_booking tal:condition="real_booking" >
           <a href=""
             class="prenotazioni-popup"
-            tal:attributes="href booking/absolute_url">
+            tal:attributes="href booking/absolute_url;
+                            title booking/Title">
             <div><i class="icon-search"></i></div>
           </a>
         </tal:is_real_booking>
@@ -119,8 +120,8 @@
           <div class="links">
             <tal:urls repeat="link python:week_view.prenotazioni.get_booking_urls(day, slot)">
               <a tal:attributes="href link/url;
-                                title link/title;
-                                class link/class">&nbsp;</a>
+                                 title link/title;
+                                 class link/class">&nbsp;</a>
             </tal:urls>
           </div>
         </tal:not_real_booking>
