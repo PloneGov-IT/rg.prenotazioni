@@ -10,7 +10,7 @@ from plone import api
 from plone.app.form.validators import null_validator
 from plone.memoize.view import memoize
 from quintagroup.formlib.captcha import Captcha, CaptchaWidget
-from rg.prenotazioni import prenotazioniMessageFactory as _, TZ, tznow
+from rg.prenotazioni import prenotazioniMessageFactory as _, tznow, TZ
 from rg.prenotazioni.adapters.booker import IBooker
 from rg.prenotazioni.utilities.urls import urlify
 from zope.app.form.browser import RadioWidget
@@ -222,14 +222,14 @@ class AddForm(PageForm):
         '''
         Check if user is anonymous
         '''
-        booking_date = self.request.form.get('form.booking_date', None)
+        booking_date = self.booking_DateTime
         if not booking_date:
             return ''
-        booking_date = DateTime('%s %s' % (booking_date, TZ._tzname))
-        localized_date = self.localized_time(booking_date, long_format=True)
+        localized_date = self.localized_time(booking_date)
         return _('label_selected_date',
-                 u"Selected date: ${date}",
-                 mapping={'date': localized_date})
+                 u"Selected date: ${date} — Time slot: ${slot}",
+                 mapping={'date': localized_date,
+                          'slot': booking_date.hour()})
 
     @property
     @memoize
@@ -248,6 +248,8 @@ class AddForm(PageForm):
         booking_date = self.request.form.get('form.booking_date', None)
         if not booking_date:
             return None
+        if len(booking_date) == 16:
+            booking_date = ' '.join((booking_date, TZ._tzname))
         return DateTime(booking_date)
 
     @property
