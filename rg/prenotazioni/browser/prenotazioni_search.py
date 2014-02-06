@@ -3,6 +3,7 @@ from DateTime import DateTime
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from datetime import datetime
 from five.formlib.formbase import PageForm
+from plone import api
 from plone.app.form.validators import null_validator
 from plone.memoize.view import memoize
 from rg.prenotazioni import prenotazioniMessageFactory as _
@@ -35,18 +36,21 @@ class ISearchForm(Interface):
     text = TextLine(
         title=_('label_text', u'Text to search'),
         default=u'',
+        required=False,
     )
     start = Datetime(
         title=_('label_start', u'Start date '),
         description=_(" format (YYYY-MM-DD)"),
         default=None,
         constraint=check_date,
+        required=False,
     )
     end = Datetime(
         title=_('label_end', u'End date'),
         description=_(" format (YYYY-MM-DD)"),
         default=None,
         constraint=check_date,
+        required=False,
     )
 
 
@@ -75,22 +79,43 @@ class SearchForm(PageForm):
         '''
         return IConflictManager(self.context)
 
+    @property
+    @memoize
+    def prenotazioni_week_view(self):
+        '''
+        Return the conflict manager for this context
+        '''
+        return api.content.get_view('prenotazioni_week_view',
+                                    self.context,
+                                    self.request)
+
+    def get_query(self, data):
+        ''' The query we requested
+        '''
+        query = {'sort_on': 'Date',
+                 'sort_order': 'reverse',
+                 'path': '/'.join(self.context.getPhysicalPath())
+                 }
+        if data['text']:
+            query['SearchableText'] = data['text']
+        start = data['start']
+        end = data['end']
+        if start and end:
+            query['Date'] = {'query': [DateTime(start), DateTime(end) + 1],
+                             'range': 'min:max'}
+        elif start:
+            query['Date'] = {'query': DateTime(start), 'range': 'min'}
+        elif end:
+            query['Date'] = {'query': DateTime(end) + 1, 'range': 'max'}
+        return query
+
     def get_brains(self, data):
         '''
         The brains for my search
         '''
         if not self.request.form.get('actions.search'):
             return []
-        text = data['text']
-        start = DateTime(data['start'])
-        end = DateTime(data['end']) + 1  # following day midnight
-        date = {'query': [start, end], 'range': 'min:max'}
-        query = {'SearchableText': text,
-                 'Date': date,
-                 'sort_on': 'Date',
-                 'sort_order': 'reverse',
-                 'path': '/'.join(self.context.getPhysicalPath())
-                 }
+        query = self.get_query(data)
         return self.conflict_manager.unrestricted_prenotazioni(**query)
 
     def validate(self, action, data):

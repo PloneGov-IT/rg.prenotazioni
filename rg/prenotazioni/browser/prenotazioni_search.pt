@@ -87,23 +87,12 @@ i18n:domain="rg.prenotazioni">
                                                 tal:condition="description"
                                                 >field description</span>
                                             </label>
-                                            <tal:comment tal:condition="nothing">
-                                                <!-- The structure keyword is necessary as Invariant strings have a
-                                                span tag. It is often useful to set Invariant errors on the
-                                                fields they refer to. -->
-                                            </tal:comment>
                                             <div class="fieldErrorBox" tal:content="structure error">The Error</div>
                                             <div class="widget formlibInlineValidation"
                                                  tal:attributes="class python:'widget' + (inline_validation and ' formlibInlineValidation' or '')"
                                                  tal:content="structure widget">
                                                 <input type="text" />
                                             </div>
-                                            <tal:comment tal:condition="nothing">
-                                                <!-- TODO Put this back, the Zope3 way.
-                                                <img src="alert.gif" alt="Error"
-                                                tal:replace="structure context/alert.gif" />
-                                                -->
-                                            </tal:comment>
                                         </div>
                                     </tal:define>
                                 </tal:block>
@@ -151,9 +140,10 @@ i18n:domain="rg.prenotazioni">
 
                             <tal:list  define="brains batch;">
                               <tal:block tal:repeat="item brains">
-                                <div class="result-item" tal:define="obj nocall:python:item.getObject()">
+                                <div class="result-item">
                                   <img src="" tal:attributes="src icon_url"/>
                                   <a href="#" tal:content="item/Title" tal:attributes="href item/getURL">Title</a>
+                                  &mdash; <tal:date content="python:view.prenotazioni_week_view.localized_time(item['Date'], long_format=True)" />
                                 </div>
                               </tal:block>
                             </tal:list>
