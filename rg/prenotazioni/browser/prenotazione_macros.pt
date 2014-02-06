@@ -169,22 +169,30 @@
 
 <!-- This is the html for a slot if the user is anonymous -->
 <metal:macro metal:define-macro="anonymous_slot" i18n:domain="rg.prenotazioni">
-  <div class="slot" tal:repeat="slot python:slots['anonymous_gate']">
-    <div tal:define="booking nocall:slot/context;"
-         class="anonymous_slot">
-      <div tal:define="link python:week_view.prenotazioni.get_anonymous_booking_url(day, slot)">
-        <tal:start replace="slot/start" />
-        <tal:bookable condition="link">
-          <a href=""
-             tal:attributes="href link/url"
-             >+</a>
-        </tal:bookable>
-        <tal:unbookable condition="not:link"
-                        i18n:translate="busy"
-                        >Busy</tal:unbookable>
+  <tal:for repeat="slot python:slots['anonymous_gate']">
+    <div class="slot"
+         tal:attributes="class python:'slot' + ' ' + (repeat['slot'].even() and 'slot-even' or 'slot-odd')">
+      <div tal:define="booking nocall:slot/context;"
+          class="anonymous_slot">
+        <div tal:define="link python:week_view.prenotazioni.get_anonymous_booking_url(day, slot)">
+          <tal:start replace="slot/start" />
+          <tal:bookable condition="link">
+            <a href=""
+              tal:attributes="href link/url"
+              >+</a>
+          </tal:bookable>
+          <div class="busy_slot">
+            <tal:unbookable condition="not:link"
+                            i18n:translate="busy"
+                            >Busy</tal:unbookable>
+            <tal:bookable condition="link">
+              &nbsp;
+            </tal:bookable>
+          </diV>
+        </div>
       </div>
     </div>
-  </div>
+  </tal:for>
 </metal:macro>
 
 <!-- This is the week table macro -->

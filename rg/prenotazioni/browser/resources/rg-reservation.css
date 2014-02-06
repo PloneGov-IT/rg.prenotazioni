@@ -153,10 +153,6 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
   display:none;
 }
 
-#week .slot {
-  border: 1px solid #fff;
-  border-width:0 1px 0 0;
-}
 #week .slot a{
   text-decoration: none;
   border-bottom: none;
@@ -169,6 +165,7 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
   background-color: #870000;
   color:white;
 }
+
 #week .slot > .refused a,
 #week .slot > .published a {
   color:white;
@@ -183,13 +180,20 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
   background-color: #436976;
   color:white;
 }
-
 #week .slot .anonymous_slot {
-  background-color:#ffffff;
+  background-color:#fff;
   text-align:left;
   min-height: 1em;
   padding:0.5em;
-  border-bottom:1px solid #ddd;
+  border:none;
+}
+
+#week .slot.slot-odd .anonymous_slot {
+  background-color:#eee;
+}
+
+#week .slot .anonymous_slot .busy_slot {
+  font-weight: normal;
 }
 
 #week .slot .links a {
