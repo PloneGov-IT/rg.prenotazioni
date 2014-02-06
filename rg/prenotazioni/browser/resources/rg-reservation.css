@@ -229,6 +229,24 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
 #week .slot .links a:hover   {background-color:#666;}
 #week .slot .links > .previous   {background-color:#fff;}
 
+.template-prenotazioni_search #text {
+  width: 90%;
+  min-width: 200px;
+  max-width: 400px;
+}
+.template-prenotazioni_search #formfield-start,
+.template-prenotazioni_search #formfield-end {
+  float:left;
+  clear: none;
+  margin-right: 2em;
+}
+
+.template-prenotazioni_search #formfield-start,
+.template-prenotazioni_search #formfield-end {
+  margin-top: 0;
+  font-size: 100%;
+}
+
 #content .search-result-wrapper {
     padding-top : 20px;
 }

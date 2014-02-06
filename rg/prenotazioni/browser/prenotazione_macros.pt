@@ -138,7 +138,7 @@
          tal:attributes="class python:week_view.prenotazioni.get_state(booking);">
       <a href=""
         tal:omit-tag="not:week_view/user_can_manage"
-        tal:attributes="href booking/absolute_url">
+        tal:attributes="href booking/absolute_url;title booking/Title">
         <tal:from replace="python:week_view.DT2time(booking.getData_prenotazione())" />
         &mdash;
         <tal:to replace="python:week_view.DT2time(booking.getData_scadenza())" />

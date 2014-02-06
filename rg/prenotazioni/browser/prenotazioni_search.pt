@@ -99,6 +99,7 @@ i18n:domain="rg.prenotazioni">
                                 <metal:block define-slot="authenticator">
                                     <input tal:replace="structure context/@@authenticator/authenticator" />
                                 </metal:block>
+                                <div class="visualClear"></div>
                                 <metal:block define-slot="above_buttons" />
                                 <div id="actionsView">
                                     <span class="actionButtons"
@@ -132,21 +133,37 @@ i18n:domain="rg.prenotazioni">
                       <div tal:condition="bookings">
                         <tal:batch
                             define="Batch python:modules['Products.CMFPlone'].Batch;
-                                    b_size python:15;
+                                    b_size python:10;
                                     b_start python:0;
                                     b_start request/b_start | b_start;
                                     batch_base_url string:${here/absolute_url}/visore-aziende;
                                     batch python:Batch(bookings, b_size, int(b_start));">
-
-                            <tal:list  define="brains batch;">
-                              <tal:block tal:repeat="item brains">
-                                <div class="result-item">
-                                  <img src="" tal:attributes="src icon_url"/>
-                                  <a href="#" tal:content="item/Title" tal:attributes="href item/getURL">Title</a>
-                                  &mdash; <tal:date content="python:view.prenotazioni_week_view.localized_time(item['Date'], long_format=True)" />
-                                </div>
-                              </tal:block>
-                            </tal:list>
+                            <table class="listing collection-listing" summary="Content listing"
+                              i18n:attributes="summary">
+                              <thead>
+                                <tr>
+                                  <th>Name</th>
+                                  <th>Date</th>
+                                  <th>Time</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tal:block tal:repeat="item batch">
+                                  <tr tal:define="oddrow repeat/item/odd;"
+                                      tal:attributes="class python:oddrow and 'even' or 'odd'" >
+                                    <td>
+                                      <img src="" tal:attributes="src icon_url"/>
+                                      <a href="#"
+                                          tal:attributes="href item/getURL; class string:state-${item/review_state}"
+                                          tal:content="item/Title"
+                                          >Item title</a>
+                                    </td>
+                                    <td tal:content="python:view.prenotazioni_week_view.localized_time(item['Date'])"></td>
+                                    <td tal:content="python:view.prenotazioni_week_view.localized_time(item['Date'], time_only=True)"></td>
+                                  </tr>
+                                </tal:block>
+                              </tbody>
+                            </table>
                           <div metal:use-macro="here/batch_macros/macros/navigation" />
                         </tal:batch>
                       </div>
