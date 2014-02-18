@@ -306,13 +306,13 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
     font-size: 100%;
 }
 
-#week .slot > .published {
+#week .gate > .slot > .published {
     line-height: 0;
     font-size: 9px;
     background-color: #6DA7BB;
 }
 
-#week .slot > .pending {
+#week .gate > .slot > .pending {
   line-height: 0;
   font-size: 9px;
   background-color: #ffa500;
