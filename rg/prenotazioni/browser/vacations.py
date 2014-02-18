@@ -175,11 +175,15 @@ class VacationBooking(PageForm):
         Get the slots we want to book!
         '''
         start_date = self.get_start_date(data)
+        gate = data['gate'].encode('utf8')
         vacation_slot = self.get_vacation_slot(data)
-        free_slots = self.prenotazioni.get_free_slots(start_date)
-        gate = data.get('gate', '')
-        gate_free_slots = free_slots.get(gate, [])
-        slots = [vacation_slot.intersect(slot) for slot in gate_free_slots]
+        slots = []
+        for period in ('morning', 'afternoon'):
+            free_slots = self.prenotazioni.get_free_slots(start_date, period)
+            gate_free_slots = free_slots.get(gate, [])
+            [slots.append(vacation_slot.intersect(slot))
+             for slot in gate_free_slots
+             if vacation_slot.overlaps(slot)]
         return slots
 
     def set_invariant_error(self, errors, fields, msg):
@@ -201,7 +205,7 @@ class VacationBooking(PageForm):
         busy_slots = self.prenotazioni.get_busy_slots(start_date)
         if not busy_slots:
             return False
-        gate_busy_slots = busy_slots.get(data.get('gate', ''), [])
+        gate_busy_slots = busy_slots.get(data['gate'].encode('utf8'), [])
         if not gate_busy_slots:
             return False
         vacation_slot = self.get_vacation_slot(data)
