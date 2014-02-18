@@ -40,7 +40,7 @@ class View(BaseView):
     def get_day_msgid(self, day):
         ''' Translate the week day
         '''
-        return self.translation_service.day_msgid(day.isoweekday())
+        return self.translation_service.day_msgid(day.isoweekday() % 7)
 
     @property
     @memoize
