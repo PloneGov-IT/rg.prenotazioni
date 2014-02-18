@@ -4,7 +4,8 @@ from Products.Five.browser import BrowserView
 from datetime import datetime, timedelta
 from plone import api
 from plone.memoize.view import memoize
-from rg.prenotazioni import (get_or_create_obj, tznow)
+from rg.prenotazioni import (get_or_create_obj, tznow,
+                             prenotazioniMessageFactory as _)
 from rg.prenotazioni.adapters.booker import IBooker
 from rg.prenotazioni.adapters.conflict import IConflictManager
 from rg.prenotazioni.adapters.slot import ISlot, BaseSlot
@@ -59,6 +60,15 @@ class PrenotazioniContextState(BrowserView):
     day_type = 'PrenotazioniDay'
     week_type = 'PrenotazioniWeek'
     year_type = 'PrenotazioniYear'
+
+    busy_slot_booking_url = {
+        'url': '',
+        'title': _('busy', u'Busy'),
+    }
+    unavailable_slot_booking_url = {
+        'url': '',
+        'title': '',
+    }
 
     @property
     @memoize
@@ -169,16 +179,35 @@ class PrenotazioniContextState(BrowserView):
                 urls[url['title']] = url
         return sorted(urls.itervalues(), key=lambda x: x['title'])
 
+    def is_slot_busy(self, day, slot):
+        ''' Check if a slot is busy (i.e. the is no free slot overlapping it)
+        '''
+        free_slots = self.get_free_slots(day)
+        for gate in free_slots:
+            for free_slot in free_slots[gate]:
+                if free_slot.overlaps(slot):
+                    return False
+        return True
+
     def get_anonymous_booking_url(self, day, slot, slot_min_size=0):
         ''' Returns, the the booking url for an anonymous user
         '''
+        # First we check if we have booking urls
         all_booking_urls = self.get_all_booking_urls(day, slot_min_size)
+        if not all_booking_urls:
+            # If not the slot can be unavailable or busy
+            if self.is_slot_busy(day, slot):
+                return self.busy_slot_booking_url
+            else:
+                return self.unavailable_slot_booking_url
+        # Otherwise we check if the URL fits the slot boundaries
         slot_start = slot.start()
         slot_stop = slot.stop()
         for booking_url in all_booking_urls:
             if slot_start <= booking_url['title'] < slot_stop:
                 if self.is_booking_date_bookable(booking_url['booking_date']):
                     return booking_url
+        return self.unavailable_slot_booking_url
 
     @memoize
     def get_gates(self):
