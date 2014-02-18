@@ -136,6 +136,9 @@ class View(BaseView):
         else:
             params['disable_plone.leftcolumn'] = 1
             params['disable_plone.rightcolumn'] = 1
+        data = self.request.form.get('data', '')
+        if data:
+            params['data'] = data
         return urlify(self.request.getURL(), params=params)
 
     @memoize
