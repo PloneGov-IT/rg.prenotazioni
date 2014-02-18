@@ -79,7 +79,8 @@
     <div class="interval" tal:condition="interval">
       <div class="gateswrapper">
         <div>
-          <div class="gate" style="width:100%">
+          <div class="gate" style="width:100%"
+               tal:define="evenodd_offset python:period=='afternoon' and len(week_view.prenotazioni.get_anonymous_slots(day, 'morning')['anonymous_gate']) or 0">
             <metal:macro metal:use-macro="slot_macro" />
           </div>
         </div>
@@ -172,7 +173,8 @@
 <metal:macro metal:define-macro="anonymous_slot" i18n:domain="rg.prenotazioni">
   <tal:for repeat="slot python:slots['anonymous_gate']">
     <div class="slot"
-         tal:attributes="class python:'slot' + ' ' + (repeat['slot'].even() and 'slot-even' or 'slot-odd')">
+         tal:define="row_index python:evenodd_offset+repeat['slot'].number()"
+         tal:attributes="class python:'slot' + ' ' + (row_index%2 and 'slot-even' or 'slot-odd')">
       <div tal:define="booking nocall:slot/context;"
           class="anonymous_slot">
         <div tal:define="link python:week_view.prenotazioni.get_anonymous_booking_url(day, slot);
@@ -186,7 +188,7 @@
           <div class="busy_slot">
             <tal:unbookable
               condition="not:bookable"
-              content="structure link/title">Unbookable</tal:unbookable>
+              content="structure row_index">Unbookable</tal:unbookable>
           </diV>
         </div>
       </div>
