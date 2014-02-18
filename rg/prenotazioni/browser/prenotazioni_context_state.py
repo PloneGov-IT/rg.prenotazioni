@@ -185,8 +185,10 @@ class PrenotazioniContextState(BrowserView):
         free_slots = self.get_free_slots(day)
         for gate in free_slots:
             for free_slot in free_slots[gate]:
-                if free_slot.overlaps(slot):
-                    return False
+                intersection = slot.intersect(free_slot)
+                if intersection:
+                    if intersection.lower_value != intersection.upper_value:
+                        return False
         return True
 
     def get_anonymous_booking_url(self, day, slot, slot_min_size=0):
