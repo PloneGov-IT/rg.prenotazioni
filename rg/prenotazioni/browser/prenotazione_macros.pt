@@ -186,7 +186,7 @@
           <div class="busy_slot">
             <tal:unbookable
               condition="not:bookable"
-              content="link/title">Unbookable</tal:unbookable>
+              content="structure link/title">Unbookable</tal:unbookable>
           </diV>
         </div>
       </div>

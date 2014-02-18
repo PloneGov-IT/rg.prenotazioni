@@ -67,7 +67,7 @@ class PrenotazioniContextState(BrowserView):
     }
     unavailable_slot_booking_url = {
         'url': '',
-        'title': '',
+        'title': '&nbsp;',
     }
 
     @property
