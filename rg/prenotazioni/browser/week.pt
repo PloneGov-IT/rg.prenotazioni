@@ -27,7 +27,7 @@
 
         <div tal:condition="not:view/prenotazioni/is_anonymous">
           <p i18n:translate="book_it">
-              Please select a booking slot clicking on the green area.
+              Please select a booking slot.
           </p>
         </div>
 

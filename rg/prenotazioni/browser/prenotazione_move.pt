@@ -32,7 +32,7 @@
           </div>
           <h3>
               <span i18n:translate="move_message">
-                Please move this booking into a new available slot (green area) or 
+                Please move this booking into a new available slot or
               </span>
               <a tal:define="new_date python:request.get('data', '')"
                 tal:attributes="href string:${prenotazioni_folder/absolute_url}?data=${new_date}">

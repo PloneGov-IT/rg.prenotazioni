@@ -185,11 +185,7 @@
               tal:attributes="href link/url"
               >+</a>
           </tal:bookable>
-          <div class="busy_slot">
-            <tal:unbookable
-              condition="not:bookable"
-              content="structure row_index">Unbookable</tal:unbookable>
-          </diV>
+          <div class="busy_slot"></diV>
         </div>
       </div>
     </div>

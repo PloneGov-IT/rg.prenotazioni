@@ -295,7 +295,7 @@ msgstr "Cerca"
 #: ./browser/week.pt:29
 msgid "book_it"
 msgstr ""
-"Clicca nell'area verde sottostante per selezionare la data e ora di "
+"Clicca nell'area sottostante per selezionare la data e ora di "
 "prenotazione"
 
 #. Default: "Bookable time"
@@ -575,8 +575,7 @@ msgstr "Sposta la prenotazione"
 #: ./browser/prenotazione_move.pt:34
 msgid "move_message"
 msgstr ""
-"Sposare l'appuntamento selezionato in un area libera indicata dal colore "
-"verde oppure"
+"Sposare l'appuntamento selezionato in un area libera oppure"
 
 #. Default: "next week"
 #: ./browser/prenotazione_macros.pt:22
