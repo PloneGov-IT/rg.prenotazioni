@@ -133,7 +133,7 @@ i18n:domain="rg.prenotazioni">
                       <div tal:condition="bookings">
                         <tal:batch
                             define="Batch python:modules['Products.CMFPlone'].Batch;
-                                    b_size python:10;
+                                    b_size python:25;
                                     b_start python:0;
                                     b_start request/b_start | b_start;
                                     batch_base_url string:${here/absolute_url}/visore-aziende;
@@ -142,9 +142,10 @@ i18n:domain="rg.prenotazioni">
                               i18n:attributes="summary">
                               <thead>
                                 <tr>
-                                  <th>Name</th>
-                                  <th>Date</th>
-                                  <th>Time</th>
+                                  <th i18n:translate="label_fullname">Name</th>
+                                  <th i18n:translate="label_gate">Gate</th>
+                                  <th i18n:translate="reservation_date">Date</th>
+                                  <th i18n:translate="label_start_time">Time</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -159,6 +160,7 @@ i18n:domain="rg.prenotazioni">
                                          tal:content="item/Title"
                                          >Item title</a>
                                     </td>
+                                    <td tal:content="python:item.getObject().getGate()"></td>
                                     <td tal:content="python:view.prenotazioni_week_view.localized_time(item['Date'])"></td>
                                     <td tal:content="python:view.prenotazioni_week_view.localized_time(item['Date'], time_only=True)"></td>
                                   </tr>
