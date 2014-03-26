@@ -244,6 +244,8 @@ class VacationBooking(PageForm):
         '''
         errors = super(VacationBooking, self).validate(action, data)
         self.validate_invariants(data, errors)
+        if not 'gate' in data:
+            data['gate'] = u''
         return errors
 
     def do_book(self, data):
