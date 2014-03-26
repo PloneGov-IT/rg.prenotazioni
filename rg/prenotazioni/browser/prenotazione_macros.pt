@@ -194,40 +194,42 @@
 
 <!-- This is the week table macro -->
 <metal:macro metal:define-macro="week-table" i18n:domain="rg.prenotazioni">
-  <table id="week" class="pren">
-    <caption>
-      <metal:macro metal:use-macro="prenotazione_macros/week_navigator" />
-    </caption>
-    <thead>
+  <div id="week-table-wrapper">
+    <table id="week" class="pren">
+      <caption>
+        <metal:macro metal:use-macro="prenotazione_macros/week_navigator" />
+      </caption>
+      <thead>
+          <tr>
+              <tal:days repeat="day week_view/actual_week_days">
+                <th scope="col"
+                    tal:condition="python:week_view.show_day_column(day)">
+                  <tal:dayname
+                    i18n:domain="plonelocales"
+                    i18n:translate=""
+                    replace="python:week_view.get_day_msgid(day)"></tal:dayname>
+                  <tal:daynumber tal:replace="python:day.strftime('%d')"></tal:daynumber>
+                </th>
+              </tal:days>
+          </tr>
+      </thead>
+      <tbody>
         <tr>
-            <tal:days repeat="day week_view/actual_week_days">
-              <th scope="col"
-                  tal:condition="python:week_view.show_day_column(day)">
-                <tal:dayname
-                  i18n:domain="plonelocales"
-                  i18n:translate=""
-                  replace="python:week_view.get_day_msgid(day)"></tal:dayname>
-                <tal:daynumber tal:replace="python:day.strftime('%d')"></tal:daynumber>
-              </th>
-            </tal:days>
+          <tal:days repeat="day week_view/actual_week_days">
+              <td class="day"
+                  tal:condition="python:week_view.show_day_column(day)"
+                  tal:attributes="class python:day==week_view.actual_date and 'day selected' or 'day';">
+                  <tal:periods repeat="period week_view/periods">
+                    <tal:define define="interval python:week_view.prenotazioni.get_day_intervals(day)[period]">
+                      <metal:macro metal:use-macro="day_period_macro" />
+                    </tal:define>
+                  </tal:periods>
+              </td>
+          </tal:days>
         </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <tal:days repeat="day week_view/actual_week_days">
-            <td class="day"
-                tal:condition="python:week_view.show_day_column(day)"
-                tal:attributes="class python:day==week_view.actual_date and 'day selected' or 'day';">
-                <tal:periods repeat="period week_view/periods">
-                  <tal:define define="interval python:week_view.prenotazioni.get_day_intervals(day)[period]">
-                    <metal:macro metal:use-macro="day_period_macro" />
-                  </tal:define>
-                </tal:periods>
-            </td>
-        </tal:days>
-      </tr>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
 </metal:macro>
 
 <!-- This is the html the legend for -->
