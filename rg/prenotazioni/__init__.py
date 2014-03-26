@@ -58,7 +58,10 @@ def get_or_create_obj(folder, key, portal_type):
         return folder[key]
 
     try:
-        with api.env.adopt_user(folder.getOwner().getId()):
+        userid = folder.getOwner().getId()
+        if not userid:
+            raise UserNotFoundError()
+        with api.env.adopt_user(userid):
             return api.content.create(type=portal_type,
                                       title=key,
                                       container=folder)
@@ -67,6 +70,7 @@ def get_or_create_obj(folder, key, portal_type):
             return api.content.create(type=portal_type,
                                       title=key,
                                       container=folder)
+
 
 def initialize(context):
     """Initializer called when used as a Zope 2 product.
