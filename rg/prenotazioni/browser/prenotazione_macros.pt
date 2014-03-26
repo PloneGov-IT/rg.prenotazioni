@@ -33,7 +33,7 @@
                tal:define="gates python:sorted(slots.keys());
                            gate_ccs_width python:int(100/len(gates))">
             <div class="fromto">
-              <tal:from replace="interval/start" /> &mdash <tal:from replace="interval/stop" />
+              <tal:from replace="interval/start" /> &mdash; <tal:from replace="interval/stop" />
             </div>
             <div class="gatesheader">
               <div class="gates">
@@ -185,7 +185,7 @@
               tal:attributes="href link/url"
               >+</a>
           </tal:bookable>
-          <div class="busy_slot"></diV>
+          <div class="busy_slot"></div>
         </div>
       </div>
     </div>
