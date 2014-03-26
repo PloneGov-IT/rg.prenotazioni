@@ -71,6 +71,9 @@ td.selected {
 }
 
 /** Week view styles **/
+#week-table-wrapper {
+  overflow: auto;
+}
 table#week {
   margin: auto;
   width: 100%;
