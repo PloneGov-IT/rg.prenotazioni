@@ -122,11 +122,11 @@ i18n:domain="rg.prenotazioni">
                     <div class="search-result-wrapper"
                          tal:condition="request/actions.search|nothing"
                          tal:define="bookings view/brains;
-                                     len python:len(bookings) or 0;
+                                     booking_length python:len(bookings) or 0;
                                      icon_url string:${portal_url}/++resource++rg.prenotazioni.resources/calendar-icon.png;">
                       <h2 i18n:translate="search_result_message">Search result</h2>
                       <p>
-                        <strong tal:content="string:${len}">1234</strong>
+                        <strong tal:content="string:${booking_length}">1234</strong>
                         <span i18n:translate="result_number">
                           items matching your search terms.</span>
                       </p>
