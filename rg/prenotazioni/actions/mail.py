@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from DateTime import DateTime
+from Products.CMFCore.interfaces import ISiteRoot
 from collective.contentrules.mailfromfield.actions.mail import (
     IMailFromFieldAction, MailActionExecutor as BaseExecutor)
 from plone.contentrules.rule.interfaces import IExecutable
 from rg.prenotazioni.content.prenotazione import Prenotazione
-from rg.prenotazioni.interfaces.prenotazionifolder import IPrenotazioniFolder
 from zope.component._declaration import adapts
 from zope.interface import Interface
 from zope.interface.declarations import implements
@@ -14,13 +14,14 @@ class MailActionExecutor(BaseExecutor):
     """The executor for this action.
     """
     implements(IExecutable)
-    adapts(IPrenotazioniFolder, IMailFromFieldAction, Interface)
+    adapts(ISiteRoot, IMailFromFieldAction, Interface)
 
     def get_mapping(self):
         '''Return a mapping that will replace markers in the template
         extended with the markers:
          - ${gate}
          - ${date}
+         - ${subject}
          - ${time}
          - ${type}
         '''
@@ -31,6 +32,7 @@ class MailActionExecutor(BaseExecutor):
             return mapping
 
         mapping['gate'] = event_obj.getGate() or ''
+        mapping['subject'] = event_obj.Description() or ''
         mapping['type'] = event_obj.getTipologia_prenotazione() or ''
 
         event_obj_date = event_obj.Date()
