@@ -733,7 +733,7 @@ msgstr "Tempo non prenotabile "
 #. Default: "vacation_booking"
 #: ./profiles/default/actions.xml
 msgid "vacation_booking"
-msgstr "Prenotazione vacanze"
+msgstr "Prenotazione risorsa"
 
 #. Default: "View booking"
 #: ./browser/prenotazione.pt:83
