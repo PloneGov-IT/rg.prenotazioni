@@ -16,7 +16,7 @@ Commits:
 - Fix check conflicts on prenotazione_move [nicolasenno]
 - Added legend to prenotazione_folder [nicolasenno]
 - Fix redirect in prenotazioni_move [nicolasenno]
-- Fix some i18n translations [nicolasenno] 
+- Fix some i18n translations [nicolasenno]
 - Added search pagination [nicolasenno]
 - Added upgrade step for "tipologia" field in prenotazioni_folder [nicolasenno]
 - Added upgrade step for "settimana_tipo" in prenotazioni_folder [nicolasenno]
