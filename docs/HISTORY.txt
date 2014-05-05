@@ -5,12 +5,14 @@ Changelog
 ==================
 
 Features:
+
 - Completely redesigned UI: now we have completely different experiences for
   backend and frontend users
 - Support booking types with different duration
 - Search view for Bookings inside a Booking Folder
 
 Commits:
+
 - Fix unicode issue in  upgrade_tipologia [alert]
 - Fix redirect after exception message in prenotazioni_move [nicolasenno]
 - Fix check conflicts on prenotazione_move [nicolasenno]
