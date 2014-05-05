@@ -25,6 +25,11 @@
     profile="rg.prenotazioni:default">
 
     <genericsetup:upgradeStep
+      title="Update value of prenotazione_folder"
+      handler=".to3000.upgrade_week_values"
+    />
+
+    <genericsetup:upgradeStep
       title="Update tipologia and durata fields"
       handler=".to3000.upgrade_tipologia"
     />
@@ -37,11 +42,6 @@
     <genericsetup:upgradeStep
       title="Fix booking container"
       handler=".to3000.fix_container"
-    />
-
-    <genericsetup:upgradeStep
-      title="Update value of prenotazione_folder"
-      handler=".to3000.upgrade_week_values"
     />
 
     <genericsetup:upgradeStep

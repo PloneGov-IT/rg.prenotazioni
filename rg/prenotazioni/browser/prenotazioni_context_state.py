@@ -107,17 +107,18 @@ class PrenotazioniContextState(BrowserView):
     def remembered_params(self):
         ''' We want to remember some parameters
         '''
-        params = {key: value
-                  for key, value in self.request.form.iteritems()
-                  if (value
-                      and key.startswith('form.')
-                      and not key.startswith('form.action')
-                      and not key in ('form.booking_date',
-                                      )
-                      or key in ('disable_plone.leftcolumn',
-                                 'disable_plone.rightcolumn')
-                      )
-                  }
+        params = dict(
+            (key, value)
+            for key, value in self.request.form.iteritems()
+            if (value
+                and key.startswith('form.')
+                and not key.startswith('form.action')
+                and not key in ('form.booking_date',
+                                )
+                or key in ('disable_plone.leftcolumn',
+                           'disable_plone.rightcolumn')
+                )
+        )
         for key, value in params.iteritems():
             if isinstance(value, unicode):
                 params[key] = value.encode('utf8')
@@ -450,8 +451,10 @@ class PrenotazioniContextState(BrowserView):
         free = self.get_free_slots(booking_date, period)
         busy = self.get_busy_slots(booking_date, period)
         keys = set(free.keys() + busy.keys())
-        return {key: sorted(free.get(key, []) + busy.get(key, []))
-                for key in keys}
+        return dict(
+            (key, sorted(free.get(key, []) + busy.get(key, [])))
+            for key in keys
+        )
 
     def get_anonymous_slots(self, booking_date, period='day'):
         ''' This will return all the slots under the fake name
@@ -469,8 +472,8 @@ class PrenotazioniContextState(BrowserView):
             return slots_by_gate
         start = interval.lower_value
         stop = interval.upper_value
-        hours = {3600 * i for i in range(24) if start <= i * 3600 <= stop}
-        hours = sorted(hours.union({start, stop}))
+        hours = set(3600 * i for i in range(24) if start <= i * 3600 <= stop)
+        hours = sorted(hours.union(set((start, stop))))
         slots_number = len(hours) - 1
         slots = [BaseSlot(hours[i], hours[i + 1]) for i in range(slots_number)]
         slots_by_gate['anonymous_gate'] = slots
@@ -487,8 +490,10 @@ class PrenotazioniContextState(BrowserView):
          ...
         }
         '''
-        return {x['name']: int(x['duration'])
-                for x in self.context.getTipologia()}
+        return dict(
+            (x['name'], int(x['duration']))
+            for x in self.context.getTipologia()
+        )
 
     def get_tipology_duration(self, tipology):
         ''' Return the seconds for this tipology
