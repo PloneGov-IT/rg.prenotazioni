@@ -54,6 +54,37 @@ class View(BaseView):
 
     @property
     @memoize
+    def user_can_view(self):
+        ''' States if the authenticated user can manage this context
+        '''
+        return not api.user.is_anonymous()
+
+    @property
+    @memoize
+    def day_period_macro(self):
+        ''' Which macro should I use to display a day period
+        '''
+        prenotazione_macros = self.prenotazione_macros
+        if self.user_can_manage:
+            return prenotazione_macros['manager_day_period']
+        if self.user_can_view:
+            return prenotazione_macros['manager_day_period']
+        return prenotazione_macros['anonymous_day_period']
+
+    @property
+    @memoize
+    def slot_macro(self):
+        ''' Which macro should I use to display the slot
+        '''
+        prenotazione_macros = self.prenotazione_macros
+        if self.user_can_manage:
+            return prenotazione_macros['manager_slot']
+        if self.user_can_view:
+            return prenotazione_macros['manager_slot']
+        return self.prenotazione_macros['anonymous_slot']
+
+    @property
+    @memoize
     def periods(self):
         ''' Return the periods
         '''

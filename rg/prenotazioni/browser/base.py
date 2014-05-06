@@ -25,6 +25,17 @@ class BaseView(BrowserView):
 
     @property
     @memoize
+    def prenotazione_macros(self):
+        ''' Returns the prenotazione_macros view.
+
+        Everyone should know about this!
+        '''
+        return api.content.get_view('prenotazione_macros',
+                                    self.context,
+                                    self.request)
+
+    @property
+    @memoize
     def conflict_manager(self):
         '''
         Return the conflict manager for this context

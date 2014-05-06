@@ -1,10 +1,10 @@
 Changelog
 =========
 
-3.0.1 (unreleased)
+3.1.0 (unreleased)
 ==================
 
-- Nothing changed yet.
+- Handle the reader role in prenotazioni_week_view.
 
 
 3.0.0 (2014-05-05)

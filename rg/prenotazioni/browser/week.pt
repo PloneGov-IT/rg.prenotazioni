@@ -21,9 +21,9 @@
 
     <metal:block fill-slot="content-core"
                  tal:define="week_view nocall:view;
-                             prenotazione_macros nocall:here/@@prenotazione_macros;
-                             day_period_macro python:week_view.user_can_manage and prenotazione_macros['manager_day_period'] or  prenotazione_macros['anonymous_day_period'];
-                             slot_macro python:week_view.user_can_manage and prenotazione_macros['manager_slot'] or prenotazione_macros['anonymous_slot'];">
+                             prenotazione_macros nocall:view/prenotazione_macros;
+                             day_period_macro nocall:week_view/day_period_macro;
+                             slot_macro nocall:week_view/slot_macro;">
 
         <div tal:condition="not:view/prenotazioni/is_anonymous">
           <p i18n:translate="book_it">
