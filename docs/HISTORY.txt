@@ -1,10 +1,11 @@
 Changelog
 =========
 
-3.1.0 (unreleased)
+3.1.0 (2014-05-06)
 ==================
 
 - Handle the reader role in prenotazioni_week_view.
+  [ale-rt]
 
 
 3.0.0 (2014-05-05)
