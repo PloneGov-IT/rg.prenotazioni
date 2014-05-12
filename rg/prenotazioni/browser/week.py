@@ -57,7 +57,9 @@ class View(BaseView):
     def user_can_view(self):
         ''' States if the authenticated user can manage this context
         '''
-        return not api.user.is_anonymous()
+        if self.user_can_manage:
+            return True
+        return u'Reader' in api.user.get_roles(obj=self.context)
 
     @property
     @memoize

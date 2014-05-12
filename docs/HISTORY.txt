@@ -1,11 +1,14 @@
 Changelog
 =========
 
-3.1.2 (unreleased)
+3.2.0 (unreleased)
 ==================
 
-- Nothing changed yet.
-
+- Since this version:
+    * If a user can edit the Prenotazioni folder has the rights to manage the
+      agenda
+    * If a user has the "Reader" role has the rights to inspect Prenotazione
+      objects
 
 3.1.1 (2014-05-12)
 ==================
