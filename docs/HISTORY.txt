@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.1.1 (unreleased)
+3.1.1 (2014-05-12)
 ==================
 
 - Method user_can_manage was called on view instead of week_view
