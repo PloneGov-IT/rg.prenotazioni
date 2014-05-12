@@ -4,7 +4,8 @@ Changelog
 3.1.1 (unreleased)
 ==================
 
-- Nothing changed yet.
+- Method user_can_manage was called on view instead of week_view
+  [ale-rt]
 
 
 3.1.0 (2014-05-06)

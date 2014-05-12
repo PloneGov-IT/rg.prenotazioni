@@ -40,7 +40,7 @@
                 <div class="gate" tal:repeat="gate python:sorted(slots.keys())"
                      tal:attributes="style string:width:${gate_ccs_width}%">
                   <a
-                     tal:omit-tag="python:not (gate and view.user_can_manage)"
+                     tal:omit-tag="python:not (gate and week_view.user_can_manage)"
                      tal:attributes="href python:week_view.get_search_gate_url(gate, day);
                                      title gate;">
                     <i class="icon-list-ul"></i>
