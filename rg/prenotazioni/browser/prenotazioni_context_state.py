@@ -270,11 +270,15 @@ class PrenotazioniContextState(BrowserView):
         # Get's the daily schedule
         day_start = inizio_m or inizio_p
         day_end = end_p or end_m
-        return {'morning': BaseSlot(inizio_m, end_m),
-                'afternoon': BaseSlot(inizio_p, end_p),
-                'day': BaseSlot(day_start, day_end),
-                'stormynight': BaseSlot(0, 86400),
-                }
+        break_start = end_m or end_p
+        break_stop = inizio_p or end_m
+        return {
+            'morning': BaseSlot(inizio_m, end_m),
+            'break': BaseSlot(break_start, break_stop),
+            'afternoon': BaseSlot(inizio_p, end_p),
+            'day': BaseSlot(day_start, day_end),
+            'stormynight': BaseSlot(0, 86400),
+        }
 
     @property
     @memoize
@@ -426,16 +430,20 @@ class PrenotazioniContextState(BrowserView):
          'gate2': [slot2, slot3],
         }
         '''
-        interval = self.get_day_intervals(booking_date)[period]
+        day_intervals = self.get_day_intervals(booking_date)
+        if period == 'day':
+            intervals = [day_intervals['morning'], day_intervals['afternoon']]
+        else:
+            intervals = [day_intervals[period]]
         slots_by_gate = self.get_busy_slots(booking_date, period)
         gates = self.get_gates()
         availability = {}
         for gate in gates:
-            if interval:
-                gate_slots = slots_by_gate.get(gate, [])
-                availability[gate] = interval - gate_slots
-            else:
-                availability[gate] = []
+            availability.setdefault(gate, [])
+            gate_slots = slots_by_gate.get(gate, [])
+            for interval in intervals:
+                if interval:
+                    availability[gate].extend(interval - gate_slots)
         return availability
 
     def get_freebusy_slots(self, booking_date, period='day'):
