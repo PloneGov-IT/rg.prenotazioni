@@ -6,6 +6,7 @@ Changelog
 
 - get_day_intervals returns also the break as a slot
 - Fix booking allowed during the lunch break
+- Add a title with an indication of the booking time for anonymous booking links
   [ale-rt]
 
 3.2.1 (2014-05-12)

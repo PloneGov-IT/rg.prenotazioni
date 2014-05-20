@@ -3,6 +3,7 @@ from Products.CMFCore.utils import getToolByName
 from datetime import date, timedelta
 from plone import api
 from plone.memoize.view import memoize
+from rg.prenotazioni import prenotazioniMessageFactory as _
 from rg.prenotazioni.browser.base import BaseView
 from rg.prenotazioni.browser.interfaces import IDontFollowMe
 from rg.prenotazioni.utilities.urls import urlify
@@ -199,6 +200,17 @@ class View(BaseView):
             return True
         periods = self.prenotazioni.get_day_intervals(day)
         return bool(periods['day'])
+
+    def get_foreseen_booking_time(self, day, slot):
+        """ Return the foreseen booking time message
+        """
+        booking_url = self.prenotazioni.get_anonymous_booking_url(day, slot)
+        message = _(
+            'foreseen_booking_time',
+            default=u"Foreseen booking time: ${booking_time}",
+            mapping={'booking_time': booking_url['title']}
+        )
+        return message
 
     def __call__(self):
         ''' Hide the portlets before serving the template

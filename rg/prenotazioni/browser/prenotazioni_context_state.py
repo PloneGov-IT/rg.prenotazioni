@@ -192,6 +192,7 @@ class PrenotazioniContextState(BrowserView):
                         return False
         return True
 
+    @memoize
     def get_anonymous_booking_url(self, day, slot, slot_min_size=0):
         ''' Returns, the the booking url for an anonymous user
         '''
