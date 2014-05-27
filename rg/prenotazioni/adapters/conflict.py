@@ -59,9 +59,13 @@ class ConflictManager(object):
         '''
         Check if today is a vacation day
         '''
+        year = repr(date.year)
         date_it = date.strftime('%d/%m/%Y')
-        festivi = self.context.getFestivi()
-        return date_it in festivi
+        holidays = self.context.getFestivi()
+        for holiday in holidays:
+            if date_it in holiday.replace('*', year):
+                return True
+        return False
 
     @memoize
     def is_configured_day(self, day):

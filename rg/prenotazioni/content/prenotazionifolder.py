@@ -94,8 +94,12 @@ PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
         storage=atapi.AnnotationStorage(),
         widget=atapi.LinesWidget(
             label=_(u"Giorni festivi"),
-            description=_(u"Indicare i giorni festivi (una per riga) "
-                          u"nel formato gg/mm/aaaa"),
+            description=_(
+                'help_holidays',
+                u"Indicare i giorni festivi (uno per riga) "
+                u"nel formato GG/MM/AAAA. Al posto dell'anno puoi mettere un "
+                u"asterisco per indicare un evento che ricorre annualmente."
+            ),
         ),
         required=False,
     ),

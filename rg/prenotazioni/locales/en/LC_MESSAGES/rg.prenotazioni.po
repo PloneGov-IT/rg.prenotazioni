@@ -1,9 +1,9 @@
-# Alessandro Pisa <alessandro.pisa@redturtle.it>, 2013.
+# Alessandro Pisa <alessandro.pisa@redturtle.it>, 2013, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2014-05-20 09:54+0000\n"
-"PO-Revision-Date: 2013-06-07 14:31+0200\n"
+"POT-Creation-Date: 2014-05-27 07:42+0000\n"
+"PO-Revision-Date: 2014-05-27 09:47+0200\n"
 "Last-Translator: Alessandro Pisa <alessandro.pisa@redturtle.it>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,9 @@ msgid "A folder that will contain booking for this year"
 msgstr ""
 
 #: ./contentrules/sendMovedPrenotazione.py:139
-msgid "A mail action that sends email notify when a booking is moved in an other slot."
+msgid ""
+"A mail action that sends email notify when a booking is moved in an other "
+"slot."
 msgstr ""
 
 #: ./contentrules/sendMovedPrenotazione.py:138
@@ -104,7 +106,7 @@ msgstr "Validity starting date"
 msgid "Descrizione Agenda"
 msgstr "Agenda description"
 
-#: ./content/prenotazionifolder.py:134
+#: ./content/prenotazionifolder.py:138
 msgid "Duration value"
 msgstr ""
 
@@ -116,7 +118,7 @@ msgstr ""
 msgid "Edit moved booking Mail Action"
 msgstr ""
 
-#: ./content/prenotazionifolder.py:180
+#: ./content/prenotazionifolder.py:184
 msgid "Email del responsabile"
 msgstr "Responsible email"
 
@@ -144,10 +146,6 @@ msgstr ""
 msgid "Giorni festivi"
 msgstr "Vacation days"
 
-#: ./content/prenotazionifolder.py:97
-msgid "Indicare i giorni festivi (una per riga) nel formato gg/mm/aaaa"
-msgstr "List vacation days (one per line) in the format GG/MM/YYYY"
-
 #: ./content/prenotazionifolder.py:72
 msgid "Indicare la composizione della settimana tipo"
 msgstr "Configure your typical week"
@@ -160,7 +158,7 @@ msgstr ""
 msgid "Informations about a single booking"
 msgstr "Informations about a single booking"
 
-#: ./content/prenotazionifolder.py:181
+#: ./content/prenotazionifolder.py:185
 msgid "Inserisci l'indirizzo email del responsabile delle prenotazioni"
 msgstr "Insert the booking responsible email address"
 
@@ -168,7 +166,7 @@ msgstr "Insert the booking responsible email address"
 msgid "Inserisci la denominazione dell'azienda del richiedente"
 msgstr "Insert the name of the agency the booker belongs to"
 
-#: ./content/prenotazionifolder.py:108
+#: ./content/prenotazionifolder.py:112
 msgid "Max days in the future"
 msgstr ""
 
@@ -252,11 +250,11 @@ msgstr ""
 msgid "Subject of the message"
 msgstr ""
 
-#: ./content/prenotazionifolder.py:125
+#: ./content/prenotazionifolder.py:129
 msgid "Tipologie di richiesta"
 msgstr "Booking tipology"
 
-#: ./content/prenotazionifolder.py:131
+#: ./content/prenotazionifolder.py:135
 msgid "Typology name"
 msgstr ""
 
@@ -377,19 +375,26 @@ msgid "fullname"
 msgstr ""
 
 #. Default: "Limit booking in the future to an amount of days in the future starting from the current day. \nKeep 0 to give no limits."
-#: ./content/prenotazionifolder.py:109
+#: ./content/prenotazionifolder.py:113
 msgid "futureDays"
 msgstr ""
 
 #. Default: "Put gates here (one per line). If you do not fill this field, one gate is assumed"
-#: ./content/prenotazionifolder.py:149
+#: ./content/prenotazionifolder.py:153
 msgid "gates_help"
 msgstr ""
 
 #. Default: "Gates"
-#: ./content/prenotazionifolder.py:148
+#: ./content/prenotazionifolder.py:152
 msgid "gates_label"
 msgstr ""
+
+#. Default: "Indicare i giorni festivi (uno per riga) nel formato GG/MM/AAAA. Al posto dell'anno puoi mettere un asterisco per indicare un evento che ricorre annualmente."
+#: ./content/prenotazionifolder.py:97
+msgid "help_holidays"
+msgstr ""
+"Insert holidays (one per line) in the format DD/MM/YYYY. You can put an "
+"asterisc \"*\" instead of the year to specify an holiday recurring every year."
 
 #: ./browser/prenotazione_add.py:240
 msgid "help_prenotazione_add"
@@ -575,7 +580,9 @@ msgstr ""
 #. Default: "Siamo spiacenti, è già stato preso un appuntamento nella stessa fascia oraria, premere il pulsante ANNULLA per effettuare una nuova richiesta di prenotazione"
 #: ./content/prenotazione.py:13
 msgid "overbook_message"
-msgstr "We are sorry, another concurrent booking has been registered, press the cancel button to make a new book request."
+msgstr ""
+"We are sorry, another concurrent booking has been registered, press the "
+"cancel button to make a new book request."
 
 #. Default: "Please select a time slot"
 #: ./browser/prenotazione_add.py:398
@@ -653,7 +660,7 @@ msgid "time_slot_to_short"
 msgstr ""
 
 #. Default: "Put booking types there (one per line).\nIf you do not provide this field, not type selection will be available"
-#: ./content/prenotazionifolder.py:126
+#: ./content/prenotazionifolder.py:130
 msgid "tipologia_help"
 msgstr ""
 
@@ -692,12 +699,12 @@ msgid "to"
 msgstr ""
 
 #. Default: "Add a gate here (one per line) if, for some reason, it is not be available.The specified gate will not be taken in to account for slot allocation. Each line should match a corresponding line in the \"Gates\" field"
-#: ./content/prenotazionifolder.py:162
+#: ./content/prenotazionifolder.py:166
 msgid "unavailable_gates_help"
 msgstr ""
 
 #. Default: "Unavailable gates"
-#: ./content/prenotazionifolder.py:161
+#: ./content/prenotazionifolder.py:165
 msgid "unavailable_gates_label"
 msgstr ""
 
@@ -716,4 +723,5 @@ msgstr ""
 #: ./browser/prenotazione_macros.pt:281
 msgid "view_booking"
 msgstr ""
+
 

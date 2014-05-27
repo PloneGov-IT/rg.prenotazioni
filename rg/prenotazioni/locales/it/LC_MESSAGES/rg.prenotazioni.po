@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2014-05-20 09:54+0000\n"
-"PO-Revision-Date: 2014-05-20 11:57+0200\n"
+"POT-Creation-Date: 2014-05-27 07:42+0000\n"
+"PO-Revision-Date: 2014-05-27 09:42+0200\n"
 "Last-Translator: Alessandro Pisa <alessandro.pisa@redturtle.it>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -38,12 +38,8 @@ msgid "A folder that will contain booking for this year"
 msgstr "Una cartella che conterrà le prenotazioni per queto anno"
 
 #: ./contentrules/sendMovedPrenotazione.py:139
-msgid ""
-"A mail action that sends email notify when a booking is moved in an other "
-"slot."
-msgstr ""
-"Un'azione che spedisce una mail di notifica quando una prenotazione è "
-"spostata un un altro slot."
+msgid "A mail action that sends email notify when a booking is moved in an other slot."
+msgstr "Un'azione che spedisce una mail di notifica quando una prenotazione è spostata un un altro slot."
 
 #: ./contentrules/sendMovedPrenotazione.py:138
 msgid "Add moved booking Mail Action"
@@ -108,7 +104,7 @@ msgstr "Data inizio validità"
 msgid "Descrizione Agenda"
 msgstr "Descrizione Agenda"
 
-#: ./content/prenotazionifolder.py:134
+#: ./content/prenotazionifolder.py:138
 msgid "Duration value"
 msgstr "Durata"
 
@@ -120,7 +116,7 @@ msgstr "E-mail:"
 msgid "Edit moved booking Mail Action"
 msgstr "Modifica Mail Action per lo spostamento delle prenotazioni"
 
-#: ./content/prenotazionifolder.py:180
+#: ./content/prenotazionifolder.py:184
 msgid "Email del responsabile"
 msgstr "Email del responsabile"
 
@@ -148,10 +144,6 @@ msgstr "Sportello:"
 msgid "Giorni festivi"
 msgstr "Giorni festivi"
 
-#: ./content/prenotazionifolder.py:97
-msgid "Indicare i giorni festivi (una per riga) nel formato gg/mm/aaaa"
-msgstr "Indicare i giorni festivi (una per riga) nel formato gg/mm/aaaa"
-
 #: ./content/prenotazionifolder.py:72
 msgid "Indicare la composizione della settimana tipo"
 msgstr "Indicare la composizione della settimana tipo"
@@ -164,7 +156,7 @@ msgstr "Info"
 msgid "Informations about a single booking"
 msgstr "Informazioni relativa ad una singola prenotazione"
 
-#: ./content/prenotazionifolder.py:181
+#: ./content/prenotazionifolder.py:185
 msgid "Inserisci l'indirizzo email del responsabile delle prenotazioni"
 msgstr "Inserisci l'indirizzo email del responsabile delle prenotazioni"
 
@@ -172,7 +164,7 @@ msgstr "Inserisci l'indirizzo email del responsabile delle prenotazioni"
 msgid "Inserisci la denominazione dell'azienda del richiedente"
 msgstr "Inserisci la denominazione dell'azienda del richiedente"
 
-#: ./content/prenotazionifolder.py:108
+#: ./content/prenotazionifolder.py:112
 msgid "Max days in the future"
 msgstr "Massimi giorni nel futuro"
 
@@ -237,15 +229,12 @@ msgstr "Ci dispiace, ma questo intervallo di tempo non è più disponibile"
 
 #: ./browser/prenotazione_move.py:127
 msgid "Sorry, this slot is not available or does not fit your booking."
-msgstr ""
-"Ci dispiace questo intervallo di tempo non è disponibile o non è adatto alla "
-"tua prenotazione."
+msgstr "Ci dispiace questo intervallo di tempo non è disponibile o non è adatto alla tua prenotazione."
 
 #: ./browser/prenotazione_add.py:326
 #: ./browser/prenotazione_move.py:131
 msgid "Sorry, you can not book this slot for now."
-msgstr ""
-"Ci dispiace, ma questo intervallo di tempo non è al momento disponibile"
+msgstr "Ci dispiace, ma questo intervallo di tempo non è al momento disponibile"
 
 #: ./content/prenotazione.py:83
 msgid "Sportello a cui presentarsi"
@@ -259,11 +248,11 @@ msgstr "Oggetto"
 msgid "Subject of the message"
 msgstr "Oggetto del messaggio"
 
-#: ./content/prenotazionifolder.py:125
+#: ./content/prenotazionifolder.py:129
 msgid "Tipologie di richiesta"
 msgstr "Tipologie di richiesta"
 
-#: ./content/prenotazionifolder.py:131
+#: ./content/prenotazionifolder.py:135
 msgid "Typology name"
 msgstr "tipologia"
 
@@ -297,10 +286,8 @@ msgstr "Cerca"
 
 #. Default: "Please select a booking slot."
 #: ./browser/week.pt:29
-#, fuzzy
 msgid "book_it"
-msgstr ""
-"Clicca nell'area sottostante per selezionare la data e ora di prenotazione"
+msgstr "Clicca nell'area sottostante per selezionare data e ora di prenotazione"
 
 #. Default: "Bookable time"
 #: ./browser/prenotazione_macros.pt:272
@@ -386,23 +373,25 @@ msgid "fullname"
 msgstr "Nome completo"
 
 #. Default: "Limit booking in the future to an amount of days in the future starting from the current day. \nKeep 0 to give no limits."
-#: ./content/prenotazionifolder.py:109
+#: ./content/prenotazionifolder.py:113
 msgid "futureDays"
-msgstr ""
-"Limita la prenotazione ad un certo numero di giorni nel futuro partendo dal "
-"giorno corrente.Lascia 0 per non dare limiti."
+msgstr "Limita la prenotazione ad un certo numero di giorni nel futuro partendo dal giorno corrente.Lascia 0 per non dare limiti."
 
 #. Default: "Put gates here (one per line). If you do not fill this field, one gate is assumed"
-#: ./content/prenotazionifolder.py:149
+#: ./content/prenotazionifolder.py:153
 msgid "gates_help"
-msgstr ""
-"Inserisci gli sportelli preposti (uno per riga). Se questo campo non è "
-"compilato, si assume che esista un unico sportello preposto."
+msgstr "Inserisci gli sportelli preposti (uno per riga). Se questo campo non è compilato, si assume che esista un unico sportello preposto."
 
 #. Default: "Gates"
-#: ./content/prenotazionifolder.py:148
+#: ./content/prenotazionifolder.py:152
 msgid "gates_label"
 msgstr "Sportelli preposti"
+
+#. Default: "Indicare i giorni festivi (uno per riga) nel formato GG/MM/AAAA. Al posto dell'anno puoi mettere un asterisco per indicare un evento che ricorre annualmente."
+#: ./content/prenotazionifolder.py:97
+#, fuzzy
+msgid "help_holidays"
+msgstr "Indicare i giorni festivi (uno per riga) nel formato GG/MM/AAAA. Al posto dell'anno puoi mettere un asterisco per indicare un evento che ricorre annualmente."
 
 #: ./browser/prenotazione_add.py:240
 msgid "help_prenotazione_add"
@@ -556,20 +545,12 @@ msgstr "Breve descrizione delle azioni disponibili per l'agenda"
 #. Default: "The minimum value of a single slot is 5 minutes. You cannot book a reservation when the needed time exceeds the available time."
 #: ./browser/prenotazione_macros.pt:287
 msgid "legend_note"
-msgstr ""
-"L'unità di tempo minima è 5 minuti. La tua prenotazione non può eccedere il "
-"tempo disponibile."
+msgstr "L'unità di tempo minima è 5 minuti. La tua prenotazione non può eccedere il tempo disponibile."
 
 #. Default: "Type in here the message that you want to mail. Some defined content can be replaced: ${title} will be replaced with booking title (user fullname). ${date} will be replaced with booking new date. ${url} will be replaced by the booking url. ${portal} will be replaced by the title of the portal."
 #: ./contentrules/sendMovedPrenotazione.py:37
 msgid "message_help"
-msgstr ""
-"Inserisci il messaggio che vuoi inviare per mail. E' possibile inserire "
-"alcuni marcatori che verranno sostituiti con dei valori presi "
-"dall'applicazione.\"${title}\" sarà sostituito con il titolo della "
-"prenotazione (il nome e cognome dell'utente). \"${date}\" sarà sostituito con "
-"la data della prenotazione. \"${url}\" sarà sostituito  dall'url della "
-"prenotazione. ${portal} sarà sostituito  con il titolo del portale. "
+msgstr "Inserisci il messaggio che vuoi inviare per mail. E' possibile inserire alcuni marcatori che verranno sostituiti con dei valori presi dall'applicazione.\"${title}\" sarà sostituito con il titolo della prenotazione (il nome e cognome dell'utente). \"${date}\" sarà sostituito con la data della prenotazione. \"${url}\" sarà sostituito  dall'url della prenotazione. ${portal} sarà sostituito  con il titolo del portale. "
 
 #. Default: "Go back to the calendar"
 #: ./browser/prenotazione.pt:100
@@ -585,9 +566,8 @@ msgstr "Sposta la prenotazione"
 
 #. Default: "Please move this booking into a new available slot or"
 #: ./browser/prenotazione_move.pt:34
-#, fuzzy
 msgid "move_message"
-msgstr "Sposare l'appuntamento selezionato in un area libera oppure"
+msgstr "Spostare l'appuntamento selezionato in un area libera oppure"
 
 #. Default: "next week"
 #: ./browser/prenotazione_macros.pt:22
@@ -597,10 +577,7 @@ msgstr "Settimana successiva"
 #. Default: "Siamo spiacenti, è già stato preso un appuntamento nella stessa fascia oraria, premere il pulsante ANNULLA per effettuare una nuova richiesta di prenotazione"
 #: ./content/prenotazione.py:13
 msgid "overbook_message"
-msgstr ""
-"Siamo spiacenti, è già stato preso un appuntamento nella stessa fascia "
-"oraria, premere il pulsante ANNULLA per effettuare una nuova richiesta di "
-"prenotazione"
+msgstr "Siamo spiacenti, è già stato preso un appuntamento nella stessa fascia oraria, premere il pulsante ANNULLA per effettuare una nuova richiesta di prenotazione"
 
 #. Default: "Please select a time slot"
 #: ./browser/prenotazione_add.py:398
@@ -625,9 +602,7 @@ msgstr "Settimana precedente"
 #. Default: "The booking state is \"refused\". If you change it, the booking time may conflict with another one."
 #: ./browser/prenotazione.pt:22
 msgid "refused-review-state-warning"
-msgstr ""
-"Lo stato della prenotazione è \"rifiutato\". Se lo cambi, questa prenotazione "
-"potrebbe entrare in conflitto con un'altra."
+msgstr "Lo stato della prenotazione è \"rifiutato\". Se lo cambi, questa prenotazione potrebbe entrare in conflitto con un'altra."
 
 #. Default: "Reservation date"
 #: ./browser/prenotazione_move.pt:28
@@ -667,9 +642,7 @@ msgstr "Questo sportello ha già appuntamenti schedulati in questo periodo."
 #. Default: "The email address that sends the email. If no email is provided here, it will use the address from portal."
 #: ./contentrules/sendMovedPrenotazione.py:29
 msgid "source_help"
-msgstr ""
-"Il mittente della mail. Se nessun indirizzo viene inserito verrà utilizzato "
-"l'indirizzo configurato nel portale."
+msgstr "Il mittente della mail. Se nessun indirizzo viene inserito verrà utilizzato l'indirizzo configurato nel portale."
 
 #. Default: "Subject:"
 #: ./browser/prenotazione.pt:43
@@ -682,11 +655,9 @@ msgid "time_slot_to_short"
 msgstr "Tempo insufficiente per qualsiasi tipologia di prenotazione"
 
 #. Default: "Put booking types there (one per line).\nIf you do not provide this field, not type selection will be available"
-#: ./content/prenotazionifolder.py:126
+#: ./content/prenotazionifolder.py:130
 msgid "tipologia_help"
-msgstr ""
-"Inserisci qui i tipi di prenotazione (uno per riga).Se non compilerai questo "
-"campo, nessuna selezione del tipo sarà disponibile."
+msgstr "Inserisci qui i tipi di prenotazione (uno per riga).Se non compilerai questo campo, nessuna selezione del tipo sarà disponibile."
 
 #. Default: "Name"
 #: ./browser/prenotazione_macros.pt:247
@@ -711,9 +682,7 @@ msgstr "Selezionare un altro intervallo di tempo"
 #. Default: "The following tipologies will not fit the time you selected:"
 #: ./browser/tipology_radio_widget.pt:7
 msgid "tipology_widget_warn_unavailable"
-msgstr ""
-"In questa fascia oraria il tempo disponibile non è sufficiente per espletare "
-"le seguenti pratiche:"
+msgstr "In questa fascia oraria il tempo disponibile non è sufficiente per espletare le seguenti pratiche:"
 
 #. Default: "Required"
 #: ./browser/prenotazioni_search.pt:81
@@ -725,16 +694,12 @@ msgid "to"
 msgstr "a"
 
 #. Default: "Add a gate here (one per line) if, for some reason, it is not be available.The specified gate will not be taken in to account for slot allocation. Each line should match a corresponding line in the \"Gates\" field"
-#: ./content/prenotazionifolder.py:162
+#: ./content/prenotazionifolder.py:166
 msgid "unavailable_gates_help"
-msgstr ""
-"Aggiungi uno sportello (uno per riga) se, per qualche motivo, non è "
-"disponibile. Lo sportello specificato non sarà considerato per l'allocazione "
-"degli appuntamenti. Il righe devono essere uguali a quelle nel campo "
-"\"Sportelli preposti\"."
+msgstr "Aggiungi uno sportello (uno per riga) se, per qualche motivo, non è disponibile. Lo sportello specificato non sarà considerato per l'allocazione degli appuntamenti. Il righe devono essere uguali a quelle nel campo \"Sportelli preposti\"."
 
 #. Default: "Unavailable gates"
-#: ./content/prenotazionifolder.py:161
+#: ./content/prenotazionifolder.py:165
 msgid "unavailable_gates_label"
 msgstr "Sportelli non disponibili"
 
@@ -753,5 +718,4 @@ msgstr "Prenotazione risorsa"
 #: ./browser/prenotazione_macros.pt:281
 msgid "view_booking"
 msgstr "Vedi la prenotazione"
-
 

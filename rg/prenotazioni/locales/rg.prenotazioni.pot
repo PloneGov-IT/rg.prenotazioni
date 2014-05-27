@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-05-20 09:54+0000\n"
+"POT-Creation-Date: 2014-05-27 07:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -101,7 +101,7 @@ msgstr ""
 msgid "Descrizione Agenda"
 msgstr ""
 
-#: ./content/prenotazionifolder.py:134
+#: ./content/prenotazionifolder.py:138
 msgid "Duration value"
 msgstr ""
 
@@ -113,7 +113,7 @@ msgstr ""
 msgid "Edit moved booking Mail Action"
 msgstr ""
 
-#: ./content/prenotazionifolder.py:180
+#: ./content/prenotazionifolder.py:184
 msgid "Email del responsabile"
 msgstr ""
 
@@ -141,10 +141,6 @@ msgstr ""
 msgid "Giorni festivi"
 msgstr ""
 
-#: ./content/prenotazionifolder.py:97
-msgid "Indicare i giorni festivi (una per riga) nel formato gg/mm/aaaa"
-msgstr ""
-
 #: ./content/prenotazionifolder.py:72
 msgid "Indicare la composizione della settimana tipo"
 msgstr ""
@@ -157,7 +153,7 @@ msgstr ""
 msgid "Informations about a single booking"
 msgstr ""
 
-#: ./content/prenotazionifolder.py:181
+#: ./content/prenotazionifolder.py:185
 msgid "Inserisci l'indirizzo email del responsabile delle prenotazioni"
 msgstr ""
 
@@ -165,7 +161,7 @@ msgstr ""
 msgid "Inserisci la denominazione dell'azienda del richiedente"
 msgstr ""
 
-#: ./content/prenotazionifolder.py:108
+#: ./content/prenotazionifolder.py:112
 msgid "Max days in the future"
 msgstr ""
 
@@ -249,11 +245,11 @@ msgstr ""
 msgid "Subject of the message"
 msgstr ""
 
-#: ./content/prenotazionifolder.py:125
+#: ./content/prenotazionifolder.py:129
 msgid "Tipologie di richiesta"
 msgstr ""
 
-#: ./content/prenotazionifolder.py:131
+#: ./content/prenotazionifolder.py:135
 msgid "Typology name"
 msgstr ""
 
@@ -373,18 +369,23 @@ msgid "fullname"
 msgstr ""
 
 #. Default: "Limit booking in the future to an amount of days in the future starting from the current day. \nKeep 0 to give no limits."
-#: ./content/prenotazionifolder.py:109
+#: ./content/prenotazionifolder.py:113
 msgid "futureDays"
 msgstr ""
 
 #. Default: "Put gates here (one per line). If you do not fill this field, one gate is assumed"
-#: ./content/prenotazionifolder.py:149
+#: ./content/prenotazionifolder.py:153
 msgid "gates_help"
 msgstr ""
 
 #. Default: "Gates"
-#: ./content/prenotazionifolder.py:148
+#: ./content/prenotazionifolder.py:152
 msgid "gates_label"
+msgstr ""
+
+#. Default: "Indicare i giorni festivi (uno per riga) nel formato GG/MM/AAAA. Al posto dell'anno puoi mettere un asterisco per indicare un evento che ricorre annualmente."
+#: ./content/prenotazionifolder.py:97
+msgid "help_holidays"
 msgstr ""
 
 #: ./browser/prenotazione_add.py:240
@@ -647,7 +648,7 @@ msgid "time_slot_to_short"
 msgstr ""
 
 #. Default: "Put booking types there (one per line).\nIf you do not provide this field, not type selection will be available"
-#: ./content/prenotazionifolder.py:126
+#: ./content/prenotazionifolder.py:130
 msgid "tipologia_help"
 msgstr ""
 
@@ -686,12 +687,12 @@ msgid "to"
 msgstr ""
 
 #. Default: "Add a gate here (one per line) if, for some reason, it is not be available.The specified gate will not be taken in to account for slot allocation. Each line should match a corresponding line in the \"Gates\" field"
-#: ./content/prenotazionifolder.py:162
+#: ./content/prenotazionifolder.py:166
 msgid "unavailable_gates_help"
 msgstr ""
 
 #. Default: "Unavailable gates"
-#: ./content/prenotazionifolder.py:161
+#: ./content/prenotazionifolder.py:165
 msgid "unavailable_gates_label"
 msgstr ""
 

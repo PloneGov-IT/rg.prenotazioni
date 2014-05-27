@@ -4,7 +4,8 @@ Changelog
 3.2.2 (unreleased)
 ==================
 
-- get_day_intervals returns also the break as a slot
+- Use wildcars to identify holidays
+- Get_day_intervals returns also the break as a slot
 - Fix booking allowed during the lunch break
 - Add a title with an indication of the booking time for anonymous booking links
   [ale-rt]
