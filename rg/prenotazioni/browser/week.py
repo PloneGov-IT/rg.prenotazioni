@@ -66,6 +66,13 @@ class View(BaseView):
 
     @property
     @memoize
+    def user_can_search(self):
+        ''' States if the user can see the search button
+        '''
+        return self.user_can_manage
+
+    @property
+    @memoize
     def day_period_macro(self):
         ''' Which macro should I use to display a day period
         '''

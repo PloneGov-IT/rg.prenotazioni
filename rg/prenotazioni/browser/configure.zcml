@@ -78,7 +78,7 @@
     for="..interfaces.IPrenotazioniFolder"
     name="prenotazioni_search"
     class=".prenotazioni_search.SearchForm"
-    permission="cmf.ModifyPortalContent"
+    permission="zope.Public"
   />
 
   <browser:page
