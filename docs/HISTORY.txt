@@ -4,6 +4,7 @@ Changelog
 3.3.0 (unreleased)
 ==================
 
+- Upgrade step to reindex Subject index
 - Added rg.prenotazioni.booking_review_states vocabulary
 - Booking Subject field is now filled with the gate
 - Added portal state view for prenotazioni

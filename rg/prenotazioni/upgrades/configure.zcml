@@ -71,4 +71,21 @@
 
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeSteps
+    source="*"
+    destination="3300"
+    profile="rg.prenotazioni:default">
+
+    <genericsetup:upgradeStep
+      title="Reindex Subject index for Prenotazione objects"
+      handler=".to3300.reindex_subject"
+    />
+
+    <genericsetup:upgradeStep
+      title="Upgrade version"
+      handler=".to3300.upgrade_version"
+    />
+
+  </genericsetup:upgradeSteps>
+
 </configure>
