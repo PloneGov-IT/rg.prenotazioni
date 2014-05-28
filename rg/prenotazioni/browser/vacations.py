@@ -2,7 +2,7 @@
 from DateTime import DateTime
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
-from datetime import date
+from datetime import date, datetime
 from five.formlib.formbase import PageForm
 from plone import api
 from plone.memoize.view import memoize
@@ -15,7 +15,7 @@ from zope.formlib.form import FormFields, action
 from zope.formlib.interfaces import WidgetInputError
 from zope.interface import Interface
 from zope.interface.declarations import implements
-from zope.schema import Choice, TextLine, ValidationError
+from zope.schema import Choice, Date, TextLine, ValidationError
 
 
 class InvalidDate(ValidationError):
@@ -24,23 +24,6 @@ class InvalidDate(ValidationError):
 
 class InvalidTime(ValidationError):
     __doc__ = _('invalid_time')
-
-
-def check_date(value):
-    '''
-    If value exist it should match TELEPHONE_PATTERN
-    '''
-    if not value:
-        return True
-    if isinstance(value, basestring):
-        value = value.strip()
-    try:
-        date(*map(int, value.split('/')))
-        return True
-    except:
-        msg = 'Invalid date: %r' % value
-        logger.exception(msg)
-    raise InvalidDate(value)
 
 
 def check_time(value):
@@ -76,11 +59,10 @@ class IVacationBooking(Interface):
         default=u'',
         vocabulary='rg.prenotazioni.gates',
     )
-    start_date = TextLine(
-        title=_('label_start_date', u'Start date'),
-        description=_('invalid_date'),
-        constraint=check_date,
-        default=u''
+    start_date = Date(
+        title=_('label_start', u'Start date '),
+        description=_(" format (YYYY-MM-DD)"),
+        default=None,
     )
     start_time = TextLine(
         title=_('label_start_time', u'Start time'),
@@ -108,7 +90,7 @@ class VacationBooking(PageForm):
         Return the data already parsed for our convenience
         '''
         parsed_data = data.copy()
-        parsed_data['start_date'] = DateTime(data['start_date'])
+        parsed_data['start_date'] = data['start_date']  # noqa
         parsed_data['start_time'] = time2timedelta(data['start_time'])
         parsed_data['end_time'] = time2timedelta(data['end_time'])
         return parsed_data
@@ -130,38 +112,24 @@ class VacationBooking(PageForm):
         The fields for this form
         '''
         ff = FormFields(IVacationBooking)
-        today = unicode(date.today().strftime('%Y/%m/%d'))
-        ff['start_date'].field.default = today
+        ff['start_date'].field.default = date.today()
         if not self.context.getGates():
             ff = ff.omit('gate')
         return ff
-
-    def get_start_date(self, data, asdatetime=True):
-        ''' The start date we passed in the request
-
-        By the default returns a Datetime, if asdatetime is set to True it will
-        return a datetime instance
-        '''
-        start_date = data['start_date']
-        if isinstance(start_date, basestring):
-            start_date = DateTime(start_date)
-        if asdatetime:
-            start_date = start_date.asdatetime()
-        return start_date
 
     def get_start_time(self, data):
         ''' The requested start time
 
         :returns: a datetime
         '''
-        return self.get_start_date(data) + data['start_time']
+        return datetime(*data['start_date'].timetuple()[:6]) + data['start_time']  # noqa
 
     def get_end_time(self, data):
         ''' The requested end time
 
         :returns: a datetime
         '''
-        return self.get_start_date(data) + data['end_time']
+        return datetime(*data['start_date'].timetuple()[:6]) + data['end_time']
 
     def get_vacation_slot(self, data):
         ''' The requested vacation slot
@@ -174,7 +142,7 @@ class VacationBooking(PageForm):
         '''
         Get the slots we want to book!
         '''
-        start_date = self.get_start_date(data)
+        start_date = data['start_date']
         gate = data['gate'].encode('utf8')
         vacation_slot = self.get_vacation_slot(data)
         slots = []
@@ -201,7 +169,7 @@ class VacationBooking(PageForm):
         ''' We want the operator to handle conflicts:
         no other booking can be created if we already have stuff
         '''
-        start_date = self.get_start_date(data)
+        start_date = data['start_date']
         busy_slots = self.prenotazioni.get_busy_slots(start_date)
         if not busy_slots:
             return False
@@ -217,8 +185,7 @@ class VacationBooking(PageForm):
     def is_valid_day(self, data):
         ''' Check if the day is valid
         '''
-        start_date = self.get_start_date(data).date()
-        return self.prenotazioni.conflict_manager.is_valid_day(start_date)
+        return self.prenotazioni.conflict_manager.is_valid_day(data['start_date'])  # noqa
 
     def validate_invariants(self, data, errors):
         ''' Validate invariants errors
@@ -254,8 +221,8 @@ class VacationBooking(PageForm):
         '''
         booker = IBooker(self.context.aq_inner)
         slots = self.get_slots(data)
+        start_date = DateTime(data['start_date'].strftime('%Y/%m/%d'))
         for slot in slots:
-            start_date = data['start_date']
             booking_date = start_date + (float(slot.lower_value) / 86400)
             slot.__class__ = BaseSlot
             duration = float(len(slot)) / 86400
@@ -282,7 +249,7 @@ class VacationBooking(PageForm):
         '''
         parsed_data = self.get_parsed_data(data)
         self.do_book(parsed_data)
-        qs = {'data': self.get_start_date(data).strftime('%d/%m/%Y')}
+        qs = {'data': data['start_date'].strftime('%d/%m/%Y')}
         target = urlify(self.context.absolute_url(), params=qs)
         return self.request.response.redirect(target)
 
@@ -293,6 +260,39 @@ class VacationBooking(PageForm):
         '''
         target = self.context.absolute_url()
         return self.request.response.redirect(target)
+
+    def extra_script(self):
+        ''' The scripts needed for the search
+        '''
+        date_formats = {
+            'it': "dd/mm/yyyy"
+        }
+
+        language = getattr(self.request, 'LANGUAGE', 'en')
+        calendar = self.request.locale.dates.calendars['gregorian']
+        display_format = date_formats.get(language, 'yyyy-mm-dd')
+
+        template = """
+        jQuery.tools.dateinput.localize("%(language)s", {
+            months: "%(monthnames)s",
+            shortMonths: "%(shortmonths)s",
+            days: "%(days)s",
+            shortDays: "%(shortdays)s",
+        });
+        jQuery.tools.dateinput.conf.lang = "%(language)s";
+        jQuery.tools.dateinput.conf.format = "%(display_format)s";
+        jQuery('#form\\\\.start_date').addClass('rg-dateinput');
+        """
+        return template % (
+            dict(
+                language=language,
+                monthnames=','.join(calendar.getMonthNames()),
+                shortmonths=','.join(calendar.getMonthAbbreviations()),
+                days=','.join(calendar.getDayNames()),
+                display_format=display_format,
+                shortdays=','.join(calendar.getDayAbbreviations()),
+            )
+        )
 
 
 class VacationBookingShow(BrowserView):
