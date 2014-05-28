@@ -8,6 +8,7 @@ from rg.prenotazioni.browser.base import BaseView
 from rg.prenotazioni.browser.interfaces import IDontFollowMe
 from rg.prenotazioni.utilities.urls import urlify
 from zope.interface.declarations import implements
+from zope.schema.vocabulary import getVocabularyRegistry
 
 
 class View(BaseView):
@@ -189,14 +190,23 @@ class View(BaseView):
         ''' Search a a gate
         '''
         params = {
-            'text': gate,
             'start': day,
             'end': day,
             'actions.search': 1
         }
-        return urlify(self.context.absolute_url(),
-                      '@@prenotazioni_search',
-                      params=params)
+        vr = getVocabularyRegistry()
+        voc = vr.get(self.context, 'rg.prenotazioni.gates')
+
+        try:
+            params['gate'] = voc.getTerm(gate).token
+        except LookupError:
+            params['text'] = gate
+
+        return urlify(
+            self.context.absolute_url(),
+            '@@prenotazioni_search',
+            params=params
+        )
 
     @memoize
     def show_day_column(self, day):

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from DateTime import DateTime
+from Products.CMFPlone import PloneMessageFactory as __
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from datetime import datetime
 from five.formlib.formbase import PageForm
@@ -11,7 +12,7 @@ from rg.prenotazioni.adapters.conflict import IConflictManager
 from zope.formlib.form import FormFields, action
 from zope.interface import Interface
 from zope.interface.declarations import implements
-from zope.schema import Datetime, TextLine, ValidationError
+from zope.schema import Choice, Datetime, TextLine, ValidationError
 from zope.formlib.form import setUpWidgets
 
 
@@ -29,7 +30,6 @@ def check_date(value):
 
 
 class ISearchForm(Interface):
-
     """
     Interface for creating a prenotazione
     """
@@ -37,6 +37,18 @@ class ISearchForm(Interface):
         title=_('label_text', u'Text to search'),
         default=u'',
         required=False,
+    )
+    review_state = Choice(
+        title=__("State"),
+        default='',
+        required=False,
+        source='rg.prenotazioni.booking_review_states'
+    )
+    gate = Choice(
+        title=_("label_gate"),
+        default='',
+        required=False,
+        source='rg.prenotazioni.gates'
     )
     start = Datetime(
         title=_('label_start', u'Start date '),
@@ -55,6 +67,7 @@ class ISearchForm(Interface):
 
 
 class SearchForm(PageForm):
+
     """
     """
     implements(ISearchForm)
@@ -92,12 +105,17 @@ class SearchForm(PageForm):
     def get_query(self, data):
         ''' The query we requested
         '''
-        query = {'sort_on': 'Date',
-                 'sort_order': 'reverse',
-                 'path': '/'.join(self.context.getPhysicalPath())
-                 }
-        if data['text']:
+        query = {
+            'sort_on': 'Date',
+            'sort_order': 'reverse',
+            'path': '/'.join(self.context.getPhysicalPath())
+        }
+        if data.get('text'):
             query['SearchableText'] = data['text']
+        if data.get('review_state'):
+            query['review_state'] = data['review_state']
+        if data.get('gate'):
+            query['Subject'] = "Gate: %s" % data['gate']
         start = data['start']
         end = data['end']
         if start and end:
@@ -133,15 +151,25 @@ class SearchForm(PageForm):
         fieldnames = [x.__name__ for x in self.form_fields]
         data = {}
         for key in fieldnames:
-            value = self.request.form.get(key)
-            if value is not None and not value == u'':
-                data[key] = value
-                self.request[key] = value
+            form_value = self.request.form.get(key)
+            if form_value is not None and not form_value == u'':
+                field = self.form_fields[key].field
+                if isinstance(field, Choice):
+                    try:
+                        data[key] = (field.bind(self.context).vocabulary
+                                     .getTermByToken(form_value).value)
+                    except LookupError:
+                        data[key] = form_value
+                else:
+                    data[key] = form_value
+                self.request[key] = form_value
 
         self.widgets = setUpWidgets(
             self.form_fields, self.prefix, self.context, self.request,
             form=self, adapters=self.adapters, ignore_request=ignore_request,
             data=data)
+        self.widgets['gate']._messageNoValue = ""
+        self.widgets['review_state']._messageNoValue = ""
 
     @action(_('action_search', u'Search'), name=u'search')
     def action_search(self, action, data):
@@ -158,3 +186,37 @@ class SearchForm(PageForm):
         '''
         target = self.context.absolute_url()
         return self.request.response.redirect(target)
+
+    def extra_script(self):
+        ''' The scripts needed for the search
+        '''
+        date_formats = {
+            'it': "dd/mm/yyyy"
+        }
+
+        language = getattr(self.request, 'LANGUAGE', 'en')
+        calendar = self.request.locale.dates.calendars['gregorian']
+        display_format = date_formats.get(language, 'yyyy-mm-dd')
+
+        template = """
+        jQuery.tools.dateinput.localize("%(language)s", {
+            months: "%(monthnames)s",
+            shortMonths: "%(shortmonths)s",
+            days: "%(days)s",
+            shortDays: "%(shortdays)s",
+        });
+        jQuery.tools.dateinput.conf.lang = "%(language)s";
+        jQuery.tools.dateinput.conf.format = "%(display_format)s";
+        jQuery('#start').addClass('rg-dateinput');
+        jQuery('#end').addClass('rg-dateinput');
+        """
+        return template % (
+            dict(
+                language=language,
+                monthnames=','.join(calendar.getMonthNames()),
+                shortmonths=','.join(calendar.getMonthAbbreviations()),
+                days=','.join(calendar.getDayNames()),
+                display_format=display_format,
+                shortdays=','.join(calendar.getDayAbbreviations()),
+            )
+        )
