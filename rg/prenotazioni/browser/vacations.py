@@ -5,6 +5,7 @@ from Products.statusmessages.interfaces import IStatusMessage
 from datetime import date, datetime
 from five.formlib.formbase import PageForm
 from plone import api
+from plone.app.form.validators import null_validator
 from plone.memoize.view import memoize
 from rg.prenotazioni import (prenotazioniMessageFactory as _,
                              prenotazioniLogger as logger, time2timedelta)
@@ -253,7 +254,7 @@ class VacationBooking(PageForm):
         target = urlify(self.context.absolute_url(), params=qs)
         return self.request.response.redirect(target)
 
-    @action(_('action_cancel', u'Cancel'), name=u'cancel')
+    @action(_(u"action_cancel", u"Cancel"), validator=null_validator, name=u'cancel')  # noqa
     def action_cancel(self, action, data):
         '''
         Cancel
