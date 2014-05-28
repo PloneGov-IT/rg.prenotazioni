@@ -184,4 +184,11 @@ class Prenotazione(base.ATCTContent):
         else:
             return 1
 
+    def Subject(self):
+        """ Reuse plone subject to do something useful
+        """
+        subject = set(self.getField('subject').get(self))
+        subject.add('Gate: %s' % self.getGate())
+        return sorted(subject)
+
 atapi.registerType(Prenotazione, PROJECTNAME)
