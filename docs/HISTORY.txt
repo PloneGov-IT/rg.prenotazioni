@@ -4,6 +4,8 @@ Changelog
 3.3.0 (unreleased)
 ==================
 
+- Added rg.prenotazioni.booking_review_states vocabulary
+- Booking Subject field is now filled with the gate
 - Added portal state view for prenotazioni
 - Added an attribute on the week view to control who can access
   prenotazioni_search view

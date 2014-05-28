@@ -5,4 +5,7 @@
   <utility component=".gates.GatesVocabularyFactory"
            name="rg.prenotazioni.gates"/>
 
+  <utility component=".review_states.BookingReviewStatesVocabularyFactory"
+           name="rg.prenotazioni.booking_review_states" />
+
 </configure>
