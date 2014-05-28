@@ -19,6 +19,14 @@
     permission="zope2.View"
   />
 
+  <!-- dedicated portal_state -->
+  <browser:page
+    name="prenotazioni_portal_state"
+    for="*"
+    permission="zope.Public"
+    class=".prenotazioni_portal_state.PrenotazioniPortalState"
+  />
+
   <!-- dedicated context_state_view -->
   <browser:page
     for="..interfaces.IPrenotazioniFolder"

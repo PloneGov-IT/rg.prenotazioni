@@ -4,6 +4,7 @@ Changelog
 3.3.0 (unreleased)
 ==================
 
+- Added portal state view for prenotazioni
 - Added an attribute on the week view to control who can access
   prenotazioni_search view
   (by default the user who can edit the prenotazioni folder)
