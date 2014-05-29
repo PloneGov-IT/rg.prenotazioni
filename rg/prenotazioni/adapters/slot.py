@@ -167,6 +167,14 @@ class BaseSlot(Interval):
 class Slot(BaseSlot):
     implements(ISlot)
 
+    def __eq__(self, other):
+        """ We need to compare also the context before comparing the boundaries
+        """
+        return (
+            self.context == other.context and
+            super(Slot, self).__eq__(other)
+        )
+
     def __init__(self, context):
         '''
         @param context: a Prenotazione object

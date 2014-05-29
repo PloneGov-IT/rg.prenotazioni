@@ -4,6 +4,7 @@ Changelog
 3.3.0 (unreleased)
 ==================
 
+- BUGFIX: slot comparison was not taking into account the context
 - Use calendar popup when booking vacations
 - Search bookings by review state and on gate
 - Use calendar popup from jquery tools for inputs with class rg-dateinput
