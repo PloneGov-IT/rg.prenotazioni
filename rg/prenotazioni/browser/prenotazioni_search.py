@@ -115,7 +115,7 @@ class SearchForm(PageForm):
         if data.get('review_state'):
             query['review_state'] = data['review_state']
         if data.get('gate'):
-            query['Subject'] = "Gate: %s" % data['gate']
+            query['Subject'] = "Gate: %s" % data['gate'].encode('utf8')
         start = data['start']
         end = data['end']
         if start and end:
