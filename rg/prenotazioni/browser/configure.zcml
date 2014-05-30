@@ -121,5 +121,11 @@
     />
   </configure>
 
-</configure
->
+  <browser:page
+    for="*"
+    name="rg.prenotazioni.dateinput.conf.js"
+    class=".dateinput.ConfView"
+    permission="zope.Public"
+  />
+
+</configure>

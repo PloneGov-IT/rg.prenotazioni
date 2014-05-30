@@ -4,6 +4,7 @@ Changelog
 3.3.0 (unreleased)
 ==================
 
+- Added view rg.prenotazioni.dateinput.conf.js
 - BUGFIX: slot comparison was not taking into account the context
 - Use calendar popup when booking vacations
 - Search bookings by review state and on gate
