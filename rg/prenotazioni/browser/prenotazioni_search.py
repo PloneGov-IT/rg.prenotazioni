@@ -45,7 +45,7 @@ class ISearchForm(Interface):
         source='rg.prenotazioni.booking_review_states'
     )
     gate = Choice(
-        title=_("label_gate"),
+        title=_("label_gate", u"Gate"),
         default='',
         required=False,
         source='rg.prenotazioni.gates'

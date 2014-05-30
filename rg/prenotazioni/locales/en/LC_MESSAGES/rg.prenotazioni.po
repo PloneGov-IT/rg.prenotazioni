@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2014-05-27 07:42+0000\n"
+"POT-Creation-Date: 2014-05-30 08:26+0000\n"
 "PO-Revision-Date: 2014-05-27 09:47+0200\n"
 "Last-Translator: Alessandro Pisa <alessandro.pisa@redturtle.it>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -17,7 +17,8 @@ msgstr ""
 "Language: en_US\n"
 "X-Generator: Lokalize 1.5\n"
 
-#: ./browser/prenotazioni_search.py:43
+#: ./browser/prenotazioni_search.py:55
+#: ./browser/vacations.py:65
 msgid " format (YYYY-MM-DD)"
 msgstr ""
 
@@ -38,9 +39,7 @@ msgid "A folder that will contain booking for this year"
 msgstr ""
 
 #: ./contentrules/sendMovedPrenotazione.py:139
-msgid ""
-"A mail action that sends email notify when a booking is moved in an other "
-"slot."
+msgid "A mail action that sends email notify when a booking is moved in an other slot."
 msgstr ""
 
 #: ./contentrules/sendMovedPrenotazione.py:138
@@ -265,14 +264,14 @@ msgstr ""
 
 #. Default: "Book"
 #: ./browser/prenotazione_add.py:349
-#: ./browser/vacations.py:278
+#: ./browser/vacations.py:246
 msgid "action_book"
 msgstr ""
 
 #. Default: "Cancel"
 #: ./browser/prenotazione_add.py:365
 #: ./browser/prenotazione_move.py:192
-#: ./browser/prenotazioni_search.py:153
+#: ./browser/prenotazioni_search.py:181
 msgid "action_cancel"
 msgstr "Cancel"
 
@@ -282,7 +281,7 @@ msgid "action_move"
 msgstr ""
 
 #. Default: "Search"
-#: ./browser/prenotazioni_search.py:146
+#: ./browser/prenotazioni_search.py:174
 msgid "action_search"
 msgstr ""
 
@@ -307,7 +306,7 @@ msgstr ""
 
 #. Default: "Booking created"
 #: ./browser/prenotazione_add.py:355
-#: ./browser/vacations.py:275
+#: ./browser/vacations.py:243
 msgid "booking_created"
 msgstr ""
 
@@ -341,7 +340,7 @@ msgid "confirm_booking_waiting_message"
 msgstr ""
 
 #. Default: "This day is not valid."
-#: ./browser/vacations.py:232
+#: ./browser/vacations.py:200
 msgid "day_error"
 msgstr ""
 
@@ -351,17 +350,17 @@ msgid "description_agency"
 msgstr ""
 
 #. Default: "The gate that will be unavailable"
-#: ./browser/vacations.py:74
+#: ./browser/vacations.py:58
 msgid "description_gate"
 msgstr ""
 
 #. Default: "This text will appear in the calendar cells"
-#: ./browser/vacations.py:68
+#: ./browser/vacations.py:52
 msgid "description_title"
 msgstr ""
 
 #. Default: "Foreseen booking time: ${booking_time}"
-#: ./browser/week.py:208
+#: ./browser/week.py:225
 msgid "foreseen_booking_time"
 msgstr ""
 
@@ -392,9 +391,7 @@ msgstr ""
 #. Default: "Indicare i giorni festivi (uno per riga) nel formato GG/MM/AAAA. Al posto dell'anno puoi mettere un asterisco per indicare un evento che ricorre annualmente."
 #: ./content/prenotazionifolder.py:97
 msgid "help_holidays"
-msgstr ""
-"Insert holidays (one per line) in the format DD/MM/YYYY. You can put an "
-"asterisc \"*\" instead of the year to specify an holiday recurring every year."
+msgstr "Insert holidays (one per line) in the format DD/MM/YYYY. You can put an asterisc \"*\" instead of the year to specify an holiday recurring every year."
 
 #: ./browser/prenotazione_add.py:240
 msgid "help_prenotazione_add"
@@ -406,7 +403,7 @@ msgid "help_tipologies"
 msgstr ""
 
 #. Default: "Date should be in the format YYYY/mm/dd"
-#: ./browser/vacations.py:22
+#: ./browser/vacations.py:23
 msgid "invalid_date"
 msgstr ""
 
@@ -416,7 +413,7 @@ msgid "invalid_email_address"
 msgstr ""
 
 #. Default: "Invalid start or end date"
-#: ./browser/prenotazioni_search.py:19
+#: ./browser/prenotazioni_search.py:20
 msgid "invalid_end:search_date"
 msgstr ""
 
@@ -426,7 +423,7 @@ msgid "invalid_phone_number"
 msgstr ""
 
 #. Default: "Date should be in the format HH:MM"
-#: ./browser/vacations.py:26
+#: ./browser/vacations.py:27
 msgid "invalid_time"
 msgstr ""
 
@@ -457,12 +454,12 @@ msgid "label_email"
 msgstr ""
 
 #. Default: "End date"
-#: ./browser/prenotazioni_search.py:49
+#: ./browser/prenotazioni_search.py:61
 msgid "label_end"
 msgstr ""
 
 #. Default: "End time"
-#: ./browser/vacations.py:92
+#: ./browser/vacations.py:75
 msgid "label_end_time"
 msgstr ""
 
@@ -475,7 +472,7 @@ msgstr ""
 #. Default: "Gate"
 #: ./browser/prenotazione_move.py:31
 #: ./browser/prenotazioni_search.pt:146
-#: ./browser/vacations.py:73
+#: ./browser/prenotazioni_search.py:48
 msgid "label_gate"
 msgstr ""
 
@@ -495,18 +492,14 @@ msgid "label_selected_date"
 msgstr ""
 
 #. Default: "Start date "
-#: ./browser/prenotazioni_search.py:42
+#: ./browser/prenotazioni_search.py:54
+#: ./browser/vacations.py:64
 msgid "label_start"
-msgstr ""
-
-#. Default: "Start date"
-#: ./browser/vacations.py:80
-msgid "label_start_date"
 msgstr ""
 
 #. Default: "Start time"
 #: ./browser/prenotazioni_search.pt:148
-#: ./browser/vacations.py:86
+#: ./browser/vacations.py:69
 msgid "label_start_time"
 msgstr ""
 
@@ -531,7 +524,7 @@ msgid "label_tipology"
 msgstr ""
 
 #. Default: "Title"
-#: ./browser/vacations.py:67
+#: ./browser/vacations.py:51
 msgid "label_title"
 msgstr ""
 
@@ -580,9 +573,7 @@ msgstr ""
 #. Default: "Siamo spiacenti, è già stato preso un appuntamento nella stessa fascia oraria, premere il pulsante ANNULLA per effettuare una nuova richiesta di prenotazione"
 #: ./content/prenotazione.py:13
 msgid "overbook_message"
-msgstr ""
-"We are sorry, another concurrent booking has been registered, press the "
-"cancel button to make a new book request."
+msgstr "We are sorry, another concurrent booking has been registered, press the cancel button to make a new book request."
 
 #. Default: "Please select a time slot"
 #: ./browser/prenotazione_add.py:398
@@ -640,7 +631,7 @@ msgid "search_result_message"
 msgstr ""
 
 #. Default: "This gate has some booking schedule in this time period."
-#: ./browser/vacations.py:228
+#: ./browser/vacations.py:196
 msgid "slot_conflict_error"
 msgstr ""
 
@@ -723,5 +714,4 @@ msgstr ""
 #: ./browser/prenotazione_macros.pt:281
 msgid "view_booking"
 msgstr ""
-
 
