@@ -190,33 +190,9 @@ class SearchForm(PageForm):
     def extra_script(self):
         ''' The scripts needed for the search
         '''
-        date_formats = {
-            'it': "dd/mm/yyyy"
-        }
-
-        language = getattr(self.request, 'LANGUAGE', 'en')
-        calendar = self.request.locale.dates.calendars['gregorian']
-        display_format = date_formats.get(language, 'yyyy-mm-dd')
-
-        template = """
-        jQuery.tools.dateinput.localize("%(language)s", {
-            months: "%(monthnames)s",
-            shortMonths: "%(shortmonths)s",
-            days: "%(days)s",
-            shortDays: "%(shortdays)s",
-        });
-        jQuery.tools.dateinput.conf.lang = "%(language)s";
-        jQuery.tools.dateinput.conf.format = "%(display_format)s";
-        jQuery('#start').addClass('rg-dateinput');
-        jQuery('#end').addClass('rg-dateinput');
-        """
-        return template % (
-            dict(
-                language=language,
-                monthnames=','.join(calendar.getMonthNames()),
-                shortmonths=','.join(calendar.getMonthAbbreviations()),
-                days=','.join(calendar.getDayNames()),
-                display_format=display_format,
-                shortdays=','.join(calendar.getDayAbbreviations()),
-            )
+        view = api.content.get_view(
+            'rg.prenotazioni.dateinput.conf.js',
+            self.context,
+            self.request,
         )
+        return view.render() + view.mark_with_class(['#start', '#end'])
