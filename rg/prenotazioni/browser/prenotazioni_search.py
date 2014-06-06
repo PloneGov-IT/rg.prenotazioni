@@ -6,6 +6,7 @@ from datetime import datetime
 from five.formlib.formbase import PageForm
 from plone import api
 from plone.app.form.validators import null_validator
+from plone.app.search.browser import quote_chars
 from plone.memoize.view import memoize
 from rg.prenotazioni import prenotazioniMessageFactory as _
 from rg.prenotazioni.adapters.conflict import IConflictManager
@@ -111,7 +112,7 @@ class SearchForm(PageForm):
             'path': '/'.join(self.context.getPhysicalPath())
         }
         if data.get('text'):
-            query['SearchableText'] = data['text']
+            query['SearchableText'] = quote_chars(data['text'].encode('utf8'))
         if data.get('review_state'):
             query['review_state'] = data['review_state']
         if data.get('gate'):
