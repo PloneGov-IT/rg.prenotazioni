@@ -33,8 +33,7 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         'telefono',
         storage=atapi.AnnotationStorage(),
         widget=atapi.StringWidget(
-            label=_(u"Phone"),
-            description=_(u"Phone number"),
+            label=_("Phone number"),
         ),
         searchable=True,
     ),
@@ -42,8 +41,7 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         'mobile',
         storage=atapi.AnnotationStorage(),
         widget=atapi.StringWidget(
-            label=_(u"Mobile"),
-            description=_(u"Mobile number"),
+            label=_("mobile", u"Mobile number"),
         ),
         searchable=True,
     ),
@@ -92,6 +90,20 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
             visible={'edit': 'hidden', 'view': 'visible'},
         ),
         required=True,
+    ),
+    atapi.TextField(
+        'staff_notes',
+        default='',
+        required=False,
+        searchable=True,
+        storage=atapi.AnnotationStorage(migrate=True),
+        allowable_content_types=('text/plain',),
+        widget=atapi.TextAreaWidget(
+            label=_(
+                'staff_notes_label',
+                u"Staff notes"
+            )
+        ),
     ),
 ))
 

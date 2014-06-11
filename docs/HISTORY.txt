@@ -5,7 +5,8 @@ Changelog
 ==================
 
 - Fix unquoted parenthesis in searchable text searchs
-
+- Added staff_notes field in prenotazione
+- Prenotazione view also displays mobile number
 
 3.3.0 (2014-06-04)
 ==================

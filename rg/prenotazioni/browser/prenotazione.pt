@@ -58,6 +58,10 @@ i18n:domain="rg.prenotazioni">
                     <strong i18n:translate="">Company:</strong>
                     <span tal:replace="here/getAzienda" />
                 </div>
+                <div class="field" tal:condition="here/getMobile">
+                  <strong i18n:translate="mobile">Mobile number</strong>:
+                  <span tal:replace="here/getMobile" />
+                </div>
                 <div class="field" tal:condition="here/getTelefono">
                     <strong i18n:translate="">Phone number:</strong>
                     <span tal:replace="here/getTelefono" />
@@ -70,6 +74,14 @@ i18n:domain="rg.prenotazioni">
                 <div class="field" tal:condition="here/getGate">
                     <strong i18n:translate="">Gate:</strong>
                     <span tal:content="here/getGate">Gate no. 1</span>
+                </div>
+                <div class="field" tal:condition="here/getStaff_notes">
+                  <strong i18n:translate="">Staff notes:</strong>
+                  <div tal:define="items python:here.getStaff_notes().splitlines()">
+                    <tal:repeat repeat="item items">
+                      <p tal:content="item">text</p>
+                    </tal:repeat>
+                  </div>
                 </div>
                 <hr />
                 <p>&nbsp;</p>
