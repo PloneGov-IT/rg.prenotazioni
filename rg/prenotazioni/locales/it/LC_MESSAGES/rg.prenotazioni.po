@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2014-06-11 12:19+0000\n"
+"POT-Creation-Date: 2014-06-11 12:28+0000\n"
 "PO-Revision-Date: 2014-05-27 17:36+0200\n"
 "Last-Translator: Alessandro Pisa <alessandro.pisa@redturtle.it>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -77,13 +77,10 @@ msgstr "Prenotazione di"
 msgid "Booking product for Plone"
 msgstr "Prodotto di prenotazioni per Plone"
 
+#: ./browser/prenotazione.pt:58
 #: ./content/prenotazione.py:70
 msgid "Company"
 msgstr "Azienda"
-
-#: ./browser/prenotazione.pt:58
-msgid "Company:"
-msgstr "Azienda:"
 
 #: ./contentrules/sendMovedPrenotazione.py:141
 msgid "Configure element"
@@ -110,8 +107,8 @@ msgid "Duration value"
 msgstr "Durata"
 
 #: ./browser/prenotazione.pt:70
-msgid "E-mail:"
-msgstr "E-mail:"
+msgid "E-mail"
+msgstr ""
 
 #: ./contentrules/sendMovedPrenotazione.py:155
 msgid "Edit moved booking Mail Action"
@@ -133,13 +130,10 @@ msgstr "Errore"
 msgid "Expiration date booking"
 msgstr "Data scandenza prenotazione"
 
+#: ./browser/prenotazione.pt:75
 #: ./content/prenotazione.py:80
 msgid "Gate"
 msgstr "Sportello"
-
-#: ./browser/prenotazione.pt:75
-msgid "Gate:"
-msgstr "Sportello:"
 
 #: ./content/prenotazionifolder.py:96
 msgid "Giorni festivi"
@@ -185,10 +179,6 @@ msgstr "Oggetto"
 msgid "Phone number"
 msgstr "Numero di telefono"
 
-#: ./browser/prenotazione.pt:66
-msgid "Phone number:"
-msgstr "Telefono:"
-
 #: ./browser/prenotazione_print.pt:94
 msgid "Print"
 msgstr "Stampa"
@@ -201,8 +191,8 @@ msgid "Reservation date"
 msgstr "Data prenotazione"
 
 #: ./browser/prenotazione.pt:47
-msgid "Reservation type:"
-msgstr "Tipologia:"
+msgid "Reservation type"
+msgstr "Tipo di prenotazione"
 
 #: ./contentrules/sendMovedPrenotazione.py:28
 msgid "Sender email"
@@ -228,10 +218,6 @@ msgstr "Ci dispiace, ma questo intervallo di tempo non è al momento disponibile
 #: ./content/prenotazione.py:81
 msgid "Sportello a cui presentarsi"
 msgstr "Sportello a cui presentarsi"
-
-#: ./browser/prenotazione.pt:79
-msgid "Staff notes:"
-msgstr ""
 
 #: ./contentrules/sendMovedPrenotazione.py:22
 msgid "Subject"
@@ -360,7 +346,7 @@ msgstr "Orario previsto per la prenotazione: ${booking_time}"
 msgid "from"
 msgstr "da"
 
-#. Default: "Fullname:"
+#. Default: "Fullname"
 #: ./browser/prenotazione.pt:39
 msgid "fullname"
 msgstr "Nome completo"
@@ -573,6 +559,11 @@ msgstr "Settimana successiva"
 msgid "overbook_message"
 msgstr "Siamo spiacenti, è già stato preso un appuntamento nella stessa fascia oraria, premere il pulsante ANNULLA per effettuare una nuova richiesta di prenotazione"
 
+#. Default: "Phone number"
+#: ./browser/prenotazione.pt:66
+msgid "phone"
+msgstr "Phone"
+
 #. Default: "Please select a time slot"
 #: ./browser/prenotazione_add.py:398
 msgid "please_pick_a_date"
@@ -639,11 +630,12 @@ msgid "source_help"
 msgstr "Il mittente della mail. Se nessun indirizzo viene inserito verrà utilizzato l'indirizzo configurato nel portale."
 
 #. Default: "Staff notes"
+#: ./browser/prenotazione.pt:79
 #: ./content/prenotazione.py:102
 msgid "staff_notes_label"
 msgstr "Note del personale"
 
-#. Default: "Subject:"
+#. Default: "Subject"
 #: ./browser/prenotazione.pt:43
 msgid "subject"
 msgstr "Oggetto"

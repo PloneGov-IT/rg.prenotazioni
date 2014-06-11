@@ -36,15 +36,15 @@ i18n:domain="rg.prenotazioni">
                 <div tal:replace="structure provider:plone.belowcontenttitle" tal:condition="not_ajax_load" />
                 <div tal:replace="structure provider:plone.abovecontentbody" tal:condition="not_ajax_load" />
                 <div class="field" tal:condition="here/Title">
-                    <strong i18n:translate="fullname">Fullname:</strong>
+                    <strong i18n:translate="fullname">Fullname</strong>:
                     <span tal:replace="here/Title" />
                 </div>
                 <div class="field" tal:condition="here/Description">
-                    <strong i18n:translate="subject">Subject:</strong>
+                    <strong i18n:translate="subject">Subject</strong>:
                     <span tal:replace="here/Description" />
                 </div>
                 <div class="field" tal:condition="here/getTipologia_prenotazione">
-                    <strong i18n:translate="">Reservation type:</strong>
+                    <strong i18n:translate="">Reservation type</strong>:
                     <span tal:replace="here/getTipologia_prenotazione" />
                 </div>
                 <div class="field" tal:condition="here/getData_prenotazione">
@@ -55,28 +55,28 @@ i18n:domain="rg.prenotazioni">
                     <span tal:content="python:putils.toLocalizedTime(here.getData_scadenza(), True)" />
                 </div>
                 <div class="field" tal:condition="here/getAzienda">
-                    <strong i18n:translate="">Company:</strong>
+                    <strong i18n:translate="">Company</strong>:
                     <span tal:replace="here/getAzienda" />
                 </div>
                 <div class="field" tal:condition="here/getMobile">
                   <strong i18n:translate="mobile">Mobile number</strong>:
                   <span tal:replace="here/getMobile" />
                 </div>
-                <div class="field" tal:condition="here/getTelefono">
-                    <strong i18n:translate="">Phone number:</strong>
+                <div class="field" tal:condition="here/getTelefono">:
+                    <strong i18n:translate="phone">Phone number</strong>:
                     <span tal:replace="here/getTelefono" />
                 </div>
                 <div class="field" tal:condition="here/getEmail">
-                    <strong i18n:translate="">E-mail:</strong>
+                    <strong i18n:translate="">E-mail</strong>:
                     <a tal:attributes="href string:mailto:${here/getEmail}"
                     tal:content="here/getEmail" />
                 </div>
                 <div class="field" tal:condition="here/getGate">
-                    <strong i18n:translate="">Gate:</strong>
+                    <strong i18n:translate="">Gate</strong>:
                     <span tal:content="here/getGate">Gate no. 1</span>
                 </div>
                 <div class="field" tal:condition="here/getStaff_notes">
-                  <strong i18n:translate="">Staff notes:</strong>
+                  <strong i18n:translate="staff_notes_label">Staff notes</strong>:
                   <div tal:define="items python:here.getStaff_notes().splitlines()">
                     <tal:repeat repeat="item items">
                       <p tal:content="item">text</p>

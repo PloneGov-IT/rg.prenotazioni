@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2014-06-11 12:19+0000\n"
+"POT-Creation-Date: 2014-06-11 12:28+0000\n"
 "PO-Revision-Date: 2014-05-27 09:47+0200\n"
 "Last-Translator: Alessandro Pisa <alessandro.pisa@redturtle.it>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -77,12 +77,9 @@ msgstr ""
 msgid "Booking product for Plone"
 msgstr ""
 
+#: ./browser/prenotazione.pt:58
 #: ./content/prenotazione.py:70
 msgid "Company"
-msgstr ""
-
-#: ./browser/prenotazione.pt:58
-msgid "Company:"
 msgstr ""
 
 #: ./contentrules/sendMovedPrenotazione.py:141
@@ -110,7 +107,7 @@ msgid "Duration value"
 msgstr ""
 
 #: ./browser/prenotazione.pt:70
-msgid "E-mail:"
+msgid "E-mail"
 msgstr ""
 
 #: ./contentrules/sendMovedPrenotazione.py:155
@@ -133,12 +130,9 @@ msgstr ""
 msgid "Expiration date booking"
 msgstr ""
 
+#: ./browser/prenotazione.pt:75
 #: ./content/prenotazione.py:80
 msgid "Gate"
-msgstr ""
-
-#: ./browser/prenotazione.pt:75
-msgid "Gate:"
 msgstr ""
 
 #: ./content/prenotazionifolder.py:96
@@ -185,10 +179,6 @@ msgstr "Subject"
 msgid "Phone number"
 msgstr ""
 
-#: ./browser/prenotazione.pt:66
-msgid "Phone number:"
-msgstr ""
-
 #: ./browser/prenotazione_print.pt:94
 msgid "Print"
 msgstr ""
@@ -201,7 +191,7 @@ msgid "Reservation date"
 msgstr ""
 
 #: ./browser/prenotazione.pt:47
-msgid "Reservation type:"
+msgid "Reservation type"
 msgstr ""
 
 #: ./contentrules/sendMovedPrenotazione.py:28
@@ -228,10 +218,6 @@ msgstr ""
 #: ./content/prenotazione.py:81
 msgid "Sportello a cui presentarsi"
 msgstr "Gate that will serve your booking"
-
-#: ./browser/prenotazione.pt:79
-msgid "Staff notes:"
-msgstr ""
 
 #: ./contentrules/sendMovedPrenotazione.py:22
 msgid "Subject"
@@ -360,7 +346,7 @@ msgstr ""
 msgid "from"
 msgstr ""
 
-#. Default: "Fullname:"
+#. Default: "Fullname"
 #: ./browser/prenotazione.pt:39
 msgid "fullname"
 msgstr ""
@@ -573,6 +559,11 @@ msgstr ""
 msgid "overbook_message"
 msgstr "We are sorry, another concurrent booking has been registered, press the cancel button to make a new book request."
 
+#. Default: "Phone number"
+#: ./browser/prenotazione.pt:66
+msgid "phone"
+msgstr ""
+
 #. Default: "Please select a time slot"
 #: ./browser/prenotazione_add.py:398
 msgid "please_pick_a_date"
@@ -639,11 +630,12 @@ msgid "source_help"
 msgstr ""
 
 #. Default: "Staff notes"
+#: ./browser/prenotazione.pt:79
 #: ./content/prenotazione.py:102
 msgid "staff_notes_label"
 msgstr ""
 
-#. Default: "Subject:"
+#. Default: "Subject"
 #: ./browser/prenotazione.pt:43
 msgid "subject"
 msgstr ""
