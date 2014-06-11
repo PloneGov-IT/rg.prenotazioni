@@ -562,7 +562,7 @@ msgstr "Siamo spiacenti, è già stato preso un appuntamento nella stessa fascia
 #. Default: "Phone number"
 #: ./browser/prenotazione.pt:66
 msgid "phone"
-msgstr "Phone"
+msgstr "Numero di telefono"
 
 #. Default: "Please select a time slot"
 #: ./browser/prenotazione_add.py:398

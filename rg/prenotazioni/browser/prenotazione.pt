@@ -62,7 +62,7 @@ i18n:domain="rg.prenotazioni">
                   <strong i18n:translate="mobile">Mobile number</strong>:
                   <span tal:replace="here/getMobile" />
                 </div>
-                <div class="field" tal:condition="here/getTelefono">:
+                <div class="field" tal:condition="here/getTelefono">
                     <strong i18n:translate="phone">Phone number</strong>:
                     <span tal:replace="here/getTelefono" />
                 </div>
