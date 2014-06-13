@@ -1,4 +1,4 @@
-// // /*globals jQuery, document, rgprenotazioni*/
+/*globals jQuery, document, rgprenotazioni*/
 /*jslint sloppy: true, vars: true, white: true, maxerr: 50, indent: 4 */
 /*
  * This is the javascript that looks for overlays
@@ -9,7 +9,7 @@
     */
     function prepOverlay() {
         return jQuery('a.prenotazioni-popup').prepOverlay({
-            subtype: 'ajax',
+            subtype: 'ajax'
         });
     }
     jQuery(document).ready(prepOverlay);
