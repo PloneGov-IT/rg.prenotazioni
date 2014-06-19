@@ -184,10 +184,16 @@ Developed with the support of:
   .. image:: http://www.ospfe.it/ospfe-logo.jpg
      :alt: S. Anna Hospital - logo
 
+* `Comune di Padova`__;
+
+  .. image:: http://prenotazioni.comune.padova.it/++resource++pd.plonetheme.images/title.png
+     :alt: Comune di Padova's logo
+
 All of them supports the `PloneGov initiative`__.
 
 __ http://www.renogalliera.it/
 __ http://www.ospfe.it/
+__ http://www.padovanet.it/
 __ http://www.plonegov.it/
 
 Authors
