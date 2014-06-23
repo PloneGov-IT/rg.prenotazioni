@@ -21,7 +21,11 @@ def urlify(url='', paths=[], params={}):
     for key in params:
         value = params[key]
         if isinstance(params[key], (list, tuple)) and len(value):
-            params[key] = value[0]
+            value = value[0]
+        if isinstance(value, unicode):
+            value = value.encode('utf8')
+        params[key] = value
+
     # we cook everything together
     if url:
         if paths:

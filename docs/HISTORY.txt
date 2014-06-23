@@ -4,7 +4,7 @@ Changelog
 3.4.1 (unreleased)
 ==================
 
-- Nothing changed yet.
+- Fix encoding problem.
 
 
 3.4.0 (2014-06-17)
