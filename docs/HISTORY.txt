@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.4.1 (unreleased)
+3.4.1 (2014-06-23)
 ==================
 
 - Fix encoding problem.
