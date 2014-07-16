@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from Products.CMFCore.utils import getToolByName
-from datetime import date, timedelta
+from datetime import timedelta
 from plone.memoize.instance import memoize
 from rg.prenotazioni.adapters.slot import BaseSlot
 from zope.component import Interface
@@ -25,73 +25,6 @@ class ConflictManager(object):
         @param context: a PrenotazioniFolder object
         '''
         self.context = context
-
-    @property
-    @memoize
-    def today(self):
-        ''' Cache for today date
-        '''
-        return date.today()
-
-    @property
-    @memoize
-    def first_valid_day(self):
-        ''' The first day when you can book stuff
-
-        ;return; a datetime.date object
-        '''
-        return self.context.getDaData().asdatetime().date()
-
-    @property
-    @memoize
-    def last_valid_day(self):
-        ''' The last day (if set) when you can book stuff
-
-        ;return; a datetime.date object or None
-        '''
-        adata = self.context.getAData()
-        if not adata:
-            return
-        return adata.asdatetime().date()
-
-    @memoize
-    def is_vacation_day(self, date):
-        '''
-        Check if today is a vacation day
-        '''
-        year = repr(date.year)
-        date_it = date.strftime('%d/%m/%Y')
-        holidays = self.context.getFestivi()
-        for holiday in holidays:
-            if date_it in holiday.replace('*', year):
-                return True
-        return False
-
-    @memoize
-    def is_configured_day(self, day):
-        """ Returns True if the day has been configured
-        """
-        weekday = day.weekday()
-        week_table = self.context.getSettimana_tipo()
-        day_table = week_table[weekday]
-        return any((day_table['inizio_m'],
-                    day_table['end_m'],
-                    day_table['inizio_p'],
-                    day_table['end_p'],))
-
-    @memoize
-    def is_valid_day(self, day):
-        """ Returns True if the day is valid
-        """
-        if day <= self.today:
-            return False
-        if self.is_vacation_day(day):
-            return False
-        if day < self.first_valid_day:
-            return False
-        if self.last_valid_day and day > self.last_valid_day:
-            return False
-        return self.is_configured_day(day)
 
     @property
     @memoize

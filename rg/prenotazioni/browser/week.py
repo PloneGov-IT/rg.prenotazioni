@@ -116,7 +116,7 @@ class View(BaseView):
             day_list = day.split('/')
             data = date(int(day_list[2]), int(day_list[1]), int(day_list[0]))
         except (ValueError, IndexError):
-            data = self.prenotazioni.conflict_manager.today
+            data = self.prenotazioni.today
         return data
 
     @property

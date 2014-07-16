@@ -216,7 +216,7 @@ dl.portlet ul.navTree li a.contenttype-prenotazioniday {
   font-weight: normal;
 }
 
-#week .slot .links a {
+#week .slot .links > * {
     height:5px;
     display:block;
 }

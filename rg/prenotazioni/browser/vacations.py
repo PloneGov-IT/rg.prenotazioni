@@ -183,20 +183,16 @@ class VacationBooking(PageForm):
                 return True
         return False
 
-    def is_valid_day(self, data):
-        ''' Check if the day is valid
-        '''
-        return self.prenotazioni.conflict_manager.is_valid_day(data['start_date'])  # noqa
-
     def validate_invariants(self, data, errors):
         ''' Validate invariants errors
         '''
         parsed_data = self.get_parsed_data(data)
+        start_date = data['start_date']
         if self.has_slot_conflicts(parsed_data):
             msg = _('slot_conflict_error',
                     u'This gate has some booking schedule in this time '
                     u'period.')
-        elif not self.is_valid_day(data):
+        elif not self.prenotazioni.is_valid_day(start_date):
             msg = _('day_error',
                     u'This day is not valid.')
         else:

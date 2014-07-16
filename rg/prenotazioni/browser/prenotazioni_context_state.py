@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from DateTime import DateTime
 from Products.Five.browser import BrowserView
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from plone import api
 from plone.memoize.view import memoize
 from rg.prenotazioni import (get_or_create_obj, tznow,
@@ -88,6 +88,88 @@ class PrenotazioniContextState(BrowserView):
 
     @property
     @memoize
+    def today(self):
+        ''' Cache for today date
+        '''
+        return date.today()
+
+    @property
+    @memoize
+    def yesterday(self):
+        ''' Cache for today date
+        '''
+        return self.today - timedelta(days=1)
+
+    @property
+    @memoize
+    def tomorrow(self):
+        ''' Cache for today date
+        '''
+        return self.today + timedelta(days=1)
+
+    @property
+    @memoize
+    def first_bookable_day(self):
+        ''' The first day when you can book stuff
+
+        ;return; a datetime.date object
+        '''
+        return max(
+            self.context.getDaData().asdatetime().date(),
+            self.tomorrow
+        )
+
+    @property
+    @memoize
+    def last_bookable_day(self):
+        ''' The last day (if set) when you can book stuff
+
+        ;return; a datetime.date object or None
+        '''
+        adata = self.context.getAData()
+        if not adata:
+            return
+        return adata.asdatetime().date()
+
+    @memoize
+    def is_vacation_day(self, date):
+        '''
+        Check if today is a vacation day
+        '''
+        year = repr(date.year)
+        date_it = date.strftime('%d/%m/%Y')
+        holidays = self.context.getFestivi()
+        for holiday in holidays:
+            if date_it in holiday.replace('*', year):
+                return True
+        return False
+
+    @memoize
+    def is_configured_day(self, day):
+        """ Returns True if the day has been configured
+        """
+        weekday = day.weekday()
+        week_table = self.context.getSettimana_tipo()
+        day_table = week_table[weekday]
+        return any((day_table['inizio_m'],
+                    day_table['end_m'],
+                    day_table['inizio_p'],
+                    day_table['end_p'],))
+
+    @memoize
+    def is_valid_day(self, day):
+        """ Returns True if the day is valid
+        """
+        if day < self.first_bookable_day:
+            return False
+        if self.is_vacation_day(day):
+            return False
+        if self.last_bookable_day and day > self.last_bookable_day:
+            return False
+        return self.is_configured_day(day)
+
+    @property
+    @memoize
     def conflict_manager(self):
         '''
         Return the conflict manager for this context
@@ -135,7 +217,7 @@ class PrenotazioniContextState(BrowserView):
         ''' Returns, if possible, the booking urls
         '''
         # we have some conditions to check
-        if not self.conflict_manager.is_valid_day(day):
+        if not self.is_valid_day(day):
             return []
         if self.maximum_bookable_date:
             if day > self.maximum_bookable_date.date():
@@ -145,14 +227,20 @@ class PrenotazioniContextState(BrowserView):
         times = slot.get_values_hr_every(300, slot_min_size=slot_min_size)
         base_url = self.base_booking_url
         urls = []
+        now_str = tznow().strftime("%Y-%m-%d %H:%M")
         for t in times:
-            params['form.booking_date'] = " ".join((date, t))
-            booking_date = DateTime(params['form.booking_date']).asdatetime()
-            urls.append({'title': t,
-                         'url': urlify(base_url, params=params),
-                         'class': t.endswith(':00') and 'oclock' or None,
-                         'booking_date': booking_date,
-                         })
+            form_booking_date = " ".join((date, t))
+            params['form.booking_date'] = form_booking_date
+            booking_date = DateTime(params['form.booking_date']).asdatetime()  # noqa
+            urls.append(
+                {
+                    'title': t,
+                    'url': urlify(base_url, params=params),
+                    'class': t.endswith(':00') and 'oclock' or None,
+                    'booking_date': booking_date,
+                    'future': (now_str <= form_booking_date),
+                }
+            )
         return urls
 
     def get_all_booking_urls_by_gate(self, day, slot_min_size=0):
@@ -552,7 +640,7 @@ class PrenotazioniContextState(BrowserView):
         :param booking_date: a date as a datetime or a string
         :param period: a DateTime object
         '''
-        if booking_date < self.conflict_manager.today:
+        if booking_date < self.first_bookable_date:
             return
         availability = self.get_free_slots(booking_date, period)
         good_slots = []
@@ -563,7 +651,7 @@ class PrenotazioniContextState(BrowserView):
         for slots in availability.itervalues():
             for slot in slots:
                 if (len(slot) >= duration and
-                    (booking_date > self.conflict_manager.today
+                    (booking_date > self.first_bookable_date
                      or slot.start() >= hm_now)):
                         good_slots.append(slot)
         if not good_slots:

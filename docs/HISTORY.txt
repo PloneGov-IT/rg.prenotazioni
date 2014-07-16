@@ -1,17 +1,19 @@
 Changelog
 =========
 
-3.4.2 (unreleased)
+3.5.0 (unreleased)
 ==================
 
-- Nothing changed yet.
+- Added methods to prenotazioni_context_state,
+  some of them moved from conflict manager.
+  [ale-rt]
 
 
 3.4.1 (2014-06-23)
 ==================
 
 - Fix encoding problem.
-
+  [ale-rt]
 
 3.4.0 (2014-06-17)
 ==================

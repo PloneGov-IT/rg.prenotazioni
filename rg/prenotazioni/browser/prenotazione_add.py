@@ -318,6 +318,8 @@ class AddForm(PageForm):
         Checks if we can book those data
         '''
         errors = super(AddForm, self).validate(action, data)
+        if not data.get('booking_date'):
+            return errors
         conflict_manager = self.prenotazioni.conflict_manager
         if conflict_manager.conflicts(data):
             msg = _(u'Sorry, this slot is not available anymore.')

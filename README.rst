@@ -2,6 +2,18 @@ A **booking product for Plone** which allows to reserve time slots throughout th
 
 .. contents::
 
+Installation
+============
+
+Add **rg.prenotazioni** to the egg section of your instance:
+
+::
+
+  [instance]
+  eggs=
+      ...
+      rg.prenotazioni
+
 Introduction
 ============
 
@@ -21,8 +33,9 @@ The product interface provides a way to add new booking elements,
 by clicking on one of the plus signs available in the slots calendar
 as shown below:
 
-.. figure:: http://blog.redturtle.it/pypi-images/rg.prenotazioni/add-new-booking.png/image_preview
+.. image:: http://blog.redturtle.it/pypi-images/rg.prenotazioni/add-new-booking.png/image_preview
   :alt: The view of Booking Folder
+  :target: http://blog.redturtle.it/pypi-images/rg.prenotazioni/add-new-booking.png
 
 Each booking element once created is storerd into its own **Booking Folder**.
 
@@ -31,27 +44,29 @@ Booking Folder content
 ----------------------
 
 **Booking Folder** is a folderish content type which store your **Booking** objects.
-It is therefore possible to have more of an "agenda".
+
 
 Using rg.prenotazioni
 =====================
 
 
-Creating a new booking folder content
--------------------------------------
+Creating a new Booking Folder
+-----------------------------
 
-If the product is correctly installed the **booking folder** entry is available on the `add new` action menu.
+If the product is correctly installed the **Booking Folder** entry is available on the `add new` action menu.
 Click on it to add a new booking folder content.
 
-.. figure:: http://blog.redturtle.it/pypi-images/rg.prenotazioni/add-folder-content-entry.png/image_preview
+.. image:: http://blog.redturtle.it/pypi-images/rg.prenotazioni/add-folder-content-entry.png/image_preview
   :alt: The view of Booking Folder
+  :target: http://blog.redturtle.it/pypi-images/rg.prenotazioni/add-folder-content-entry.png
 
 Saving the form a new booking folder will be created.
 
 Here below the edit page:
 
-.. figure:: http://blog.redturtle.it/pypi-images/rg.prenotazioni/booking-folder-form.png/image_preview
-  :alt: The view of Booking Folder
+.. image:: http://blog.redturtle.it/pypi-images/rg.prenotazioni/booking-folder-form.png/image_preview
+  :alt: The edit form for a Booking Folder
+  :target: http://blog.redturtle.it/pypi-images/rg.prenotazioni/booking-folder-form.png
 
 
 Since version **2.1** new functionalities has been added to the folder
@@ -70,25 +85,35 @@ Creating a new booking content
 Anonymous and authenticated users are allowed to add new booking content
 by clicking on the plus signs on the default booking folder view.
 
-.. figure:: http://blog.redturtle.it/pypi-images/rg.prenotazioni/default-view.png/image_preview
+.. image:: http://blog.redturtle.it/pypi-images/rg.prenotazioni/default-view.png/image_preview
   :alt: Link to create new entry
+  :target: http://blog.redturtle.it/pypi-images/rg.prenotazioni/default-view.png
 
 After its creation the slot will be displayed as "busy" for anonymous user
 and the slot won't be available anymore.
 
-Back-end user can see and manage the reservation
-according with its Plone rights.
+Back-end users can see and manage the reservation according
+to the assigned Plone roles.
 
 Here below a screenshot of the edit page:
 
-.. figure:: http://blog.redturtle.it/pypi-images/rg.prenotazioni/add-bomking-form.png/image_preview
+.. image:: http://blog.redturtle.it/pypi-images/rg.prenotazioni/add-bomking-form.png/image_preview
   :alt: The view of Booking Folder
+  :target: http://blog.redturtle.it/pypi-images/rg.prenotazioni/add-bomking-form.png
 
 Since version **2.1**:
 - captcha has been added for anonymous users.
 - booking content can be added only from the view folder links.
 - booking can't be added in the past anymore.
 
+Backend view
+------------
+
+The backend view is quite different from the anonimous user view.
+
+.. image:: http://blog.redturtle.it/pypi-images/rg.prenotazioni/add-bomking-form.png/image_preview
+  :alt: The view of Booking Folder
+  :target: http://blog.redturtle.it/pypi-images/rg.prenotazioni/add-bomking-form.png
 
 Workflow
 --------
@@ -137,17 +162,36 @@ There's also a rule that can warn the Booking Folder responsible when new bookin
 manually enable it on folders.
 
 
-Installation
-============
+Vacations
+---------
 
-Add **rg.prenotazioni** to the egg section of your instance:
+You can specify days when the Booking Folder will not accept
+bookings.
+Those days are called "Vacation days".
+Vacation days can be specified compiling the "Vacation days"
+field in the Booking Folder edit form.
+Values are allowed in the format DD/MM/YYYY.
+Instead of the year you can put an asterisk, in this case every here
+the day DD of month MM will be considered a vacation day.
 
-::
+It is also possible to specify a vacation period
+for a single gate using the vacation booking form.
 
-  [instance]
-  eggs=
-      ...
-      rg.prenotazioni
+.. image:: http://blog.redturtle.it/pypi-images/rg.prenotazioni/vacation-booking-view.png/image_preview
+  :alt: The view of Booking Folder
+  :target: http://blog.redturtle.it/pypi-images/rg.prenotazioni/vacation-booking-view.png
+
+Searching
+---------
+
+Using the prenotazioni_search view it is possible to search
+bookings within a given time interval.
+You can also filter the results specifying a searchable text,
+a gate or a review state.
+
+.. image:: http://blog.redturtle.it/pypi-images/rg.prenotazioni/prenotazioni-search-view.png/image_preview
+  :alt: The view of Booking Folder
+  :target: http://blog.redturtle.it/pypi-images/rg.prenotazioni/prenotazioni-search-view.png
 
 Notes
 =====
