@@ -136,7 +136,7 @@ i18n:domain="rg.prenotazioni">
                                     b_size python:25;
                                     b_start python:0;
                                     b_start request/b_start | b_start;
-                                    batch_base_url string:${here/absolute_url}/visore-aziende;
+                                    batch_base_url string:${here/absolute_url}/${view/__name__};
                                     batch python:Batch(bookings, b_size, int(b_start));">
                             <table class="listing collection-listing" summary="Content listing"
                               i18n:attributes="summary">
