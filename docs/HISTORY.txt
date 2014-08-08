@@ -6,6 +6,9 @@ Changelog
 
 - Added methods to prenotazioni_context_state,
   some of them moved from conflict manager.
+- Fix default not set in AT Prenotazione schema
+- Moved some properties from week view to the most accurate
+  prenotazioni_context_state
   [ale-rt]
 
 

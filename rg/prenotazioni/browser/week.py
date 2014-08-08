@@ -7,6 +7,7 @@ from rg.prenotazioni import prenotazioniMessageFactory as _
 from rg.prenotazioni.browser.base import BaseView
 from rg.prenotazioni.browser.interfaces import IDontFollowMe
 from rg.prenotazioni.utilities.urls import urlify
+from zope.deprecation import deprecate
 from zope.interface.declarations import implements
 from zope.schema.vocabulary import getVocabularyRegistry
 
@@ -46,6 +47,7 @@ class View(BaseView):
 
     @property
     @memoize
+    @deprecate('Use the prenotazioni_context_state property instead')
     def user_can_manage(self):
         ''' States if the authenticated user can manage this context
         '''
@@ -56,6 +58,7 @@ class View(BaseView):
 
     @property
     @memoize
+    @deprecate('Use the prenotazioni_context_state property instead')
     def user_can_view(self):
         ''' States if the authenticated user can manage this context
         '''
@@ -67,10 +70,11 @@ class View(BaseView):
 
     @property
     @memoize
+    @deprecate('Use the prenotazioni_context_state property instead')
     def user_can_search(self):
         ''' States if the user can see the search button
         '''
-        return self.user_can_manage
+        return self.prenotazioni.user_can_manage
 
     @property
     @memoize
