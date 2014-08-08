@@ -28,6 +28,7 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
             validator=('isEmail',),
         ),
         searchable=True,
+        default='',
     ),
     atapi.StringField(
         'telefono',
@@ -36,6 +37,7 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
             label=_("Phone number"),
         ),
         searchable=True,
+        default='',
     ),
     atapi.StringField(
         'mobile',
@@ -44,6 +46,7 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
             label=_("mobile", u"Mobile number"),
         ),
         searchable=True,
+        default='',
     ),
     atapi.StringField(
         'tipologia_prenotazione',
@@ -53,6 +56,7 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
             label=_(u"booking tipology"),
         ),
         searchable=True,
+        default='',
     ),
     atapi.DateTimeField(
         'data_prenotazione',
@@ -71,6 +75,7 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
             description=_(u"Inserisci la denominazione dell'azienda "
                           u"del richiedente"),
         ),
+        default='',
         searchable=True,
     ),
     atapi.StringField(
@@ -81,6 +86,7 @@ PrenotazioneSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
             description=_(u"Sportello a cui presentarsi"),
         ),
         searchable=True,
+        default='',
     ),
     atapi.DateTimeField(
         'data_scadenza',
