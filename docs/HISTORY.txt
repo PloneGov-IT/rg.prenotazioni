@@ -9,6 +9,8 @@ Changelog
 - Fix default not set in AT Prenotazione schema
 - Moved some properties from week view to the most accurate
   prenotazioni_context_state
+- Restored the capability to exclude Prenotazioni folder
+  from navigation
   [ale-rt]
 
 

@@ -212,8 +212,6 @@ PrenotazioniFolderSchema['rights'].widget.modes = []
 PrenotazioniFolderSchema['rights'].schemata = 'default'
 PrenotazioniFolderSchema['allowDiscussion'].widget.modes = []
 PrenotazioniFolderSchema['allowDiscussion'].schemata = 'default'
-PrenotazioniFolderSchema['excludeFromNav'].widget.modes = []
-PrenotazioniFolderSchema['excludeFromNav'].schemata = 'default'
 
 
 class PrenotazioniFolder(BaseFolder):
