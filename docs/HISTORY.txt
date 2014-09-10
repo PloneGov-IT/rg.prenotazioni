@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.5.0 (unreleased)
+3.5.0 (2014-09-10)
 ==================
 
 - Added methods to prenotazioni_context_state,
