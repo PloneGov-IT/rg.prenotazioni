@@ -64,7 +64,7 @@ class View(BaseView):
         '''
         if api.user.is_anonymous():
             return False
-        if self.user_can_manage:
+        if self.prenotazioni.user_can_manage:
             return True
         return u'Reader' in api.user.get_roles(obj=self.context)
 
@@ -82,9 +82,9 @@ class View(BaseView):
         ''' Which macro should I use to display a day period
         '''
         prenotazione_macros = self.prenotazione_macros
-        if self.user_can_manage:
+        if self.prenotazioni.user_can_manage:
             return prenotazione_macros['manager_day_period']
-        if self.user_can_view:
+        if self.prenotazioni.user_can_view:
             return prenotazione_macros['manager_day_period']
         return prenotazione_macros['anonymous_day_period']
 
@@ -94,9 +94,9 @@ class View(BaseView):
         ''' Which macro should I use to display the slot
         '''
         prenotazione_macros = self.prenotazione_macros
-        if self.user_can_manage:
+        if self.prenotazioni.user_can_manage:
             return prenotazione_macros['manager_slot']
-        if self.user_can_view:
+        if self.prenotazioni.user_can_view:
             return prenotazione_macros['manager_slot']
         return self.prenotazione_macros['anonymous_slot']
 
@@ -105,7 +105,7 @@ class View(BaseView):
     def periods(self):
         ''' Return the periods
         '''
-        if self.user_can_manage:
+        if self.prenotazioni.user_can_manage:
             return ('morning', 'afternoon', 'stormynight')
         else:
             return ('morning', 'afternoon')
@@ -217,7 +217,7 @@ class View(BaseView):
         ''' Return True or False according to the fact that the column should
         be shown
         '''
-        if self.user_can_manage:
+        if self.prenotazioni.user_can_manage:
             return True
         periods = self.prenotazioni.get_day_intervals(day)
         return bool(periods['day'])
