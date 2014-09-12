@@ -40,7 +40,7 @@
                 <div class="gate" tal:repeat="gate python:sorted(slots.keys())"
                      tal:attributes="style string:width:${gate_ccs_width}%">
                   <a
-                     tal:omit-tag="python:not (gate and view.user_can_search)"
+                     tal:omit-tag="python:not (gate and week_view.prenotazioni.user_can_search)"
                      tal:attributes="href python:week_view.get_search_gate_url(gate, day);
                                      title gate;">
                     <i class="icon-list-ul"></i>
@@ -143,7 +143,7 @@
          tal:define="booking nocall:slot/context"
          tal:attributes="class python:week_view.prenotazioni.get_state(booking);">
       <a href=""
-        tal:omit-tag="not:view/user_can_manage"
+        tal:omit-tag="python: week_view.prenotazioni.user_can_manage"
         tal:attributes="href booking/absolute_url;title booking/Title">
         <tal:from replace="python:week_view.DT2time(booking.getData_prenotazione())" />
         &mdash;
@@ -163,7 +163,7 @@
           <a href="" title="Cambia data"
              tal:attributes="href link/url;
                              title link/title">&nbsp;</a>
-        </tal:urls> 
+        </tal:urls>
       </tal:free_slot>
       <tal:busy_slot tal:condition="python:booking and booking!=context">
         <div tal:attributes="class string:previous;

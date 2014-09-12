@@ -4,7 +4,8 @@ Changelog
 3.5.2 (unreleased)
 ==================
 
-- Nothing changed yet.
+- Fix prenotazione_move view broken after 3.5.1 release
+  [ale-rt]
 
 
 3.5.1 (2014-09-11)
