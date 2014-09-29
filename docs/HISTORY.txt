@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.5.3 (unreleased)
+3.5.3 (2014-09-29)
 ==================
 
 - Fix encoding problem in prenotazione_print view
