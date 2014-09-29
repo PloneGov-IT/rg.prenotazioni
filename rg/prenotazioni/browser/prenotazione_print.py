@@ -22,9 +22,12 @@ class PrenotazionePrint(BrowserView):
     def label(self):
         ''' The lable of this view
         '''
-        return _('reservation_request',
-                 u'Booking request for: ${name}',
-                 mapping={'name': self.prenotazione.getPrenotazioniFolder().Title()})  # noqa
+        title = self.prenotazione.getPrenotazioniFolder().Title().decode('utf8')  # noqa
+        return _(
+            'reservation_request',
+            u'Booking request for: ${name}',
+            mapping={'name': title}
+        )
 
     @property
     @memoize

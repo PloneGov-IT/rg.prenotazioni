@@ -4,7 +4,8 @@ Changelog
 3.5.3 (unreleased)
 ==================
 
-- Nothing changed yet.
+- Fix encoding problem in prenotazione_print view
+  [ale-rt]
 
 
 3.5.2 (2014-09-12)
