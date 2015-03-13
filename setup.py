@@ -40,7 +40,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'setuptools',
-        'Products.DataGridField',
+        'Products.DataGridField>=1.9.0',
         'collective.contentrules.mailfromfield>0.2.0',
         'collective.fontawesome',
         'plone.api>=1.1.0',
