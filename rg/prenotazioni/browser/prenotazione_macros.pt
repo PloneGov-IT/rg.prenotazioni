@@ -3,7 +3,7 @@
   <div class="navigator">
     <a class="floatleft" href="#" rel="nofollow"
       tal:attributes="href week_view/prev_week_url">
-      <i class="icon-step-backward"></i>
+      <i class="icon-step-backward fa fa-step-backward"></i>
       <tal:i18n i18n:translate="previous-week">previous week</tal:i18n>
     </a>
 
@@ -20,7 +20,7 @@
     <a class="floatright" href="#" rel="nofollow"
        tal:attributes="href week_view/next_week_url">
        <tal:i18n i18n:translate="next-week">next week</tal:i18n>
-       <i class="icon-step-forward"></i></a>
+       <i class="icon-step-forward fa fa-step-forward"></i></a>
  </div>
  <div class="visualClear"></div>
 </metal:macro>
@@ -43,7 +43,7 @@
                      tal:omit-tag="python:not (gate and week_view.prenotazioni.user_can_search)"
                      tal:attributes="href python:week_view.get_search_gate_url(gate, day);
                                      title gate;">
-                    <i class="icon-list-ul"></i>
+                    <i class="icon-list-ul fa fa-list-ul"></i>
                   </a>
                 </div>
               </div>
@@ -114,7 +114,7 @@
             class="prenotazioni-popup"
             tal:attributes="href booking/absolute_url;
                             title booking/Title">
-            <div><i class="icon-search"></i></div>
+            <div><i class="icon-search fa fa-search"></i></div>
           </a>
         </tal:is_real_booking>
         <tal:not_real_booking tal:condition="not:real_booking" >
@@ -287,9 +287,9 @@
               <div class="square pending">&nbsp;</div></li>
           <li><i18n:tag translate="booking_refused">Booking refused</i18n:tag>
               <div class="square refused">&nbsp;</div></li>
-          <li><i class="icon-search"></i>
+          <li><i class="icon-search fa fa-search"></i>
               <i18n:tag translate="view_booking">View booking</i18n:tag></li>
-          <li><i class="icon-list-ul"></i>
+          <li><i class="icon-list-ul fa fa-list-ul"></i>
               <i18n:tag translate="search-by-gate">Search by gate</i18n:tag></li>
       </ul>
       <p class="legend-note">

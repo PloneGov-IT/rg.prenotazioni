@@ -4,7 +4,13 @@ Changelog
 3.5.4 (unreleased)
 ==================
 
-- Nothing changed yet.
+New:
+
+  - Updated requirements:
+
+    - Products.DataGridField >= 1.9.0
+
+  - Support recent versions of collective.fontawesome
 
 
 3.5.3 (2014-09-29)

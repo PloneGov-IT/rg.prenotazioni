@@ -18,7 +18,7 @@ i18n:domain="rg.prenotazioni">
                         not_ajax_load python:not request.get('ajax_load', '')">
                 <div class="refused-alert" tal:condition="python:view.review_state=='refused'">
                   <dl class="portalMessage refused">
-                    <dt><i class="icon-warning-sign">&nbsp;</i></dt>
+                    <dt><i class="icon-warning-sign fa fa-warning-sign">&nbsp;</i></dt>
                     <dd i18n:translate="refused-review-state-warning">
                       The booking state is "refused".
                       If you change it, the booking time may conflict
@@ -98,7 +98,7 @@ i18n:domain="rg.prenotazioni">
                 <div class="field">
                   <a href=""
                      tal:attributes="href view/move_url">
-                    <i style="color:#000;" class="icon-move"></i>
+                    <i style="color:#000;" class="icon-move fa fa-move"></i>
                     <tal:i18n i18n:translate="move_booking">Move booking</tal:i18n>
                   </a>
                 </div>
