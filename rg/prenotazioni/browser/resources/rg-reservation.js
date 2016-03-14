@@ -32,7 +32,7 @@
             function(idx, el) {
                 var frontend = jQuery(el).removeClass('rg-dateinput');
                 var backend = frontend.clone().attr({type: 'hidden'});
-                jQuery('label[for=' + backend.attr('name') + '] .formHelp').remove();
+                jQuery('label[for="' + backend.attr('name') + '"] .formHelp').remove();
                 frontend.after(backend);
                 frontend.dateinput(
                     {
