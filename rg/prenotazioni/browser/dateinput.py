@@ -11,25 +11,23 @@ class ConfView(BrowserView):
     }
 
     template = """
-    jQuery(document).ready(
-        function() {
-            if (
-                jQuery.tools === undefined ||
-                jQuery.tools.dateinput === undefined
-            ) {
-                return;
-            }
-            jQuery.tools.dateinput.localize("%(language)s", {
-                months: "%(monthnames)s",
-                shortMonths: "%(shortmonths)s",
-                days: "%(days)s",
-                shortDays: "%(shortdays)s",
-            });
-            jQuery.tools.dateinput.conf.lang = "%(language)s";
-            jQuery.tools.dateinput.conf.format = "%(display_format)s";
-            jQuery.tools.dateinput.conf.firstDay = %(first_day)s;
+    (function() {
+        if (
+            jQuery.tools === undefined ||
+            jQuery.tools.dateinput === undefined
+        ) {
+            return;
         }
-    )
+        jQuery.tools.dateinput.localize("%(language)s", {
+            months: "%(monthnames)s",
+            shortMonths: "%(shortmonths)s",
+            days: "%(days)s",
+            shortDays: "%(shortdays)s",
+        });
+        jQuery.tools.dateinput.conf.lang = "%(language)s";
+        jQuery.tools.dateinput.conf.format = "%(display_format)s";
+        jQuery.tools.dateinput.conf.firstDay = %(first_day)s;
+    })();
     """
 
     @property
