@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.6.1 (unreleased)
+3.6.1 (2016-03-15)
 ==================
 
 - Applying localization for jWuery.dateinput
