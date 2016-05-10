@@ -94,7 +94,7 @@
 <metal:macro metal:define-macro="hours_column" i18n:domain="rg.prenotazioni">
   <div class="hours" style="top:0"
         tal:attributes="style interval/css_styles|nothing"
-        tal:define="hour_style python:'top:-%spx' % (float(interval._lower_value)/60)">
+        tal:define="hour_style python:'top:-%spx' % (float(interval._lower_value)/60 + interval._lower_value / 3600)">
     <div tal:repeat="hour python:range(24)" class="hour" tal:attributes="style hour_style">
       <div tal:content="python:str(hour).zfill(2)" />
     </div>

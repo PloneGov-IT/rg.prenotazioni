@@ -136,7 +136,9 @@ class BaseSlot(Interval):
         '''
         styles = []
         if self._upper_value and self._lower_value:
-            height = len(self) / 60 * 1.0
+            # we add 1px for each hour to account for the border
+            # between the slots
+            height = len(self) / 60 * 1.0 + len(self) / 3600
             styles.append("height:%dpx" % height)
         styles.extend(self.extra_css_styles)
         return ';'.join(styles)
