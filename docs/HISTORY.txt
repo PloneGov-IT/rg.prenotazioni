@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.6.3 (unreleased)
+3.6.3 (2016-05-23)
 ==================
 
 - Fixed search link height and width according to the border-box model [pnicolli]
