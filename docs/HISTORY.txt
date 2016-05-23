@@ -4,7 +4,7 @@ Changelog
 3.6.3 (unreleased)
 ==================
 
-- Nothing changed yet.
+- Fixed search link height and width according to the border-box model [pnicolli]
 
 
 3.6.2 (2016-05-13)

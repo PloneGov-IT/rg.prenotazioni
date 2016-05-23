@@ -119,8 +119,6 @@ table#week td {
 #content #week td div.gate > a {
   overflow: hidden;
   display: block;
-  width:90%;
-  height:1.2em;
   padding:0.3em 5%;
 }
 #week .fromto {
