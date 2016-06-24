@@ -160,9 +160,15 @@
          tal:attributes="style python:view.slot_styles(slot)">
       <tal:free_slot tal:condition="python:not booking or booking==context">
         <tal:urls repeat="link python:view.move_to_slot_links(day, slot, gate)">
-          <a href="" title="Cambia data"
-             tal:attributes="href link/url;
-                             title link/title">&nbsp;</a>
+          <tal:future condition="link/future">
+            <a href=""
+               tal:attributes="href link/url;
+                               title link/title;
+                               class link/class">&nbsp;</a>
+          </tal:future>
+          <tal:past condition="not:link/future">
+            <span>&nbsp;</span>
+          </tal:past>
         </tal:urls>
       </tal:free_slot>
       <tal:busy_slot tal:condition="python:booking and booking!=context">

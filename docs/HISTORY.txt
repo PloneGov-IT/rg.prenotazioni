@@ -4,7 +4,9 @@ Changelog
 3.6.4 (unreleased)
 ==================
 
-- Nothing changed yet.
+- Moving bookings now follows the same restrictions of newly created bookings:
+  they can't be moved to holidays and they can't be moved in the past.
+  [pnicolli]
 
 
 3.6.3 (2016-05-23)

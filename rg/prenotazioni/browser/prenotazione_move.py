@@ -160,6 +160,11 @@ class MoveForm(PageForm):
         '''
         Returns the url to move the booking in this slot
         '''
+        if not self.prenotazioni_view.is_valid_day(day):
+            return []
+        if self.prenotazioni_view.maximum_bookable_date:
+            if day > self.prenotazioni_view.maximum_bookable_date.date():
+                return []
         date = day.strftime("%Y-%m-%d")
         params = {'form.actions.move': 1,
                   'data': self.request.form.get('data', ''),
@@ -168,10 +173,18 @@ class MoveForm(PageForm):
         urls = []
         base_url = "/".join((self.context.absolute_url(),
                              'prenotazione_move'))
+        now_str = tznow().strftime("%Y-%m-%d %H:%M")
         for t in times:
-            params['form.booking_date'] = " ".join((date, t))
-            urls.append({'title': t,
-                         'url': urlify(base_url, params=params)})
+            form_booking_date = " ".join((date, t))
+            params['form.booking_date'] = form_booking_date
+            urls.append(
+                {
+                    'title': t,
+                    'url': urlify(base_url, params=params),
+                    'class': t.endswith(':00') and 'oclock' or None,
+                    'future': (now_str <= form_booking_date),
+                }
+            )
         return urls
 
     @action(_('action_move', u'Move'), name=u'move')
