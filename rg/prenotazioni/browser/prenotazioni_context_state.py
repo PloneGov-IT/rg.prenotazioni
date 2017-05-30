@@ -201,6 +201,16 @@ class PrenotazioniContextState(BrowserView):
                     day_table['inizio_p'],
                     day_table['end_p'],))
 
+    def is_before_allowed_period(self, day):
+        """ Returns True if the day is before the first bookable day
+        """
+        date_limit = self.minimum_bookable_date
+        if not date_limit:
+            return False
+        if day <= date_limit.date():
+            return True
+        return False
+
     @memoize
     def is_valid_day(self, day):
         """ Returns True if the day is valid
@@ -210,6 +220,8 @@ class PrenotazioniContextState(BrowserView):
         if self.is_vacation_day(day):
             return False
         if self.last_bookable_day and day > self.last_bookable_day:
+            return False
+        if self.is_before_allowed_period(day):
             return False
         return self.is_configured_day(day)
 
@@ -451,6 +463,19 @@ class PrenotazioniContextState(BrowserView):
         if not future_days:
             return
         date_limit = tznow() + timedelta(future_days)
+        return date_limit
+
+    @property
+    @memoize
+    def minimum_bookable_date(self):
+        ''' Return the minimum bookable date
+
+        return a datetime or None
+        '''
+        notbefore_days = self.context.getNotBeforeDays()
+        if not notbefore_days:
+            return
+        date_limit = tznow() + timedelta(notbefore_days)
         return date_limit
 
     def get_container(self, booking_date, create_missing=False):

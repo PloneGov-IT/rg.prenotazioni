@@ -118,6 +118,19 @@ PrenotazioniFolderSchema = BaseFolderSchema.copy() + atapi.Schema((
         ),
     ),
 
+    atapi.IntegerField(
+        'notBeforeDays',
+        required=True,
+        default=2,
+        widget=atapi.IntegerWidget(
+            label=_(u'Days booking is not allowed before'),
+            description=_('notBeforeDays',
+                          default=u"Booking is not allowed before the amount "
+                                  u"of days specified. \n"
+                                  u"Keep 0 to give no limits."),
+        ),
+    ),
+
     DataGridField(
         'tipologia',
         storage=atapi.AnnotationStorage(),

@@ -30,6 +30,7 @@ class IMoveForm(Interface):
     gate = TextLine(
         title=_('label_gate', u'Gate'),
         default=u'',
+        required=False
     )
 
 
