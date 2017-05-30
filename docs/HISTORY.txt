@@ -4,7 +4,7 @@ Changelog
 3.6.5 (unreleased)
 ==================
 
-- Nothing changed yet.
+- Added new field to set the number of days before allowing booking. Fixed behavior when moving bookings. [daniele]
 
 
 3.6.4 (2016-06-24)
