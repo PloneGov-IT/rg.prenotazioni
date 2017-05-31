@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.6.6 (unreleased)
+3.6.6 (2017-05-31)
 ==================
 
 - Fixed css for booking table overflow. [daniele]
