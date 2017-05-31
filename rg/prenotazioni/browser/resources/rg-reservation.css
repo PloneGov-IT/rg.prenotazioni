@@ -74,6 +74,9 @@ td.selected {
 #week-table-wrapper * {
   box-sizing: border-box;
 }
+#week-table-wrapper {
+  overflow: auto;
+}
 table#week {
   margin: auto;
   width: 100%;
