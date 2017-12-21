@@ -570,7 +570,10 @@ class PrenotazioniContextState(BrowserView):
         else:
             intervals = [day_intervals[period]]
         slots_by_gate = self.get_busy_slots(booking_date, period)
-        gates = self.get_gates()
+        if self.user_can_manage:
+            gates = self.get_gates()
+        else:
+            gates = self.get_available_gates()
         availability = {}
         for gate in gates:
             availability.setdefault(gate, [])
