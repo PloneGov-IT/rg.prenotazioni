@@ -354,8 +354,16 @@ class AddForm(PageForm):
         Book this resource
         '''
         obj = self.do_book(data)
+        if not obj:
+            msg = _(u'Sorry, this slot is not available anymore.')
+            api.portal.show_message(
+                message=msg,
+                type='warning',
+                request=self.request)
+            target = self.back_to_booking_url
+            return self.request.response.redirect(target)
         msg = _('booking_created')
-        IStatusMessage(self.request).add(msg, 'info')
+        api.portal.show_message(message=msg, type='info', request=self.request)
         booking_date = data['booking_date'].strftime('%d/%m/%Y')
         params = {'data': booking_date,
                   'uid': obj.UID()}

@@ -39,6 +39,8 @@ class Booker(object):
             return ''
         available_gates = (self.prenotazioni
                            .get_free_gates_in_slot(data_prenotazione))
+        if len(available_gates) == 0:
+            return []
         if len(available_gates) == 1:
             return available_gates.pop()
         return choice(self.prenotazioni
@@ -76,6 +78,10 @@ class Booker(object):
                    'tipologia_prenotazione': data.get('tipology', ''),
                    }
         if not force_gate:
+            available_gate = self.get_available_gate(data_prenotazione)
+            if not available_gate:
+                # there isn't a free slot in any available gates
+                return None
             at_data['gate'] = self.get_available_gate(data_prenotazione)
         else:
             at_data['gate'] = force_gate
@@ -101,5 +107,6 @@ class Booker(object):
         new_container = self.prenotazioni.get_container(booking_date,
                                                         create_missing=True)
         if old_container == new_container:
+            booking.reindexObject(idxs=['Date'])
             return
         api.content.move(booking, new_container)

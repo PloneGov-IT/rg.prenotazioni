@@ -87,5 +87,14 @@
     />
 
   </genericsetup:upgradeSteps>
+  <genericsetup:upgradeSteps
+    source="3300"
+    destination="3400"
+    profile="rg.prenotazioni:default">
 
+    <genericsetup:upgradeStep
+      title="Reindex Date"
+      handler=".to3400.reindex_date"
+    />
+  </genericsetup:upgradeSteps>
 </configure>

@@ -387,8 +387,9 @@ class PrenotazioniContextState(BrowserView):
 
         :param booking_date: a DateTime object
         '''
+        active_review_states = ['published', 'pending']
         brains = self.conflict_manager.unrestricted_prenotazioni(
-            Date=booking_date)
+            Date=booking_date, review_state=active_review_states)
         return set([x._unrestrictedGetObject().getGate() for x in brains])
 
     def get_free_gates_in_slot(self, booking_date):
