@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.6.8 (unreleased)
+3.6.8 (2018-02-07)
 ==================
 
 - Disallow adding bookings when there are multiple gates and one is set as unavailable
