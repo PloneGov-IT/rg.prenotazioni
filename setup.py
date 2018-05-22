@@ -7,7 +7,10 @@ from setuptools import setup, find_packages
 
 version = '3.6.9.dev0'
 
-tests_require = ['zope.testing']
+tests_require = [
+    'plone.app.testing',
+    'plone.testing',
+    ]
 
 setup(
     name='rg.prenotazioni',
@@ -48,8 +51,7 @@ setup(
         'quintagroup.formlib.captcha',
     ],
     tests_require=tests_require,
-    extras_require=dict(tests=tests_require),
-    test_suite='rg.prenotazioni.tests.test_docs.test_suite',
+    extras_require=dict(test=tests_require),
     entry_points="""
       # -*- entry_points -*-
       [z3c.autoinclude.plugin]
