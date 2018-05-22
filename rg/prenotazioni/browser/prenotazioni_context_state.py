@@ -381,7 +381,7 @@ class PrenotazioniContextState(BrowserView):
         unavailable = set(self.get_unavailable_gates())
         return total - unavailable
 
-    def get_busy_gates_in_slot(self, booking_date):
+    def get_busy_gates_in_slot(self, booking_date, booking_end_date=None):
         """
         The gates already associated to a Prenotazione object for booking_date
 
@@ -389,20 +389,51 @@ class PrenotazioniContextState(BrowserView):
         """
         active_review_states = ['published', 'pending']
         brains = self.conflict_manager.unrestricted_prenotazioni(
-            Date=booking_date, review_state=active_review_states)
-        gates = set([x._unrestrictedGetObject().getGate() for x in brains])
+            Date={
+                'query': [
+                    DateTime(booking_date.Date()),
+                    DateTime(booking_date.Date()) + 1
+                ],
+                'range': 'minmax'
+            },
+            review_state=active_review_states)
+        gates = self.get_full_gates_in_date(
+            prenotazioni=brains,
+            booking_date=booking_date,
+            booking_end_date=booking_end_date
+        )
         # unavailable gates are always busy
         gates.update(self.get_unavailable_gates())
         return gates
 
-    def get_free_gates_in_slot(self, booking_date):
+    def get_full_gates_in_date(self, prenotazioni, booking_date, booking_end_date=None):  # noqa
+        gates = set()
+        for brain in prenotazioni:
+            prenotazione = brain._unrestrictedGetObject()
+            start = prenotazione.getData_prenotazione()
+            end = prenotazione.getData_scadenza()
+            if booking_date < start:
+                # new booking starts before current booking
+                if booking_end_date > start:
+                    # new booking intersect current booking
+                    gates.add(prenotazione.getGate())
+            elif booking_date == start:
+                # starts at the same time, so disable curretn booking gate
+                gates.add(prenotazione.getGate())
+            else:
+                if booking_date < end:
+                    # new booking starts inside current booking interval
+                    gates.add(prenotazione.getGate())
+        return gates
+
+    def get_free_gates_in_slot(self, booking_date, booking_end_date=None):
         """
         The gates not associated to a Prenotazione object for booking_date
 
         :param booking_date: a DateTime object
         """
         available = set(self.get_available_gates())
-        busy = set(self.get_busy_gates_in_slot(booking_date))
+        busy = set(self.get_busy_gates_in_slot(booking_date, booking_end_date))
         return available - busy
 
     @memoize

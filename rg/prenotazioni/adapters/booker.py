@@ -31,14 +31,18 @@ class Booker(object):
         '''
         return self.context.unrestrictedTraverse('@@prenotazioni_context_state')  # noqa
 
-    def get_available_gate(self, data_prenotazione):
+    def get_available_gate(self, data_prenotazione, data_scadenza=None):
         '''
         Find which gate is free to serve this booking
         '''
         if not self.prenotazioni.get_gates():
             return ''
-        available_gates = (self.prenotazioni
-                           .get_free_gates_in_slot(data_prenotazione))
+        available_gates = (
+            self.prenotazioni.get_free_gates_in_slot(
+                data_prenotazione,
+                data_scadenza
+            )
+        )
         if len(available_gates) == 0:
             return []
         if len(available_gates) == 1:
@@ -78,11 +82,11 @@ class Booker(object):
                    'tipologia_prenotazione': data.get('tipology', ''),
                    }
         if not force_gate:
-            available_gate = self.get_available_gate(data_prenotazione)
+            available_gate = self.get_available_gate(data_prenotazione, data_scadenza)
             if not available_gate:
                 # there isn't a free slot in any available gates
                 return None
-            at_data['gate'] = self.get_available_gate(data_prenotazione)
+            at_data['gate'] = self.get_available_gate(data_prenotazione, data_scadenza)
         else:
             at_data['gate'] = force_gate
         obj.processForm(values=at_data)

@@ -4,7 +4,8 @@ Changelog
 3.6.9 (unreleased)
 ==================
 
-- Nothing changed yet.
+- Improve checks to avoid booking collisions in multiple gates.
+  [cekk]
 
 
 3.6.8 (2018-02-07)
