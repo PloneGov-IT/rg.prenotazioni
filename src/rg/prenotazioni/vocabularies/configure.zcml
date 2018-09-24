@@ -1,0 +1,26 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="rg.prenotazioni">
+
+    <!-- -*- extra stuff goes here -*- -->
+
+    <utility
+        component=".voc_durata_incontro.VocDurataIncontroFactory"
+        name="rg.prenotazioni.VocDurataIncontro"
+    />
+
+        
+    <utility
+        component=".voc_ore_inizio.VocOreInizioFactory"
+        name="rg.prenotazioni.VocOreInizio"
+    />
+
+
+  <utility component=".gates.GatesVocabularyFactory"
+           name="rg.prenotazioni.gates"/>
+  <utility component=".review_states.BookingReviewStatesVocabularyFactory"
+           name="rg.prenotazioni.booking_review_states" />
+  <utility component=".tipologies.TipologiesVocabularyFactory"
+           name="rg.prenotazioni.tipologies"/>
+        
+</configure>

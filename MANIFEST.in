@@ -1,7 +1,4 @@
+graft src/rg
+graft docs
 include *.rst
-
-recursive-include docs *
-recursive-include rg *
-
 global-exclude *.pyc
-global-include *.mo
