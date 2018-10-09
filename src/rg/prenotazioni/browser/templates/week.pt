@@ -32,7 +32,7 @@
         </div>
 
       <metal:block use-macro="prenotazione_macros/week-table" />
-      <div>
+      <div class="week-legends">
         <metal:block use-macro="prenotazione_macros/week-tipologies-legend" />
         <tal:legend condition="not:view/prenotazioni/is_anonymous">
           <metal:block use-macro="prenotazione_macros/week-colors-legend" />
