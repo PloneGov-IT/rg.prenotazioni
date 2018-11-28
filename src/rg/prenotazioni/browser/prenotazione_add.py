@@ -167,7 +167,10 @@ class AddForm(form.AddForm):
     def updateWidgets(self):
         super(AddForm, self).updateWidgets()
         self.widgets['booking_date'].mode = HIDDEN_MODE
-        bookingdate = self.request.form.get('form.booking_date')
+        bookingdate = self.request.form.get(
+            'form.booking_date',
+            self.request.form.get('form.widgets.booking_date')
+        )
         self.widgets['booking_date'].value = bookingdate
 
     @property
@@ -292,6 +295,9 @@ class AddForm(form.AddForm):
         Book this resource
         '''
         data, errors = self.extractData()
+        if errors:
+            self.status = self.formErrorsMessage
+            return
 
         if not data.get('booking_date'):
             raise WidgetActionExecutionError(
