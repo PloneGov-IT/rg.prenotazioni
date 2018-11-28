@@ -183,6 +183,8 @@ class PrenotazioniContextState(BrowserView):
         year = repr(date.year)
         date_it = date.strftime('%d/%m/%Y')
         holidays = self.context.getFestivi()
+        if not holidays:
+            return False
         for holiday in holidays:
             if date_it in holiday.replace('*', year):
                 return True
