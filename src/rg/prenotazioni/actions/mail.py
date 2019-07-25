@@ -1,19 +1,17 @@
 # -*- coding: utf-8 -*-
 from DateTime import DateTime
-# from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from collective.contentrules.mailfromfield.actions.mail import (
     IMailFromFieldAction, MailActionExecutor as BaseExecutor)
 from plone.contentrules.rule.interfaces import IExecutable
 from rg.prenotazioni.content.prenotazione import Prenotazione
-from zope.component._declaration import adapts
 from zope.interface import Interface
-from zope.interface.declarations import implements
 from zope.interface import implementer
 from Acquisition import aq_inner, aq_base
 from zope.component import adapter
 from collective.contentrules.mailfromfield import logger
-from Products.Archetypes.interfaces import IBaseContent
+from six.moves import filter
+import six
 
 
 @implementer(IExecutable)
@@ -91,25 +89,26 @@ class MailActionExecutor(BaseExecutor):
                 recipients = attr
                 logger.debug('getting e-mail from %s attribute' % fieldName)
         except AttributeError:
-            # 2: try with AT field
-            if IBaseContent.providedBy(obj):
-                field = obj.getField(fieldName)
-                if field:
-                    recipients = field.get(obj)
-                else:
-                    recipients = False
-            else:
-                recipients = False
-            if not recipients:
-                recipients = obj.getProperty(fieldName, [])
-                if recipients:
-                    logger.debug('getting e-mail from %s CMF property'
-                                 % fieldName)
-            else:
-                logger.debug('getting e-mail from %s AT field' % fieldName)
+            # # 2: try with AT field
+            # if IBaseContent.providedBy(obj):
+            #     field = obj.getField(fieldName)
+            #     if field:
+            #         recipients = field.get(obj)
+            #     else:
+            #         recipients = False
+            # else:
+            #     recipients = False
+            # if not recipients:
+            #     recipients = obj.getProperty(fieldName, [])
+            #     if recipients:
+            #         logger.debug('getting e-mail from %s CMF property'
+            #                      % fieldName)
+            # else:
+            #     logger.debug('getting e-mail from %s AT field' % fieldName)
+            pass
 
         # now transform recipients in a iterator, if needed
-        if type(recipients) == str or type(recipients) == unicode:
+        if type(recipients) == str or type(recipients) == six.text_type:
             recipients = [str(recipients), ]
-        return filter(bool, recipients)
+        return list(filter(bool, recipients))
 

@@ -9,6 +9,9 @@ from rg.prenotazioni.adapters.booker import IBooker
 from rg.prenotazioni.adapters.conflict import IConflictManager
 from rg.prenotazioni.adapters.slot import ISlot, BaseSlot
 from rg.prenotazioni.utilities.urls import urlify
+import six
+from six.moves import map
+from six.moves import range
 
 
 def hm2handm(hm):
@@ -17,7 +20,7 @@ def hm2handm(hm):
 
     :param hm: a string in the format "%H%m"
     """
-    if (not hm) or (not isinstance(hm, basestring)) or (len(hm) != 4):
+    if (not hm) or (not isinstance(hm, six.string_types)) or (len(hm) != 4):
         raise ValueError(hm)
     return (hm[:2], hm[2:])
 
@@ -249,7 +252,7 @@ class PrenotazioniContextState(BrowserView):
         """
         params = dict(
             (key, value)
-            for key, value in self.request.form.iteritems()
+            for key, value in six.iteritems(self.request.form)
             if (value
                 and key.startswith('form.')
                 and not key.startswith('form.action')
@@ -259,8 +262,8 @@ class PrenotazioniContextState(BrowserView):
                            'disable_plone.rightcolumn')
                 )
         )
-        for key, value in params.iteritems():
-            if isinstance(value, unicode):
+        for key, value in six.iteritems(params):
+            if isinstance(value, six.text_type):
                 params[key] = value.encode('utf8')
         return params
 
@@ -324,7 +327,7 @@ class PrenotazioniContextState(BrowserView):
         for gate in urls_by_gate:
             for url in urls_by_gate[gate]:
                 urls[url['title']] = url
-        return sorted(urls.itervalues(), key=lambda x: x['title'])
+        return sorted(six.itervalues(urls), key=lambda x: x['title'])
 
     def is_slot_busy(self, day, slot):
         """ Check if a slot is busy (i.e. the is no free slot overlapping it)
@@ -484,7 +487,7 @@ class PrenotazioniContextState(BrowserView):
             boundaries[key] = max(day_table[key]
                                   for day_table in week_table
                                   if day_table[key])
-        for key, value in boundaries.iteritems():
+        for key, value in six.iteritems(boundaries):
             boundaries[key] = hm2seconds(value)
         return {'morning': BaseSlot(boundaries['inizio_m'],
                                     boundaries['end_m'],),
@@ -525,7 +528,7 @@ class PrenotazioniContextState(BrowserView):
         :param create_missing: if set to True and the container is missing,
                                create it
         """
-        if isinstance(booking_date, basestring):
+        if isinstance(booking_date, six.string_types):
             booking_date = DateTime(booking_date)
         if not create_missing:
             relative_path = booking_date.strftime('%Y/%W/%u')
@@ -563,7 +566,7 @@ class PrenotazioniContextState(BrowserView):
         :param booking_date: a date as a datetime or a string
         """
         bookings = self.get_bookings_in_day_folder(booking_date)
-        return map(ISlot, bookings)
+        return list(map(ISlot, bookings))
 
     def get_busy_slots_in_stormynight(self, booking_date):
         """ This will show the slots that will not show elsewhere
@@ -662,7 +665,7 @@ class PrenotazioniContextState(BrowserView):
         """
         free = self.get_free_slots(booking_date, period)
         busy = self.get_busy_slots(booking_date, period)
-        keys = set(free.keys() + busy.keys())
+        keys = set(list(free.keys()) + list(busy.keys()))
         return dict(
             (key, sorted(free.get(key, []) + busy.get(key, [])))
             for key in keys
@@ -712,7 +715,7 @@ class PrenotazioniContextState(BrowserView):
         """
         if isinstance(tipology, dict):
             return int(tipology['duration']) * 60
-        if isinstance(tipology, basestring) and not isinstance(tipology, unicode):
+        if isinstance(tipology, six.string_types) and not isinstance(tipology, six.text_type):
             tipology = tipology.decode('utf8')
         return self.tipology_durations.get(tipology, 1)
 
@@ -763,7 +766,7 @@ class PrenotazioniContextState(BrowserView):
 
         hm_now = datetime.now().strftime('%H:%m')
 
-        for slots in availability.itervalues():
+        for slots in six.itervalues(availability):
             for slot in slots:
                 if (len(slot) >= duration and
                     (booking_date > self.first_bookable_date
@@ -782,7 +785,7 @@ class PrenotazioniContextState(BrowserView):
         # Create a dictionary where keys is the time the gate is free, and
         # value is a list of gates
         free_time_map = {}
-        for gate, free_slots in availability.iteritems():
+        for gate, free_slots in six.iteritems(availability):
             free_time = sum(map(BaseSlot.__len__, free_slots))
             free_time_map.setdefault(free_time, []).append(gate)
         # Get a random choice among the less busy one

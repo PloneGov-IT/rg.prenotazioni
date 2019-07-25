@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from urllib import urlencode
+from six.moves.urllib.parse import urlencode
+import six
 
 
 def urlify(url='', paths=[], params={}):
@@ -14,7 +15,7 @@ def urlify(url='', paths=[], params={}):
     :return: an url
     '''
     # we want path to be iterable at the end
-    if isinstance(paths, basestring):
+    if isinstance(paths, six.string_types):
         paths = [paths]
 
     # we strip duplicate values in params
@@ -22,7 +23,7 @@ def urlify(url='', paths=[], params={}):
         value = params[key]
         if isinstance(params[key], (list, tuple)) and len(value):
             value = value[0]
-        if isinstance(value, unicode):
+        if isinstance(value, six.text_type):
             value = value.encode('utf8')
         params[key] = value
 

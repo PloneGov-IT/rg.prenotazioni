@@ -9,6 +9,7 @@ from plone.api.exc import UserNotFoundError
 from rg.prenotazioni import config
 from zope.i18nmessageid import MessageFactory
 import pytz
+from six.moves import map
 
 prenotazioniLogger = getLogger('rg.prenotazioni')
 _ = MessageFactory('rg.prenotazioni')
@@ -37,7 +38,7 @@ def time2timedelta(value):
     Transform the value in a timedelta object
     value is supposed to be in the format HH(.*)MM
     '''
-    hours, minutes = map(int, (value[0:2], value[-2:]))
+    hours, minutes = list(map(int, (value[0:2], value[-2:])))
     return timedelta(hours=hours, minutes=minutes)
 
 
