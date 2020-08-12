@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.0 (unreleased)
+4.0 (2020-08-12)
 ----------------
  - This is a very deep rewrite of previous version; it's tested only on 
    Plone 5 and was rewrited taking old parts of code when needed. 
