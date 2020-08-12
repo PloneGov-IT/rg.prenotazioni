@@ -1,6 +1,12 @@
 Changelog
 =========
 
+4.1 (unreleased)
+----------------
+
+- Nothing changed yet.
+
+
 4.0 (2020-08-12)
 ----------------
  - This is a very deep rewrite of previous version; it's tested only on 
