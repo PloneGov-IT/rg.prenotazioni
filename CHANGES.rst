@@ -1,13 +1,19 @@
 Changelog
 =========
 
-4.0 (unreleased)
+4.1 (unreleased)
+----------------
+
+- Nothing changed yet.
+
+
+4.0 (2020-08-12)
 ----------------
  - This is a very deep rewrite of previous version; it's tested only on 
    Plone 5 and was rewrited taking old parts of code when needed. 
    We don't provide migration!
    Package was created from scratch so we don't even have history!
-   Word is a sad place.
+   World is a sad place.
    [lucabel]
 
 1.1 (unreleased)
