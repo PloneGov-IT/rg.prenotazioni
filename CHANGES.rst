@@ -4,7 +4,8 @@ Changelog
 4.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Update markup for content rules action mail
+  [martina]
 
 
 4.0 (2020-08-12)
