@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.1 (unreleased)
+4.1 (2020-11-26)
 ----------------
 
 - Update markup for content rules action mail
