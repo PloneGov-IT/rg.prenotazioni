@@ -55,12 +55,24 @@ class MailActionExecutor(BaseExecutor):
         if not event_obj_date:
             return mapping
 
-        date = DateTime(event_obj.Date())
+        date_start = DateTime(event_obj.getData_prenotazione())
+        date_end = DateTime(event_obj.getData_scadenza())
         plone = self.context.restrictedTraverse("@@plone")
         mapping.update(
             {
-                "date": plone.toLocalizedTime(date),
-                "time": plone.toLocalizedTime(date, time_only=True),
+                "date": "da {} {} a {} {}".format(
+                    plone.toLocalizedTime(date_start),
+                    plone.toLocalizedTime(date_start, time_only=True),
+                    plone.toLocalizedTime(date_end),
+                    plone.toLocalizedTime(date_end, time_only=True),
+                ),
+                "time": plone.toLocalizedTime(date_start, time_only=True),
+                "date_start": plone.toLocalizedTime(date_start),
+                "date_end": plone.toLocalizedTime(date_end),
+                "time_start": plone.toLocalizedTime(
+                    date_start, time_only=True
+                ),
+                "time_end": plone.toLocalizedTime(date_end, time_only=True),
             }
         )
         return mapping
